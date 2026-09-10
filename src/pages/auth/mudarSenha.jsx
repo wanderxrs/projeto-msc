@@ -35,7 +35,7 @@ function MudarSenha() {
 
             <div className="caixa-mudar-senha">
 
-                <h1>MusicFy</h1>
+                <h1>MusicFy.</h1>
 
                 <h2>Crie uma nova senha</h2>
 
