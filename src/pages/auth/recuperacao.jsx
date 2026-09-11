@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { confirmacao } from "../../api";
 import { useNavigate } from "react-router-dom";
+import "./recuperacao.css";
+
 
 function Recuperacao() {
 
@@ -24,18 +26,19 @@ function Recuperacao() {
     }
 
     return (
-        <div>
-            <h1>MusicFy</h1>
+        <div className="container">
+            <h1>Yrplace</h1>
 
             <form onSubmit={handleEnviarCodigo}>
 
+                <p>Para recuperar sua senha, digite seu E-mail no campo abaixo</p>
                 <input
                     type="email"
                     placeholder="E-mail"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                 />
-
+                <br />
                 <button type="submit">
                     Confirmar
                 </button>

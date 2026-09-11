@@ -33,7 +33,7 @@ function MudarSenha() {
     return (
         <div className="mudar-senha">
 
-            <div className="caixa-mudar-senha">
+            <div className="container">
 
                 <h1>MusicFy.</h1>
 

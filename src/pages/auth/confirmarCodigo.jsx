@@ -33,9 +33,9 @@ function ConfirmarCodigo() {
     return (
         <div className="confirmar-codigo">
 
-            <div className="caixa-confirmar-codigo">
+            <div className="container">
 
-                <h1>MusicFy</h1>
+                <h1>Yrplace</h1>
 
                 <h2>
                     Digite o código
