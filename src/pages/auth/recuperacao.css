@@ -1,16 +1,17 @@
 body{
     padding: 0;
     margin: 0;
-    background-color: #1a1a1a;
+    background: linear-gradient(to bottom,#00050d 0%,#010811 100%);
     display: flex;
     justify-content: center;
     align-items: center;
+    background-attachment: fixed;
     
    
 }
 
 .container {
-    background-color: #413d3d;
+    background-color:  #0D1117;
     width: 400px;
     height: 500px;
     padding: 40px;
@@ -50,14 +51,14 @@ button {
     height: 45px;
     border: none;
     border-radius: 15px;
-    background-color: #ff6a00;
+    background-color: #16a116;
     color: #ffffff;
     font-size: 15px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #9e4a0e;
+    background-color: #137213;
 }
 
 h1{
