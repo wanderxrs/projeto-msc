@@ -19,13 +19,13 @@ function Login() {
 
         try {
             const result = await fazerLogin (data)
-            setMensagem(result.data.message)
+            setMensagem(result.data.mensagem)
 
             navigate("/home")
 
         } catch (e) {
-            const error = e.response?.data?.error || "Não foi possível conectar à API"
-            setMensagem(error)
+            const erro = e.response?.data?.erro || "Não foi possível conectar à API"
+            setMensagem(erro)
         }
     }
 
