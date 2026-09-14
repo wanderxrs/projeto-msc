@@ -1,0 +1,31 @@
+
+.feed {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 600px;
+    margin: 24px auto;
+}
+
+.publicacao {
+    background: #1a1a1a;
+    color: #f5f5f5;
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.publicacao h3 {
+    margin-top: 0;
+}
+
+.publicacao img {
+    display: block;
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.publicacao p {
+    overflow-wrap: anywhere;
+}

@@ -34,6 +34,9 @@ export const fazerPublicacao = (dadosPublicacao) => {
     return api.post("/publicacao", dadosPublicacao)
 }
 
+export const carregarPublicacoes = () => {
+    return api.get("/publicacoes")
+}
 
 
 export default api
