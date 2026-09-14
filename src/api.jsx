@@ -28,4 +28,12 @@ export const confirmarCodigo = (codigo) => {
 export const mudarSenha = (novasenha) => {
     return api.post(`/mudar-senha`, {novasenha})
 }
+//partes reservadas a publicações############################
+
+export const fazerPublicacao = (dadosPublicacao) => {
+    return api.post("/publicacao", dadosPublicacao)
+}
+
+
+
 export default api

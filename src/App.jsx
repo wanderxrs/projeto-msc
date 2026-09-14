@@ -5,6 +5,7 @@ import Registro from "./pages/auth/registro";
 import Recuperacao from "./pages/auth/recuperacao";
 import ConfirmarCodigo from "./pages/auth/confirmarCodigo";
 import MudarSenha from "./pages/auth/mudarSenha";
+import Home from "./pages/home";
 
 function App() {
     return (
@@ -16,6 +17,8 @@ function App() {
                 <Route path="/Recuperacao" element={<Recuperacao />} />
                 <Route path="/confirma-codigo" element={<ConfirmarCodigo />} />
                 <Route path="/mudar-senha" element={<MudarSenha />} />
+
+                <Route path="/home" element={<Home />} />
             </Routes>
         </BrowserRouter>
     );

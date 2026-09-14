@@ -45,7 +45,7 @@ function Login() {
 
                     <Button type="submit" form="submit-login" variant="contained">Entrar</Button>
                     <Button component={Link} to={"/registro"} variant="contained">Criar conta</Button>
-                    <Button component={Link} to={"/Recuperacao"} variant="contained">Esqueci minha senha</Button>
+                    <Button component={Link} to={"/Recuperacao"} variant="contained" >Esqueci minha senha</Button>
                 </Box>
             </Paper>
         </Container>
