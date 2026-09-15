@@ -38,5 +38,8 @@ export const carregarPublicacoes = () => {
     return api.get("/publicacoes")
 }
 
+export const curtirPublicacao = (publicacao_id) => {
+    return api.post(`/curtir/${publicacao_id}`)
+}
 
 export default api
