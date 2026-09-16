@@ -1,11 +1,11 @@
-
 import { useEffect, useState } from "react";
 import ModalPublicacao from "../modals/modalPublicacao";
-import {
-    carregarPublicacoes,
-    curtirPublicacao
-} from "../api";
+import {carregarPublicacoes,curtirPublicacao} from "../api";
 import "./home.css";
+import { useNavigate } from "react-router-dom";
+
+import { VscCommentCompact } from "react-icons/vsc";
+import { VscHeart } from "react-icons/vsc";
 
 
 function Home() {
@@ -19,6 +19,8 @@ function Home() {
     const [erro, setErro] = useState("");
 
     const [curtidas, setCurtidas] = useState({});
+
+    const navigate = useNavigate();
 
 
     async function buscarPublicacoes() {
@@ -51,6 +53,7 @@ function Home() {
             setCarregando(false);
 
         }
+
     }
 
 
@@ -122,9 +125,7 @@ function Home() {
 
         <div>
 
-            <button
-                onClick={() => setModalAberto(true)}
-            >
+            <button onClick={() => setModalAberto(true)}>
                 Fazer publicação
             </button>
 
@@ -206,7 +207,7 @@ function Home() {
 
                                     {curtidas[publicacao.id]
                                         ? "♥"
-                                        : "♡"}
+                                        : <VscHeart color="white" fontSize={29} />}
 
                                 </span>
 
@@ -219,8 +220,10 @@ function Home() {
 
                             </span>
 
-                        </div>
 
+                            <button className="botao-comentar" onClick={() => navigate(`/comentarios/${publicacao.id}`)}> <VscCommentCompact fontSize={24} /> </button>
+
+                        </div>
 
                     </div>
 

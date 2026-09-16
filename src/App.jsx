@@ -6,6 +6,8 @@ import Recuperacao from "./pages/auth/recuperacao";
 import ConfirmarCodigo from "./pages/auth/confirmarCodigo";
 import MudarSenha from "./pages/auth/mudarSenha";
 import Home from "./pages/home";
+import Comentarios from "./pages/comentarios/comentarios";
+
 
 function App() {
     return (
@@ -19,6 +21,9 @@ function App() {
                 <Route path="/mudar-senha" element={<MudarSenha />} />
 
                 <Route path="/home" element={<Home />} />
+
+                <Route path="/comentarios/:publicacao_id" element={<Comentarios />}/>
+                
             </Routes>
         </BrowserRouter>
     );

@@ -42,4 +42,22 @@ export const curtirPublicacao = (publicacao_id) => {
     return api.post(`/curtir/${publicacao_id}`)
 }
 
+//comentarios ################################################
+
+export const carregarComentarios = (publicacao_id) => {
+    return api.get(`/comentarios/${publicacao_id}`);
+};
+
+export const criarComentario = (dadosComentarios) => {
+    return api.post("/comentario", dadosComentarios);
+};
+
+export const editarComentario = (id, dadosComentario) => {
+    return api.put(`/comentario/${id}`, dadosComentario);
+};
+
+export const deletarComentario = (id) => {
+    return api.delete(`/comentario/${id}`)
+};
+
 export default api

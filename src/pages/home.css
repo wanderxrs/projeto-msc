@@ -54,3 +54,18 @@
 .coracao.curtido {
     color: #e63946;
 }
+
+
+
+
+
+
+
+
+.botao-comentar{
+    background-color: transparent;
+}
+
+.botao-comentar:hover{
+    background-color: transparent;
+}
