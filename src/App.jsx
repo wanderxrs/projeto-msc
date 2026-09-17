@@ -17,7 +17,6 @@ function App() {
                 <Route path="/Recuperacao" element={<Recuperacao />} />
                 <Route path="/confirma-codigo" element={<ConfirmarCodigo />} />
                 <Route path="/mudar-senha" element={<MudarSenha />} />
-
                 <Route path="/home" element={<Home />} />
             </Routes>
         </BrowserRouter>

@@ -22,13 +22,13 @@ function Registro() {
         try {
             const result = await fazerRegistro(data);
 
-            setMensagem(result.data.message);
+            setMensagem(result.data.mensagem);
 
             navigate("/login");
 
         } catch (e) {
-            const error = e.response?.data?.error || "Não foi possível conectar à API"
-            setMensagem(error)
+            const erro = e.response?.data?.erro || "Não foi possível conectar à API"
+            setMensagem(erro)
         }
     };
 
