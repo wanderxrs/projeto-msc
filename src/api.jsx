@@ -57,7 +57,15 @@ export const editarComentario = (id, dadosComentario) => {
 };
 
 export const deletarComentario = (id) => {
-    return api.delete(`/comentario/${id}`)
+    return api.delete(`/comentario/${id}`);
 };
+
+//comunidades##################################################
+
+export const buscarComunidadesDisponiveis = () => {
+    return api.get("/buscarComunidadesDisponiveis");
+};
+
+
 
 export default api

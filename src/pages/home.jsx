@@ -4,6 +4,8 @@ import {carregarPublicacoes,curtirPublicacao} from "../api";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
 
+import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
+
 import { VscCommentCompact } from "react-icons/vsc";
 import { VscHeart } from "react-icons/vsc";
 
@@ -123,114 +125,119 @@ function Home() {
 
     return (
 
-        <div>
+        
+        <div className="conteudo-principal">
+            <ComunidadesRecomendadas />
+            <main className="conteudo-central">
 
-            <button onClick={() => setModalAberto(true)}>
-                Fazer publicação
-            </button>
-
-
-            {modalAberto && (
-
-                <ModalPublicacao
-                    onClose={() => setModalAberto(false)}
-                    onPublicacaoCriada={buscarPublicacoes}
-                />
-
-            )}
+                <button onClick={() => setModalAberto(true)}>
+                    Fazer publicação
+                </button>
 
 
-            <h1>Feed inicial</h1>
+                {modalAberto && (
+
+                    <ModalPublicacao
+                        onClose={() => setModalAberto(false)}
+                        onPublicacaoCriada={buscarPublicacoes}
+                    />
+
+                )}
+
+            
+
+                <h1>Feed inicial</h1>
 
 
-            {carregando && (
+                {carregando && (
 
-                <p>Carregando publicações...</p>
+                    <p>Carregando publicações...</p>
 
-            )}
-
-
-            {erro && (
-
-                <p>{erro}</p>
-
-            )}
+                )}
 
 
-            {!carregando && publicacoes.length === 0 && (
+                {erro && (
 
-                <p>Nenhuma publicação encontrada.</p>
+                    <p>{erro}</p>
 
-            )}
-
-
-            <div className="feed">
-
-                {publicacoes.map((publicacao) => (
-
-                    <div
-                        key={publicacao.id}
-                        className="publicacao"
-                    >
-
-                        <h3>{publicacao.nome_usuario}</h3>
-
-                        <p>{publicacao.legenda}</p>
-
-                        <img
-                            src={publicacao.imagem_url}
-                            alt="Imagem da publicação"
-                        />
+                )}
 
 
-                        <div className="area-curtida">
+                {!carregando && publicacoes.length === 0 && (
 
-                            <button
-                                className="botao-curtida"
-                                onClick={() =>
-                                    handleCurtir(publicacao.id)
-                                }
-                                aria-label={
-                                    curtidas[publicacao.id]
-                                        ? "Descurtir publicação"
-                                        : "Curtir publicação"
-                                }
-                            >
+                    <p>Nenhuma publicação encontrada.</p>
 
-                                <span
-                                    className={
+                )}
+
+
+                <div className="feed">
+
+                    {publicacoes.map((publicacao) => (
+
+                        <div
+                            key={publicacao.id}
+                            className="publicacao"
+                        >
+
+                            <h3>{publicacao.nome_usuario}</h3>
+
+                            <p>{publicacao.legenda}</p>
+
+                            <img
+                                src={publicacao.imagem_url}
+                                alt="Imagem da publicação"
+                            />
+
+
+                            <div className="area-curtida">
+
+                                <button
+                                    className="botao-curtida"
+                                    onClick={() =>
+                                        handleCurtir(publicacao.id)
+                                    }
+                                    aria-label={
                                         curtidas[publicacao.id]
-                                            ? "coracao curtido"
-                                            : "coracao"
+                                            ? "Descurtir publicação"
+                                            : "Curtir publicação"
                                     }
                                 >
 
-                                    {curtidas[publicacao.id]
-                                        ? "♥"
-                                        : <VscHeart color="white" fontSize={29} />}
+                                    <span
+                                        className={
+                                            curtidas[publicacao.id]
+                                                ? "coracao curtido"
+                                                : "coracao"
+                                        }
+                                    >
+
+                                        {curtidas[publicacao.id]
+                                            ? "♥"
+                                            : <VscHeart color="white" fontSize={29} />}
+
+                                    </span>
+
+                                </button>
+
+
+                                <span className="quantidade-curtidas">
+
+                                    {Number(publicacao.total_curtidas) || 0}
 
                                 </span>
 
-                            </button>
 
+                                <button className="botao-comentar" onClick={() => navigate(`/comentarios/${publicacao.id}`)}> <VscCommentCompact fontSize={24} /> </button>
 
-                            <span className="quantidade-curtidas">
-
-                                {Number(publicacao.total_curtidas) || 0}
-
-                            </span>
-
-
-                            <button className="botao-comentar" onClick={() => navigate(`/comentarios/${publicacao.id}`)}> <VscCommentCompact fontSize={24} /> </button>
+                            </div>
 
                         </div>
 
-                    </div>
+                    ))}
 
-                ))}
+                </div>
 
-            </div>
-
+            </main>
         </div>
 
     );
