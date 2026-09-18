@@ -29,3 +29,64 @@
 .publicacao p {
     overflow-wrap: anywhere;
 }
+
+
+
+
+
+
+
+
+.botao-curtida {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    font-size: 32px;
+    color: #777;
+}
+
+.coracao {
+    color: #777;
+    transition: color 0.2s ease;
+}
+
+.coracao.curtido {
+    color: #e63946;
+}
+
+
+
+
+
+
+
+
+.botao-comentar{
+    background-color: transparent;
+}
+
+.botao-comentar:hover{
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
