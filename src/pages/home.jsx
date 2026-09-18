@@ -9,6 +9,8 @@ import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
 import { VscCommentCompact } from "react-icons/vsc";
 import { VscHeart } from "react-icons/vsc";
 
+import PerfilComponente from "../components/perfilComponente";
+
 
 function Home() {
 
@@ -238,6 +240,7 @@ function Home() {
                 </div>
 
             </main>
+            <PerfilComponente/>
         </div>
 
     );

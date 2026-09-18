@@ -1,0 +1,60 @@
+.perfil-componente {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 400px;
+    height: 100vh;
+
+    box-sizing: border-box;
+    padding: 25px 18px;
+
+    background-color: #1a1a1a;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-left: 1px solid #242527;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.perfil-usuario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.foto-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 10px;
+}
+
+.botoesDiv {
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.botao-perfil {
+    height: 32px;
+    width: 110px;
+    border-radius: 7px;
+    background-color: gray;
+    color: white;
+    border: 1px solid rgb(65, 64, 64);
+    box-shadow: 1px 0px 15px rgba(0, 0, 0, 0.4);
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+
+.botao-perfil:hover {
+    background-color: #555555;
+}

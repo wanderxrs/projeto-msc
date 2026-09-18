@@ -124,6 +124,12 @@ export const buscarComunidadesDisponiveis = () => {
     return api.get("/buscarComunidadesDisponiveis");
 };
 
+//coisas do perfil##############################################
+
+export function carregarPerfil() {
+    return api.get("/perfil");
+}
+
 
 
 export default api
