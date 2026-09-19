@@ -1,21 +1,16 @@
 .perfil-componente {
     position: fixed;
-    top: 0;
+    top: 80px; /*PRA MUDAR O TAMANHO DO ESPAÇO EM CIMA*/
     right: 0;
-
-    width: 400px;
+    width: 370px;
     height: 100vh;
-
     box-sizing: border-box;
     padding: 25px 18px;
-
     background-color: #1a1a1a;
     color: white;
-
     display: flex;
     flex-direction: column;
     align-items: center;
-
     border-left: 1px solid #242527;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;

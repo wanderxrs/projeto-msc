@@ -1,3 +1,6 @@
+.conteudo-central {
+    margin-top: 40px;
+}
 
 .feed {
     display: flex;
@@ -66,26 +69,4 @@
 .botao-comentar:hover{
     background-color: transparent;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

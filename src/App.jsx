@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import Login from "./pages/auth/login";
 import Registro from "./pages/auth/registro";
 import Recuperacao from "./pages/auth/recuperacao";
@@ -7,11 +6,13 @@ import ConfirmarCodigo from "./pages/auth/confirmarCodigo";
 import MudarSenha from "./pages/auth/mudarSenha";
 import Home from "./pages/home";
 import Comentarios from "./pages/comentarios/comentarios";
-
+import Header from "./components/header";
 
 function App() {
     return (
         <BrowserRouter>
+            <Header />
+
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
                 <Route path="/login" element={<Login />} />

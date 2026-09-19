@@ -3,14 +3,10 @@ import ModalPublicacao from "../modals/modalPublicacao";
 import {carregarPublicacoes,curtirPublicacao} from "../api";
 import "./home.css";
 import { useNavigate } from "react-router-dom";
-
 import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
-
 import { VscCommentCompact } from "react-icons/vsc";
 import { VscHeart } from "react-icons/vsc";
-
 import PerfilComponente from "../components/perfilComponente";
-
 
 function Home() {
 
@@ -126,8 +122,8 @@ function Home() {
 
 
     return (
-
-        
+        <>
+                
         <div className="conteudo-principal">
             <ComunidadesRecomendadas />
             <main className="conteudo-central">
@@ -242,7 +238,7 @@ function Home() {
             </main>
             <PerfilComponente/>
         </div>
-
+        </>
     );
 
 }
