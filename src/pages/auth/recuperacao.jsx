@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { confirmacao } from "../../api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./recuperacao.css";
 
 
 function Recuperacao() {
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const veioDoPerfil = location.state?.veioDoPerfil;
 
     const [email, setEmail] = useState("");
 
@@ -39,8 +41,15 @@ function Recuperacao() {
                     onChange={(event) => setEmail(event.target.value)}
                 />
                 <br />
+
                 <button type="submit">
                     Confirmar
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() => navigate(veioDoPerfil ? "/home" : "/login")}>
+                    Voltar
                 </button>
 
             </form>

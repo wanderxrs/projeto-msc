@@ -7,11 +7,11 @@ import MudarSenha from "./pages/auth/mudarSenha";
 import Home from "./pages/home";
 import Comentarios from "./pages/comentarios/comentarios";
 import Header from "./components/header";
+import ConfirmarSenha from "./pages/auth/confirmarSenha";
 
 function App() {
     return (
         <BrowserRouter>
-            <Header />
 
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
@@ -20,7 +20,11 @@ function App() {
                 <Route path="/Recuperacao" element={<Recuperacao />} />
                 <Route path="/confirma-codigo" element={<ConfirmarCodigo />} />
                 <Route path="/mudar-senha" element={<MudarSenha />} />
-                <Route path="/home" element={<Home />} />
+                <Route path="/confirmar-senha" element={<ConfirmarSenha />} />
+                <Route path="/home" element={<>
+                    <Header />
+                    <Home />
+                    </>} />
 
                 <Route path="/comentarios/:publicacao_id" element={<Comentarios />}/>
                 

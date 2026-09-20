@@ -75,6 +75,8 @@ export const sairComunidade = (comunidade_id) => {
 }
 
 
+// trocar senha
+
 
 export const confirmacao = (email) => {
     return api.post(`/enviar-codigo`, {email})
@@ -86,6 +88,16 @@ export const confirmarCodigo = (codigo) => {
 export const mudarSenha = (novasenha) => {
     return api.post(`/mudar-senha`, {novasenha})
 }
+
+
+// trocar senha no perfil
+
+
+export const trocarSenhaPerfil = (senhaAtual) => {
+    return api.post(`/confirmar-senha`, {senha: senhaAtual})
+}
+
+
 //partes reservadas a publicações############################
 
 export const fazerPublicacao = (dadosPublicacao) => {

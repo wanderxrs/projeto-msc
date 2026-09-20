@@ -1,10 +1,24 @@
 import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import "./header.css";
+import { fazerLogout } from "../api";
 
 function Header() {
 
     const [menuAberto, setMenuAberto] = useState(false);
+    const navigate = useNavigate();
+
+    const fazendoLogout = async () => {
+        try {
+            await fazerLogout()
+            navigate("/login")
+        } catch (error) {
+            console.error("Não foi possivel fazer o logout:", error)
+        }
+    }
+
+
 
     return (
         <header className="header">
@@ -20,9 +34,8 @@ function Header() {
 
             {menuAberto && (
                 <div className="menu">
-                    <button>Editar Perfil</button>
-                    <button>Trocar Senha</button>
-                    <button>Sair</button>
+                    <button onClick={() => navigate("/confirmar-senha")}>Trocar Senha</button>
+                    <button onClick={fazendoLogout}>Sair</button>
                 </div>
             )}
 

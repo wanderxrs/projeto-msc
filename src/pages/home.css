@@ -1,5 +1,5 @@
 .conteudo-central {
-    margin-top: 40px;
+    margin-top: 110px;
 }
 
 .feed {
@@ -33,13 +33,6 @@
     overflow-wrap: anywhere;
 }
 
-
-
-
-
-
-
-
 .botao-curtida {
     background: transparent;
     border: none;
@@ -58,15 +51,10 @@
     color: #e63946;
 }
 
-
-
-
-
-.botao-comentar{
+.botao-comentar {
     background-color: transparent;
 }
 
-.botao-comentar:hover{
+.botao-comentar:hover {
     background-color: transparent;
 }
-

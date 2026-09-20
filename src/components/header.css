@@ -6,6 +6,11 @@
     align-items: center;
     color: white;
     border-bottom: 1px solid #242527;
+    background: #1a1a1a;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
 }
 
 .header h1 {
