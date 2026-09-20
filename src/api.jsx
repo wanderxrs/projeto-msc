@@ -93,8 +93,13 @@ export const mudarSenha = (novasenha) => {
 // trocar senha no perfil
 
 
-export const trocarSenhaPerfil = (senhaAtual) => {
+export const confirmarSenha = (senhaAtual) => {
     return api.post(`/confirmar-senha`, {senha: senhaAtual})
+}
+
+
+export const trocarSenhaPerfil = (novasenha) => {
+    return api.post(`mudar-senha-perfil`, { novasenha })
 }
 
 

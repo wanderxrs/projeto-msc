@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { trocarSenhaPerfil } from "../../api";
+import { confirmarSenha } from "../../api";
 
 function ConfirmarSenha() {
 
@@ -17,9 +17,9 @@ function ConfirmarSenha() {
 
         try {
 
-            await trocarSenhaPerfil(senha);
+            await confirmarSenha(senha);
 
-            navigate("/mudar-senha");
+            navigate("/mudar-senha-perfil");
 
         } catch (error) {
 

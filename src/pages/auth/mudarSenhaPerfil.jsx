@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { mudarSenha } from "../../api";
+import { trocarSenhaPerfil } from "../../api";
 import { useNavigate } from "react-router-dom";
 
-function MudarSenha() {
+function MudarSenhaPerfil() {
 
     const navigate = useNavigate();
 
     const [novasenha, setNovasenha] = useState("");
     const [mensagem, setMensagem] = useState("");
 
-    async function handleMudarSenha(event) {
+    async function handleTrocarSenhaPerfil(event) {
         event.preventDefault();
 
         try {
 
-            const resposta = await mudarSenha(novasenha);
+            const resposta = await trocarSenhaPerfil(novasenha);
 
             setMensagem(resposta.data);
 
@@ -43,7 +43,7 @@ function MudarSenha() {
                     <p>{mensagem}</p>
                 )}
 
-                <form onSubmit={handleMudarSenha}>
+                <form onSubmit={handleTrocarSenhaPerfil}>
 
                     <input
                         type="password"
@@ -64,4 +64,4 @@ function MudarSenha() {
     );
 }
 
-export default MudarSenha;
+export default MudarSenhaPerfil;
