@@ -70,6 +70,45 @@
 
 
 
+.publicacao img {
+    width: 100%;
+    height: auto;
+}
+
+.publicacao .foto-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.cabecalho-publicacao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.foto-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.cabecalho-publicacao h3 {
+    margin: 0;
+}
+
+.data-publicacao {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+
+
 
 
 
