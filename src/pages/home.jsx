@@ -1,23 +1,27 @@
 import { useEffect, useState } from "react";
-import ModalPublicacao from "../modals/modalPublicacao";
-import {carregarPublicacoes,curtirPublicacao} from "../api";
-import "./home.css";
 import { useNavigate } from "react-router-dom";
-import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
-import { VscCommentCompact } from "react-icons/vsc";
-import { VscHeart } from "react-icons/vsc";
-import PerfilComponente from "../components/perfilComponente";
 
+// API e Estilos
+import { carregarPublicacoes, curtirPublicacao } from "../api";
+import "./home.css";
+
+// Componentes
+import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
+import PerfilComponente from "../components/perfilComponente";
+import ModalPublicacao from "../modals/modalPublicacao";
+
+// Ícones
+import { Height } from "@mui/icons-material";
+import { Pointer } from "lucide-react";
+import { IoMenu } from "react-icons/io5";
+import { PiHeartStraight, PiHeartStraightFill } from "react-icons/pi";
+import { VscCommentCompact, VscHeart } from "react-icons/vsc";
 function Home() {
 
     const [modalAberto, setModalAberto] = useState(false);
-
     const [publicacoes, setPublicacoes] = useState([]);
-
     const [carregando, setCarregando] = useState(true);
-
     const [erro, setErro] = useState("");
-
     const [curtidas, setCurtidas] = useState({});
 
     const navigate = useNavigate();
@@ -68,18 +72,14 @@ function Home() {
 
         try {
 
-            const resposta = await curtirPublicacao(publicacao_id);
+            await curtirPublicacao(publicacao_id);
 
-            const curtidaAtiva = resposta.data.curtida;
+            const novoValor = !curtidas[publicacao_id];
 
             setCurtidas((curtidasAnteriores) => ({
-
                 ...curtidasAnteriores,
-
-                [publicacao_id]: curtidaAtiva
-
+                [publicacao_id]: novoValor
             }));
-
 
             setPublicacoes((publicacoesAnteriores) =>
 
@@ -98,7 +98,7 @@ function Home() {
 
                         ...publicacao,
 
-                        total_curtidas: curtidaAtiva
+                        total_curtidas: novoValor
 
                             ? quantidadeAtual + 1
 
@@ -176,9 +176,19 @@ function Home() {
                             key={publicacao.id}
                             className="publicacao"
                         >
+                            <div className="cabecalho-publicacao">
 
-                            <h3>{publicacao.nome_usuario}</h3>
+                                <img src={publicacao.foto_url} alt="foto de usuario" className="foto-usuario"/>
 
+                                <h3>{publicacao.nome_usuario}</h3>
+
+                                <div className="data-publicacao">
+                                    {new Date(publicacao.data_criacao).toLocaleDateString("pt-BR")}
+                                </div>
+
+                                <button className="hamburguer" style={{background:"none",padding:"0", height:"0", marginLeft: "auto"}}> <IoMenu size={25} style={{cursor:"pointer"}} /> </button>
+
+                            </div>
                             <p>{publicacao.legenda}</p>
 
                             <img
@@ -199,6 +209,8 @@ function Home() {
                                             ? "Descurtir publicação"
                                             : "Curtir publicação"
                                     }
+
+                                    style={{background:"none"}}
                                 >
 
                                     <span
@@ -210,8 +222,8 @@ function Home() {
                                     >
 
                                         {curtidas[publicacao.id]
-                                            ? "♥"
-                                            : <VscHeart color="white" fontSize={29} />}
+                                            ? <PiHeartStraightFill color="white" fontSize={30} />
+                                            : <PiHeartStraight color="white" fontSize={30}  />}
 
                                     </span>
 
@@ -226,6 +238,7 @@ function Home() {
 
 
                                 <button className="botao-comentar" onClick={() => navigate(`/comentarios/${publicacao.id}`)}> <VscCommentCompact fontSize={24} /> </button>
+                                {Number(publicacao.total_comentarios) || 0} 
 
                             </div>
 

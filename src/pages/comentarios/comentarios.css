@@ -1,32 +1,105 @@
-.titulo{
-    color: white;
-    font-size: 30px;
-    font-family:Arial, Helvetica, sans-serif;
+.titulo {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin-bottom: 16px;
 }
 
-.botaoComentar{
-    height: 60px;
-    width: 60px;
-    border-radius: 50px;
+
+.caixa-comentario {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background-color: #2a2d32;
+    border: 1px solid #3e4249;
+    border-radius: 16px;
+    padding: 14px 16px;
+    max-width: 600px;
+    width: 100%;
+    margin: 12px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+}
+
+
+.caixa-comentario:hover {
+    border-color: #555a63;
+}
+
+
+.cabecalho-comentario {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+
+.usuario-nome {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+
+.data-comentario {
+    color: #999da4;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+
+.comentario-texto {
+    color: #f1f1f1;
+    font-size: 15px;
+    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+
+.botaoComentar {
+    height: 42px;
+    width: 42px;
+    border-radius: 50%;
+    background-color: #e63946;
+    color: #ffffff;
+    border: none;
+    display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
-    
-}
-.comentario-texto{
-    font-size: 25px;
-}
-.caixa-comentario {
-  display: flex;
-  align-items: center;
-  gap: 12px; 
-  background-color: #5f6366; 
-  border: 1px solid #e0e0e0; 
-  border-radius: 20px; 
-  padding: 8px 16px;
-  max-width: 600px;
-  margin: 12px 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
+
+.botaoComentar:hover {
+    background-color: #d62828;
+    transform: scale(1.05);
+}
+
+
+.botaoComentar:active {
+    transform: scale(0.95);
+}
+.usuario-comentario {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.foto-comentario {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+}
