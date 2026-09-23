@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
-import { carregarComentarios, criarComentario } from "../../api";
+import {
+carregarComentarios,criarComentario} from "../../api";
 
 import "./comentarios.css";
 
+import ModalComentario from "../../modals/Comentario/ModalComentario";
+
 import { IoPaperPlane } from "react-icons/io5";
+
 import { IoMenu } from "react-icons/io5";
 
 
@@ -18,24 +22,36 @@ function Comentarios() {
 
     const [texto, setTexto] = useState("");
 
+    const [comentarioSelecionado, setComentarioSelecionado] =
+        useState(null);
+
+
 
     async function buscarComentarios() {
 
         try {
 
-            const resposta = await carregarComentarios(publicacao_id);
+            const resposta =
+                await carregarComentarios(publicacao_id);
 
-            console.log("Comentários recebidos:", resposta.data);
+            console.log(
+                "Comentários recebidos:",
+                resposta.data
+            );
 
             setComentarios(resposta.data);
 
         } catch (erro) {
 
-            console.log("Erro ao carregar comentários:", erro);
+            console.log(
+                "Erro ao carregar comentários:",
+                erro
+            );
 
         }
 
     }
+
 
 
     useEffect(() => {
@@ -45,14 +61,13 @@ function Comentarios() {
     }, [publicacao_id]);
 
 
+
     async function handleComentario(event) {
 
         event.preventDefault();
 
         if (!texto.trim()) {
-
             return;
-
         }
 
         try {
@@ -71,11 +86,31 @@ function Comentarios() {
 
         } catch (erro) {
 
-            console.log("Erro ao criar comentário:", erro);
+            console.log(
+                "Erro ao criar comentário:",
+                erro
+            );
 
         }
 
     }
+
+
+
+    function abrirModalComentario(comentario) {
+
+        setComentarioSelecionado(comentario);
+
+    }
+
+
+
+    function fecharModalComentario() {
+
+        setComentarioSelecionado(null);
+
+    }
+
 
 
     return (
@@ -83,8 +118,11 @@ function Comentarios() {
         <div className="comentarios">
 
             <h3 className="titulo">
+
                 Comentários
+
             </h3>
+
 
 
             <form onSubmit={handleComentario}>
@@ -102,10 +140,15 @@ function Comentarios() {
                     type="submit"
                     className="botaoComentar"
                 >
-                    <IoPaperPlane fontSize={30} />
+
+                    <IoPaperPlane
+                        fontSize={30}
+                    />
+
                 </button>
 
             </form>
+
 
 
             <div className="lista-comentarios">
@@ -128,22 +171,55 @@ function Comentarios() {
                                 />
 
                                 <strong className="usuario-nome">
+
                                     {comentario.nome_usuario}
+
                                 </strong>
 
-                            </div >
+                            </div>
+
 
                             <div>
-                            <span className="data-comentario">
-                                {new Date(comentario.data_criacao).toLocaleDateString("pt-BR")}
-                            </span> {'\u00A0'}{'\u00A0'}
-                            <IoMenu color="white" size={30} style={{cursor:"pointer"}}/>
+
+                                <span className="data-comentario">
+
+                                    {new Date(
+                                        comentario.data_criacao
+                                    ).toLocaleDateString(
+                                        "pt-BR"
+                                    )}
+
+                                </span>
+
+                                &nbsp;&nbsp;
+
+
+                                {comentario.eh_dono && (
+
+                                    <IoMenu
+                                        color="white"
+                                        size={30}
+                                        style={{
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() =>
+                                            abrirModalComentario(
+                                                comentario
+                                            )
+                                        }
+                                    />
+
+                                )}
+
                             </div>
+
                         </div>
 
 
                         <p className="comentario-texto">
+
                             {comentario.texto}
+
                         </p>
 
                     </div>
@@ -151,6 +227,26 @@ function Comentarios() {
                 ))}
 
             </div>
+
+
+
+            {comentarioSelecionado && (
+
+                <ModalComentario
+
+                    comentario={comentarioSelecionado}
+
+                    onClose={
+                        fecharModalComentario
+                    }
+
+                    onComentarioAlterado={
+                        buscarComentarios
+                    }
+
+                />
+
+            )}
 
         </div>
 

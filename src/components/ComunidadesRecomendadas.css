@@ -1,6 +1,6 @@
 .comunidades-recomendadas {
     position: fixed;
-    top: 80px; /*PRA MUDAR O TAMANHO DO ESPAÇO EM CIMA*/
+    top: 80px;
     left: 0;
     width: 370px;
     height: calc(100vh - 20px);

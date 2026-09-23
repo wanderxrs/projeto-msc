@@ -1,28 +1,47 @@
 import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 // API e Estilos
 import { carregarPublicacoes, curtirPublicacao } from "../api";
+
 import "./home.css";
 
 // Componentes
 import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
+
 import PerfilComponente from "../components/perfilComponente";
+
 import ModalPublicacao from "../modals/modalPublicacao";
 
+import ModalApagarPublicacao from "../modals/Publicacoes/ModalApagarPublicacao";
+
 // Ícones
-import { Height } from "@mui/icons-material";
-import { Pointer } from "lucide-react";
 import { IoMenu } from "react-icons/io5";
-import { PiHeartStraight, PiHeartStraightFill } from "react-icons/pi";
-import { VscCommentCompact, VscHeart } from "react-icons/vsc";
+
+import {
+    PiHeartStraight,
+    PiHeartStraightFill
+} from "react-icons/pi";
+
+import { VscCommentCompact } from "react-icons/vsc";
+
+
 function Home() {
 
     const [modalAberto, setModalAberto] = useState(false);
+
     const [publicacoes, setPublicacoes] = useState([]);
+
     const [carregando, setCarregando] = useState(true);
+
     const [erro, setErro] = useState("");
+
     const [curtidas, setCurtidas] = useState({});
+
+    // Publicação que foi selecionada para apagar
+    const [publicacaoSelecionada, setPublicacaoSelecionada] =
+        useState(null);
 
     const navigate = useNavigate();
 
@@ -77,9 +96,13 @@ function Home() {
             const novoValor = !curtidas[publicacao_id];
 
             setCurtidas((curtidasAnteriores) => ({
+
                 ...curtidasAnteriores,
+
                 [publicacao_id]: novoValor
+
             }));
+
 
             setPublicacoes((publicacoesAnteriores) =>
 
@@ -91,17 +114,17 @@ function Home() {
 
                     }
 
+
                     const quantidadeAtual =
                         Number(publicacao.total_curtidas) || 0;
+
 
                     return {
 
                         ...publicacao,
 
                         total_curtidas: novoValor
-
                             ? quantidadeAtual + 1
-
                             : Math.max(0, quantidadeAtual - 1)
 
                     };
@@ -121,137 +144,314 @@ function Home() {
     }
 
 
+    // Abre o modal de apagar
+    function abrirModalApagar(publicacao) {
+
+        setPublicacaoSelecionada(publicacao);
+
+    }
+
+
+    // Fecha o modal de apagar
+    function fecharModalApagar() {
+
+        setPublicacaoSelecionada(null);
+
+    }
+
+
     return (
+
         <>
-                
-        <div className="conteudo-principal">
-            <ComunidadesRecomendadas />
-            <main className="conteudo-central">
 
-                <button onClick={() => setModalAberto(true)}>
-                    Fazer publicação
-                </button>
+            <div className="conteudo-principal">
+
+                <ComunidadesRecomendadas />
 
 
-                {modalAberto && (
+                <main className="conteudo-central">
 
-                    <ModalPublicacao
-                        onClose={() => setModalAberto(false)}
-                        onPublicacaoCriada={buscarPublicacoes}
-                    />
-
-                )}
-
-            
-
-                <h1>Feed inicial</h1>
+                    <button
+                        onClick={() => setModalAberto(true)}
+                    >
+                        Fazer publicação
+                    </button>
 
 
-                {carregando && (
+                    {modalAberto && (
 
-                    <p>Carregando publicações...</p>
+                        <ModalPublicacao
 
-                )}
+                            onClose={() =>
+                                setModalAberto(false)
+                            }
 
+                            onPublicacaoCriada={
+                                buscarPublicacoes
+                            }
 
-                {erro && (
+                        />
 
-                    <p>{erro}</p>
-
-                )}
-
-
-                {!carregando && publicacoes.length === 0 && (
-
-                    <p>Nenhuma publicação encontrada.</p>
-
-                )}
+                    )}
 
 
-                <div className="feed">
+                    <h1>
+                        Feed inicial
+                    </h1>
 
-                    {publicacoes.map((publicacao) => (
 
-                        <div
-                            key={publicacao.id}
-                            className="publicacao"
-                        >
-                            <div className="cabecalho-publicacao">
+                    {carregando && (
 
-                                <img src={publicacao.foto_url} alt="foto de usuario" className="foto-usuario"/>
+                        <p>
+                            Carregando publicações...
+                        </p>
 
-                                <h3>{publicacao.nome_usuario}</h3>
+                    )}
 
-                                <div className="data-publicacao">
-                                    {new Date(publicacao.data_criacao).toLocaleDateString("pt-BR")}
+
+                    {erro && (
+
+                        <p>
+                            {erro}
+                        </p>
+
+                    )}
+
+
+                    {!carregando &&
+                        publicacoes.length === 0 && (
+
+                            <p>
+                                Nenhuma publicação encontrada.
+                            </p>
+
+                        )}
+
+
+                    <div className="feed">
+
+                        {publicacoes.map((publicacao) => (
+
+                            <div
+                                key={publicacao.id}
+                                className="publicacao"
+                            >
+
+
+                                <div className="cabecalho-publicacao">
+
+
+                                    <img
+                                        src={publicacao.foto_url}
+                                        alt="foto de usuario"
+                                        className="foto-usuario"
+                                    />
+
+
+                                    <h3>
+                                        {publicacao.nome_usuario}
+                                    </h3>
+
+
+                                    <div className="data-publicacao">
+
+                                        {new Date(
+                                            publicacao.data_criacao
+                                        ).toLocaleDateString(
+                                            "pt-BR"
+                                        )}
+
+                                    </div>
+
+
+                                    {/* 
+                                        Só mostra os três riscos
+                                        se a publicação pertencer
+                                        ao usuário logado.
+                                    */}
+
+                                    {publicacao.eh_dono && (
+
+                                        <button
+                                            className="hamburguer"
+                                            onClick={() =>
+                                                abrirModalApagar(
+                                                    publicacao
+                                                )
+                                            }
+                                            style={{
+                                                background: "none",
+                                                padding: "0",
+                                                height: "0",
+                                                marginLeft: "auto"
+                                            }}
+                                        >
+
+                                            <IoMenu
+                                                size={25}
+                                                style={{
+                                                    cursor: "pointer"
+                                                }}
+                                            />
+
+                                        </button>
+
+                                    )}
+
+
                                 </div>
 
-                                <button className="hamburguer" style={{background:"none",padding:"0", height:"0", marginLeft: "auto"}}> <IoMenu size={25} style={{cursor:"pointer"}} /> </button>
 
-                            </div>
-                            <p>{publicacao.legenda}</p>
-
-                            <img
-                                src={publicacao.imagem_url}
-                                alt="Imagem da publicação"
-                            />
+                                <p>
+                                    {publicacao.legenda}
+                                </p>
 
 
-                            <div className="area-curtida">
+                                <img
+                                    src={publicacao.imagem_url}
+                                    alt="Imagem da publicação"
+                                />
 
-                                <button
-                                    className="botao-curtida"
-                                    onClick={() =>
-                                        handleCurtir(publicacao.id)
-                                    }
-                                    aria-label={
-                                        curtidas[publicacao.id]
-                                            ? "Descurtir publicação"
-                                            : "Curtir publicação"
-                                    }
 
-                                    style={{background:"none"}}
-                                >
+                                <div className="area-curtida">
 
-                                    <span
-                                        className={
-                                            curtidas[publicacao.id]
-                                                ? "coracao curtido"
-                                                : "coracao"
+
+                                    <button
+                                        className="botao-curtida"
+
+                                        onClick={() =>
+                                            handleCurtir(
+                                                publicacao.id
+                                            )
                                         }
+
+                                        aria-label={
+                                            curtidas[
+                                                publicacao.id
+                                            ]
+                                                ? "Descurtir publicação"
+                                                : "Curtir publicação"
+                                        }
+
+                                        style={{
+                                            background: "none"
+                                        }}
                                     >
 
-                                        {curtidas[publicacao.id]
-                                            ? <PiHeartStraightFill color="white" fontSize={30} />
-                                            : <PiHeartStraight color="white" fontSize={30}  />}
+                                        <span
+                                            className={
+                                                curtidas[
+                                                    publicacao.id
+                                                ]
+                                                    ? "coracao curtido"
+                                                    : "coracao"
+                                            }
+                                        >
+
+                                            {curtidas[
+                                                publicacao.id
+                                            ]
+
+                                                ? (
+
+                                                    <PiHeartStraightFill
+                                                        color="white"
+                                                        fontSize={30}
+                                                    />
+
+                                                )
+
+                                                : (
+
+                                                    <PiHeartStraight
+                                                        color="white"
+                                                        fontSize={30}
+                                                    />
+
+                                                )}
+
+                                        </span>
+
+                                    </button>
+
+
+                                    <span className="quantidade-curtidas">
+
+                                        {Number(
+                                            publicacao.total_curtidas
+                                        ) || 0}
 
                                     </span>
 
-                                </button>
+
+                                    <button
+                                        className="botao-comentar"
+
+                                        onClick={() =>
+                                            navigate(
+                                                `/comentarios/${publicacao.id}`
+                                            )
+                                        }
+                                    >
+
+                                        <VscCommentCompact
+                                            fontSize={24}
+                                        />
+
+                                    </button>
 
 
-                                <span className="quantidade-curtidas">
-
-                                    {Number(publicacao.total_curtidas) || 0}
-
-                                </span>
+                                    {Number(
+                                        publicacao.total_comentarios
+                                    ) || 0}
 
 
-                                <button className="botao-comentar" onClick={() => navigate(`/comentarios/${publicacao.id}`)}> <VscCommentCompact fontSize={24} /> </button>
-                                {Number(publicacao.total_comentarios) || 0} 
+                                </div>
+
 
                             </div>
 
-                        </div>
+                        ))}
 
-                    ))}
+                    </div>
 
-                </div>
 
-            </main>
-            <PerfilComponente/>
-        </div>
+                </main>
+
+
+                <PerfilComponente />
+
+
+            </div>
+
+
+            {/* 
+                Modal de apagar publicação.
+
+                Ele só existe quando uma publicação
+                foi selecionada.
+            */}
+
+            {publicacaoSelecionada && (
+
+                <ModalApagarPublicacao
+
+                    publicacao={publicacaoSelecionada}
+
+                    onClose={
+                        fecharModalApagar
+                    }
+
+                    onPublicacaoApagada={
+                        buscarPublicacoes
+                    }
+
+                />
+
+            )}
+
         </>
+
     );
 
 }

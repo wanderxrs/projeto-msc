@@ -117,6 +117,12 @@ export const curtirPublicacao = (publicacao_id) => {
     return api.post(`/curtir/${publicacao_id}`)
 }
 
+export async function apagarPublicacao(id) {
+    return api.delete(`/apagar-publicacao/${id}`);
+}
+
+
+
 //comentarios ################################################
 
 export const carregarComentarios = (publicacao_id) => {

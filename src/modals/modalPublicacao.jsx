@@ -1,20 +1,15 @@
 
 import { useState } from "react";
-
 import { fazerPublicacao } from "../api";
-
 import "./ModalPublicacao.css";
+import { IoClose } from "react-icons/io5";
 
 function ModalPublicacao({ onClose, onPublicacaoCriada }) {
 
     const [imagem, setImagem] = useState(null);
-
     const [legenda, setLegenda] = useState("");
-
     const [comunidade, setComunidade] = useState("");
-
     const [mensagem, setMensagem] = useState("");
-
     const [carregando, setCarregando] = useState(false);
 
 
@@ -115,13 +110,7 @@ function ModalPublicacao({ onClose, onPublicacaoCriada }) {
 
                     <h2>Nova publicação</h2>
 
-                    <button
-                        type="button"
-                        onClick={onClose}
-                        className="btn-fechar"
-                    >
-                        X
-                    </button>
+                    <button type="button" onClick={onClose} className="btn-fechar" style={{height : "0", background : "none"}}> <IoClose size={35}/> </button>
 
                 </div>
 
