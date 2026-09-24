@@ -248,7 +248,16 @@ function Home() {
                                     />
 
 
-                                    <h3>
+                                    <h3
+                                        onClick={() =>
+                                            navigate(
+                                                `/perfil/${publicacao.usuario_id}`
+                                            )
+                                        }
+                                        style={{
+                                            cursor: "pointer"
+                                        }}
+                                    >
                                         {publicacao.nome_usuario}
                                     </h3>
 

@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Comentarios from "./pages/comentarios/comentarios";
 import Header from "./components/header";
 import ConfirmarSenha from "./pages/auth/confirmarSenha";
+import Perfil from "./pages/perfil/perfil";
 
 function App() {
     return (
@@ -29,6 +30,7 @@ function App() {
                     </>} />
 
                 <Route path="/comentarios/:publicacao_id" element={<Comentarios />}/>
+                <Route path="/perfil/:id" element={<Perfil />}/>
                 
             </Routes>
         </BrowserRouter>

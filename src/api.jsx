@@ -153,6 +153,9 @@ export function carregarPerfil() {
     return api.get("/perfil");
 }
 
+export function carregarPerfilUsuario(id) {
+    return api.get(`/perfil/${id}`);
+}
 
 
 export default api

@@ -1,0 +1,239 @@
+/* PÁGINA DO PERFIL */
+
+.perfil-page {
+    min-height: 100vh;
+    margin-top: 0;
+    padding-top: 0;
+    color: #f5f5f5;
+}
+
+
+/* CABEÇALHO DO PERFIL */
+
+.perfil-header {
+    width: 600px;
+    height: 250px;
+
+    margin: 0 auto 40px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    background-color: #1a1a1a;
+}
+
+
+.perfil-foto {
+    width: 120px;
+    height: 120px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    flex-shrink: 0;
+}
+
+
+.perfil-nome {
+    font-size: 28px;
+    margin: 0;
+}
+
+
+/* ÁREA DAS PUBLICAÇÕES */
+
+.perfil-publicacoes {
+    display: flex;
+    flex-direction: column;
+
+    gap: 24px;
+
+    max-width: 600px;
+
+    margin: 24px auto;
+}
+
+
+.perfil-publicacoes h2 {
+    color: #f5f5f5;
+}
+
+
+/* PUBLICAÇÃO */
+
+.perfil-publicacao {
+    background: #1a1a1a;
+    color: #f5f5f5;
+
+    border-radius: 12px;
+
+    padding: 16px;
+}
+
+
+.perfil-publicacao h3 {
+    margin-top: 0;
+}
+
+
+/* CABEÇALHO DA PUBLICAÇÃO */
+
+.cabecalho-publicacao {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+
+.cabecalho-publicacao h3 {
+    margin: 0;
+}
+
+
+.foto-usuario {
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    display: block;
+
+    flex-shrink: 0;
+}
+
+
+.data-publicacao {
+    font-size: 14px;
+
+    opacity: 0.7;
+}
+
+
+/* MENU DA PUBLICAÇÃO */
+
+.hamburguer {
+    margin-left: auto;
+
+    background: none;
+
+    border: none;
+
+    color: #f5f5f5;
+
+    padding: 0;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+.hamburguer:hover {
+    background: transparent;
+}
+
+
+/* LEGENDA */
+
+.perfil-publicacao p {
+    overflow-wrap: anywhere;
+}
+
+
+/* IMAGEM DA PUBLICAÇÃO */
+
+.perfil-publicacao > img {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    max-height: 600px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+}
+
+
+/* ÁREA DE CURTIDAS E COMENTÁRIOS */
+
+.area-curtida {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+}
+
+
+/* BOTÃO DE CURTIDA */
+
+.botao-curtida {
+    background: transparent;
+
+    border: none;
+
+    cursor: pointer;
+
+    padding: 4px;
+
+    font-size: 32px;
+
+    color: #777;
+}
+
+
+/* CORAÇÃO */
+
+.coracao {
+    color: #777;
+
+    transition: color 0.2s ease;
+}
+
+
+.coracao.curtido {
+    color: #e63946;
+}
+
+
+/* BOTÃO DE COMENTÁRIO */
+
+.botao-comentar {
+    background-color: transparent;
+
+    border: none;
+
+    cursor: pointer;
+}
+
+
+.botao-comentar:hover {
+    background-color: transparent;
+}
+
+
+/* QUANTIDADE DE CURTIDAS */
+
+.quantidade-curtidas {
+    color: #f5f5f5;
+}
