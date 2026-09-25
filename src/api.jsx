@@ -147,6 +147,12 @@ export function carregarPerfil() {
     return api.get("/perfil");
 }
 
+// tela de mostrar todos os posts de x comunidade
+
+
+export function buscarPublicacoesDaComunidade(id) {
+    return api.get(`/publicacoes/comunidade/${id}`);
+}
 
 
 export default api

@@ -8,17 +8,14 @@ import "./home.css";
 // Componentes
 import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
 import PerfilComponente from "../components/perfilComponente";
-import ModalPublicacao from "../modals/modalPublicacao";
 
 // Ícones
-import { Height } from "@mui/icons-material";
-import { Pointer } from "lucide-react";
 import { IoMenu } from "react-icons/io5";
 import { PiHeartStraight, PiHeartStraightFill } from "react-icons/pi";
-import { VscCommentCompact, VscHeart } from "react-icons/vsc";
+import { VscCommentCompact } from "react-icons/vsc";
+
 function Home() {
 
-    const [modalAberto, setModalAberto] = useState(false);
     const [publicacoes, setPublicacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
@@ -86,24 +83,18 @@ function Home() {
                 publicacoesAnteriores.map((publicacao) => {
 
                     if (publicacao.id !== publicacao_id) {
-
                         return publicacao;
-
                     }
 
                     const quantidadeAtual =
                         Number(publicacao.total_curtidas) || 0;
 
                     return {
-
                         ...publicacao,
 
                         total_curtidas: novoValor
-
                             ? quantidadeAtual + 1
-
                             : Math.max(0, quantidadeAtual - 1)
-
                     };
 
                 })
@@ -123,134 +114,178 @@ function Home() {
 
     return (
         <>
-                
-        <div className="conteudo-principal">
-            <ComunidadesRecomendadas />
-            <main className="conteudo-central">
 
-                <button onClick={() => setModalAberto(true)}>
-                    Fazer publicação
-                </button>
+            <div className="conteudo-principal">
 
+                <ComunidadesRecomendadas />
 
-                {modalAberto && (
+                <main className="conteudo-central">
 
-                    <ModalPublicacao
-                        onClose={() => setModalAberto(false)}
-                        onPublicacaoCriada={buscarPublicacoes}
-                    />
-
-                )}
-
-            
-
-                <h1>Feed inicial</h1>
+                    <h1>Feed inicial</h1>
 
 
-                {carregando && (
-
-                    <p>Carregando publicações...</p>
-
-                )}
+                    {carregando && (
+                        <p>Carregando publicações...</p>
+                    )}
 
 
-                {erro && (
-
-                    <p>{erro}</p>
-
-                )}
+                    {erro && (
+                        <p>{erro}</p>
+                    )}
 
 
-                {!carregando && publicacoes.length === 0 && (
-
-                    <p>Nenhuma publicação encontrada.</p>
-
-                )}
+                    {!carregando && publicacoes.length === 0 && (
+                        <p>Nenhuma publicação encontrada.</p>
+                    )}
 
 
-                <div className="feed">
+                    <div className="feed">
 
-                    {publicacoes.map((publicacao) => (
+                        {publicacoes.map((publicacao) => (
 
-                        <div
-                            key={publicacao.id}
-                            className="publicacao"
-                        >
-                            <div className="cabecalho-publicacao">
+                            <div
+                                key={publicacao.id}
+                                className="publicacao"
+                            >
 
-                                <img src={publicacao.foto_url} alt="foto de usuario" className="foto-usuario"/>
+                                <div className="cabecalho-publicacao">
 
-                                <h3>{publicacao.nome_usuario}</h3>
+                                    <img
+                                        src={publicacao.foto_url}
+                                        alt="foto de usuario"
+                                        className="foto-usuario"
+                                    />
 
-                                <div className="data-publicacao">
-                                    {new Date(publicacao.data_criacao).toLocaleDateString("pt-BR")}
+                                    <h3>
+                                        {publicacao.nome_usuario}
+                                    </h3>
+
+                                    <div className="data-publicacao">
+
+                                        {new Date(
+                                            publicacao.data_criacao
+                                        ).toLocaleDateString("pt-BR")}
+
+                                    </div>
+
+                                    <button
+                                        className="hamburguer"
+                                        style={{
+                                            background: "none",
+                                            padding: "0",
+                                            height: "0",
+                                            marginLeft: "auto"
+                                        }}
+                                    >
+                                        <IoMenu
+                                            size={25}
+                                            style={{
+                                                cursor: "pointer"
+                                            }}
+                                        />
+                                    </button>
+
                                 </div>
 
-                                <button className="hamburguer" style={{background:"none",padding:"0", height:"0", marginLeft: "auto"}}> <IoMenu size={25} style={{cursor:"pointer"}} /> </button>
 
-                            </div>
-                            <p>{publicacao.legenda}</p>
-
-                            <img
-                                src={publicacao.imagem_url}
-                                alt="Imagem da publicação"
-                            />
+                                <p>
+                                    {publicacao.legenda}
+                                </p>
 
 
-                            <div className="area-curtida">
+                                <img
+                                    src={publicacao.imagem_url}
+                                    alt="Imagem da publicação"
+                                />
 
-                                <button
-                                    className="botao-curtida"
-                                    onClick={() =>
-                                        handleCurtir(publicacao.id)
-                                    }
-                                    aria-label={
-                                        curtidas[publicacao.id]
-                                            ? "Descurtir publicação"
-                                            : "Curtir publicação"
-                                    }
 
-                                    style={{background:"none"}}
-                                >
+                                <div className="area-curtida">
 
-                                    <span
-                                        className={
-                                            curtidas[publicacao.id]
-                                                ? "coracao curtido"
-                                                : "coracao"
+                                    <button
+                                        className="botao-curtida"
+                                        onClick={() =>
+                                            handleCurtir(publicacao.id)
                                         }
+                                        aria-label={
+                                            curtidas[publicacao.id]
+                                                ? "Descurtir publicação"
+                                                : "Curtir publicação"
+                                        }
+                                        style={{
+                                            background: "none"
+                                        }}
                                     >
 
-                                        {curtidas[publicacao.id]
-                                            ? <PiHeartStraightFill color="white" fontSize={30} />
-                                            : <PiHeartStraight color="white" fontSize={30}  />}
+                                        <span
+                                            className={
+                                                curtidas[publicacao.id]
+                                                    ? "coracao curtido"
+                                                    : "coracao"
+                                            }
+                                        >
+
+                                            {curtidas[publicacao.id]
+
+                                                ? (
+                                                    <PiHeartStraightFill
+                                                        color="white"
+                                                        fontSize={30}
+                                                    />
+                                                )
+
+                                                : (
+                                                    <PiHeartStraight
+                                                        color="white"
+                                                        fontSize={30}
+                                                    />
+                                                )
+                                            }
+
+                                        </span>
+
+                                    </button>
+
+
+                                    <span className="quantidade-curtidas">
+
+                                        {Number(
+                                            publicacao.total_curtidas
+                                        ) || 0}
 
                                     </span>
 
-                                </button>
 
+                                    <button
+                                        className="botao-comentar"
+                                        onClick={() =>
+                                            navigate(
+                                                `/comentarios/${publicacao.id}`
+                                            )
+                                        }
+                                    >
+                                        <VscCommentCompact
+                                            fontSize={24}
+                                        />
+                                    </button>
 
-                                <span className="quantidade-curtidas">
+                                    {Number(
+                                        publicacao.total_comentarios
+                                    ) || 0}
 
-                                    {Number(publicacao.total_curtidas) || 0}
-
-                                </span>
-
-
-                                <button className="botao-comentar" onClick={() => navigate(`/comentarios/${publicacao.id}`)}> <VscCommentCompact fontSize={24} /> </button>
-                                {Number(publicacao.total_comentarios) || 0} 
+                                </div>
 
                             </div>
 
-                        </div>
+                        ))}
 
-                    ))}
+                    </div>
 
-                </div>
+                </main>
 
-            </main>
-            <PerfilComponente/>
-        </div>
+                <PerfilComponente />
+
+            </div>
+
         </>
     );
 

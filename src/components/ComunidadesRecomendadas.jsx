@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { buscarComunidadesDisponiveis } from "../api";
 import "./ComunidadesRecomendadas.css";
 
 function ComunidadesRecomendadas() {
+
+    const navigate = useNavigate();
     const [comunidades, setComunidades] = useState([]);
 
     useEffect(() => {
@@ -37,6 +40,7 @@ function ComunidadesRecomendadas() {
                         <div
                             className="item-comunidade"
                             key={comunidade.id}
+                            onClick={() => navigate(`/comunidade/${comunidade.id}`)}
                         >
                             {comunidade.nome}
                         </div>
