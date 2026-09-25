@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Comentarios from "./pages/comentarios/comentarios";
 import Header from "./components/header";
 import ConfirmarSenha from "./pages/auth/confirmarSenha";
+import ComunidadeTela from "./pages/comunidadeTela/ComunidadeTela";
 import Perfil from "./pages/perfil/perfil";
 
 function App() {
@@ -24,6 +25,12 @@ function App() {
                 <Route path="/mudar-senha" element={<MudarSenha />} />
                 <Route path="/mudar-senha-perfil" element={<MudarSenhaPerfil />} />
                 <Route path="/confirmar-senha" element={<ConfirmarSenha />} />
+
+                <Route path="/comunidade/:id" element={<>
+                    <Header />
+                    <ComunidadeTela />
+                    </>} />
+
                 <Route path="/home" element={<>
                     <Header />
                     <Home />

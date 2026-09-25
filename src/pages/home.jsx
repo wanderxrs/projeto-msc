@@ -12,24 +12,12 @@ import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
 
 import PerfilComponente from "../components/perfilComponente";
 
-import ModalPublicacao from "../modals/modalPublicacao";
-
-import ModalApagarPublicacao from "../modals/Publicacoes/ModalApagarPublicacao";
-
 // Ícones
 import { IoMenu } from "react-icons/io5";
-
-import {
-    PiHeartStraight,
-    PiHeartStraightFill
-} from "react-icons/pi";
-
+import { PiHeartStraight, PiHeartStraightFill } from "react-icons/pi";
 import { VscCommentCompact } from "react-icons/vsc";
 
-
 function Home() {
-
-    const [modalAberto, setModalAberto] = useState(false);
 
     const [publicacoes, setPublicacoes] = useState([]);
 
@@ -109,9 +97,7 @@ function Home() {
                 publicacoesAnteriores.map((publicacao) => {
 
                     if (publicacao.id !== publicacao_id) {
-
                         return publicacao;
-
                     }
 
 
@@ -120,13 +106,11 @@ function Home() {
 
 
                     return {
-
                         ...publicacao,
 
                         total_curtidas: novoValor
                             ? quantidadeAtual + 1
                             : Math.max(0, quantidadeAtual - 1)
-
                     };
 
                 })
@@ -168,64 +152,24 @@ function Home() {
 
                 <ComunidadesRecomendadas />
 
-
                 <main className="conteudo-central">
 
-                    <button
-                        onClick={() => setModalAberto(true)}
-                    >
-                        Fazer publicação
-                    </button>
-
-
-                    {modalAberto && (
-
-                        <ModalPublicacao
-
-                            onClose={() =>
-                                setModalAberto(false)
-                            }
-
-                            onPublicacaoCriada={
-                                buscarPublicacoes
-                            }
-
-                        />
-
-                    )}
-
-
-                    <h1>
-                        Feed inicial
-                    </h1>
+                    <h1>Feed inicial</h1>
 
 
                     {carregando && (
-
-                        <p>
-                            Carregando publicações...
-                        </p>
-
+                        <p>Carregando publicações...</p>
                     )}
 
 
                     {erro && (
-
-                        <p>
-                            {erro}
-                        </p>
-
+                        <p>{erro}</p>
                     )}
 
 
-                    {!carregando &&
-                        publicacoes.length === 0 && (
-
-                            <p>
-                                Nenhuma publicação encontrada.
-                            </p>
-
-                        )}
+                    {!carregando && publicacoes.length === 0 && (
+                        <p>Nenhuma publicação encontrada.</p>
+                    )}
 
 
                     <div className="feed">
@@ -237,16 +181,13 @@ function Home() {
                                 className="publicacao"
                             >
 
-
                                 <div className="cabecalho-publicacao">
-
 
                                     <img
                                         src={publicacao.foto_url}
                                         alt="foto de usuario"
                                         className="foto-usuario"
                                     />
-
 
                                     <h3
                                         onClick={() =>
@@ -261,52 +202,30 @@ function Home() {
                                         {publicacao.nome_usuario}
                                     </h3>
 
-
                                     <div className="data-publicacao">
 
                                         {new Date(
                                             publicacao.data_criacao
-                                        ).toLocaleDateString(
-                                            "pt-BR"
-                                        )}
+                                        ).toLocaleDateString("pt-BR")}
 
                                     </div>
 
-
-                                    {/* 
-                                        Só mostra os três riscos
-                                        se a publicação pertencer
-                                        ao usuário logado.
-                                    */}
-
-                                    {publicacao.eh_dono && (
-
-                                        <button
-                                            className="hamburguer"
-                                            onClick={() =>
-                                                abrirModalApagar(
-                                                    publicacao
-                                                )
-                                            }
+                                    <button
+                                        className="hamburguer"
+                                        style={{
+                                            background: "none",
+                                            padding: "0",
+                                            height: "0",
+                                            marginLeft: "auto"
+                                        }}
+                                    >
+                                        <IoMenu
+                                            size={25}
                                             style={{
-                                                background: "none",
-                                                padding: "0",
-                                                height: "0",
-                                                marginLeft: "auto"
+                                                cursor: "pointer"
                                             }}
-                                        >
-
-                                            <IoMenu
-                                                size={25}
-                                                style={{
-                                                    cursor: "pointer"
-                                                }}
-                                            />
-
-                                        </button>
-
-                                    )}
-
+                                        />
+                                    </button>
 
                                 </div>
 
@@ -324,24 +243,16 @@ function Home() {
 
                                 <div className="area-curtida">
 
-
                                     <button
                                         className="botao-curtida"
-
                                         onClick={() =>
-                                            handleCurtir(
-                                                publicacao.id
-                                            )
+                                            handleCurtir(publicacao.id)
                                         }
-
                                         aria-label={
-                                            curtidas[
-                                                publicacao.id
-                                            ]
+                                            curtidas[publicacao.id]
                                                 ? "Descurtir publicação"
                                                 : "Curtir publicação"
                                         }
-
                                         style={{
                                             background: "none"
                                         }}
@@ -349,35 +260,28 @@ function Home() {
 
                                         <span
                                             className={
-                                                curtidas[
-                                                    publicacao.id
-                                                ]
+                                                curtidas[publicacao.id]
                                                     ? "coracao curtido"
                                                     : "coracao"
                                             }
                                         >
 
-                                            {curtidas[
-                                                publicacao.id
-                                            ]
+                                            {curtidas[publicacao.id]
 
                                                 ? (
-
                                                     <PiHeartStraightFill
                                                         color="white"
                                                         fontSize={30}
                                                     />
-
                                                 )
 
                                                 : (
-
                                                     <PiHeartStraight
                                                         color="white"
                                                         fontSize={30}
                                                     />
-
-                                                )}
+                                                )
+                                            }
 
                                         </span>
 
@@ -395,28 +299,22 @@ function Home() {
 
                                     <button
                                         className="botao-comentar"
-
                                         onClick={() =>
                                             navigate(
                                                 `/comentarios/${publicacao.id}`
                                             )
                                         }
                                     >
-
                                         <VscCommentCompact
                                             fontSize={24}
                                         />
-
                                     </button>
-
 
                                     {Number(
                                         publicacao.total_comentarios
                                     ) || 0}
 
-
                                 </div>
-
 
                             </div>
 
@@ -424,43 +322,13 @@ function Home() {
 
                     </div>
 
-
                 </main>
-
 
                 <PerfilComponente />
 
-
             </div>
 
-
-            {/* 
-                Modal de apagar publicação.
-
-                Ele só existe quando uma publicação
-                foi selecionada.
-            */}
-
-            {publicacaoSelecionada && (
-
-                <ModalApagarPublicacao
-
-                    publicacao={publicacaoSelecionada}
-
-                    onClose={
-                        fecharModalApagar
-                    }
-
-                    onPublicacaoApagada={
-                        buscarPublicacoes
-                    }
-
-                />
-
-            )}
-
         </>
-
     );
 
 }
