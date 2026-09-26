@@ -72,3 +72,9 @@
 .lista-comunidades::-webkit-scrollbar-thumb:hover {
     background-color: #6b7280;
 }
+
+.comunidades-recomendadas input[name="pesquisa-comunidade"] {
+    width: 70%;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}

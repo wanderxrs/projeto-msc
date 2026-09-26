@@ -163,4 +163,11 @@ export function buscarPublicacoesDaComunidade(id) {
     return api.get(`/publicacoes/comunidade/${id}`);
 }
 
+
+// PESQUISAR COMUNIDADES PELO NOME
+
+export function buscarComunidadesPeloNome(nome) {
+    return api.get(`buscarComunidades`, {params: {nome}})
+}
+
 export default api
