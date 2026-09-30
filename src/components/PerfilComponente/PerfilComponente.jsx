@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { carregarPerfil } from "../api";
+import { carregarPerfil } from "../../api";
 
 import "./perfilComponente.css";
 

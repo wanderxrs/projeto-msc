@@ -73,8 +73,21 @@
     background-color: #6b7280;
 }
 
-.comunidades-recomendadas input[name="pesquisa-comunidade"] {
-    width: 70%;
-    box-sizing: border-box;
+.barra-comunidades {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     margin-bottom: 30px;
+}
+
+.barra-comunidades input {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.barra-comunidades button {
+    flex-shrink: 0;
+    padding: 8px 14px;
+    width: auto;
 }

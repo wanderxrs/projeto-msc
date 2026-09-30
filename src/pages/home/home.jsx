@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // API e Estilos
-import { carregarPublicacoes, curtirPublicacao } from "../api";
+import { carregarPublicacoes, curtirPublicacao } from "../../api";
 
 import "./home.css";
 
 // Componentes
-import ComunidadesRecomendadas from "../components/ComunidadesRecomendadas";
+import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
 
-import PerfilComponente from "../components/perfilComponente";
+import PerfilComponente from "../../components/PerfilComponente/perfilComponente";
 
 // Ícones
 import { IoMenu } from "react-icons/io5";

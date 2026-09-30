@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { buscarComunidadesDisponiveis } from "../api";
-import { buscarComunidadesPeloNome } from "../api";
+import { buscarComunidadesDisponiveis } from "../../api";
+import { buscarComunidadesPeloNome } from "../../api";
+import { filtroGeneroComunidade } from "../../api";
+import FiltroGeneroModal from "../FiltroGenero/FiltroGeneroModal";
 import "./ComunidadesRecomendadas.css";
 
 function ComunidadesRecomendadas() {
@@ -9,6 +11,7 @@ function ComunidadesRecomendadas() {
     const navigate = useNavigate();
     const [comunidades, setComunidades] = useState([]);
     const [nomeBusca, setNomeBusca] = useState("");
+    const [modalFiltroAberto, setModalFiltroAberto] = useState(false);
 
     async function carregarComunidades() {
         try {
@@ -26,9 +29,11 @@ function ComunidadesRecomendadas() {
         }
     }
 
+
     useEffect(() => {
         carregarComunidades();
     }, []);
+
 
     async function pesquisarComunidades() {
 
@@ -52,18 +57,43 @@ function ComunidadesRecomendadas() {
         }
     }
 
+    async function filtrarPorGenero(genero) {
+        try {
+            const resposta = await filtroGeneroComunidade(genero);
+
+            console.log("Comunidades filtradas:", resposta.data);
+
+            setComunidades(
+                Array.isArray(resposta.data)
+                    ? resposta.data
+                    : resposta.data.comunidades || []
+            );
+
+            setModalFiltroAberto(false);
+
+        } catch (erro) {
+            console.error("Erro ao filtrar comunidades:", erro);
+        }
+    }
+
     return (
         <aside className="comunidades-recomendadas">
 
-            <input
-                type="text"
-                placeholder="Pesquisar comunidade..." value={nomeBusca} name="pesquisa-comunidade"
-                onChange={(e) => setNomeBusca(e.target.value)} onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                        pesquisarComunidades();
-                    }
-                }}
-            />
+            <div className="barra-comunidades">
+                
+                <input
+                    type="text"
+                    placeholder="Pesquisar comunidade..."
+                    value={nomeBusca} name="pesquisa-comunidade"
+                    onChange={(e) => setNomeBusca(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            pesquisarComunidades();
+                        }
+                    }}/>
+
+                <button onClick={() => setModalFiltroAberto(true)}>Filtrar</button>
+            </div>
 
             <h2>{nomeBusca ? "Resultados da pesquisa" : "Comunidades recomendadas"}</h2>
 
@@ -82,6 +112,13 @@ function ComunidadesRecomendadas() {
                     ))
                 )}
             </div>
+
+            <FiltroGeneroModal
+                aberto={modalFiltroAberto}
+                fechar={() => setModalFiltroAberto(false)}
+                aplicarFiltro={filtrarPorGenero}
+            />
+
         </aside>
     );
 }
