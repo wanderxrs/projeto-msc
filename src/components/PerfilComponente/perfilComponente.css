@@ -3,7 +3,7 @@
     top: 80px; /*PRA MUDAR O TAMANHO DO ESPAÇO EM CIMA*/
     right: 0;
     width: 370px;
-    height: 100vh;
+    height: calc(100vh - 80px);
     box-sizing: border-box;
     padding: 25px 18px;
     background-color: #1a1a1a;
@@ -51,5 +51,20 @@
 }
 
 .botao-perfil:hover {
+    background-color: #555555;
+}
+
+.botao-criar-comunidade {
+    position: absolute;
+    bottom: 30px;
+    width: 90%;
+    height: 40px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: gray;
+}
+
+.botao-criar-comunidade:hover {
     background-color: #555555;
 }

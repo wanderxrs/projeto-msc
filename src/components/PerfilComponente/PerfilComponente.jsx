@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { carregarPerfil } from "../../api";
 
 import "./perfilComponente.css";
-
+import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
 function PerfilComponente() {
 
     const [usuario, setUsuario] = useState(null);
-
+    const [modalAberto, setModalAberto] = useState(false);
 
     useEffect(() => {
 
@@ -76,6 +76,16 @@ function PerfilComponente() {
                 </div>
 
             </div>
+
+                <button
+                    className="botao-criar-comunidade" onClick={() => setModalAberto(true)}>
+                    Criar comunidade
+                </button>
+
+                <CriarComunidadeModal
+                    isOpen={modalAberto}
+                    onClose={() => setModalAberto(false)}
+                />
 
         </div>
 

@@ -9,19 +9,19 @@ function FiltroGeneroModal({ aberto, fechar, aplicarFiltro }) {
     const generos = [
         "Pop",
         "Rock",
-        "Hip-Hop / Rap",
+        "Rap",
         "Eletrônica",
-        "R&B / Soul",
+        "R&B",
         "Country",
         "Reggae",
-        "Latin / Reggaeton",
+        "Latin",
         "Jazz",
         "Clássica",
-        "Heavy Metal",
+        "Metal",
         "Folk",
         "Blues",
         "Funk",
-        "World Music",
+        "Kpop",
         "Outro"
     ];
 
