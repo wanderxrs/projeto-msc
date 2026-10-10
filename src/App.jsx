@@ -31,10 +31,7 @@ function App() {
                     <ComunidadeTela />
                     </>} />
 
-                <Route path="/home" element={<>
-                    <Header />
-                    <Home />
-                    </>} />
+                <Route path="/home" element={<> <Header /> <Home /> </>} />
 
                 <Route path="/comentarios/:publicacao_id" element={<Comentarios />}/>
                 <Route path="/perfil/:id" element={<Perfil />}/>
