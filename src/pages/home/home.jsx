@@ -1,29 +1,24 @@
 import { useEffect, useState } from "react";
-
 import { useNavigate } from "react-router-dom";
 
 // API e Estilos
 import { carregarPublicacoes, curtirPublicacao } from "../../api";
-
 import "./home.css";
 
 // Componentes
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
-
 import PerfilComponente from "../../components/PerfilComponente/perfilComponente";
 
-import ModalPublicacao from "../modals/modalPublicacao";
-
-import ModalApagarPublicacao from "../modals/Publicacoes/ModalApagarPublicacao";
+// Modais
+import ModalPublicacao from "../../modals/ModalPublicacao";
+import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 
 // Ícones
 import { IoMenu } from "react-icons/io5";
-
 import {
     PiHeartStraight,
     PiHeartStraightFill
 } from "react-icons/pi";
-
 import { VscCommentCompact } from "react-icons/vsc";
 
 
@@ -171,6 +166,12 @@ function Home() {
 
                 <main className="conteudo-central">
 
+                    <button
+                        onClick={() => setModalAberto(true)}
+                    >
+                        Fazer publicação
+                    </button>
+
 
                     {modalAberto && (
 
@@ -209,7 +210,7 @@ function Home() {
                             {erro}
                         </p>
 
-                    )} 
+                    )}
 
 
                     {!carregando &&
