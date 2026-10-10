@@ -8,14 +8,16 @@ function InformacoesComunidade() {
     const { id } = useParams();
     const [comunidade, setComunidade] = useState(null);
     const [mensagem, setMensagem] = useState("");
+    const [participando, setParticipando] = useState(false);
 
     useEffect(() => {
         async function carregarComunidade() {
             try {
+
                 const resposta = await buscarComunidade(id);
 
-                console.log("Dados recebidos:", resposta.data);
                 setComunidade(resposta.data);
+                setParticipando(resposta.data.participando);
 
             } catch (erro) {
                 console.error("Erro ao carregar comunidade:", erro);
@@ -27,20 +29,36 @@ function InformacoesComunidade() {
 
 
     const handleEntrar = async () => {
+        setMensagem("");
+
         try {
             const resposta = await entrarComunidade(id);
+
+            setParticipando(true);
             setMensagem(resposta.data.mensagem);
+
         } catch (erro) {
-            setMensagem(erro.response?.data?.erro || "Erro ao entrar na comunidade");
+            setMensagem(
+                erro.response?.data?.erro ||
+                "Erro ao entrar na comunidade"
+            );
         }
     };
 
     const handleSair = async () => {
+        setMensagem("");
+
         try {
             const resposta = await sairComunidade(id);
+
+            setParticipando(false);
             setMensagem(resposta.data.mensagem);
+
         } catch (erro) {
-            setMensagem(erro.response?.data?.erro || "Erro ao sair na comunidade");
+            setMensagem(
+                erro.response?.data?.erro ||
+                "Erro ao sair da comunidade"
+            );
         }
     };
 
@@ -70,13 +88,15 @@ function InformacoesComunidade() {
 
             <div className="botoes-comunidade">
 
-                <button onClick={handleEntrar}>
-                    Entrar na comunidade
-                </button>
-
-                <button onClick={handleSair}>
-                    Sair da comunidade
-                </button>
+                {participando ? (
+                    <button onClick={handleSair}>
+                        Sair da comunidade
+                    </button>
+                ) : (
+                    <button onClick={handleEntrar}>
+                        Entrar na comunidade
+                    </button>
+                )}
 
                 {mensagem && <p>{mensagem}</p>}
 
