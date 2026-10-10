@@ -166,12 +166,6 @@ function Home() {
 
                 <main className="conteudo-central">
 
-                    <button
-                        onClick={() => setModalAberto(true)}
-                    >
-                        Fazer publicação
-                    </button>
-
 
                     {modalAberto && (
 
