@@ -1,58 +1,97 @@
 import { useState } from "react";
-import { fazerLogin  } from "../../api";
+import { fazerLogin } from "../../api";
 import { Container, Box, Paper, Button, Typography, TextField } from '@mui/material';
 import { useNavigate, Link } from "react-router-dom";
 
+import "./login.css";
+
 function Login() {
-    const navigate = useNavigate()
-    const [mensagem, setMensagem] = useState('')
-    const [email, setEmail] = useState('')
-    const [senha, setSenha] = useState('')
+    const navigate = useNavigate();
+    const [mensagem, setMensagem] = useState('');
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
 
     const onSignIn = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const data = {
             email,
             senha
-        }
+        };
 
         try {
-            const result = await fazerLogin (data)
-            setMensagem(result.data.mensagem)
+            const result = await fazerLogin(data);
+            setMensagem(result.data.mensagem);
 
-            navigate("/home")
+            navigate("/home");
 
         } catch (e) {
-            const erro = e.response?.data?.erro || "Não foi possível conectar à API"
-            setMensagem(erro)
+            const erro = e.response?.data?.erro || "Não foi possível conectar à API";
+            setMensagem(erro);
         }
-    }
+    };
 
     return (
         <>
-        
-        <Container maxWidth="xs">
-            <Paper elevation={3} sx={{ p: 4, mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography component="h1" variant="h5">Login</Typography>
-                {mensagem && (<Typography component="h4">{mensagem}</Typography>)}
+            <Container maxWidth="xs" className="login-container">
+                <Paper elevation={3} className="login-card">
 
-                <Box sx={{ width: '100%', mt: 1 }}>
-                    <form id="submit-login" onSubmit={onSignIn}>
-                        <TextField margin="normal" fullWidth label="email" type='email' value={email} onChange={(e) => setEmail(e.target.value)} />
-                        <TextField margin="normal" fullWidth label="senha" type='password' value={senha} onChange={(e) => setSenha(e.target.value)} />
-                    </form>
+                    <Typography component="h1" variant="h5">Login</Typography>
 
-                    <Button type="submit" form="submit-login" variant="contained">Entrar</Button>
-                    <Button component={Link} to={"/registro"} variant="contained">Criar conta</Button>
-                    <Button component={Link} to={"/Recuperacao"} variant="contained" >Esqueci minha senha</Button>
-                </Box>
-            </Paper>
-        </Container>
+                    {mensagem && (
+                        <Typography className="login-mensagem">
+                            {mensagem}
+                        </Typography>
+                    )}
 
+                    <Box className="login-form-container">
+                        <form id="submit-login" onSubmit={onSignIn}>
+
+                            <TextField
+                                margin="normal" fullWidth label="Email" type="email" 
+                                value={email} onChange={(e) => setEmail(e.target.value)} required
+                            />
+
+                            <TextField
+                                margin="normal" fullWidth label="Senha" type="password"
+                                value={senha} onChange={(e) => setSenha(e.target.value)} required
+                            />
+
+                        </form>
+
+                        <Button
+                            type="submit"
+                            form="submit-login"
+                            variant="contained"
+                            fullWidth
+                            className="login-entrar"
+                        >
+                            Entrar
+                        </Button>
+
+                        <Button
+                            component={Link}
+                            to="/registro"
+                            fullWidth
+                            className="login-secundario"
+                        >
+                            Criar conta
+                        </Button>
+
+                        <Button
+                            component={Link}
+                            to="/Recuperacao"
+                            fullWidth
+                            className="login-recuperacao"
+                        >
+                            Esqueci minha senha
+                        </Button>
+
+                    </Box>
+                </Paper>
+            </Container>
         </>
-    )
-
+    );
 }
 
-export default Login
+export default Login;

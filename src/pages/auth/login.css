@@ -1,0 +1,118 @@
+.login-container {
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.login-card.MuiPaper-root {
+    margin-top: 64px;
+    padding: 32px;
+
+    background: #0c0c0c;
+    color: #f5f5f5;
+
+    border: 1px solid #242424;
+    border-radius: 14px;
+}
+
+.login-card h1 {
+    margin-bottom: 16px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Campos */
+
+.login-form-container {
+    width: 100%;
+}
+
+.login-form-container .MuiOutlinedInput-root {
+    background: #0d0d0d;
+    color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.login-form-container .MuiOutlinedInput-notchedOutline {
+    border-color: #444;
+}
+
+.login-form-container .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #888;
+}
+
+.login-form-container .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #3abb83;
+}
+
+.login-form-container .MuiInputLabel-root {
+    color: #aaa;
+}
+
+.login-form-container .MuiInputLabel-root.Mui-focused {
+    color: #3abb83;
+}
+
+/* Mensagem */
+
+.login-mensagem.MuiTypography-root {
+    margin-bottom: 12px;
+    color: #ff8a80;
+    font-size: 14px;
+    overflow-wrap: anywhere;
+}
+
+/* Entrar */
+
+.login-entrar.MuiButton-root {
+    margin-top: 16px;
+    padding: 11px;
+
+    background: #2e7d32;
+    color: white;
+
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: none;
+}
+
+.login-entrar.MuiButton-root:hover {
+    background: #388e3c;
+}
+
+/* Criar conta */
+
+.login-secundario.MuiButton-root {
+    margin-top: 10px;
+    padding: 10px;
+
+    background: #252525;
+    color: #f5f5f5;
+
+    border-radius: 8px;
+    text-transform: none;
+}
+
+.login-secundario.MuiButton-root:hover {
+    background: #333;
+}
+
+/* Recuperação */
+
+.login-recuperacao.MuiButton-root {
+    margin-top: 8px;
+
+    color: #3abb83;
+    text-transform: none;
+}
+
+.login-recuperacao.MuiButton-root:hover {
+    background: rgba(58, 187, 131, 0.08);
+}
+
+/* Celular */
+
+@media (max-width: 480px) {
+    .login-card.MuiPaper-root {
+        padding: 22px;
+    }
+}

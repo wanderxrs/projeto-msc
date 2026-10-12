@@ -1,3 +1,4 @@
+import { createPortal } from "react-dom";
 import "./FiltroGeneroModal.css";
 
 function FiltroGeneroModal({ aberto, fechar, aplicarFiltro }) {
@@ -25,27 +26,32 @@ function FiltroGeneroModal({ aberto, fechar, aplicarFiltro }) {
         "Outro"
     ];
 
-    return (
-        <div className="modal-filtro-overlay">
-            <div className="modal-filtro">
-
+    return createPortal(
+        <div className="modal-filtro-overlay" onClick={fechar}>
+            <div
+                className="modal-filtro" onClick={(e) => e.stopPropagation()}>
+                    
                 <h2>Filtrar por gênero</h2>
 
                 <div className="lista-generos">
                     {generos.map((genero) => (
                         <button
-                            className="botao-genero" key={genero}
+                            type="button"
+                            className="botao-genero"
+                            key={genero}
                             onClick={() => aplicarFiltro(genero)}
                         >
-                            {genero.charAt(0).toUpperCase() + genero.slice(1)}
+                            {genero}
                         </button>
                     ))}
                 </div>
 
-                <button className="botao-cancelar"onClick={fechar}>Cancelar</button>
-
+                <button type="button" className="botao-cancelar" onClick={fechar}>
+                    Cancelar
+                </button>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 }
 

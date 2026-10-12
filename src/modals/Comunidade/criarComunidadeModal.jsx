@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { criarComunidade } from "../../api";
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, TextField } from '@mui/material';
+import "./criarComunidadeModal.css";
 
 function CriarComunidadeModal({ isOpen, onClose }) {
     const [mensagem, setMensagem] = useState("")
@@ -41,31 +42,80 @@ function CriarComunidadeModal({ isOpen, onClose }) {
 
     return (
         <>
-        <Dialog open={isOpen} onClose={onClose} fullWidth maxWidth="xs">
-            <DialogTitle>Criar Comunidade</DialogTitle>
+<Dialog
+    open={isOpen}
+    onClose={onClose}
+    fullWidth
+    maxWidth="xs"
+    className="modal-comunidade"
+>
+    <DialogTitle>Criar Comunidade</DialogTitle>
 
-            <DialogContent>
-                {mensagem && (<Typography>{mensagem}</Typography>)}
+    <DialogContent>
+        {mensagem && (
+            <Typography className="mensagem-modal">
+                {mensagem}
+            </Typography>
+        )}
 
-                <form id="submit" onSubmit={novaComunidade}>
+        <form id="submit" onSubmit={novaComunidade}>
+            <TextField
+                margin="normal"
+                fullWidth
+                label="Imagem"
+                type="file"
+                onChange={(e) => setImagem_url(e.target.files[0])}
+                slotProps={{
+                    htmlInput: { accept: "image/*" }
+                }}
+            />
 
-                    <TextField margin="normal" fullWidth label="Imagem" type="file" onChange={(e) => setImagem_url(e.target.files[0])}/>
-                    <TextField margin="normal" fullWidth label="Nome" type="text" value={nome} onChange={(e) => setNome(e.target.value)}/>
-                    <TextField margin="normal" fullWidth label="Gênero" type="text" value={genero} onChange={(e) => setGenero(e.target.value)}/>
-                    <TextField margin="normal" fullWidth label="Descrição" type="text" value={descricao} onChange={(e) => setDescricao(e.target.value)}/>
+            <TextField
+                margin="normal"
+                fullWidth
+                label="Nome"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+            />
 
-                </form>
+            <TextField
+                margin="normal"
+                fullWidth
+                label="Gênero"
+                value={genero}
+                onChange={(e) => setGenero(e.target.value)}
+            />
 
-            </DialogContent>
+            <TextField
+                margin="normal"
+                fullWidth
+                label="Descrição"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                multiline
+                minRows={3}
+            />
+        </form>
+    </DialogContent>
 
-            <DialogActions>
+    <DialogActions>
+        <Button
+            onClick={onClose}
+            className="btn-cancelar"
+        >
+            Cancelar
+        </Button>
 
-                <Button onClick={onClose}>Cancelar</Button>
-                <Button type="submit" form="submit" variant="contained">Criar</Button>
-
-            </DialogActions>
-
-        </Dialog>
+        <Button
+            type="submit"
+            form="submit"
+            variant="contained"
+            className="btn-criar"
+        >
+            Criar
+        </Button>
+    </DialogActions>
+</Dialog>
 
         </>
     )

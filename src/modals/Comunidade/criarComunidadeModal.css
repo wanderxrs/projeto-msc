@@ -1,0 +1,118 @@
+/* Fundo escuro atrás do modal */
+.modal-comunidade .MuiBackdrop-root {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+/* Caixa principal */
+.modal-comunidade .MuiDialog-paper {
+    background: #0c0c0cd8;
+    color: #f5f5f5;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    border-radius: 14px;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+/* Cabeçalho */
+.modal-comunidade .MuiDialogTitle-root {
+    padding: 0;
+    margin-bottom: 24px;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Conteúdo */
+.modal-comunidade .MuiDialogContent-root {
+    padding: 0;
+    overflow-y: auto;
+}
+
+/* Formulário */
+.modal-comunidade form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Campos */
+.modal-comunidade .MuiOutlinedInput-root {
+    background: #0d0d0d;
+    color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.modal-comunidade .MuiOutlinedInput-notchedOutline {
+    border-color: #444;
+}
+
+.modal-comunidade .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #888;
+}
+
+.modal-comunidade .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #2e7d32;
+}
+
+.modal-comunidade .MuiInputLabel-root {
+    color: #c5c5c5;
+}
+
+.modal-comunidade .MuiInputLabel-root.Mui-focused {
+    color: #4caf50;
+}
+
+/* Texto digitado */
+.modal-comunidade input,
+.modal-comunidade textarea {
+    color: #f5f5f5;
+}
+
+/* Botões */
+.modal-comunidade .MuiDialogActions-root {
+    padding: 0;
+    margin-top: 20px;
+    gap: 12px;
+}
+
+.modal-comunidade .MuiDialogActions-root .MuiButton-root {
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: none;
+}
+
+/* Cancelar */
+.modal-comunidade .btn-cancelar {
+    background: #333;
+    color: #fff;
+}
+
+.modal-comunidade .btn-cancelar:hover {
+    background: #444;
+}
+
+/* Criar */
+.modal-comunidade .btn-criar {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.modal-comunidade .btn-criar:hover {
+    background: #388e3c;
+}
+
+/* Mensagem */
+.modal-comunidade .mensagem-modal {
+    color: #c5c5c5;
+    overflow-wrap: anywhere;
+    margin-bottom: 12px;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+    .modal-comunidade .MuiDialog-paper {
+        padding: 18px;
+    }
+}
