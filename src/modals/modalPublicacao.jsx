@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { fazerPublicacao } from "../api";
 import "./ModalPublicacao.css";
@@ -8,7 +9,6 @@ function ModalPublicacao({
     onPublicacaoCriada,
     comunidadeId
 }) {
-
     const [imagem, setImagem] = useState(null);
     const [legenda, setLegenda] = useState("");
     const [comunidade, setComunidade] = useState(comunidadeId || "");
@@ -16,14 +16,13 @@ function ModalPublicacao({
     const [carregando, setCarregando] = useState(false);
 
     function handleImagem(event) {
-
         const arquivo = event.target.files[0];
 
         if (arquivo) {
             setImagem(arquivo);
+            setMensagem("");
         }
     }
-
 
     async function handlePublicar(event) {
         event.preventDefault();
@@ -33,40 +32,44 @@ function ModalPublicacao({
             return;
         }
 
-
         if (!comunidade) {
             setMensagem("Comunidade não definida.");
             return;
         }
 
-
         const dadosPublicacao = new FormData();
+
         dadosPublicacao.append("imagem", imagem);
         dadosPublicacao.append("legenda", legenda);
         dadosPublicacao.append("comunidade", comunidade);
+
         setCarregando(true);
         setMensagem("");
 
         try {
-            const resposta = await fazerPublicacao(
-                dadosPublicacao
-            );
+            const resposta = await fazerPublicacao(dadosPublicacao);
 
             console.log(resposta.data);
-            onPublicacaoCriada();
-            onClose();
 
+            if (onPublicacaoCriada) {
+                onPublicacaoCriada();
+            }
+
+            onClose();
         } catch (erro) {
             console.error(erro);
 
-            if (erro.response) {
+            const dados = erro.response?.data;
+
+            if (dados) {
                 setMensagem(
-                    erro.response.data ||
-                    "Erro ao publicar."
+                    typeof dados === "string"
+                        ? dados
+                        : dados.error ||
+                          dados.message ||
+                          "Erro ao publicar."
                 );
-
             } else {
-
                 setMensagem(
                     "Erro ao conectar com o servidor."
                 );
@@ -76,27 +79,29 @@ function ModalPublicacao({
         }
     }
 
-
     return (
-
         <div className="modal-overlay">
-
             <div className="modal-publicacao">
-
                 <div className="modal-header">
-
                     <h2>Nova publicação</h2>
 
-                    <button type="button" onClick={onClose} className="btn-fechar" style={{height : "0", background : "none"}}> <IoClose size={35}/> </button>
-
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="btn-fechar"
+                        style={{
+                            height: "0",
+                            background: "none"
+                        }}
+                    >
+                        <IoClose size={35} />
+                    </button>
                 </div>
 
-
                 <form onSubmit={handlePublicar}>
-
-
-                    <label htmlFor="imagem">Imagem da publicação</label>
-
+                    <label htmlFor="imagem">
+                        Imagem da publicação
+                    </label>
 
                     <input
                         id="imagem"
@@ -106,16 +111,15 @@ function ModalPublicacao({
                         required
                     />
 
-
                     {imagem && (
                         <p>
                             Imagem selecionada: {imagem.name}
                         </p>
                     )}
 
-
-                    <label htmlFor="legenda">Legenda</label>
-
+                    <label htmlFor="legenda">
+                        Legenda
+                    </label>
 
                     <textarea
                         id="legenda"
@@ -126,12 +130,13 @@ function ModalPublicacao({
                         placeholder="O que você está ouvindo?"
                     />
 
-
-                    {mensagem && (<p>{mensagem}</p>)}
-
+                    {mensagem && (
+                        <p className="mensagem-erro" role="alert">
+                            {mensagem}
+                        </p>
+                    )}
 
                     <div className="modal-acoes">
-
                         <button
                             type="button"
                             onClick={onClose}
@@ -140,16 +145,13 @@ function ModalPublicacao({
                             Cancelar
                         </button>
 
-
                         <button
                             type="submit"
                             disabled={carregando}
                         >
-
                             {carregando
-                                ? "Publicando..."
+                                ? "Verificando conteúdo..."
                                 : "Publicar"}
-
                         </button>
                     </div>
                 </form>
@@ -157,6 +159,5 @@ function ModalPublicacao({
         </div>
     );
 }
-
 
 export default ModalPublicacao;
