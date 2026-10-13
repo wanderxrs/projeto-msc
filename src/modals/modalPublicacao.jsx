@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { fazerPublicacao } from "../api";
 import "./ModalPublicacao.css";
@@ -26,6 +25,8 @@ function ModalPublicacao({
 
     async function handlePublicar(event) {
         event.preventDefault();
+
+        if (carregando) return;
 
         if (!imagem) {
             setMensagem("Selecione uma imagem.");
@@ -89,8 +90,9 @@ function ModalPublicacao({
                         type="button"
                         onClick={onClose}
                         className="btn-fechar"
+                        disabled={carregando}
                         style={{
-                            height: "0",
+                            height: "auto",
                             background: "none"
                         }}
                     >
@@ -108,6 +110,7 @@ function ModalPublicacao({
                         type="file"
                         accept="image/*"
                         onChange={handleImagem}
+                        disabled={carregando}
                         required
                     />
 
@@ -128,10 +131,33 @@ function ModalPublicacao({
                             setLegenda(event.target.value)
                         }
                         placeholder="O que você está ouvindo?"
+                        disabled={carregando}
                     />
 
+                    {carregando && (
+                        <div
+                            className="loading-moderacao"
+                            role="status"
+                            aria-live="polite"
+                        >
+                            <div className="spinner"></div>
+
+                            <p>
+                                Verificando sua publicação...
+                            </p>
+
+                            <span>
+                                A IA está analisando a imagem
+                                e a legenda. Aguarde um momento.
+                            </span>
+                        </div>
+                    )}
+
                     {mensagem && (
-                        <p className="mensagem-erro" role="alert">
+                        <p
+                            className="mensagem-erro"
+                            role="alert"
+                        >
                             {mensagem}
                         </p>
                     )}
@@ -150,7 +176,7 @@ function ModalPublicacao({
                             disabled={carregando}
                         >
                             {carregando
-                                ? "Verificando conteúdo..."
+                                ? "Verificando..."
                                 : "Publicar"}
                         </button>
                     </div>
