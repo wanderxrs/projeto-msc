@@ -1,6 +1,7 @@
+
 .perfil-componente {
     position: fixed;
-    top: 80px; /*PRA MUDAR O TAMANHO DO ESPAÇO EM CIMA*/
+    top: 80px;
     right: 0;
     width: 370px;
     height: calc(100vh - 80px);
@@ -32,26 +33,54 @@
 }
 
 .botoesDiv {
-    gap: 10px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
     margin-top: 10px;
 }
 
 .botao-perfil {
-    height: 32px;
-    width: 110px;
-    border-radius: 7px;
-    background-color: gray;
-    color: white;
-    border: 1px solid rgb(65, 64, 64);
-    box-shadow: 1px 0px 15px rgba(0, 0, 0, 0.4);
-    font-family: Arial, Helvetica, sans-serif;
+    flex: 1;
+    height: 46px;
+    width: 160px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    border: 2px solid #2c2c2c;
+    background-color: #161616;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
     cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+    outline: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.botao-perfil::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0) 70%
+    );
+    transform: scale(0);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.botao-perfil:hover::after {
+    transform: scale(4);
 }
 
 .botao-perfil:hover {
-    background-color: #555555;
+    border-color: #666666;
+    background-color: #292929;
 }
 
 .botao-criar-comunidade {
@@ -63,6 +92,7 @@
     border-radius: 8px;
     cursor: pointer;
     background-color: gray;
+    color: white;
 }
 
 .botao-criar-comunidade:hover {

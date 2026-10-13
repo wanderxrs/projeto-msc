@@ -2,16 +2,12 @@
     position: fixed;
     top: 0;
     left: 0;
-
     width: 100%;
     height: 100%;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background-color: rgba(0, 0, 0, 0.45);
-
+    background-color: none;
     z-index: 1000;
 }
 
@@ -19,19 +15,15 @@
 .modal-filtro {
     width: 360px;
     box-sizing: border-box;
-
     padding: 25px;
-
-    background-color: #1a1a1a;
+    background-color: #1a1a1ab7;
     color: white;
-
     border: 1px solid #242527;
     border-radius: 15px;
-
     box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.5);
-
     display: flex;
     flex-direction: column;
+    backdrop-filter: blur(15px);
 }
 
 
@@ -53,20 +45,13 @@
 
 .botao-genero {
     height: 40px;
-
     border-radius: 7px;
-
-    background-color: #3a414b;
+    background-color: #1e1e1fc4;
     color: white;
-
-    border: 1px solid rgb(65, 64, 64);
-
+    border: 1px solid rgba(65, 64, 64, 0.774);
     box-shadow: 1px 0px 15px rgba(0, 0, 0, 0.3);
-
     font-family: Arial, Helvetica, sans-serif;
-
     cursor: pointer;
-
     transition: background-color 0.2s;
 }
 
@@ -75,27 +60,47 @@
     background-color: #555555;
 }
 
-
 .botao-cancelar {
-    height: 35px;
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    height: 42px;
+    padding: 0 16px;
+    margin: 16px auto 0;
+    box-sizing: border-box;
 
-    margin-top: 20px;
-
-    border-radius: 7px;
-
-    background-color: gray;
-    color: white;
-
-    border: 1px solid rgb(65, 64, 64);
-
-    box-shadow: 1px 0px 15px rgba(0, 0, 0, 0.3);
-
-    font-family: Arial, Helvetica, sans-serif;
-
+    border: 2px solid #2c2c2c;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    outline: none;
+    position: relative;
+    overflow: hidden;
 }
 
+.botao-cancelar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0.25) 0%,
+        rgba(255, 255, 255, 0) 70%
+    );
+    transform: scale(0);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.botao-cancelar:hover::after {
+    transform: scale(4);
+}
 
 .botao-cancelar:hover {
-    background-color: #555555;
+    border-color: #666666;
+    background-color: #292929;
 }

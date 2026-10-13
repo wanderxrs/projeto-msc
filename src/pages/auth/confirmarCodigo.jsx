@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { confirmarCodigo } from "../../api";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
 
 function ConfirmarCodigo() {
 
@@ -31,34 +32,50 @@ function ConfirmarCodigo() {
     }
 
     return (
-        <div className="confirmar-codigo">
+        <div className="tela-login">
 
-            <div className="container">
+            <div className="login-card">
 
-                <h1>Yrplace</h1>
+                <div className="login-cabecalho">
+                    <h1>YrPlace</h1>
+                    <p>Seu lugar para compartilhar música.</p>
+                </div>
 
-                <h2>
-                    Digite o código
-                </h2>
-
-                <p>
-                    Enviamos um código para seu e-mail.
-                </p>
+                <div className="login-titulo">
+                    <h2>Digite o código</h2>
+                    <p>
+                        Enviamos um código para seu e-mail.
+                        Digite-o abaixo para continuar.
+                    </p>
+                </div>
 
                 {mensagem && (
-                    <p>{mensagem}</p>
+                    <div className="login-mensagem">
+                        {mensagem}
+                    </div>
                 )}
 
-                <form onSubmit={handleConfirmarCodigo}>
+                <form
+                    className="login-form"
+                    onSubmit={handleConfirmarCodigo}
+                >
+
+                    <label htmlFor="codigo">
+                        Código de confirmação
+                    </label>
 
                     <input
+                        id="codigo"
                         type="text"
-                        placeholder="Código"
+                        placeholder="Digite o código"
                         value={codigo}
                         onChange={(event) => setCodigo(event.target.value)}
                     />
 
-                    <button type="submit">
+                    <button
+                        type="submit"
+                        className="login-botao-principal"
+                    >
                         Confirmar
                     </button>
 

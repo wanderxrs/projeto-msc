@@ -1,0 +1,224 @@
+.tela-login {
+    min-height: 100vh;
+    background-color: #0f0f0f;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 16px;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    padding: 36px;
+    background-color: #1a1a1a;
+    border: 1px solid #303030;
+    border-radius: 18px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+}
+
+.login-cabecalho {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.login-cabecalho h1 {
+    margin: 0;
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.login-cabecalho p {
+    margin: 8px 0 0;
+    color: #a5a5a5;
+}
+
+.login-titulo {
+    margin-bottom: 24px;
+}
+
+.login-titulo h2 {
+    margin: 0 0 8px;
+    font-size: 1.5rem;
+}
+
+.login-titulo p {
+    margin: 0;
+    color: #a5a5a5;
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-form label {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #e5e5e5;
+}
+
+.login-form input {
+    width: 100%;
+    height: 48px;
+    box-sizing: border-box;
+    padding: 0 14px;
+    border: 1px solid #383838;
+    border-radius: 9px;
+    background-color: #111111;
+    color: #ffffff;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-form input::placeholder {
+    color: #777777;
+}
+
+.login-form input:focus {
+    border-color: #a0a0a0;
+    box-shadow: 0 0 0 3px rgba(180, 180, 180, 0.1);
+}
+.login-recuperacao {
+    display: flex;
+    justify-content: flex-end;
+    margin: 4px 0 12px;
+}
+
+.login-recuperacao a {
+    color: #bdbdbd;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.login-recuperacao a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.login-botao-principal {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #ffffff;
+    border-radius: 9px;
+    background-color: #ffffff;
+    color: #111111;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.login-botao-principal:hover {
+    background-color: #dcdcdc;
+    transform: translateY(-1px);
+}
+
+/* Mensagens da API */
+.login-mensagem {
+    margin-bottom: 18px;
+    padding: 12px;
+    border: 1px solid #594545;
+    border-radius: 8px;
+    background-color: #291d1d;
+    color: #ffb8b8;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+}
+
+/* Rodapé */
+.login-rodape {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid #303030;
+    font-size: 0.9rem;
+}
+
+.login-rodape p {
+    margin: 0;
+    color: #a5a5a5;
+}
+
+.login-link-registro {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-link-registro:hover {
+    text-decoration: underline;
+}
+
+/* Celulares */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 26px 20px;
+    }
+
+    .login-cabecalho h1 {
+        font-size: 2rem;
+    }
+
+    .login-titulo h2 {
+        font-size: 1.3rem;
+    }
+}
+
+
+/* Ajustes para a tela de cadastro */
+.login-card:has(#submit-registro) {
+    max-width: 520px;
+}
+
+.login-card:has(#submit-registro) .login-cabecalho {
+    margin-bottom: 30px;
+}
+
+.login-card:has(#submit-registro) .login-titulo {
+    margin-bottom: 20px;
+}
+
+.login-card:has(#submit-registro) .login-form {
+    gap: 8px;
+}
+
+
+.recuperacao-botao-voltar {
+    width: 100%;
+    height: 48px;
+    margin-top: 4px;
+    border: 1px solid #383838;
+    border-radius: 9px;
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.recuperacao-botao-voltar:hover {
+    background-color: #292929;
+    border-color: #666666;
+}
+
+.login-botao-principal:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

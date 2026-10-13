@@ -1,20 +1,21 @@
 import { useState } from "react";
-import { mudarSenha } from "../../api";
+import { trocarSenhaPerfil } from "../../api";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
 
-function MudarSenha() {
+function MudarSenhaPerfil() {
 
     const navigate = useNavigate();
 
     const [novasenha, setNovasenha] = useState("");
     const [mensagem, setMensagem] = useState("");
 
-    async function handleMudarSenha(event) {
+    async function handleTrocarSenhaPerfil(event) {
         event.preventDefault();
 
         try {
 
-            const resposta = await mudarSenha(novasenha);
+            const resposta = await trocarSenhaPerfil(novasenha);
 
             setMensagem(resposta.data);
 
@@ -31,28 +32,49 @@ function MudarSenha() {
     }
 
     return (
-        <div className="mudar-senha">
+        <div className="tela-login">
 
-            <div className="container">
+            <div className="login-card">
 
-                <h1>YrPlace</h1>
+                <div className="login-cabecalho">
+                    <h1>YrPlace</h1>
+                    <p>Seu lugar para compartilhar música.</p>
+                </div>
 
-                <h2>Crie uma nova senha</h2>
+                <div className="login-titulo">
+                    <h2>Crie uma nova senha</h2>
+                    <p>
+                        Digite sua nova senha para continuar.
+                    </p>
+                </div>
 
                 {mensagem && (
-                    <p>{mensagem}</p>
+                    <div className="login-mensagem">
+                        {mensagem}
+                    </div>
                 )}
 
-                <form onSubmit={handleMudarSenha}>
+                <form
+                    className="login-form"
+                    onSubmit={handleTrocarSenhaPerfil}
+                >
+
+                    <label htmlFor="novasenha">
+                        Nova senha
+                    </label>
 
                     <input
+                        id="novasenha"
                         type="password"
                         placeholder="Nova senha"
                         value={novasenha}
                         onChange={(event) => setNovasenha(event.target.value)}
                     />
 
-                    <button type="submit">
+                    <button
+                        type="submit"
+                        className="login-botao-principal"
+                    >
                         Confirmar
                     </button>
 
@@ -64,4 +86,4 @@ function MudarSenha() {
     );
 }
 
-export default MudarSenha;
+export default MudarSenhaPerfil;

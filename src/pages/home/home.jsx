@@ -393,7 +393,8 @@ function Home() {
                                     >
 
                                         <VscCommentCompact
-                                            fontSize={24}
+                                            fontSize={26}
+                                            color="white"
                                         />
 
                                     </button>

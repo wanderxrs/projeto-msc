@@ -224,7 +224,8 @@ function ComunidadeTela() {
                                     onClick={() => navigate( `/comentarios/${publicacao.id}`)}>
 
                                     <VscCommentCompact
-                                        fontSize={24}
+                                        fontSize={26}
+                                        color="white"
                                     />
 
                                 </button>

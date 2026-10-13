@@ -80,19 +80,22 @@ function ComunidadesRecomendadas() {
         <aside className="comunidades-recomendadas">
 
             <div className="barra-comunidades">
-                
+                <div className="input-container">
                 <input
-                    type="text"
-                    placeholder="Pesquisar comunidade..."
-                    value={nomeBusca} name="pesquisa-comunidade"
-                    onChange={(e) => setNomeBusca(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                            pesquisarComunidades();
-                        }
-                    }}/>
+                        className="styled_input_bar"
+                        type="text"
+                        placeholder=""
+                        value={nomeBusca} name="pesquisa-comunidade"
+                        onChange={(e) => setNomeBusca(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                pesquisarComunidades();
+                            }
+                        }}/>
+                         <label class="input-label" for="styled_input_bar">Pesquisar</label>
+                </div>
 
-                <button onClick={() => setModalFiltroAberto(true)}>Filtrar</button>
+                <button className="boton-elegante" onClick={() => setModalFiltroAberto(true)}>Filtrar</button>
             </div>
 
             <h2>{nomeBusca ? "Resultados da pesquisa" : "Comunidades recomendadas"}</h2>
@@ -102,12 +105,11 @@ function ComunidadesRecomendadas() {
                     <p>Nenhuma comunidade disponível.</p>
                 ) : (
                     comunidades.map((comunidade) => (
-                        <div
-                            className="item-comunidade"
-                            key={comunidade.id}
-                            onClick={() => navigate(`/comunidade/${comunidade.id}`)}
-                        >
-                            {comunidade.nome}
+                        <div className="item-comunidade" key={comunidade.id} onClick={() => navigate(`/comunidade/${comunidade.id}`)}>
+                           
+                            <img src={comunidade.imagem_url} alt="" className="imagem_rec_comunidades" />
+                            <p>{comunidade.nome}</p>
+                            
                         </div>
                     ))
                 )}

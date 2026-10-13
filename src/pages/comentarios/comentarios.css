@@ -1,105 +1,143 @@
-.titulo {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 600;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    margin-bottom: 16px;
+.comentarios {
+    width: 100%;
+    max-width: 650px;
+    margin: 110px auto 40px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    color: #f5f5f5;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
+.titulo {
+    color: #f5f5f5;
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 24px;
+}
+
+.comentarios form {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+.comentarios form input {
+    flex: 1;
+    min-width: 0;
+    height: 48px;
+    padding: 0 18px;
+    box-sizing: border-box;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    color: #f5f5f5;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.comentarios form input::placeholder {
+    color: #888;
+}
+
+.comentarios form input:focus {
+    border-color: #666;
+}
+
+.botaoComentar {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background-color: #292929;
+    color: #f5f5f5;
+    border: 1px solid #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.botaoComentar:hover {
+    background-color: #3a3a3a;
+    transform: translateY(-1px);
+}
+
+.botaoComentar:active {
+    transform: scale(0.96);
+}
+
+.lista-comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
 
 .caixa-comentario {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    background-color: #2a2d32;
-    border: 1px solid #3e4249;
-    border-radius: 16px;
-    padding: 14px 16px;
-    max-width: 600px;
+    gap: 12px;
     width: 100%;
-    margin: 12px 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
-    transition: all 0.2s ease-in-out;
+    padding: 16px;
+    margin: 0;
+    background-color: #1a1a1a;
+    border: 1px solid #2c2c2c;
+    border-radius: 14px;
+    transition: border-color 0.2s ease;
 }
-
 
 .caixa-comentario:hover {
-    border-color: #555a63;
+    border-color: #414141;
 }
-
 
 .cabecalho-comentario {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
     width: 100%;
 }
 
-
-.usuario-nome {
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 600;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-
-.data-comentario {
-    color: #999da4;
-    font-size: 13px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-
-.comentario-texto {
-    color: #f1f1f1;
-    font-size: 15px;
-    line-height: 1.5;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    margin: 0;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    white-space: pre-wrap;
-}
-
-
-.botaoComentar {
-    height: 42px;
-    width: 42px;
-    border-radius: 50%;
-    background-color: #e63946;
-    color: #ffffff;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-
-.botaoComentar:hover {
-    background-color: #d62828;
-    transform: scale(1.05);
-}
-
-
-.botaoComentar:active {
-    transform: scale(0.95);
-}
 .usuario-comentario {
     display: flex;
     align-items: center;
     gap: 10px;
+    min-width: 0;
 }
 
 .foto-comentario {
-    width: 30px;
-    height: 30px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     object-fit: cover;
     display: block;
     flex-shrink: 0;
+}
+
+.usuario-nome {
+    color: #f5f5f5;
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.data-comentario {
+    color: #888;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.comentario-texto {
+    color: #dedede;
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
 }
