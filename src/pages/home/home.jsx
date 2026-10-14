@@ -10,7 +10,7 @@ import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/Co
 import PerfilComponente from "../../components/PerfilComponente/perfilComponente";
 
 // Modais
-import ModalPublicacao from "../../modals/ModalPublicacao";
+import ModalPublicacao from "../../modals/modalPublicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 
 // Ícones

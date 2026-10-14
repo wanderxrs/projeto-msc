@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { buscarComunidade, entrarComunidade, sairComunidade } from "../../api";
-import "./InformacoesComunidade.css";
+import "./informacoesComunidade.css";
 
 function InformacoesComunidade() {
 
