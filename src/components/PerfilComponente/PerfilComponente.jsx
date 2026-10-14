@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { carregarPerfil } from "../../api";
 
-import "./perfilComponente.css";
+import "./PerfilComponente.css";
 import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
 function PerfilComponente() {
