@@ -7,7 +7,7 @@ import "./home.css";
 
 // Componentes
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
-import PerfilComponente from "../../components/PerfilComponente/perfilComponente";
+import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
 
 // Modais
 import ModalPublicacao from "../../modals/modalPublicacao";
