@@ -1,4 +1,4 @@
-import "./FiltroGeneroModal.css";
+import "./filtroGeneroModal.css";
 
 function FiltroGeneroModal({ aberto, fechar, aplicarFiltro }) {
 
