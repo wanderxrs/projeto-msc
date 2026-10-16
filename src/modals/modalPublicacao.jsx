@@ -3,6 +3,7 @@ import { fazerPublicacao } from "../api";
 import "./ModalPublicacao.css";
 import { IoClose } from "react-icons/io5";
 
+
 function ModalPublicacao({
     onClose,
     onPublicacaoCriada,

@@ -5,6 +5,8 @@ import { carregarPerfil } from "../../api";
 import "./perfilComponente.css";
 import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
+import { useNavigate } from "react-router-dom";
+
 //Icons############################################################
 import { HiChevronRight } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
@@ -18,6 +20,7 @@ function PerfilComponente() {
 
     const [usuario, setUsuario] = useState(null);
     const [modalAberto, setModalAberto] = useState(false);
+    const navegar = useNavigate();
 
     useEffect(() => {
 
@@ -78,7 +81,9 @@ function PerfilComponente() {
 
                 <div className="botoesDiv">
 
-                    <button className="botao-perfil">
+                    <button className="botao-perfil"
+                    onClick={() => navegar(`/perfil/${usuario.id}`) }
+                    >
                         <HiUser /><strong>Meu perfil</strong> <HiChevronRight />
                     </button>
 
