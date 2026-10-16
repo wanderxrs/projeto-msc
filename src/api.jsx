@@ -157,6 +157,10 @@ export function carregarPerfilUsuario(id) {
     return api.get(`/perfil/${id}`);
 }
 
+export function atualizarPerfil(dados) {
+    return api.post("/perfil", dados);
+}
+
 // tela de mostrar todos os posts de x comunidade
 
 export function buscarPublicacoesDaComunidade(id) {

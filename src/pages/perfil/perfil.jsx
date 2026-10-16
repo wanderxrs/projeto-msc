@@ -2,17 +2,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+    carregarPerfil,
     carregarPerfilUsuario,
     curtirPublicacao
 } from "../../api";
+
 import {
     PiHeartStraight,
     PiHeartStraightFill
 } from "react-icons/pi";
 import { VscCommentCompact } from "react-icons/vsc";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { HiOutlineChevronLeft } from "react-icons/hi";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
+import ModalEditarPerfil from "../../modals/Perfil/ModalEditarPerfil";
 import "./perfil.css";
 
 function Perfil() {
@@ -25,6 +27,8 @@ function Perfil() {
     const [curtidas, setCurtidas] = useState({});
     const [publicacaoSelecionada, setPublicacaoSelecionada] = useState(null);
     const [abaAtiva, setAbaAtiva] = useState("visao-geral");
+    const [modalEditarAberto, setModalEditarAberto] = useState(false);
+    const [usuarioLogadoId, setUsuarioLogadoId] = useState(null);
 
     async function buscarPerfil() {
         setCarregando(true);
@@ -43,15 +47,27 @@ function Perfil() {
 
             setCurtidas(estadoCurtidas);
         } catch (erro) {
-            console.error(erro);
+            console.error("Erro ao carregar perfil:", erro);
             setErro("Erro ao carregar o perfil.");
+            setPerfil(null);
         } finally {
             setCarregando(false);
         }
     }
 
+    async function buscarUsuarioLogado() {
+        try {
+            const resposta = await carregarPerfil();
+            setUsuarioLogadoId(Number(resposta.data.id));
+        } catch (erro) {
+            console.error("Erro ao identificar usuário logado:", erro);
+            setUsuarioLogadoId(null);
+        }
+    }
+
     useEffect(() => {
         buscarPerfil();
+        buscarUsuarioLogado();
     }, [id]);
 
     async function handleCurtir(publicacao_id) {
@@ -86,12 +102,13 @@ function Perfil() {
                 )
             }));
         } catch (erro) {
-            console.error(erro);
+            console.error("Erro ao curtir publicação:", erro);
             setErro("Erro ao curtir a publicação.");
         }
     }
 
     function abrirModalApagar(publicacao) {
+        if (!perfilEhMeu) return;
         setPublicacaoSelecionada(publicacao);
     }
 
@@ -113,7 +130,14 @@ function Perfil() {
 
     const usuario = perfil.usuario;
     const publicacoes = perfil.publicacoes || [];
-    const capaUrl = usuario.capa_url;
+
+    const perfilEhMeu =
+        usuarioLogadoId !== null &&
+        usuario?.id != null &&
+        Number(usuario.id) === usuarioLogadoId;
+
+    const capaUrl =
+        usuario.foto_url_background || usuario.capa_url || "";
 
     const totalComunidades = usuario.total_comunidades ?? 0;
     const totalAlbuns = usuario.total_albuns_avaliados ?? 0;
@@ -132,11 +156,10 @@ function Perfil() {
                                 : {}
                         }
                     />
-                    
+
                     <div className="perfil-identidade">
-                        
                         <img
-                            src={usuario.foto_url}
+                            src={usuario.foto_url || "/avatar-padrao.png"}
                             alt={`Foto de ${usuario.nome}`}
                             className="perfil-foto"
                         />
@@ -172,17 +195,17 @@ function Perfil() {
                             </div>
                         </div>
 
-                        <button
-                            type="button"
-                            className="perfil-opcoes"
-                            onClick={() => {
-                                // Modal de edição será conectado depois.
-                            }}
-                            aria-label="Opções do perfil"
-                            title="Opções do perfil"
-                        >
-                            <HiOutlineDotsVertical />
-                        </button>
+                        {perfilEhMeu && (
+                            <button
+                                type="button"
+                                className="perfil-opcoes"
+                                onClick={() => setModalEditarAberto(true)}
+                                aria-label="Editar perfil"
+                                title="Editar perfil"
+                            >
+                                <HiOutlineDotsVertical />
+                            </button>
+                        )}
                     </div>
                 </section>
 
@@ -224,7 +247,10 @@ function Perfil() {
                                 >
                                     <div className="cabecalho-publicacao">
                                         <img
-                                            src={publicacao.foto_url}
+                                            src={
+                                                publicacao.foto_url ||
+                                                "/avatar-padrao.png"
+                                            }
                                             alt="Foto do usuário"
                                             className="foto-usuario"
                                         />
@@ -237,16 +263,18 @@ function Perfil() {
                                             ).toLocaleDateString("pt-BR")}
                                         </div>
 
-                                        <button
-                                            type="button"
-                                            className="hamburguer"
-                                            aria-label="Opções da publicação"
-                                            onClick={() =>
-                                                abrirModalApagar(publicacao)
-                                            }
-                                        >
-                                            <HiOutlineDotsVertical size={22} />
-                                        </button>
+                                        {perfilEhMeu && (
+                                            <button
+                                                type="button"
+                                                className="hamburguer"
+                                                aria-label="Opções da publicação"
+                                                onClick={() =>
+                                                    abrirModalApagar(publicacao)
+                                                }
+                                            >
+                                                <HiOutlineDotsVertical size={22} />
+                                            </button>
+                                        )}
                                     </div>
 
                                     <p>{publicacao.legenda}</p>
@@ -331,7 +359,7 @@ function Perfil() {
                 )}
             </main>
 
-            {publicacaoSelecionada && (
+            {publicacaoSelecionada && perfilEhMeu && (
                 <ModalApagarPublicacao
                     publicacao={publicacaoSelecionada}
                     onClose={fecharModalApagar}
@@ -339,6 +367,14 @@ function Perfil() {
                         setPublicacaoSelecionada(null);
                         buscarPerfil();
                     }}
+                />
+            )}
+
+            {modalEditarAberto && perfilEhMeu && (
+                <ModalEditarPerfil
+                    perfil={usuario}
+                    onFechar={() => setModalEditarAberto(false)}
+                    onSalvo={buscarPerfil}
                 />
             )}
         </>
