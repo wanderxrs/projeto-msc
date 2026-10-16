@@ -5,6 +5,15 @@ import { carregarPerfil } from "../../api";
 import "./perfilComponente.css";
 import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
+//Icons############################################################
+import { HiChevronRight } from "react-icons/hi";
+import { HiUser } from "react-icons/hi";
+import { HiTrendingUp } from "react-icons/hi";
+import { HiTicket } from "react-icons/hi";
+import { LuBrainCircuit } from "react-icons/lu";
+import { PiVinylRecordBold } from "react-icons/pi";
+import { HiUsers } from "react-icons/hi";
+
 function PerfilComponente() {
 
     const [usuario, setUsuario] = useState(null);
@@ -52,41 +61,67 @@ function PerfilComponente() {
 
             <div className="perfil-usuario">
 
-                <img
-                    src={usuario.foto_url}
-                    alt="Foto do perfil"
-                    className="foto-perfil"
-                />
+                            
+                <div className="perfil-usuario">
+                    <img
+                        className="foto-perfil"
+                        src={usuario.foto_url}
+                        alt="Foto de perfil"
+                    />
 
+                    <div className="informacoes-usuario">
+                        <h2>{usuario.nome}</h2>
+                    </div>
+                </div>
 
-                <h3>{usuario.nome}</h3>
 
 
                 <div className="botoesDiv">
 
                     <button className="botao-perfil">
-                        <strong>Editar</strong>
-                    </button>
-
-
-                    <button className="botao-perfil">
-                        <strong>Participando</strong>
+                        <HiUser /><strong>Meu perfil</strong> <HiChevronRight />
                     </button>
 
                 </div>
 
+                <h3>Descobrir</h3>
+
+                <div className ="container-artistas">
+                    <div className="container1">
+                        <HiTrendingUp />
+                        <strong>Artistas em alta</strong>
+                        <p>Quem está bombando</p>
+                    </div>
+                    <div className="container2">
+                        <HiTicket />
+                        <strong>Próximos shows</strong>
+                        <p>Encontre eventos</p>
+                    </div>
+                </div>
+
+                <div className="botao-analise-ia">
+                    <LuBrainCircuit />
+                    <strong>Analisar letras com IA</strong>
+                    <p>Explore suas composições</p>
+                    <HiChevronRight />
+                </div>
+
+                <div className="botao-album-avaliacao">
+                    <PiVinylRecordBold />
+                    <strong>Álbuns avaliados</strong>
+                    <p>Suas avalições</p>
+                    <HiChevronRight />
+                </div>
+
+                <hr className="linha-comunidades" />
+
+                <div className="botao-ver-minhas-comunidades">
+                    <HiUsers />
+                    <strong>Minhas comunidades</strong>
+                    <HiChevronRight />
+                </div>
+
             </div>
-
-                <button
-                    className="botao-criar-comunidade" onClick={() => setModalAberto(true)}>
-                    Criar comunidade
-                </button>
-
-                <CriarComunidadeModal
-                    isOpen={modalAberto}
-                    onClose={() => setModalAberto(false)}
-                />
-
         </div>
 
     );
