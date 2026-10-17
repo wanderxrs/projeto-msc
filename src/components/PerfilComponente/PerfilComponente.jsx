@@ -111,10 +111,21 @@ function PerfilComponente() {
                     <HiChevronRight />
                 </div>
 
-                <div className="botao-album-avaliacao">
+                <div
+                    className="botao-album-avaliacao"
+                    onClick={() => navegar("/albuns-avaliados")}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(evento) => {
+                        if (evento.key === "Enter" || evento.key === " ") {
+                            evento.preventDefault();
+                            navegar("/albuns-avaliados");
+                        }
+                    }}
+                >
                     <PiVinylRecordBold />
                     <strong>Álbuns avaliados</strong>
-                    <p>Suas avalições</p>
+                    <p>Suas avaliações</p>
                     <HiChevronRight />
                 </div>
 

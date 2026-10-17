@@ -1,18 +1,21 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+
 import {
     carregarPerfilUsuario,
     curtirPublicacao
 } from "../../api";
+
 import {
     PiHeartStraight,
     PiHeartStraightFill
 } from "react-icons/pi";
+
 import { VscCommentCompact } from "react-icons/vsc";
 import { HiOutlineDotsVertical } from "react-icons/hi";
-import { HiOutlineChevronLeft } from "react-icons/hi";
+
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
+
 import "./perfil.css";
 
 function Perfil() {
@@ -32,6 +35,7 @@ function Perfil() {
 
         try {
             const resposta = await carregarPerfilUsuario(id);
+
             setPerfil(resposta.data);
 
             const estadoCurtidas = {};
@@ -113,15 +117,21 @@ function Perfil() {
 
     const usuario = perfil.usuario;
     const publicacoes = perfil.publicacoes || [];
+    const avaliacoes = perfil.avaliacoes || [];
+    const comunidades = perfil.comunidades || [];
     const capaUrl = usuario.capa_url;
 
-    const totalComunidades = usuario.total_comunidades ?? 0;
-    const totalAlbuns = usuario.total_albuns_avaliados ?? 0;
+    const totalComunidades = usuario.total_comunidades ?? comunidades.length;
+    const totalAlbuns = usuario.total_albuns_avaliados ?? avaliacoes.length;
 
     return (
         <>
             <main className="perfil-page">
+
+                {/* CABEÇALHO DO PERFIL */}
+
                 <section className="perfil-header">
+
                     <div
                         className="perfil-capa"
                         style={
@@ -132,9 +142,9 @@ function Perfil() {
                                 : {}
                         }
                     />
-                    
+
                     <div className="perfil-identidade">
-                        
+
                         <img
                             src={usuario.foto_url}
                             alt={`Foto de ${usuario.nome}`}
@@ -142,6 +152,7 @@ function Perfil() {
                         />
 
                         <div className="perfil-dados">
+
                             <h1 className="perfil-nome">
                                 {usuario.nome}
                             </h1>
@@ -155,6 +166,7 @@ function Perfil() {
                             </p>
 
                             <div className="perfil-estatisticas">
+
                                 <div>
                                     <strong>{publicacoes.length}</strong>
                                     <span>publicações</span>
@@ -169,7 +181,9 @@ function Perfil() {
                                     <strong>{totalAlbuns}</strong>
                                     <span>álbuns avaliados</span>
                                 </div>
+
                             </div>
+
                         </div>
 
                         <button
@@ -183,10 +197,15 @@ function Perfil() {
                         >
                             <HiOutlineDotsVertical />
                         </button>
+
                     </div>
+
                 </section>
 
+                {/* NAVEGAÇÃO ENTRE ABAS */}
+
                 <nav className="perfil-abas">
+
                     <button
                         type="button"
                         className={`perfil-aba ${
@@ -206,30 +225,52 @@ function Perfil() {
                     >
                         Comunidades
                     </button>
+
+                    <button
+                        type="button"
+                        className={`perfil-aba ${
+                            abaAtiva === "avaliacoes" ? "ativa" : ""
+                        }`}
+                        onClick={() => setAbaAtiva("avaliacoes")}
+                    >
+                        Avaliações
+                    </button>
+
                 </nav>
+
+                {/* ABA: VISÃO GERAL */}
 
                 {abaAtiva === "visao-geral" && (
                     <section className="perfil-publicacoes">
+
                         <h2>Publicações</h2>
 
                         {publicacoes.length === 0 ? (
+
                             <p>
                                 Esse usuário ainda não possui publicações.
                             </p>
+
                         ) : (
+
                             publicacoes.map((publicacao) => (
+
                                 <article
                                     className="perfil-publicacao"
                                     key={publicacao.id}
                                 >
+
                                     <div className="cabecalho-publicacao">
+
                                         <img
                                             src={publicacao.foto_url}
                                             alt="Foto do usuário"
                                             className="foto-usuario"
                                         />
 
-                                        <h3>{publicacao.nome_usuario}</h3>
+                                        <h3>
+                                            {publicacao.nome_usuario}
+                                        </h3>
 
                                         <div className="data-publicacao">
                                             {new Date(
@@ -247,6 +288,7 @@ function Perfil() {
                                         >
                                             <HiOutlineDotsVertical size={22} />
                                         </button>
+
                                     </div>
 
                                     <p>{publicacao.legenda}</p>
@@ -257,6 +299,7 @@ function Perfil() {
                                     />
 
                                     <div className="area-curtida">
+
                                         <button
                                             type="button"
                                             className="botao-curtida"
@@ -269,6 +312,7 @@ function Perfil() {
                                                     : "Curtir publicação"
                                             }
                                         >
+
                                             <span
                                                 className={
                                                     curtidas[publicacao.id]
@@ -276,18 +320,25 @@ function Perfil() {
                                                         : "coracao"
                                                 }
                                             >
+
                                                 {curtidas[publicacao.id] ? (
+
                                                     <PiHeartStraightFill
                                                         color="white"
                                                         fontSize={30}
                                                     />
+
                                                 ) : (
+
                                                     <PiHeartStraight
                                                         color="white"
                                                         fontSize={30}
                                                     />
+
                                                 )}
+
                                             </span>
+
                                         </button>
 
                                         <div className="quantidade-curtidas">
@@ -314,22 +365,119 @@ function Perfil() {
                                                 publicacao.total_comentarios
                                             ) || 0}
                                         </span>
+
                                     </div>
+
                                 </article>
+
                             ))
+
                         )}
+
                     </section>
                 )}
 
+                {/* ABA: COMUNIDADES */}
+
                 {abaAtiva === "comunidades" && (
                     <section className="perfil-conteudo-aba">
+
                         <h2>Comunidades</h2>
-                        <p>
-                            As comunidades desse usuário aparecerão aqui.
-                        </p>
+
+                        {comunidades.length === 0 ? (
+
+                            <p>
+                                Esse usuário ainda não participa de comunidades.
+                            </p>
+
+                        ) : (
+
+                            <div className="perfil-comunidades-lista">
+
+                                {comunidades.map((comunidade) => (
+
+                                    <article
+                                        className="perfil-comunidade-card"
+                                        key={comunidade.id}
+                                    >
+                                        <h3>{comunidade.nome}</h3>
+
+                                        {comunidade.descricao && (
+                                            <p>{comunidade.descricao}</p>
+                                        )}
+
+                                    </article>
+
+                                ))}
+
+                            </div>
+
+                        )}
+
                     </section>
                 )}
+
+                {/* ABA: AVALIAÇÕES */}
+
+                {abaAtiva === "avaliacoes" && (
+                    <section className="perfil-avaliacoes">
+
+                        <h2>Avaliações musicais</h2>
+
+                        {avaliacoes.length === 0 ? (
+
+                            <p>
+                                Esse usuário ainda não avaliou nenhum álbum.
+                            </p>
+
+                        ) : (
+
+                            <div className="perfil-avaliacoes-grade">
+
+                                {avaliacoes.map((avaliacao) => (
+
+                                    <article
+                                        className="perfil-avaliacao-card"
+                                        key={avaliacao.album_id}
+                                    >
+
+                                        {avaliacao.capa_url ? (
+
+                                            <img
+                                                src={avaliacao.capa_url}
+                                                alt={`Capa de ${avaliacao.titulo}`}
+                                            />
+
+                                        ) : (
+
+                                            <div className="perfil-avaliacao-sem-capa">
+                                                Sem capa
+                                            </div>
+
+                                        )}
+
+                                        <h3>{avaliacao.titulo}</h3>
+
+                                        <p>{avaliacao.artista}</p>
+
+                                        <span className="perfil-avaliacao-nota">
+                                            ★ {avaliacao.nota}/10
+                                        </span>
+
+                                    </article>
+
+                                ))}
+
+                            </div>
+
+                        )}
+
+                    </section>
+                )}
+
             </main>
+
+            {/* MODAL DE EXCLUSÃO */}
 
             {publicacaoSelecionada && (
                 <ModalApagarPublicacao
@@ -341,6 +489,7 @@ function Perfil() {
                     }}
                 />
             )}
+
         </>
     );
 }

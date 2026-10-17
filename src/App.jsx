@@ -11,6 +11,7 @@ import Header from "./components/Header/header";
 import ConfirmarSenha from "./pages/auth/confirmarSenha";
 import ComunidadeTela from "./pages/comunidadeTela/ComunidadeTela";
 import Perfil from "./pages/perfil/perfil";
+import AlbunsAvaliados from "./pages/albunsAvaliados/albunsAvaliados";
 
 function App() {
     return (
@@ -36,6 +37,16 @@ function App() {
                 <Route path="/comentarios/:publicacao_id" element={<Comentarios />}/>
                 <Route path="/perfil/:id" element={<Perfil />}/>
                 
+                <Route
+                    path="/albuns-avaliados"
+                    element={
+                        <>
+                            <Header />
+                            <AlbunsAvaliados />
+                        </>
+                    }
+                />
+
             </Routes>
         </BrowserRouter>
     );

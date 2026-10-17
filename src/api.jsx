@@ -170,4 +170,48 @@ export function buscarComunidadesPeloNome(nome) {
     return api.get(`buscarComunidades`, {params: {nome}})
 }
 
+// ÁLBUNS ####################################################
+
+// Pesquisar álbuns na Deezer
+export const buscarAlbunsDeezer = (query) => {
+    return api.get("/albuns/buscar", {
+        params: { query }
+    });
+};
+
+// Salvar álbum na biblioteca
+export const salvarAlbum = (dadosAlbum) => {
+    return api.post("/albuns/salvar", dadosAlbum);
+};
+
+// Carregar álbuns salvos pelo usuário
+export const carregarAlbunsSalvos = () => {
+    return api.get("/albuns/salvos");
+};
+
+// Remover álbum da biblioteca
+export const removerAlbumSalvo = (album_id) => {
+    return api.delete(`/albuns/salvos/${album_id}`);
+};
+
+
+// AVALIAÇÕES ################################################
+
+// Criar avaliação
+export const salvarAvaliacao = (dadosAvaliacao) => {
+    return api.post("/avaliacoes", dadosAvaliacao);
+};
+
+// Editar nota de uma avaliação existente
+export const editarAvaliacao = (album_id, nota) => {
+    return api.put(`/avaliacoes/${album_id}`, {
+        nota
+    });
+};
+
+// Carregar avaliações do usuário
+export const carregarAvaliacoes = () => {
+    return api.get("/avaliacoes");
+};
+
 export default api
