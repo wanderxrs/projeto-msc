@@ -1,13 +1,14 @@
+
 import { useEffect, useState } from "react";
 
 import { carregarPerfil } from "../../api";
-
 import "./perfilComponente.css";
 import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
+import ModalArtistasEmAlta from "../../modals/ArtistaEmAlta/ModalArtistasEmAlta";
 
 import { useNavigate } from "react-router-dom";
 
-//Icons############################################################
+// Icons
 import { HiChevronRight } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
 import { HiTrendingUp } from "react-icons/hi";
@@ -17,54 +18,36 @@ import { PiVinylRecordBold } from "react-icons/pi";
 import { HiUsers } from "react-icons/hi";
 
 function PerfilComponente() {
-
     const [usuario, setUsuario] = useState(null);
     const [modalAberto, setModalAberto] = useState(false);
+    const [modalArtistasAberto, setModalArtistasAberto] = useState(false);
+
     const navegar = useNavigate();
 
     useEffect(() => {
-
         async function buscarPerfil() {
-
             try {
-
                 const resposta = await carregarPerfil();
-
                 setUsuario(resposta.data);
-
             } catch (erro) {
-
                 console.error("Erro ao carregar perfil:", erro);
-
             }
-
         }
 
         buscarPerfil();
-
     }, []);
 
-
     if (!usuario) {
-
         return (
             <div className="perfil-componente">
-
                 <p>Carregando perfil...</p>
-
             </div>
         );
-
     }
 
-
     return (
-
         <div className="perfil-componente">
-
             <div className="perfil-usuario">
-
-                            
                 <div className="perfil-usuario">
                     <img
                         className="foto-perfil"
@@ -77,26 +60,30 @@ function PerfilComponente() {
                     </div>
                 </div>
 
-
-
                 <div className="botoesDiv">
-
-                    <button className="botao-perfil"
-                    onClick={() => navegar(`/perfil/${usuario.id}`) }
+                    <button
+                        className="botao-perfil"
+                        onClick={() => navegar(`/perfil/${usuario.id}`)}
                     >
-                        <HiUser /><strong>Meu perfil</strong> <HiChevronRight />
+                        <HiUser />
+                        <strong>Meu perfil</strong>
+                        <HiChevronRight />
                     </button>
-
                 </div>
 
                 <h3>Descobrir</h3>
 
-                <div className ="container-artistas">
-                    <div className="container1">
+                <div className="container-artistas">
+                    <button
+                        type="button"
+                        className="container1"
+                        onClick={() => setModalArtistasAberto(true)}
+                    >
                         <HiTrendingUp />
                         <strong>Artistas em alta</strong>
                         <p>Quem está bombando</p>
-                    </div>
+                    </button>
+
                     <div className="container2">
                         <HiTicket />
                         <strong>Próximos shows</strong>
@@ -114,7 +101,7 @@ function PerfilComponente() {
                 <div className="botao-album-avaliacao">
                     <PiVinylRecordBold />
                     <strong>Álbuns avaliados</strong>
-                    <p>Suas avalições</p>
+                    <p>Suas avaliações</p>
                     <HiChevronRight />
                 </div>
 
@@ -125,13 +112,15 @@ function PerfilComponente() {
                     <strong>Minhas comunidades</strong>
                     <HiChevronRight />
                 </div>
-
             </div>
+
+            {modalArtistasAberto && (
+                <ModalArtistasEmAlta
+                    onFechar={() => setModalArtistasAberto(false)}
+                />
+            )}
         </div>
-
     );
-
 }
-
 
 export default PerfilComponente;
