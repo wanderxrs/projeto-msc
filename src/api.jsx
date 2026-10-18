@@ -175,3 +175,8 @@ export function buscarComunidadesPeloNome(nome) {
 }
 
 export default api
+
+
+export function carregarPublicacoesSeguindo() {
+    return api.get("/publicacoes/seguindo");
+}

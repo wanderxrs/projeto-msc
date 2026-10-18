@@ -1,11 +1,19 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+/* CONTEÚDO CENTRAL */
 .conteudo-central {
-    margin-top: 110px;
+    width: 100%;
+    max-width: 680px;
+    min-width: 0;
+    margin: 110px auto 0;
+    padding: 0 16px;
+    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
     color: #f5f5f5;
 }
 
+/* TÍTULO DO FEED */
 .conteudo-central > h1 {
     color: #f5f5f5;
     font-family: 'Inter', sans-serif;
@@ -16,18 +24,65 @@
     text-align: left;
 }
 
+/* ABAS DESCOBRIR E SEGUINDO */
+.abas-feed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 24px;
+    padding: 0 0 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #303030;
+}
+
+.aba-feed {
+    flex: 1;
+    max-width: 220px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #1a1a1a;
+    color: #aaa;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.aba-feed:hover {
+    background: #292330;
+    color: #fff;
+}
+
+.aba-feed.ativa {
+    background: #702be8;
+    color: #fff;
+}
+
+/* LISTA DE PUBLICAÇÕES */
 .feed {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    width: 100%;
     max-width: 600px;
     margin: 24px auto;
+    box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
+/* CARD DA PUBLICAÇÃO */
 .publicacao {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
     background: #1a1a1a;
     color: #f5f5f5;
+    border: 1px solid #292929;
     border-radius: 12px;
     padding: 16px;
     font-family: 'Inter', sans-serif;
@@ -57,6 +112,40 @@
     overflow-wrap: anywhere;
 }
 
+/* CABEÇALHO DA PUBLICAÇÃO */
+.cabecalho-publicacao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.cabecalho-publicacao h3 {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.foto-usuario,
+.publicacao .foto-usuario {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+}
+
+.data-publicacao {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: #aaa;
+    opacity: 0.8;
+}
+
+/* BOTÃO DE CURTIR */
 .botao-curtida {
     background: transparent;
     border: none;
@@ -75,49 +164,123 @@
     color: #e63946;
 }
 
+/* BOTÃO DE COMENTAR */
 .botao-comentar {
     background-color: transparent;
+    border: none;
     font-family: 'Inter', sans-serif;
+    cursor: pointer;
 }
 
 .botao-comentar:hover {
     background-color: transparent;
 }
 
-.publicacao .foto-usuario {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
+/* ESTADO VAZIO DO FEED */
+.feed-vazio,
+.mensagem-feed {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 36px 20px;
+    color: #bbb;
 }
 
-.cabecalho-publicacao {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+.feed-vazio h2 {
+    color: #fff;
+    font-size: 21px;
+    margin-bottom: 12px;
 }
 
-.foto-usuario {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
+.feed-vazio p {
+    line-height: 1.6;
+    margin: 8px 0;
 }
 
-.cabecalho-publicacao h3 {
-    margin: 0;
+.feed-vazio button,
+.mensagem-feed button {
+    margin-top: 16px;
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #702be8;
+    color: white;
     font-family: 'Inter', sans-serif;
-    font-size: 15px;
     font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
-.data-publicacao {
+.feed-vazio button:hover,
+.mensagem-feed button:hover {
+    background: #8547f5;
+}
+
+/* TELAS MENORES */
+@media (max-width: 768px) {
+    .conteudo-central {
+        max-width: 100%;
+        margin-top: 90px;
+        padding: 0 12px;
+    }
+
+    .conteudo-central > h1 {
+        font-size: 24px;
+    }
+
+    .abas-feed {
+        gap: 8px;
+    }
+
+    .aba-feed {
+        padding: 11px 8px;
+        font-size: 14px;
+    }
+
+    .feed {
+        gap: 16px;
+        margin-top: 20px;
+    }
+
+    .publicacao {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 400px) {
+    .conteudo-central > h1 {
+        font-size: 21px;
+    }
+
+    .aba-feed {
+        font-size: 13px;
+        padding: 10px 6px;
+    }
+}
+
+.Nome-comunidade-feed {
+    display: inline-block;
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-    color: #aaa;
-    opacity: 0.8;
+    font-size: 13px;
+    font-weight: 600;
+    color: #d4d4d8;
+
+    background-color: #202024;
+    border: 1px solid #35353b;
+    border-radius: 6px;
+
+    padding: 5px 10px;
+    margin: 6px 0 10px;
+
+    letter-spacing: 0.2px;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.Nome-comunidade-feed:hover {
+    color: #ffffff;
+    background-color: #29252f;
+    border-color: #655078;
 }
