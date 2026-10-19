@@ -221,4 +221,28 @@ export function buscarUsuariosPorNome(nome) {
     });
 }
 
+// COMPOSIÇÕES MUSICAIS
+
+export const criarComposicao = (dados) => {
+    return api.post("/composicoes", dados);
+};
+
+export const carregarComposicoes = () => {
+    return api.get("/composicoes");
+};
+
+export const buscarComposicao = (id) => {
+    return api.get(`/composicoes/${id}`);
+};
+
+export const atualizarComposicao = (id, dados) => {
+    return api.put(`/composicoes/${id}`, dados);
+};
+
+export const excluirComposicao = (id) => {
+    return api.delete(`/composicoes/${id}`);
+};
+
+export const listarLetrasPublicas = () => api.get("/composicoes/publicas");
+
 export default api

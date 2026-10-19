@@ -12,6 +12,9 @@ import ConfirmarSenha from "./pages/auth/confirmarSenha";
 import ComunidadeTela from "./pages/comunidadeTela/ComunidadeTela";
 import Perfil from "./pages/perfil/perfil";
 import AlbunsAvaliados from "./pages/albunsAvaliados/albunsAvaliados";
+import Composicoes from "./pages/composicoes/composicoes";
+import LetrasPublicas from "./pages/letras/LetrasPublicas";
+
 
 function App() {
     return (
@@ -44,6 +47,26 @@ function App() {
                             <Header />
                             <AlbunsAvaliados />
                         </>
+                    }
+                />
+
+                <Route
+                     path="/composicoes"
+                     element={
+                        <>
+                            <Header />
+                            <Composicoes />
+                        </>
+                    } 
+                />
+
+                <Route
+                     path="/letras-publicas"
+                    element={
+                        <>
+                            <Header />
+                            <LetrasPublicas />
+                        </> 
                     }
                 />
 
