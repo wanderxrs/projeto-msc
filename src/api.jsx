@@ -214,4 +214,11 @@ export const carregarAvaliacoes = () => {
     return api.get("/avaliacoes");
 };
 
+// Pesquisar perfis pelo nome
+export function buscarUsuariosPorNome(nome) {
+    return api.get("/buscarUsuarios", {
+        params: { nome }
+    });
+}
+
 export default api
