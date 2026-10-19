@@ -56,8 +56,6 @@ function Home() {
 
                 const dados = resposta.data;
 
-                // A API pode retornar um array diretamente
-                // ou um objeto com publicacoes e segueComunidades.
                 if (Array.isArray(dados)) {
                     lista = dados;
 
@@ -100,6 +98,22 @@ function Home() {
     useEffect(() => {
         buscarPublicacoes();
     }, [abaAtiva]);
+
+    // Identifica se a publicação contém vídeo ou imagem.
+    // O caminho do Cloudinary também ajuda a identificar
+    // vídeos antigos caso tipo_midia ainda não venha da API.
+    function ehVideo(publicacao) {
+        if (publicacao.tipo_midia) {
+            return publicacao.tipo_midia.toLowerCase() === "video";
+        }
+
+        const url = publicacao.imagem_url || "";
+
+        return (
+            url.includes("/video/upload/") ||
+            /\.(mp4|webm|mov|m4v)(\?|$)/i.test(url)
+        );
+    }
 
     // Curtir ou descurtir publicação
     async function handleCurtir(publicacao_id) {
@@ -210,11 +224,14 @@ function Home() {
                         abaAtiva === "seguindo" &&
                         !segueComunidades && (
                             <div className="feed-vazio">
-                                <h2>Seu feed está esperando por você 🎵</h2>
+                                <h2>
+                                    Seu feed está esperando por você 🎵
+                                </h2>
 
                                 <p>
                                     Você ainda não segue nenhuma comunidade.
                                 </p>
+
                                 <button
                                     type="button"
                                     onClick={() => setAbaAtiva("descobrir")}
@@ -230,8 +247,9 @@ function Home() {
                         segueComunidades &&
                         publicacoes.length === 0 && (
                             <div className="feed-vazio">
-                                <h2>Nenhuma publicação por enquanto 🎧</h2>
-
+                                <h2>
+                                    Nenhuma publicação por enquanto 🎧
+                                </h2>
                             </div>
                         )}
 
@@ -251,11 +269,8 @@ function Home() {
                                     key={publicacao.id}
                                     className="publicacao"
                                 >
-                                    <strong
-                                        className="Nome-comunidade-feed"
-                                        onClick={() => navigate(`/comunidade/${publicacao.comunidade_id}`)}>
-                                        {publicacao.nome_comunidade}
-                                    </strong>
+
+                                    {/* Cabeçalho da publicação */}
                                     <div className="cabecalho-publicacao">
                                         <img
                                             src={publicacao.foto_url}
@@ -297,21 +312,55 @@ function Home() {
                                             >
                                                 <IoMenu
                                                     size={25}
-                                                    style={{ cursor: "pointer" }}
+                                                    style={{
+                                                        cursor: "pointer"
+                                                    }}
                                                 />
                                             </button>
                                         )}
                                     </div>
 
-                                    <p>{publicacao.legenda}</p>
+                                    {/* Legenda */}
+                                    {publicacao.legenda && (
+                                        <p>{publicacao.legenda}</p>
+                                    )}
+                                    <strong
+                                        className="Nome-comunidade-feed"
+                                        onClick={() =>
+                                            navigate(
+                                                `/comunidade/${publicacao.comunidade_id}`
+                                            )
+                                        }
+                                    >
+                                        {publicacao.nome_comunidade}
+                                    </strong>
 
+                                    {/* Mídia: vídeo ou imagem */}
                                     {publicacao.imagem_url && (
-                                        <img
-                                            src={publicacao.imagem_url}
-                                            alt="Imagem da publicação"
-                                        />
+                                        <div className="midia-container">
+                                            {ehVideo(publicacao) ? (
+                                                <video
+                                                    className="midia-publicacao"
+                                                    src={publicacao.imagem_url}
+                                                    controls
+                                                    preload="metadata"
+                                                    playsInline
+                                                >
+                                                    Seu navegador não suporta
+                                                    a reprodução de vídeos.
+                                                </video>
+                                            ) : (
+                                                <img
+                                                    className="midia-publicacao"
+                                                    src={publicacao.imagem_url}
+                                                    alt="Imagem da publicação"
+                                                    loading="lazy"
+                                                />
+                                            )}
+                                        </div>
                                     )}
 
+                                    {/* Curtidas e comentários */}
                                     <div className="area-curtida">
                                         <button
                                             className="botao-curtida"
@@ -347,7 +396,9 @@ function Home() {
                                         </button>
 
                                         <span className="quantidade-curtidas">
-                                            {Number(publicacao.total_curtidas) || 0}
+                                            {Number(
+                                                publicacao.total_curtidas
+                                            ) || 0}
                                         </span>
 
                                         <button
@@ -365,7 +416,9 @@ function Home() {
                                             />
                                         </button>
 
-                                        {Number(publicacao.total_comentarios) || 0}
+                                        {Number(
+                                            publicacao.total_comentarios
+                                        ) || 0}
                                     </div>
                                 </div>
                             ))}

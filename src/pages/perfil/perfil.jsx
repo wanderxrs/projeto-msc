@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -13,9 +12,27 @@ import {
 } from "react-icons/pi";
 import { VscCommentCompact } from "react-icons/vsc";
 import { HiOutlineDotsVertical } from "react-icons/hi";
+
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 import ModalEditarPerfil from "../../modals/Perfil/ModalEditarPerfil";
 import "./perfil.css";
+
+// Identifica se a publicação contém um vídeo.
+function ehVideo(publicacao) {
+    const tipo = String(publicacao.tipo_midia || "").toLowerCase();
+
+    if (tipo === "video" || tipo.startsWith("video/")) {
+        return true;
+    }
+
+    const url = String(publicacao.imagem_url || "").toLowerCase();
+
+    // Alternativa para publicações antigas sem tipo_midia.
+    return (
+        url.includes("/video/upload/") ||
+        /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/.test(url)
+    );
+}
 
 function Perfil() {
     const { id } = useParams();
@@ -83,23 +100,21 @@ function Perfil() {
 
             setPerfil((perfilAnterior) => ({
                 ...perfilAnterior,
-                publicacoes: perfilAnterior.publicacoes.map(
-                    (publicacao) => {
-                        if (publicacao.id !== publicacao_id) {
-                            return publicacao;
-                        }
-
-                        const quantidadeAtual =
-                            Number(publicacao.total_curtidas) || 0;
-
-                        return {
-                            ...publicacao,
-                            total_curtidas: novoValor
-                                ? quantidadeAtual + 1
-                                : Math.max(0, quantidadeAtual - 1)
-                        };
+                publicacoes: perfilAnterior.publicacoes.map((publicacao) => {
+                    if (publicacao.id !== publicacao_id) {
+                        return publicacao;
                     }
-                )
+
+                    const quantidadeAtual =
+                        Number(publicacao.total_curtidas) || 0;
+
+                    return {
+                        ...publicacao,
+                        total_curtidas: novoValor
+                            ? quantidadeAtual + 1
+                            : Math.max(0, quantidadeAtual - 1)
+                    };
+                })
             }));
         } catch (erro) {
             console.error("Erro ao curtir publicação:", erro);
@@ -258,9 +273,11 @@ function Perfil() {
                                         <h3>{publicacao.nome_usuario}</h3>
 
                                         <div className="data-publicacao">
-                                            {new Date(
-                                                publicacao.data_criacao
-                                            ).toLocaleDateString("pt-BR")}
+                                            {publicacao.data_criacao
+                                                ? new Date(
+                                                    publicacao.data_criacao
+                                                ).toLocaleDateString("pt-BR")
+                                                : ""}
                                         </div>
 
                                         {perfilEhMeu && (
@@ -272,17 +289,48 @@ function Perfil() {
                                                     abrirModalApagar(publicacao)
                                                 }
                                             >
-                                                <HiOutlineDotsVertical size={22} />
+                                                <HiOutlineDotsVertical
+                                                    size={22}
+                                                />
                                             </button>
                                         )}
                                     </div>
+                                    
+                                    {publicacao.legenda && (
+                                        <p>{publicacao.legenda}</p>
+                                    )}
+                                    <strong
+                                        className="nome-comunidade-feed"
+                                        onClick={() =>
+                                            navigate(`/comunidade/${publicacao.comunidade_id}`)}>
+                                        {publicacao.nome_comunidade}
+                                    </strong>
 
-                                    <p>{publicacao.legenda}</p>
 
-                                    <img
-                                        src={publicacao.imagem_url}
-                                        alt="Imagem da publicação"
-                                    />
+                                    {/* Exibe vídeo ou imagem conforme a publicação */}
+                                    {publicacao.imagem_url && (
+                                        <div className="perfil-midia-container">
+                                            {ehVideo(publicacao) ? (
+                                                <video
+                                                    className="perfil-midia"
+                                                    src={publicacao.imagem_url}
+                                                    controls
+                                                    preload="metadata"
+                                                    playsInline
+                                                >
+                                                    Seu navegador não suporta
+                                                    a reprodução deste vídeo.
+                                                </video>
+                                            ) : (
+                                                <img
+                                                    className="perfil-midia"
+                                                    src={publicacao.imagem_url}
+                                                    alt="Imagem da publicação"
+                                                    loading="lazy"
+                                                />
+                                            )}
+                                        </div>
+                                    )}
 
                                     <div className="area-curtida">
                                         <button
