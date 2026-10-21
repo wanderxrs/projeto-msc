@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { carregarPerfil } from "../../api";
 import "./perfilComponente.css";
-import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
-import { useNavigate } from "react-router-dom";
 
+import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
+import ModalArtistasEmAlta from "../../modals/ArtistaEmAlta/ModalArtistasEmAlta";
+
+// Icons
 import { HiChevronRight } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
 import { HiTrendingUp } from "react-icons/hi";
 import { HiOutlineDocumentText } from "react-icons/hi";
+import { HiTicket } from "react-icons/hi";
 import { LuBrainCircuit } from "react-icons/lu";
 import { PiVinylRecordBold } from "react-icons/pi";
 import { HiUsers } from "react-icons/hi";
@@ -15,6 +19,8 @@ import { HiUsers } from "react-icons/hi";
 function PerfilComponente() {
     const [usuario, setUsuario] = useState(null);
     const [modalAberto, setModalAberto] = useState(false);
+    const [modalArtistasAberto, setModalArtistasAberto] = useState(false);
+
     const navegar = useNavigate();
 
     useEffect(() => {
@@ -55,6 +61,7 @@ function PerfilComponente() {
 
                 <div className="botoesDiv">
                     <button
+                        type="button"
                         className="botao-perfil"
                         onClick={() => navegar(`/perfil/${usuario.id}`)}
                     >
@@ -67,17 +74,21 @@ function PerfilComponente() {
                 <h3>Descobrir</h3>
 
                 <div className="container-artistas">
-                    <div className="container1">
+                    <button
+                        type="button"
+                        className="container1"
+                        onClick={() => setModalArtistasAberto(true)}
+                    >
                         <HiTrendingUp />
                         <strong>Artistas em alta</strong>
                         <p>Quem está bombando</p>
-                    </div>
+                    </button>
 
                     <div
                         className="container2"
-                        onClick={() => navegar("/letras-publicas")}
                         role="button"
                         tabIndex={0}
+                        onClick={() => navegar("/letras-publicas")}
                         onKeyDown={(evento) => {
                             if (
                                 evento.key === "Enter" ||
@@ -92,13 +103,33 @@ function PerfilComponente() {
                         <strong>Letras de músicas</strong>
                         <p>Explore composições</p>
                     </div>
+
+                    <div
+                        className="container2"
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => navegar("/shows")}
+                        onKeyDown={(evento) => {
+                            if (
+                                evento.key === "Enter" ||
+                                evento.key === " "
+                            ) {
+                                evento.preventDefault();
+                                navegar("/shows");
+                            }
+                        }}
+                    >
+                        <HiTicket />
+                        <strong>Próximos shows</strong>
+                        <p>Encontre eventos</p>
+                    </div>
                 </div>
 
                 <div
                     className="botao-analise-ia"
-                    onClick={() => navegar("/composicoes")}
                     role="button"
                     tabIndex={0}
+                    onClick={() => navegar("/composicoes")}
                     onKeyDown={(evento) => {
                         if (
                             evento.key === "Enter" ||
@@ -117,9 +148,9 @@ function PerfilComponente() {
 
                 <div
                     className="botao-album-avaliacao"
-                    onClick={() => navegar("/albuns-avaliados")}
                     role="button"
                     tabIndex={0}
+                    onClick={() => navegar("/albuns-avaliados")}
                     onKeyDown={(evento) => {
                         if (
                             evento.key === "Enter" ||
@@ -138,12 +169,32 @@ function PerfilComponente() {
 
                 <hr className="linha-comunidades" />
 
-                <div className="botao-ver-minhas-comunidades">
+                <div
+                    className="botao-ver-minhas-comunidades"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => navegar("/minhas-comunidades")}
+                    onKeyDown={(evento) => {
+                        if (
+                            evento.key === "Enter" ||
+                            evento.key === " "
+                        ) {
+                            evento.preventDefault();
+                            navegar("/minhas-comunidades");
+                        }
+                    }}
+                >
                     <HiUsers />
                     <strong>Minhas comunidades</strong>
                     <HiChevronRight />
                 </div>
             </div>
+
+            {modalArtistasAberto && (
+                <ModalArtistasEmAlta
+                    onFechar={() => setModalArtistasAberto(false)}
+                />
+            )}
         </div>
     );
 }

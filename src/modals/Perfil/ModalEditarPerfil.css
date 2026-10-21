@@ -1,0 +1,299 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.modal-editar-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    font-family: 'Inter', sans-serif;
+}
+
+.modal-editar-perfil {
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 25px;
+    border: 1px solid #242527;
+    border-radius: 15px;
+    background-color: rgba(26, 26, 26, 0.92);
+    color: #f5f5f5;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.modal-editar-perfil * {
+    box-sizing: border-box;
+}
+
+.modal-editar-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.modal-editar-cabecalho h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.5px;
+}
+
+.modal-editar-fechar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 1px solid #333;
+    border-radius: 50%;
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    font-size: 23px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.modal-editar-fechar:hover {
+    border-color: #666;
+    background-color: #303030;
+}
+
+.campo-capa {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.preview-capa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+    overflow: hidden;
+    border: 1px solid #303030;
+    border-radius: 10px;
+    background-color: #202020;
+    background-position: center;
+    background-size: cover;
+    color: #aaa;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.botao-imagem {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border: 1px solid #414141;
+    border-radius: 30px;
+    background-color: rgba(26, 26, 26, 0.92);
+    color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.botao-imagem:hover {
+    border-color: #666;
+    background-color: #303030;
+}
+
+.botao-imagem input {
+    display: none;
+}
+
+.campo-capa > .botao-imagem {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+}
+
+.campo-foto-perfil {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.preview-foto-perfil {
+    display: block;
+    flex-shrink: 0;
+    width: 76px;
+    height: 76px;
+    border: 2px solid #393939;
+    border-radius: 50%;
+    background-color: #252525;
+    object-fit: cover;
+}
+
+.campo-nome-perfil {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 20px;
+}
+
+.campo-nome-perfil label {
+    color: #dedede;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.campo-nome-perfil input {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 12px 14px;
+    border: 1px solid #414141;
+    border-radius: 9px;
+    outline: none;
+    background-color: rgba(30, 30, 30, 0.85);
+    color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.campo-nome-perfil input:focus {
+    border-color: #888;
+    background-color: #242424;
+}
+
+.campo-nome-perfil input::placeholder {
+    color: #888;
+    opacity: 1;
+}
+
+.erro-editar-perfil {
+    margin: 0 0 16px;
+    color: #ff7777;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.modal-editar-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.modal-editar-acoes button {
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.botao-cancelar-edicao {
+    border: 2px solid #2c2c2c;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.botao-cancelar-edicao:hover {
+    border-color: #666;
+    background-color: #292929;
+}
+
+.botao-salvar-edicao {
+    border: 2px solid #f5f5f5;
+    background-color: #f5f5f5;
+    color: #171717;
+}
+
+.botao-salvar-edicao:hover {
+    border-color: #d9d9d9;
+    background-color: #d9d9d9;
+}
+
+.modal-editar-acoes button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.modal-editar-perfil::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-editar-perfil::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-editar-perfil::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #444;
+}
+
+@media (max-width: 480px) {
+    .modal-editar-overlay {
+        padding: 12px;
+    }
+
+    .modal-editar-perfil {
+        max-height: 92vh;
+        padding: 18px;
+    }
+
+    .modal-editar-cabecalho h2 {
+        font-size: 19px;
+    }
+
+    .preview-capa {
+        height: 120px;
+    }
+
+    .campo-foto-perfil {
+        gap: 12px;
+    }
+
+    .preview-foto-perfil {
+        width: 66px;
+        height: 66px;
+    }
+
+    .modal-editar-acoes {
+        gap: 8px;
+    }
+
+    .modal-editar-acoes button {
+        flex: 1;
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+}

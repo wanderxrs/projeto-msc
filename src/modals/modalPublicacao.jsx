@@ -3,7 +3,6 @@ import { fazerPublicacao } from "../api";
 import "./ModalPublicacao.css";
 import { IoClose } from "react-icons/io5";
 
-
 function ModalPublicacao({
     onClose,
     onPublicacaoCriada,
@@ -11,16 +10,70 @@ function ModalPublicacao({
 }) {
     const [imagem, setImagem] = useState(null);
     const [legenda, setLegenda] = useState("");
-    const [comunidade, setComunidade] = useState(comunidadeId || "");
+    const [comunidade] = useState(comunidadeId || "");
     const [mensagem, setMensagem] = useState("");
     const [carregando, setCarregando] = useState(false);
+    const [tipoMidia, setTipoMidia] = useState("");
 
     function handleImagem(event) {
-        const arquivo = event.target.files[0];
+        const arquivo = event.target.files?.[0];
 
-        if (arquivo) {
-            setImagem(arquivo);
-            setMensagem("");
+        if (!arquivo) return;
+
+        const ehImagem = arquivo.type.startsWith("image/");
+        const ehVideo = arquivo.type.startsWith("video/");
+
+        if (!ehImagem && !ehVideo) {
+            setMensagem(
+                "Selecione um arquivo de imagem ou vídeo válido."
+            );
+            setImagem(null);
+            setTipoMidia("");
+            event.target.value = "";
+            return;
+        }
+
+        // Limite de 50 MB por arquivo.
+        if (arquivo.size > 50 * 1024 * 1024) {
+            setMensagem("O arquivo deve ter no máximo 50 MB.");
+            setImagem(null);
+            setTipoMidia("");
+            event.target.value = "";
+            return;
+        }
+
+        // Formatos de vídeo aceitos.
+        const formatosVideo = [
+            "video/mp4",
+            "video/webm",
+            "video/quicktime",
+            "video/ogg"
+        ];
+
+        if (ehVideo && !formatosVideo.includes(arquivo.type)) {
+            setMensagem(
+                "Formato de vídeo não aceito. Use MP4, WebM, MOV ou OGG."
+            );
+            setImagem(null);
+            setTipoMidia("");
+            event.target.value = "";
+            return;
+        }
+
+        setImagem(arquivo);
+        setTipoMidia(ehVideo ? "video" : "imagem");
+        setMensagem("");
+    }
+
+    function removerArquivo() {
+        setImagem(null);
+        setTipoMidia("");
+        setMensagem("");
+
+        const campoArquivo = document.getElementById("imagem");
+
+        if (campoArquivo) {
+            campoArquivo.value = "";
         }
     }
 
@@ -30,7 +83,7 @@ function ModalPublicacao({
         if (carregando) return;
 
         if (!imagem) {
-            setMensagem("Selecione uma imagem.");
+            setMensagem("Selecione uma imagem ou um vídeo.");
             return;
         }
 
@@ -41,9 +94,11 @@ function ModalPublicacao({
 
         const dadosPublicacao = new FormData();
 
+        // Mantém o nome do campo esperado pela rota Flask.
         dadosPublicacao.append("imagem", imagem);
         dadosPublicacao.append("legenda", legenda);
         dadosPublicacao.append("comunidade", comunidade);
+        dadosPublicacao.append("tipo_midia", tipoMidia);
 
         setCarregando(true);
         setMensagem("");
@@ -59,7 +114,7 @@ function ModalPublicacao({
 
             onClose();
         } catch (erro) {
-            console.error(erro);
+            console.error("Erro ao publicar:", erro);
 
             const dados = erro.response?.data;
 
@@ -96,6 +151,7 @@ function ModalPublicacao({
                             height: "auto",
                             background: "none"
                         }}
+                        aria-label="Fechar modal"
                     >
                         <IoClose size={35} />
                     </button>
@@ -103,22 +159,40 @@ function ModalPublicacao({
 
                 <form onSubmit={handlePublicar}>
                     <label htmlFor="imagem">
-                        Imagem da publicação
+                        Imagem ou vídeo da publicação
                     </label>
 
                     <input
                         id="imagem"
                         type="file"
-                        accept="image/*"
+                        accept="image/*,video/mp4,video/webm,video/quicktime,video/ogg"
                         onChange={handleImagem}
                         disabled={carregando}
                         required
                     />
 
+                    {/* Exibe somente as informações do arquivo */}
                     {imagem && (
-                        <p>
-                            Imagem selecionada: {imagem.name}
-                        </p>
+                        <div className="arquivo-selecionado">
+                            <p>
+                                {tipoMidia === "video" ? "🎬" : "🖼️"}{" "}
+                                {tipoMidia === "video"
+                                    ? "Vídeo selecionado:"
+                                    : "Imagem selecionada:"}
+                            </p>
+
+                            <p className="nome-arquivo">
+                                {imagem.name}
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={removerArquivo}
+                                disabled={carregando}
+                            >
+                                Remover arquivo
+                            </button>
+                        </div>
                     )}
 
                     <label htmlFor="legenda">
@@ -148,8 +222,8 @@ function ModalPublicacao({
                             </p>
 
                             <span>
-                                A IA está analisando a imagem
-                                e a legenda. Aguarde um momento.
+                                Sua publicação está sendo processada.
+                                Aguarde um momento.
                             </span>
                         </div>
                     )}
@@ -177,7 +251,7 @@ function ModalPublicacao({
                             disabled={carregando}
                         >
                             {carregando
-                                ? "Verificando..."
+                                ? "Publicando..."
                                 : "Publicar"}
                         </button>
                     </div>

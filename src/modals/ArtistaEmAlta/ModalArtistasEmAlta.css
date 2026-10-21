@@ -1,0 +1,341 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Fundo escurecido atrás do modal */
+.artistas-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(4px);
+    font-family: 'Inter', sans-serif;
+}
+
+/* Estrutura principal */
+.modal-artistas {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 540px;
+    max-height: 75vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    color: #f5f5f5;
+    border: 1px solid #303030;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+/* Cabeçalho */
+.artistas-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 22px;
+    background-color: #1a1a1a;
+    border-bottom: 1px solid #303030;
+    flex-shrink: 0;
+}
+
+.artistas-titulo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.artistas-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background-color: #292929;
+    color: #e5e5e5;
+    font-size: 21px;
+}
+
+.artistas-titulo h2 {
+    margin: 0;
+    color: #f5f5f5;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.artistas-titulo p {
+    margin: 4px 0 0;
+    color: #a5a5a5;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.artistas-fechar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background-color: transparent;
+    color: #a5a5a5;
+    font-family: inherit;
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.artistas-fechar:hover {
+    background-color: #303030;
+    color: #ffffff;
+}
+
+/* Lista com rolagem */
+.artistas-lista {
+    flex: 1;
+    min-height: 0;
+    padding: 8px 14px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #555555 #1a1a1a;
+}
+
+.artistas-lista::-webkit-scrollbar {
+    width: 7px;
+}
+
+.artistas-lista::-webkit-scrollbar-track {
+    background-color: #1a1a1a;
+}
+
+.artistas-lista::-webkit-scrollbar-thumb {
+    background-color: #484848;
+    border-radius: 10px;
+}
+
+.artistas-lista::-webkit-scrollbar-thumb:hover {
+    background-color: #666666;
+}
+
+/* Cada artista */
+.artista-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 14px 10px;
+    border-bottom: 1px solid #2c2c2c;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.artista-item:last-child {
+    border-bottom-color: transparent;
+}
+
+.artista-item:hover {
+    background-color: #222222;
+}
+
+/* Posição no ranking */
+.artista-posicao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    flex-shrink: 0;
+    color: #929292;
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.artista-top3 {
+    color: #f0f0f0;
+}
+
+/* Foto */
+.artista-foto {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border: 1px solid #383838;
+    border-radius: 50%;
+    background-color: #303030;
+}
+
+/* Nome e ouvintes */
+.artista-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
+    gap: 4px;
+}
+
+.artista-nome {
+    overflow: hidden;
+    color: #f0f0f0;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.artista-ouvintes {
+    color: #a5a5a5;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* Ícone de primeiro lugar */
+.artista-trofeu {
+    flex-shrink: 0;
+    color: #cfcfcf;
+    font-size: 17px;
+}
+
+/* Link para a página do artista */
+.artista-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    color: #999999;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.artista-link:hover {
+    background-color: #303030;
+    color: #ffffff;
+}
+
+/* Mensagens de carregamento e erro */
+.artistas-mensagem {
+    padding: 35px 15px;
+    color: #a5a5a5;
+    font-size: 13px;
+    text-align: center;
+}
+
+.artistas-erro {
+    color: #d0d0d0;
+}
+
+/* Rodapé */
+.artistas-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 22px;
+    background-color: #191919;
+    border-top: 1px solid #303030;
+    flex-shrink: 0;
+}
+
+.artistas-footer span {
+    color: #999999;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.artistas-footer span:first-child {
+    color: #dedede;
+}
+
+/* Acessibilidade */
+.artistas-fechar:focus-visible,
+.artista-link:focus-visible {
+    outline: 2px solid #d0d0d0;
+    outline-offset: 3px;
+}
+
+/* Telas menores */
+@media (max-width: 600px) {
+    .artistas-overlay {
+        padding: 12px;
+    }
+
+    .modal-artistas {
+        max-height: 80vh;
+        border-radius: 12px;
+    }
+
+    .artistas-header {
+        padding: 16px;
+    }
+
+    .artistas-titulo {
+        gap: 10px;
+    }
+
+    .artistas-icone {
+        width: 40px;
+        height: 40px;
+    }
+
+    .artistas-titulo h2 {
+        font-size: 16px;
+    }
+
+    .artistas-lista {
+        padding: 6px 8px;
+    }
+
+    .artista-item {
+        gap: 9px;
+        padding: 12px 7px;
+    }
+
+    .artista-posicao {
+        width: 22px;
+        font-size: 12px;
+    }
+
+    .artista-foto {
+        width: 42px;
+        height: 42px;
+    }
+
+    .artista-nome {
+        font-size: 12px;
+    }
+
+    .artista-ouvintes {
+        font-size: 11px;
+    }
+
+    .artistas-footer {
+        padding: 13px 16px;
+    }
+}
+
+/* Redução de animações */
+@media (prefers-reduced-motion: reduce) {
+    .artista-item,
+    .artistas-fechar,
+    .artista-link {
+        transition: none;
+    }
+}

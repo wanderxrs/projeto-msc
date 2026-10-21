@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
+    carregarPerfil,
     carregarPerfilUsuario,
     curtirPublicacao
 } from "../../api";
@@ -15,8 +16,26 @@ import { VscCommentCompact } from "react-icons/vsc";
 import { HiOutlineDotsVertical } from "react-icons/hi";
 
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
+import ModalEditarPerfil from "../../modals/Perfil/ModalEditarPerfil";
 
 import "./perfil.css";
+
+// Identifica se a publicação contém um vídeo.
+function ehVideo(publicacao) {
+    const tipo = String(publicacao.tipo_midia || "").toLowerCase();
+
+    if (tipo === "video" || tipo.startsWith("video/")) {
+        return true;
+    }
+
+    const url = String(publicacao.imagem_url || "").toLowerCase();
+
+    // Alternativa para publicações antigas sem tipo_midia.
+    return (
+        url.includes("/video/upload/") ||
+        /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/.test(url)
+    );
+}
 
 function Perfil() {
     const { id } = useParams();
@@ -28,6 +47,8 @@ function Perfil() {
     const [curtidas, setCurtidas] = useState({});
     const [publicacaoSelecionada, setPublicacaoSelecionada] = useState(null);
     const [abaAtiva, setAbaAtiva] = useState("visao-geral");
+    const [modalEditarAberto, setModalEditarAberto] = useState(false);
+    const [usuarioLogadoId, setUsuarioLogadoId] = useState(null);
 
     async function buscarPerfil() {
         setCarregando(true);
@@ -47,15 +68,27 @@ function Perfil() {
 
             setCurtidas(estadoCurtidas);
         } catch (erro) {
-            console.error(erro);
+            console.error("Erro ao carregar perfil:", erro);
             setErro("Erro ao carregar o perfil.");
+            setPerfil(null);
         } finally {
             setCarregando(false);
         }
     }
 
+    async function buscarUsuarioLogado() {
+        try {
+            const resposta = await carregarPerfil();
+            setUsuarioLogadoId(Number(resposta.data.id));
+        } catch (erro) {
+            console.error("Erro ao identificar usuário logado:", erro);
+            setUsuarioLogadoId(null);
+        }
+    }
+
     useEffect(() => {
         buscarPerfil();
+        buscarUsuarioLogado();
     }, [id]);
 
     async function handleCurtir(publicacao_id) {
@@ -71,31 +104,31 @@ function Perfil() {
 
             setPerfil((perfilAnterior) => ({
                 ...perfilAnterior,
-                publicacoes: perfilAnterior.publicacoes.map(
-                    (publicacao) => {
-                        if (publicacao.id !== publicacao_id) {
-                            return publicacao;
-                        }
-
-                        const quantidadeAtual =
-                            Number(publicacao.total_curtidas) || 0;
-
-                        return {
-                            ...publicacao,
-                            total_curtidas: novoValor
-                                ? quantidadeAtual + 1
-                                : Math.max(0, quantidadeAtual - 1)
-                        };
+                publicacoes: perfilAnterior.publicacoes.map((publicacao) => {
+                    if (publicacao.id !== publicacao_id) {
+                        return publicacao;
                     }
-                )
+
+                    const quantidadeAtual =
+                        Number(publicacao.total_curtidas) || 0;
+
+                    return {
+                        ...publicacao,
+                        total_curtidas: novoValor
+                            ? quantidadeAtual + 1
+                            : Math.max(0, quantidadeAtual - 1)
+                    };
+                })
             }));
         } catch (erro) {
-            console.error(erro);
+            console.error("Erro ao curtir publicação:", erro);
             setErro("Erro ao curtir a publicação.");
         }
     }
 
     function abrirModalApagar(publicacao) {
+        if (!perfilEhMeu) return;
+
         setPublicacaoSelecionada(publicacao);
     }
 
@@ -119,10 +152,20 @@ function Perfil() {
     const publicacoes = perfil.publicacoes || [];
     const avaliacoes = perfil.avaliacoes || [];
     const comunidades = perfil.comunidades || [];
-    const capaUrl = usuario.capa_url;
 
-    const totalComunidades = usuario.total_comunidades ?? comunidades.length;
-    const totalAlbuns = usuario.total_albuns_avaliados ?? avaliacoes.length;
+    const perfilEhMeu =
+        usuarioLogadoId !== null &&
+        usuario?.id != null &&
+        Number(usuario.id) === usuarioLogadoId;
+
+    const capaUrl =
+        usuario.foto_url_background || usuario.capa_url || "";
+
+    const totalComunidades =
+        usuario.total_comunidades ?? comunidades.length;
+
+    const totalAlbuns =
+        usuario.total_albuns_avaliados ?? avaliacoes.length;
 
     return (
         <>
@@ -146,7 +189,7 @@ function Perfil() {
                     <div className="perfil-identidade">
 
                         <img
-                            src={usuario.foto_url}
+                            src={usuario.foto_url || "/avatar-padrao.png"}
                             alt={`Foto de ${usuario.nome}`}
                             className="perfil-foto"
                         />
@@ -186,17 +229,17 @@ function Perfil() {
 
                         </div>
 
-                        <button
-                            type="button"
-                            className="perfil-opcoes"
-                            onClick={() => {
-                                // Modal de edição será conectado depois.
-                            }}
-                            aria-label="Opções do perfil"
-                            title="Opções do perfil"
-                        >
-                            <HiOutlineDotsVertical />
-                        </button>
+                        {perfilEhMeu && (
+                            <button
+                                type="button"
+                                className="perfil-opcoes"
+                                onClick={() => setModalEditarAberto(true)}
+                                aria-label="Editar perfil"
+                                title="Editar perfil"
+                            >
+                                <HiOutlineDotsVertical />
+                            </button>
+                        )}
 
                     </div>
 
@@ -263,7 +306,10 @@ function Perfil() {
                                     <div className="cabecalho-publicacao">
 
                                         <img
-                                            src={publicacao.foto_url}
+                                            src={
+                                                publicacao.foto_url ||
+                                                "/avatar-padrao.png"
+                                            }
                                             alt="Foto do usuário"
                                             className="foto-usuario"
                                         />
@@ -273,30 +319,76 @@ function Perfil() {
                                         </h3>
 
                                         <div className="data-publicacao">
-                                            {new Date(
-                                                publicacao.data_criacao
-                                            ).toLocaleDateString("pt-BR")}
+                                            {publicacao.data_criacao
+                                                ? new Date(
+                                                    publicacao.data_criacao
+                                                ).toLocaleDateString("pt-BR")
+                                                : ""}
                                         </div>
 
-                                        <button
-                                            type="button"
-                                            className="hamburguer"
-                                            aria-label="Opções da publicação"
-                                            onClick={() =>
-                                                abrirModalApagar(publicacao)
-                                            }
-                                        >
-                                            <HiOutlineDotsVertical size={22} />
-                                        </button>
+                                        {perfilEhMeu && (
+                                            <button
+                                                type="button"
+                                                className="hamburguer"
+                                                aria-label="Opções da publicação"
+                                                onClick={() =>
+                                                    abrirModalApagar(publicacao)
+                                                }
+                                            >
+                                                <HiOutlineDotsVertical
+                                                    size={22}
+                                                />
+                                            </button>
+                                        )}
 
                                     </div>
 
-                                    <p>{publicacao.legenda}</p>
+                                    {publicacao.legenda && (
+                                        <p>{publicacao.legenda}</p>
+                                    )}
 
-                                    <img
-                                        src={publicacao.imagem_url}
-                                        alt="Imagem da publicação"
-                                    />
+                                    <strong
+                                        className="nome-comunidade-feed"
+                                        onClick={() =>
+                                            navigate(
+                                                `/comunidade/${publicacao.comunidade_id}`
+                                            )
+                                        }
+                                    >
+                                        {publicacao.nome_comunidade}
+                                    </strong>
+
+                                    {/* Exibe vídeo ou imagem conforme a publicação */}
+
+                                    {publicacao.imagem_url && (
+                                        <div className="perfil-midia-container">
+
+                                            {ehVideo(publicacao) ? (
+
+                                                <video
+                                                    className="perfil-midia"
+                                                    src={publicacao.imagem_url}
+                                                    controls
+                                                    preload="metadata"
+                                                    playsInline
+                                                >
+                                                    Seu navegador não suporta
+                                                    a reprodução deste vídeo.
+                                                </video>
+
+                                            ) : (
+
+                                                <img
+                                                    className="perfil-midia"
+                                                    src={publicacao.imagem_url}
+                                                    alt="Imagem da publicação"
+                                                    loading="lazy"
+                                                />
+
+                                            )}
+
+                                        </div>
+                                    )}
 
                                     <div className="area-curtida">
 
@@ -479,7 +571,7 @@ function Perfil() {
 
             {/* MODAL DE EXCLUSÃO */}
 
-            {publicacaoSelecionada && (
+            {publicacaoSelecionada && perfilEhMeu && (
                 <ModalApagarPublicacao
                     publicacao={publicacaoSelecionada}
                     onClose={fecharModalApagar}
@@ -490,6 +582,18 @@ function Perfil() {
                 />
             )}
 
+            {/* MODAL DE EDIÇÃO DO PERFIL */}
+
+            {modalEditarAberto && perfilEhMeu && (
+                <ModalEditarPerfil
+                    perfil={usuario}
+                    onFechar={() => setModalEditarAberto(false)}
+                    onSalvo={() => {
+                        setModalEditarAberto(false);
+                        buscarPerfil();
+                    }}
+                />
+            )}
         </>
     );
 }
