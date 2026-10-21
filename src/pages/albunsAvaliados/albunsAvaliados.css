@@ -1,35 +1,38 @@
+/* CONTAINER PRINCIPAL */
 .albuns-avaliados {
     width: min(1200px, 94%);
     margin: 35px auto;
     color: #f5f5f5;
+    font-family: Inter, Arial, sans-serif;
 }
 
+/* CABEÇALHO */
 .albuns-cabecalho {
     margin-bottom: 30px;
 }
 
 .albuns-cabecalho h1 {
     margin-bottom: 8px;
-    color: #53ca97;
+    font-size: 28px;
 }
 
 .albuns-cabecalho p,
 .album-card > p {
-    color: #bdbdbd;
+    color: #aaa;
 }
 
+/* SEÇÕES */
 .albuns-secao {
-    margin-bottom: 45px;
+    margin-bottom: 40px;
 }
 
 .albuns-secao h2 {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
     border-bottom: 1px solid #333;
+    font-size: 21px;
 }
 
 /* PESQUISA */
-
 .albuns-form-pesquisa {
     display: flex;
     gap: 12px;
@@ -40,7 +43,7 @@
     flex: 1;
     min-width: 0;
     padding: 13px;
-    border: 1px solid #444;
+    border: 1px solid #383838;
     border-radius: 8px;
     outline: none;
     background: #202020;
@@ -49,42 +52,40 @@
 
 .albuns-form-pesquisa input:focus,
 .album-form-nota input:focus {
-    border-color: #53ca97;
+    border-color: #888;
 }
 
-/* BOTÕES GERAIS */
-
+/* BOTÕES */
 .albuns-avaliados button {
     padding: 11px 14px;
-    border: none;
-    border-radius: 7px;
-    background: #53ca97;
-    color: #101010;
+    border: 1px solid #383838;
+    border-radius: 8px;
+    background: #e5e5e5;
+    color: #111;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
 .albuns-avaliados button:hover:not(:disabled) {
-    background: #3abb83;
+    background: #ccc;
 }
 
 .albuns-avaliados button:disabled {
     cursor: not-allowed;
-    opacity: 0.55;
+    opacity: 0.5;
 }
 
 /* GRADE DE ÁLBUNS */
-
 .albuns-grade {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+    gap: 20px;
 }
 
+/* CARD */
 .album-card {
     min-width: 0;
-    padding: 17px;
+    padding: 16px;
     border: 1px solid #303030;
     border-radius: 12px;
     background: #1b1b1b;
@@ -95,7 +96,7 @@
     display: block;
     width: 100%;
     aspect-ratio: 1;
-    margin-bottom: 16px;
+    margin-bottom: 15px;
     border-radius: 8px;
     object-fit: cover;
 }
@@ -104,22 +105,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #292929;
+    background: #252525;
     color: #aaa;
 }
 
 .album-card h3 {
-    margin: 0 0 7px;
+    margin-bottom: 8px;
+    font-size: 16px;
     overflow-wrap: anywhere;
-    font-size: 17px;
 }
 
 .album-card > p {
-    margin: 0 0 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
 }
 
 /* AVALIAÇÃO */
-
 .album-form-nota {
     display: flex;
     flex-direction: column;
@@ -128,66 +129,60 @@
 }
 
 .album-form-nota label {
-    align-self: center;
+    color: #ccc;
+    font-size: 13px;
     text-align: center;
-    color: #d7d7d7;
-    font-size: 14px;
 }
 
 .album-form-nota input {
-    box-sizing: border-box;
     width: 120px;
     align-self: center;
     padding: 11px;
-    border: 1px solid #444;
+    border: 1px solid #383838;
     border-radius: 7px;
     outline: none;
     background: #242424;
     color: white;
 }
 
+.album-form-nota button,
 .album-card > button {
     width: 100%;
     margin-top: 10px;
 }
 
-/* BOTÃO REMOVER */
-
+/* REMOVER ÁLBUM */
 .albuns-avaliados .album-botao-remover {
-    background: #713636;
+    background: #292929;
     color: white;
 }
 
 .albuns-avaliados .album-botao-remover:hover:not(:disabled) {
-    background: #914545;
+    background: #404040;
 }
 
 /* MENSAGENS */
-
 .albuns-mensagem {
     margin-bottom: 20px;
-    padding: 13px 16px;
+    padding: 13px;
     border-radius: 8px;
 }
 
 .albuns-erro {
-    border: 1px solid #713636;
-    background: #3e2323;
+    background: #3b2222;
     color: #ffb3b3;
 }
 
 .albuns-sucesso {
-    border: 1px solid #2c7957;
-    background: #1e3b2d;
-    color: #a8f0cb;
+    background: #203629;
+    color: #b5e8c8;
 }
 
 .albuns-vazio {
-    color: #aaa;
+    color: #999;
 }
 
-/* MODAL DE REMOÇÃO */
-
+/* MODAL */
 .modal-fundo {
     position: fixed;
     inset: 0;
@@ -196,33 +191,27 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.35);
+    background: #000a;
 }
 
 .modal-remover {
-    box-sizing: border-box;
     width: 360px;
     max-width: 100%;
     padding: 25px;
-    border: 1px solid #242527;
-    border-radius: 15px;
-    background: #1a1a1ab7;
+    border: 1px solid #383838;
+    border-radius: 12px;
+    background: #1b1b1b;
     color: white;
-    box-shadow: 1px 0 20px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(15px);
-    animation: modal-entrada 0.2s ease-out;
 }
 
 .modal-remover h2 {
-    margin: 0 0 20px;
-    color: white;
     font-size: 21px;
     text-align: center;
 }
 
 .modal-remover p {
-    color: #c5c5c5;
-    line-height: 1.5;
+    color: #bbb;
+    line-height: 1.6;
     text-align: center;
 }
 
@@ -231,70 +220,25 @@
     overflow-wrap: anywhere;
 }
 
-/* BOTÕES DO MODAL */
-
 .modal-acoes {
     display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 22px;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 .albuns-avaliados .modal-acoes button {
-    position: relative;
-    box-sizing: border-box;
-    width: 50%;
-    min-height: 42px;
-    padding: 10px 16px;
-    border: 1px solid #444;
-    border-radius: 30px;
+    flex: 1;
     background: #292929;
-    color: #eee;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s, border-color 0.3s;
-}
-
-.albuns-avaliados .modal-acoes button:hover:not(:disabled) {
-    border-color: #666;
-    background: #383838;
-}
-
-/* CONFIRMAR REMOÇÃO */
-
-.albuns-avaliados .modal-acoes .modal-confirmar {
-    border-color: #713636;
-    background: #713636;
     color: white;
 }
 
-.albuns-avaliados .modal-acoes .modal-confirmar:hover:not(:disabled) {
-    border-color: #914545;
-    background: #914545;
-}
-
-/* ANIMAÇÃO */
-
-@keyframes modal-entrada {
-    from {
-        opacity: 0;
-        transform: translateY(8px) scale(0.98);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+.albuns-avaliados .modal-acoes .modal-confirmar {
+    background: #e5e5e5;
+    color: #111;
 }
 
 /* RESPONSIVIDADE */
-
 @media (max-width: 600px) {
-    .albuns-avaliados {
-        margin-top: 22px;
-    }
-
     .albuns-form-pesquisa {
         flex-direction: column;
     }
@@ -309,24 +253,11 @@
     }
 
     .album-card h3 {
-        font-size: 15px;
+        font-size: 14px;
     }
 
-    .album-card button {
+    .albuns-avaliados button {
         font-size: 12px;
-    }
-
-    .modal-remover {
-        padding: 22px;
-    }
-
-    .modal-acoes {
-        gap: 8px;
-    }
-
-    .albuns-avaliados .modal-acoes button {
-        padding: 10px 8px;
-        font-size: 13px;
     }
 }
 

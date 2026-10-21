@@ -10,11 +10,11 @@ import ModalArtistasEmAlta from "../../modals/ArtistaEmAlta/ModalArtistasEmAlta"
 import { HiChevronRight } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
 import { HiTrendingUp } from "react-icons/hi";
-import { HiOutlineDocumentText } from "react-icons/hi";
 import { HiTicket } from "react-icons/hi";
 import { LuBrainCircuit } from "react-icons/lu";
 import { PiVinylRecordBold } from "react-icons/pi";
 import { HiUsers } from "react-icons/hi";
+import { MdLyrics } from "react-icons/md";
 
 function PerfilComponente() {
     const [usuario, setUsuario] = useState(null);
@@ -99,29 +99,9 @@ function PerfilComponente() {
                             }
                         }}
                     >
-                        <HiOutlineDocumentText />
+                        <MdLyrics />
                         <strong>Letras de músicas</strong>
                         <p>Explore composições</p>
-                    </div>
-
-                    <div
-                        className="container2"
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => navegar("/shows")}
-                        onKeyDown={(evento) => {
-                            if (
-                                evento.key === "Enter" ||
-                                evento.key === " "
-                            ) {
-                                evento.preventDefault();
-                                navegar("/shows");
-                            }
-                        }}
-                    >
-                        <HiTicket />
-                        <strong>Próximos shows</strong>
-                        <p>Encontre eventos</p>
                     </div>
                 </div>
 

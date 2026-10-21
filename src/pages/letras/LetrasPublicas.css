@@ -1,137 +1,174 @@
 
-/* Página de letras públicas */
-
-
-
 .letras-publicas {
-    width: min(1200px, 94%);
-    min-height: calc(100vh - 100px);
-    margin: 35px auto;
-    padding: 0 0 40px;
+    width: 90%;
+    max-width: 1000px;
+    min-height: 100vh;
+    margin: 30px auto;
+    padding-bottom: 40px;
     color: #f5f5f5;
-    background: #0e0e0e;
+    font-family: 'Inter', sans-serif;
     box-sizing: border-box;
 }
 
-/* Cabeçalho da página, se existir */
+.letras-publicas * {
+    box-sizing: border-box;
+}
+
+/* TÍTULO E DESCRIÇÃO */
+
 .letras-publicas > h1 {
     margin: 0 0 8px;
-    color: #53ca97;
+    color: #fff;
+    font-size: 26px;
 }
 
-.letras-publicas > p {
-    margin-bottom: 25px;
-    color: #cccccc;
-    font-size: 16px;
+.letras-publicas > .descricao-letras {
+    margin: 0;
+    color: #aaa;
+    font-size: 14px;
     line-height: 1.6;
 }
-/* Grade de letras */
+
+/* LISTA DE LETRAS */
+
 .lista-letras-publicas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
     align-items: start;
-    gap: 22px;
-    margin-top: 25px;
 }
 
-/* Cartão da música */
+/* CARD DE CADA LETRA */
+
 .card-letra-publica {
     min-width: 0;
-    padding: 20px;
+    padding: 16px;
+    background: #1a1a1a;
     border: 1px solid #303030;
-    border-radius: 12px;
-    background: #1b1b1b;
-    box-sizing: border-box;
-}
-
-
-
-/* Título */
-.card-letra-publica h2 {
-    margin: 0 0 12px;
-    color: #f5f5f5;
-    font-size: 20px;
-    overflow-wrap: anywhere;
-}
-
-/* Estilo musical */
-.estilo-letra-publica {
-    margin: 0 0 18px;
-    color: #bdbdbd;
-    font-size: 14px;
-}
-
-/* Botões */
-.card-letra-publica button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 38px;
-    padding: 9px 14px;
-    border: 1px solid #53ca97;
-    border-radius: 8px;
-    background: #53ca97;
-    color: #101010;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-}
-
-/* Efeito ao passar o mouse */
-.card-letra-publica button:hover {
-    border-color: #3abb83;
-    background: #3abb83;
-}
-
-/* Área da letra expandida */
-.conteudo-letra-publica {
-    max-height: 320px;
-    margin: 18px 0 0;
-    padding: 14px 10px 14px 0;
-    border-top: 1px solid #383838;
-    color: #ddd;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    overflow-y: auto;
-    font-family: inherit;
-    font-size: 14px;
-    line-height: 1.8;
-    scrollbar-width: thin;
-    scrollbar-color: #555 #1b1b1b;
-}
-
-/* Barra de rolagem */
-.conteudo-letra-publica::-webkit-scrollbar {
-    width: 6px;
-}
-
-.conteudo-letra-publica::-webkit-scrollbar-thumb {
-    background: #555;
     border-radius: 10px;
 }
 
-.conteudo-letra-publica::-webkit-scrollbar-track {
-    background: #1b1b1b;
+/* TÍTULO DA MÚSICA */
+
+.card-letra-publica h2 {
+    margin: 0 0 8px;
+    color: #f5f5f5;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
 }
 
-/* Celulares */
-@media (max-width: 768px) {
+/* ESTILO MUSICAL */
+
+.estilo-letra-publica {
+    margin: 0 0 14px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+/* BOTÃO PARA MOSTRAR A LETRA */
+
+.card-letra-publica button {
+    padding: 8px 12px;
+    background: #29212f;
+    border: 1px solid #59416e;
+    border-radius: 6px;
+    color: #d8b4fe;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.card-letra-publica button:hover {
+    background: #392846;
+    border-color: #a855f7;
+    color: #fff;
+}
+
+/* LETRA COMPLETA */
+
+.conteudo-letra-publica {
+    max-height: 280px;
+    margin: 14px 0 0;
+    padding: 14px 8px 4px 0;
+    overflow-y: auto;
+    border-top: 1px solid #383838;
+    color: #ddd;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* BARRA DE ROLAGEM */
+
+.conteudo-letra-publica::-webkit-scrollbar {
+    width: 5px;
+}
+
+.conteudo-letra-publica::-webkit-scrollbar-thumb {
+    background: #59416e;
+    border-radius: 5px;
+}
+
+.conteudo-letra-publica::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+/* MENSAGENS */
+
+.erro-letras,
+.vazio-letras {
+    margin-top: 24px;
+    padding: 14px;
+    background: #1a1a1a;
+    border: 1px solid #303030;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.erro-letras {
+    color: #fca5a5;
+}
+
+.vazio-letras {
+    color: #aaa;
+}
+
+/* TABLETS */
+
+@media (max-width: 900px) {
+    .lista-letras-publicas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
     .letras-publicas {
         width: 94%;
-        margin-top: 25px;
+        margin-top: 20px;
+    }
+
+    .letras-publicas > h1 {
+        font-size: 22px;
     }
 
     .lista-letras-publicas {
         grid-template-columns: 1fr;
-        gap: 16px;
+        gap: 12px;
+        margin-top: 18px;
     }
 
     .card-letra-publica {
-        width: 100%;
+        padding: 14px;
     }
 
     .conteudo-letra-publica {
-        max-height: 280px;
+        max-height: 250px;
     }
 }
