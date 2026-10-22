@@ -1,5 +1,5 @@
+
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import {
     carregarPublicacoes,
@@ -11,16 +11,10 @@ import "./home.css";
 
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
 import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
+import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 
 import ModalPublicacao from "../../modals/ModalPublicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
-
-import { IoMenu } from "react-icons/io5";
-import {
-    PiHeartStraight,
-    PiHeartStraightFill
-} from "react-icons/pi";
-import { VscCommentCompact } from "react-icons/vsc";
 
 function Home() {
     const [modalAberto, setModalAberto] = useState(false);
@@ -33,9 +27,7 @@ function Home() {
     const [publicacaoSelecionada, setPublicacaoSelecionada] =
         useState(null);
 
-    const navigate = useNavigate();
-
-    // Carrega as publicações da aba selecionada
+    // Carrega as publicações da aba selecionada.
     async function buscarPublicacoes() {
         setCarregando(true);
         setErro("");
@@ -98,23 +90,7 @@ function Home() {
         buscarPublicacoes();
     }, [abaAtiva]);
 
-    // Identifica se a publicação contém vídeo ou imagem.
-    // O caminho do Cloudinary também ajuda a identificar
-    // vídeos antigos caso tipo_midia ainda não venha da API.
-    function ehVideo(publicacao) {
-        if (publicacao.tipo_midia) {
-            return publicacao.tipo_midia.toLowerCase() === "video";
-        }
-
-        const url = publicacao.imagem_url || "";
-
-        return (
-            url.includes("/video/upload/") ||
-            /\.(mp4|webm|mov|m4v)(\?|$)/i.test(url)
-        );
-    }
-
-    // Curtir ou descurtir publicação
+    // Curtir ou descurtir uma publicação.
     async function handleCurtir(publicacao_id) {
         try {
             await curtirPublicacao(publicacao_id);
@@ -149,10 +125,12 @@ function Home() {
         }
     }
 
+    // Abre o modal de exclusão.
     function abrirModalApagar(publicacao) {
         setPublicacaoSelecionada(publicacao);
     }
 
+    // Fecha o modal de exclusão.
     function fecharModalApagar() {
         setPublicacaoSelecionada(null);
     }
@@ -199,12 +177,14 @@ function Home() {
                         </button>
                     </div>
 
+                    {/* Carregamento */}
                     {carregando && (
                         <p className="mensagem-feed">
                             Carregando publicações...
                         </p>
                     )}
 
+                    {/* Erro ao carregar */}
                     {!carregando && erro && (
                         <div className="mensagem-feed">
                             <p>{erro}</p>
@@ -218,6 +198,7 @@ function Home() {
                         </div>
                     )}
 
+                    {/* Usuário ainda não segue comunidades */}
                     {!carregando &&
                         !erro &&
                         abaAtiva === "seguindo" &&
@@ -240,6 +221,7 @@ function Home() {
                             </div>
                         )}
 
+                    {/* Não existem publicações nas comunidades seguidas */}
                     {!carregando &&
                         !erro &&
                         abaAtiva === "seguindo" &&
@@ -252,6 +234,7 @@ function Home() {
                             </div>
                         )}
 
+                    {/* Não existem publicações para descobrir */}
                     {!carregando &&
                         !erro &&
                         abaAtiva === "descobrir" &&
@@ -261,165 +244,17 @@ function Home() {
                             </p>
                         )}
 
+                    {/* Lista de publicações reutilizando Publicacao.jsx */}
                     {!carregando && !erro && (
                         <div className="feed">
                             {publicacoes.map((publicacao) => (
-                                <div
+                                <Publicacao
                                     key={publicacao.id}
-                                    className="publicacao"
-                                >
-
-                                    {/* Cabeçalho da publicação */}
-                                    <div className="cabecalho-publicacao">
-                                        <img
-                                            src={publicacao.foto_url}
-                                            alt="Foto do usuário"
-                                            className="foto-usuario"
-                                        />
-
-                                        <h3
-                                            onClick={() =>
-                                                navigate(
-                                                    `/perfil/${publicacao.usuario_id}`
-                                                )
-                                            }
-                                            style={{ cursor: "pointer" }}
-                                        >
-                                            {publicacao.nome_usuario}
-                                        </h3>
-
-                                        <div className="data-publicacao">
-                                            {publicacao.data_criacao &&
-                                                new Date(
-                                                    publicacao.data_criacao
-                                                ).toLocaleDateString("pt-BR")}
-                                        </div>
-
-                                        {publicacao.eh_dono && (
-                                            <button
-                                                className="hamburguer"
-                                                onClick={() =>
-                                                    abrirModalApagar(publicacao)
-                                                }
-                                                aria-label="Opções da publicação"
-                                                style={{
-                                                    background: "none",
-                                                    padding: 0,
-                                                    height: "auto",
-                                                    marginLeft: "auto"
-                                                }}
-                                            >
-                                                <IoMenu
-                                                    size={25}
-                                                    style={{
-                                                        cursor: "pointer"
-                                                    }}
-                                                />
-                                            </button>
-                                        )}
-                                    </div>
-
-                                    {/* Legenda */}
-                                    {publicacao.legenda && (
-                                        <p>{publicacao.legenda}</p>
-                                    )}
-                                    <strong
-                                        className="Nome-comunidade-feed"
-                                        onClick={() =>
-                                            navigate(
-                                                `/comunidade/${publicacao.comunidade_id}`
-                                            )
-                                        }
-                                    >
-                                        {publicacao.nome_comunidade}
-                                    </strong>
-
-                                    {/* Mídia: vídeo ou imagem */}
-                                    {publicacao.imagem_url && (
-                                        <div className="midia-container">
-                                            {ehVideo(publicacao) ? (
-                                                <video
-                                                    className="midia-publicacao"
-                                                    src={publicacao.imagem_url}
-                                                    controls
-                                                    preload="metadata"
-                                                    playsInline
-                                                >
-                                                    Seu navegador não suporta
-                                                    a reprodução de vídeos.
-                                                </video>
-                                            ) : (
-                                                <img
-                                                    className="midia-publicacao"
-                                                    src={publicacao.imagem_url}
-                                                    alt="Imagem da publicação"
-                                                    loading="lazy"
-                                                />
-                                            )}
-                                        </div>
-                                    )}
-
-                                    {/* Curtidas e comentários */}
-                                    <div className="area-curtida">
-                                        <button
-                                            className="botao-curtida"
-                                            onClick={() =>
-                                                handleCurtir(publicacao.id)
-                                            }
-                                            aria-label={
-                                                curtidas[publicacao.id]
-                                                    ? "Descurtir publicação"
-                                                    : "Curtir publicação"
-                                            }
-                                            style={{ background: "none" }}
-                                        >
-                                            <span
-                                                className={
-                                                    curtidas[publicacao.id]
-                                                        ? "coracao curtido"
-                                                        : "coracao"
-                                                }
-                                            >
-                                                {curtidas[publicacao.id] ? (
-                                                    <PiHeartStraightFill
-                                                        color="white"
-                                                        fontSize={30}
-                                                    />
-                                                ) : (
-                                                    <PiHeartStraight
-                                                        color="white"
-                                                        fontSize={30}
-                                                    />
-                                                )}
-                                            </span>
-                                        </button>
-
-                                        <span className="quantidade-curtidas">
-                                            {Number(
-                                                publicacao.total_curtidas
-                                            ) || 0}
-                                        </span>
-
-                                        <button
-                                            className="botao-comentar"
-                                            onClick={() =>
-                                                navigate(
-                                                    `/comentarios/${publicacao.id}`
-                                                )
-                                            }
-                                            aria-label="Ver comentários"
-                                        >
-                                            <VscCommentCompact
-                                                fontSize={26}
-                                                color="white"
-                                            />
-                                        </button>
-
-                                        {Number(
-                                            publicacao.total_comentarios
-                                        ) || 0}
-                                    </div>
-                                </div>
+                                    publicacao={publicacao}
+                                    curtido={Boolean(curtidas[publicacao.id])}
+                                    onCurtir={handleCurtir}
+                                    onExcluir={abrirModalApagar}
+                                />
                             ))}
                         </div>
                     )}
@@ -428,6 +263,7 @@ function Home() {
                 <PerfilComponente />
             </div>
 
+            {/* Modal de exclusão */}
             {publicacaoSelecionada && (
                 <ModalApagarPublicacao
                     publicacao={publicacaoSelecionada}

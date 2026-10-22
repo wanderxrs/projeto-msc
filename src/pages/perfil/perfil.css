@@ -1,8 +1,6 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* CONFIGURAÇÕES GERAIS */
-
 .perfil-page {
     min-height: 100vh;
     padding: 20px 0 40px;
@@ -15,7 +13,6 @@
 }
 
 /* CABEÇALHO DO PERFIL */
-
 .perfil-header {
     position: relative;
     width: 90%;
@@ -123,14 +120,11 @@
     cursor: pointer;
 }
 
-.perfil-opcoes:hover,
-.hamburguer:hover,
-.botao-comentar:hover {
+.perfil-opcoes:hover {
     background: #303030;
 }
 
 /* ABAS DO PERFIL */
-
 .perfil-abas {
     display: flex;
     gap: 8px;
@@ -162,8 +156,7 @@
     border-bottom-color: #a855f7;
 }
 
-/* PUBLICAÇÕES */
-
+/* ÁREA DE PUBLICAÇÕES */
 .perfil-publicacoes {
     display: flex;
     flex-direction: column;
@@ -181,144 +174,12 @@
     font-size: 20px;
 }
 
-.perfil-publicacao {
-    min-width: 0;
-    padding: 16px;
-    overflow: hidden;
-    background: #1a1a1a;
-    border: 1px solid #292929;
-    border-radius: 12px;
-}
-
-.cabecalho-publicacao {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.cabecalho-publicacao h3 {
-    margin: 0;
-    font-size: 14px;
-    overflow-wrap: anywhere;
-}
-
-.foto-usuario {
-    width: 45px;
-    height: 45px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.data-publicacao {
-    margin-left: auto;
+.perfil-publicacoes > p {
     color: #aaa;
-    font-size: 11px;
-}
-
-.hamburguer {
-    display: flex;
-    align-items: center;
-    padding: 5px;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    color: #eee;
-    cursor: pointer;
-}
-
-.perfil-publicacao p {
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-}
-
-/* IMAGENS E VÍDEOS */
-
-.perfil-midia-container {
-    width: 100%;
-    margin-top: 12px;
-    overflow: hidden;
-    background: #000;
-    border-radius: 8px;
-}
-
-.perfil-midia {
-    display: block;
-    width: 100%;
-    max-height: 500px;
-    object-fit: contain;
-    background: #000;
-}
-
-img.perfil-midia {
-    height: auto;
-}
-
-video.perfil-midia {
-    height: auto;
-}
-
-/* NOME DA COMUNIDADE */
-
-.nome-comunidade-feed {
-    display: inline-block;
-    margin: 6px 0 10px;
-    padding: 5px 10px;
-    background: #202024;
-    border: 1px solid #38313f;
-    border-radius: 6px;
-    color: #d4d4d8;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.nome-comunidade-feed:hover {
-    background: #30243a;
-    border-color: #8054a8;
-    color: #fff;
-}
-
-/* CURTIDAS E COMENTÁRIOS */
-
-.area-curtida {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 12px;
-}
-
-.botao-curtida,
-.botao-comentar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    background: transparent;
-    border: none;
-    border-radius: 6px;
-    color: #eee;
-    cursor: pointer;
-}
-
-.coracao {
-    display: flex;
-    align-items: center;
-}
-
-.coracao.curtido {
-    color: #a855f7;
-}
-
-.quantidade-curtidas,
-.area-curtida > span {
-    color: #eee;
     font-size: 13px;
 }
 
 /* COMUNIDADES */
-
 .perfil-conteudo-aba,
 .perfil-avaliacoes {
     width: 90%;
@@ -355,12 +216,10 @@ video.perfil-midia {
 }
 
 /* ÁLBUNS AVALIADOS */
-
 .perfil-avaliacoes h2 {
     margin-bottom: 18px;
 }
 
-/* Cards menores para mostrar mais álbuns na tela */
 .perfil-avaliacoes-grade {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -379,7 +238,6 @@ video.perfil-midia {
     border-color: #8054a8;
 }
 
-/* Capas quadradas e menores */
 .perfil-avaliacao-card img,
 .perfil-avaliacao-sem-capa {
     display: block;
@@ -414,7 +272,6 @@ video.perfil-midia {
     overflow-wrap: anywhere;
 }
 
-/* Nota do álbum em cinza e roxo */
 .perfil-avaliacao-nota {
     display: inline-block;
     padding: 4px 7px;
@@ -427,7 +284,6 @@ video.perfil-midia {
 }
 
 /* RESPONSIVIDADE */
-
 @media (max-width: 768px) {
     .perfil-page {
         padding-top: 12px;
@@ -504,10 +360,6 @@ video.perfil-midia {
 
     .perfil-estatisticas {
         gap: 14px;
-    }
-
-    .perfil-publicacao {
-        padding: 12px;
     }
 
     .perfil-avaliacoes-grade {
