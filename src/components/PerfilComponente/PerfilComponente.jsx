@@ -14,6 +14,7 @@ import { LuBrainCircuit } from "react-icons/lu";
 import { PiVinylRecordBold } from "react-icons/pi";
 import { HiUsers } from "react-icons/hi";
 import { MdLyrics } from "react-icons/md";
+import { FaPencil } from "react-icons/fa6";
 
 function PerfilComponente() {
     const [usuario, setUsuario] = useState(null);
@@ -120,9 +121,9 @@ function PerfilComponente() {
                         }
                     }}
                 >
-                    <LuBrainCircuit />
-                    <strong>Analisar letras com IA</strong>
-                    <p>Explore suas composições</p>
+                    <FaPencil />
+                    <strong>Publque suas letras musicais</strong>
+                    <p>Mostre suas criações para outras pessoas</p>
                     <HiChevronRight />
                 </div>
 
