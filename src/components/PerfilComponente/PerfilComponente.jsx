@@ -3,14 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { carregarPerfil } from "../../api";
 import "./perfilComponente.css";
 
-import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 import ModalArtistasEmAlta from "../../modals/ArtistaEmAlta/ModalArtistasEmAlta";
+import MinhasComunidadesModal from "../../modals/Comunidade/MinhasComunidadesModal";
 
-// Icons
+// Ícones
 import { HiChevronRight } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
 import { HiTrendingUp } from "react-icons/hi";
-import { HiTicket } from "react-icons/hi";
 import { LuBrainCircuit } from "react-icons/lu";
 import { PiVinylRecordBold } from "react-icons/pi";
 import { HiUsers } from "react-icons/hi";
@@ -18,8 +17,9 @@ import { MdLyrics } from "react-icons/md";
 
 function PerfilComponente() {
     const [usuario, setUsuario] = useState(null);
-    const [modalAberto, setModalAberto] = useState(false);
     const [modalArtistasAberto, setModalArtistasAberto] = useState(false);
+    const [minhasComunidadesAberto, setMinhasComunidadesAberto] =
+        useState(false);
 
     const navegar = useNavigate();
 
@@ -50,7 +50,7 @@ function PerfilComponente() {
                 <div className="perfil-usuario">
                     <img
                         className="foto-perfil"
-                        src={usuario.foto_url}
+                        src={usuario.foto_url || "/avatar-padrao.png"}
                         alt="Foto de perfil"
                     />
 
@@ -153,14 +153,14 @@ function PerfilComponente() {
                     className="botao-ver-minhas-comunidades"
                     role="button"
                     tabIndex={0}
-                    onClick={() => navegar("/minhas-comunidades")}
+                    onClick={() => setMinhasComunidadesAberto(true)}
                     onKeyDown={(evento) => {
                         if (
                             evento.key === "Enter" ||
                             evento.key === " "
                         ) {
                             evento.preventDefault();
-                            navegar("/minhas-comunidades");
+                            setMinhasComunidadesAberto(true);
                         }
                     }}
                 >
@@ -175,6 +175,11 @@ function PerfilComponente() {
                     onFechar={() => setModalArtistasAberto(false)}
                 />
             )}
+
+            <MinhasComunidadesModal
+                isOpen={minhasComunidadesAberto}
+                onClose={() => setMinhasComunidadesAberto(false)}
+            />
         </div>
     );
 }

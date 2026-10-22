@@ -1,0 +1,499 @@
+.minhas-comunidades-fundo {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.78);
+    box-sizing: border-box;
+}
+
+.minhas-comunidades-modal {
+    width: 100%;
+    max-width: 720px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #151515;
+    color: #f5f5f5;
+    border: 1px solid #303030;
+    border-radius: 14px;
+    font-family: Inter, sans-serif;
+    box-sizing: border-box;
+}
+
+.minhas-comunidades-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px;
+    border-bottom: 1px solid #2d2d2d;
+}
+
+.minhas-comunidades-cabecalho h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.minhas-comunidades-cabecalho p {
+    margin: 7px 0 0;
+    color: #999;
+    font-size: 13px;
+}
+
+.minhas-comunidades-fechar {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.minhas-comunidades-fechar:hover {
+    color: #fff;
+}
+
+.minhas-comunidades-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid #292929;
+}
+
+.minhas-comunidades-acoes span {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.botao-criar-comunidade {
+    padding: 10px 14px;
+    background: #f0f0f0;
+    color: #111;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.botao-criar-comunidade:hover {
+    background: #d5d5d5;
+}
+
+.minhas-comunidades-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 24px 24px;
+    overflow-y: auto;
+}
+
+.minha-comunidade-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: #1c1c1c;
+    border: 1px solid #303030;
+    border-radius: 10px;
+}
+
+.minha-comunidade-imagem {
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    object-fit: cover;
+    background: #292929;
+    border-radius: 9px;
+}
+
+.minha-comunidade-dados {
+    flex: 1;
+    min-width: 0;
+}
+
+.minha-comunidade-dados h3 {
+    margin: 0 0 5px;
+    color: #f5f5f5;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+.minha-comunidade-dados span {
+    color: #aaa;
+    font-size: 12px;
+}
+
+.minha-comunidade-dados p {
+    margin: 7px 0 0;
+    color: #bbb;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.minha-comunidade-acoes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: none;
+}
+
+.minha-comunidade-acoes button,
+.minhas-comunidades-mensagem button {
+    padding: 8px 11px;
+    border: 1px solid #404040;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.botao-editar-comunidade {
+    background: #292929;
+    color: #f5f5f5;
+}
+
+.botao-editar-comunidade:hover {
+    background: #383838;
+}
+
+.botao-excluir-comunidade {
+    background: transparent;
+    color: #ff8b8b;
+    border-color: #633535 !important;
+}
+
+.botao-excluir-comunidade:hover {
+    background: #321e1e;
+}
+
+.minhas-comunidades-mensagem,
+.minhas-comunidades-vazio {
+    padding: 30px 12px;
+    color: #aaa;
+    text-align: center;
+    font-size: 13px;
+}
+
+.minhas-comunidades-mensagem button {
+    margin-top: 10px;
+    background: #292929;
+    color: #fff;
+}
+
+.minhas-comunidades-vazio span {
+    font-size: 30px;
+}
+
+.minhas-comunidades-vazio h3 {
+    margin: 12px 0 8px;
+    color: #f5f5f5;
+    font-size: 16px;
+}
+
+.minhas-comunidades-vazio p {
+    max-width: 360px;
+    margin: 0 auto 18px;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .minhas-comunidades-fundo {
+        padding: 10px;
+    }
+
+    .minhas-comunidades-modal {
+        max-height: 92vh;
+    }
+
+    .minhas-comunidades-cabecalho {
+        padding: 18px;
+    }
+
+    .minhas-comunidades-acoes {
+        padding: 14px 18px;
+    }
+
+    .minhas-comunidades-lista {
+        padding: 14px;
+    }
+
+    .minha-comunidade-card {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .minha-comunidade-imagem {
+        width: 54px;
+        height: 54px;
+    }
+
+    .minha-comunidade-dados {
+        flex-basis: calc(100% - 70px);
+    }
+
+    .minha-comunidade-acoes {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}.minhas-comunidades-fundo {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.78);
+    box-sizing: border-box;
+}
+
+.minhas-comunidades-modal {
+    width: 100%;
+    max-width: 720px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #151515;
+    color: #f5f5f5;
+    border: 1px solid #303030;
+    border-radius: 14px;
+    font-family: Inter, sans-serif;
+    box-sizing: border-box;
+}
+
+.minhas-comunidades-cabecalho {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 24px;
+    border-bottom: 1px solid #2d2d2d;
+}
+
+.minhas-comunidades-cabecalho h2 {
+    margin: 0;
+    font-size: 21px;
+}
+
+.minhas-comunidades-cabecalho p {
+    margin: 7px 0 0;
+    color: #999;
+    font-size: 13px;
+}
+
+.minhas-comunidades-fechar {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+.minhas-comunidades-fechar:hover {
+    color: #fff;
+}
+
+.minhas-comunidades-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid #292929;
+}
+
+.minhas-comunidades-acoes span {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.botao-criar-comunidade {
+    padding: 10px 14px;
+    background: #f0f0f0;
+    color: #111;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.botao-criar-comunidade:hover {
+    background: #d5d5d5;
+}
+
+.minhas-comunidades-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 24px 24px;
+    overflow-y: auto;
+}
+
+.minha-comunidade-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: #1c1c1c;
+    border: 1px solid #303030;
+    border-radius: 10px;
+}
+
+.minha-comunidade-imagem {
+    width: 68px;
+    height: 68px;
+    flex-shrink: 0;
+    object-fit: cover;
+    background: #292929;
+    border-radius: 9px;
+}
+
+.minha-comunidade-dados {
+    flex: 1;
+    min-width: 0;
+}
+
+.minha-comunidade-dados h3 {
+    margin: 0 0 5px;
+    color: #f5f5f5;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+.minha-comunidade-dados span {
+    color: #aaa;
+    font-size: 12px;
+}
+
+.minha-comunidade-dados p {
+    margin: 7px 0 0;
+    color: #bbb;
+    font-size: 12px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.minha-comunidade-acoes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: none;
+}
+
+.minha-comunidade-acoes button,
+.minhas-comunidades-mensagem button {
+    padding: 8px 11px;
+    border: 1px solid #404040;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.botao-editar-comunidade {
+    background: #292929;
+    color: #f5f5f5;
+}
+
+.botao-editar-comunidade:hover {
+    background: #383838;
+}
+
+.botao-excluir-comunidade {
+    background: transparent;
+    color: #ff8b8b;
+    border-color: #633535 !important;
+}
+
+.botao-excluir-comunidade:hover {
+    background: #321e1e;
+}
+
+.minhas-comunidades-mensagem,
+.minhas-comunidades-vazio {
+    padding: 30px 12px;
+    color: #aaa;
+    text-align: center;
+    font-size: 13px;
+}
+
+.minhas-comunidades-mensagem button {
+    margin-top: 10px;
+    background: #292929;
+    color: #fff;
+}
+
+.minhas-comunidades-vazio span {
+    font-size: 30px;
+}
+
+.minhas-comunidades-vazio h3 {
+    margin: 12px 0 8px;
+    color: #f5f5f5;
+    font-size: 16px;
+}
+
+.minhas-comunidades-vazio p {
+    max-width: 360px;
+    margin: 0 auto 18px;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .minhas-comunidades-fundo {
+        padding: 10px;
+    }
+
+    .minhas-comunidades-modal {
+        max-height: 92vh;
+    }
+
+    .minhas-comunidades-cabecalho {
+        padding: 18px;
+    }
+
+    .minhas-comunidades-acoes {
+        padding: 14px 18px;
+    }
+
+    .minhas-comunidades-lista {
+        padding: 14px;
+    }
+
+    .minha-comunidade-card {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .minha-comunidade-imagem {
+        width: 54px;
+        height: 54px;
+    }
+
+    .minha-comunidade-dados {
+        flex-basis: calc(100% - 70px);
+    }
+
+    .minha-comunidade-acoes {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

@@ -1,4 +1,4 @@
-
+/* TELA DA COMUNIDADE */
 .comunidade-tela {
     min-height: 100vh;
     padding-top: 110px;
@@ -6,6 +6,7 @@
     box-sizing: border-box;
 }
 
+/* LAYOUT PRINCIPAL */
 .conteudo-comunidade {
     display: flex;
     align-items: flex-start;
@@ -15,6 +16,7 @@
     margin: 0 auto;
 }
 
+/* FEED */
 .feed-comunidade {
     width: 750px;
     min-width: 0;
@@ -25,6 +27,7 @@
     margin: 24px 0;
 }
 
+/* LATERAL DA COMUNIDADE */
 .lateral-comunidade {
     position: fixed;
     top: 110px;
@@ -36,7 +39,7 @@
     box-sizing: border-box;
 }
 
-/* Informações da comunidade */
+/* INFORMAÇÕES DA COMUNIDADE */
 .lateral-comunidade .informacoes-comunidade {
     position: static;
     width: 100%;
@@ -91,7 +94,7 @@
     overflow-wrap: anywhere;
 }
 
-/* Botão voltar */
+/* BOTÃO VOLTAR */
 .botao-voltar {
     display: inline-flex;
     align-items: center;
@@ -118,7 +121,7 @@
     flex-shrink: 0;
 }
 
-/* Botão publicar */
+/* BOTÃO PUBLICAR */
 .botao-publicar-comunidade {
     width: 100%;
     min-height: 46px;
@@ -139,10 +142,10 @@
     border-color: #505050;
 }
 
-/* Botões dentro das informações da comunidade */
+/* BOTÕES DAS INFORMAÇÕES DA COMUNIDADE */
 .informacoes-comunidade button {
     background-color: #f5f5f5;
-    color: #111111;
+    color: #111;
     border: 1px solid #f5f5f5;
     border-radius: 9px;
     padding: 11px 18px;
@@ -162,41 +165,7 @@
     transform: scale(0.98);
 }
 
-/* Área de mídia das publicações */
-.midia-comunidade-container {
-    width: 100%;
-    margin-top: 12px;
-    overflow: hidden;
-    border-radius: 10px;
-    background-color: #000;
-}
-
-.midia-comunidade {
-    display: block;
-    width: 100%;
-    max-height: 600px;
-    object-fit: contain;
-    background-color: #000;
-    border-radius: 10px;
-}
-
-img.midia-comunidade {
-    height: auto;
-}
-
-video.midia-comunidade {
-    height: auto;
-    max-height: 600px;
-    object-fit: contain;
-}
-
-/* Evita contornos estranhos ao focar nos controles do vídeo */
-video.midia-comunidade:focus-visible {
-    outline: 2px solid #a855f7;
-    outline-offset: -2px;
-}
-
-/* Tablet e notebooks menores */
+/* TABLETS E NOTEBOOKS MENORES */
 @media (max-width: 1250px) {
     .conteudo-comunidade {
         width: auto;
@@ -220,7 +189,7 @@ video.midia-comunidade:focus-visible {
     }
 }
 
-/* Tablets e celulares */
+/* TABLETS E CELULARES */
 @media (max-width: 850px) {
     .comunidade-tela {
         padding-top: 90px;
@@ -262,13 +231,9 @@ video.midia-comunidade:focus-visible {
     .botao-voltar {
         margin-left: 16px;
     }
-
-    .midia-comunidade {
-        max-height: 480px;
-    }
 }
 
-/* Celulares estreitos */
+/* CELULARES ESTREITOS */
 @media (max-width: 480px) {
     .conteudo-comunidade {
         max-width: calc(100% - 20px);
@@ -281,15 +246,6 @@ video.midia-comunidade:focus-visible {
 
     .feed-comunidade {
         gap: 16px;
-    }
-
-    .midia-comunidade-container {
-        border-radius: 8px;
-    }
-
-    .midia-comunidade {
-        max-height: 360px;
-        border-radius: 8px;
     }
 
     .botao-voltar {
