@@ -37,8 +37,25 @@ function App() {
 
                 <Route path="/home" element={<> <Header /> <Home /> </>} />
 
-                <Route path="/comentarios/:publicacao_id" element={<Comentarios />}/>
-                <Route path="/perfil/:id" element={<Perfil />}/>
+                <Route
+                    path="/comentarios/:publicacao_id"
+                    element={
+                        <>
+                            <Header />
+                            <Comentarios />
+                        </>
+                    }
+                />
+
+                <Route
+                    path="/perfil/:id"
+                    element={
+                        <>
+                            <Header />
+                            <Perfil />
+                        </>
+                    }
+                />
                 
                 <Route
                     path="/albuns-avaliados"

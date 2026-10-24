@@ -8,11 +8,14 @@ import {
     buscarUsuariosPorNome
 } from "../../api";
 
+import FazerLogoutModal from "../../modals/FazerLogout/fazerLogoutModal";
+
 function Header() {
     const [menuAberto, setMenuAberto] = useState(false);
     const [nomeBusca, setNomeBusca] = useState("");
     const [usuarios, setUsuarios] = useState([]);
     const [carregando, setCarregando] = useState(false);
+    const [modalLogoutAberto, setModalLogoutAberto] = useState(false);
 
     const navigate = useNavigate();
 
@@ -58,6 +61,7 @@ function Header() {
     const fazendoLogout = async () => {
         try {
             await fazerLogout();
+            setModalLogoutAberto(false);
             navigate("/login");
         } catch (error) {
             console.error("Não foi possível fazer o logout:", error);
@@ -74,7 +78,6 @@ function Header() {
 
     return (
         <header className="header">
-
             <button
                 type="button"
                 className="botao-menu"
@@ -116,7 +119,7 @@ function Header() {
             <button
                 type="button"
                 className="boton-elegante"
-                onClick={fazendoLogout}
+                onClick={() => setModalLogoutAberto(true)}
             >
                 Sair
             </button>
@@ -133,7 +136,6 @@ function Header() {
 
                 {nomeBusca.trim() !== "" && (
                     <div className="resultados-usuarios">
-
                         {carregando ? (
                             <p>Pesquisando...</p>
                         ) : usuarios.length > 0 ? (
@@ -155,11 +157,17 @@ function Header() {
                         ) : (
                             <p>Nenhum usuário encontrado.</p>
                         )}
-
                     </div>
                 )}
             </div>
 
+        {modalLogoutAberto && (
+            <FazerLogoutModal
+                onClose={() => setModalLogoutAberto(false)}
+                onConfirmar={fazendoLogout}
+            />
+        )}
+        
         </header>
     );
 }

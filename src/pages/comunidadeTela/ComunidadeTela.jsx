@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import {
     buscarPublicacoesDaComunidade,
@@ -7,11 +7,9 @@ import {
     buscarComunidade
 } from "../../api";
 
-import { FiArrowLeft } from "react-icons/fi";
-
 import InformacoesComunidade from "../../components/cabecalhoComunidade/InformacoesComunidade";
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
-import ModalPublicacao from "../../modals/modalPublicacao";
+import ModalPublicacao from "../../modals/ModalPublicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 
 import "./ComunidadeTela.css";
@@ -54,7 +52,6 @@ function obterUsuarioLogadoId() {
 
 function ComunidadeTela() {
     const { id } = useParams();
-    const navigate = useNavigate();
 
     const [publicacoes, setPublicacoes] = useState([]);
     const [curtidas, setCurtidas] = useState({});
@@ -165,15 +162,6 @@ function ComunidadeTela() {
 
     return (
         <div className="comunidade-tela">
-            <button
-                className="botao-voltar"
-                type="button"
-                onClick={() => navigate("/home")}
-            >
-                <FiArrowLeft size={20} />
-                <span>Voltar para Home</span>
-            </button>
-
             <div className="conteudo-comunidade">
                 <main className="feed-comunidade">
                     {publicacoes.length === 0 ? (

@@ -1,0 +1,97 @@
+.logout-overlay {
+position: fixed;
+inset: 0;
+z-index: 9999;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 20px;
+background: rgba(0, 0, 0, 0.65);
+backdrop-filter: blur(4px);
+}
+
+.logout-modal {
+width: 100%;
+max-width: 380px;
+background: #1a1a1a;
+color: #f5f5f5;
+border: 1px solid #333;
+border-radius: 14px;
+font-family: "Inter", sans-serif;
+box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+animation: logoutEntrada 0.2s ease-out;
+}
+
+.logout-modal h2 {
+padding: 24px 24px 12px;
+margin: 0;
+color: #f5f5f5;
+font-family: "Inter", sans-serif;
+font-size: 20px;
+font-weight: 600;
+}
+
+.logout-modal p {
+padding: 8px 24px 20px;
+margin: 0;
+color: #eaeaea;
+font-family: "Inter", sans-serif;
+font-size: 14px;
+line-height: 1.6;
+}
+
+.logout-botoes {
+display: flex;
+justify-content: flex-end;
+gap: 10px;
+padding: 12px 24px 22px;
+}
+
+.logout-botoes button {
+padding: 9px 16px;
+border-radius: 8px;
+font-family: "Inter", sans-serif;
+font-size: 12px;
+font-weight: 500;
+text-transform: none;
+cursor: pointer;
+transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.logout-cancelar {
+background: transparent;
+border: 1px solid #393939;
+color: #bdbdbd;
+}
+
+.logout-cancelar:hover {
+background: #292929;
+border-color: #555;
+color: #fff;
+}
+
+.logout-confirmar {
+background: #d93636;
+border: 1px solid #d93636;
+color: #fff;
+font-weight: 600;
+box-shadow: none;
+}
+
+.logout-confirmar:hover {
+background: #b92c2c;
+border-color: #b92c2c;
+}
+
+@keyframes logoutEntrada {
+from {
+opacity: 0;
+transform: scale(0.95);
+}
+
+to {
+    opacity: 1;
+    transform: scale(1);
+}
+
+}
