@@ -122,7 +122,7 @@ function PerfilComponente() {
                     }}
                 >
                     <FaPencil />
-                    <strong>Publque suas letras musicais</strong>
+                    <strong>Publique suas letras musicais</strong>
                     <p>Mostre suas criações para outras pessoas</p>
                     <HiChevronRight />
                 </div>
