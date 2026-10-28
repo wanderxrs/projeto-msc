@@ -253,4 +253,8 @@ export const listarLetrasPublicas = () => api.get("/composicoes/publicas");
 export function carregarPublicacoesSeguindo() {
     return api.get("/publicacoes/seguindo");
 }
+
+export const buscarComunidadesDoPerfil = (usuarioId) => {
+    return api.get(`/comunidadesUsuario/${usuarioId}`);
+};
 export default api

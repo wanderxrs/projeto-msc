@@ -5,7 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
     carregarPerfil,
     carregarPerfilUsuario,
-    curtirPublicacao
+    curtirPublicacao,
+    buscarComunidadesDoPerfil
 } from "../../api";
 
 import { HiOutlineDotsVertical } from "react-icons/hi";
@@ -23,29 +24,39 @@ function Perfil() {
     const [perfil, setPerfil] = useState(null);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
+
     const [curtidas, setCurtidas] = useState({});
     const [publicacaoSelecionada, setPublicacaoSelecionada] = useState(null);
+
     const [abaAtiva, setAbaAtiva] = useState("visao-geral");
     const [modalEditarAberto, setModalEditarAberto] = useState(false);
     const [usuarioLogadoId, setUsuarioLogadoId] = useState(null);
 
+    // Comunidades do usuário visualizado
+    const [comunidadesPerfil, setComunidadesPerfil] = useState([]);
+    const [carregandoComunidades, setCarregandoComunidades] = useState(true);
+    const [erroComunidades, setErroComunidades] = useState("");
+
+    // BUSCAR PERFIL
     async function buscarPerfil() {
         setCarregando(true);
         setErro("");
 
         try {
             const resposta = await carregarPerfilUsuario(id);
+
             setPerfil(resposta.data);
 
             const estadoCurtidas = {};
 
             (resposta.data.publicacoes || []).forEach((publicacao) => {
-                estadoCurtidas[publicacao.id] = Boolean(
-                    publicacao.curtida_usuario
-                );
+                estadoCurtidas[publicacao.id] =
+                    publicacao.curtida_usuario === true ||
+                    publicacao.curtida_usuario === 1;
             });
 
             setCurtidas(estadoCurtidas);
+
         } catch (erro) {
             console.error("Erro ao carregar perfil:", erro);
             setErro("Erro ao carregar o perfil.");
@@ -55,21 +66,59 @@ function Perfil() {
         }
     }
 
+    // IDENTIFICAR USUÁRIO LOGADO
     async function buscarUsuarioLogado() {
         try {
             const resposta = await carregarPerfil();
+
             setUsuarioLogadoId(Number(resposta.data.id));
+
         } catch (erro) {
             console.error("Erro ao identificar usuário logado:", erro);
             setUsuarioLogadoId(null);
         }
     }
 
+    // BUSCAR COMUNIDADES DO PERFIL
+    async function buscarComunidadesPerfil() {
+        setCarregandoComunidades(true);
+        setErroComunidades("");
+        setComunidadesPerfil([]);
+
+        try {
+            const resposta = await buscarComunidadesDoPerfil(id);
+
+            const lista = Array.isArray(resposta.data)
+                ? resposta.data
+                : [];
+
+            setComunidadesPerfil(lista);
+
+        } catch (erro) {
+            console.error(
+                "Erro ao carregar comunidades:",
+                erro.response?.data || erro.message
+            );
+
+            setErroComunidades("Erro ao carregar as comunidades.");
+        } finally {
+            setCarregandoComunidades(false);
+        }
+    }
+
+    // CARREGAR DADOS AO MUDAR DE PERFIL
     useEffect(() => {
+        setPerfil(null);
+        setAbaAtiva("visao-geral");
+        setPublicacaoSelecionada(null);
+        setModalEditarAberto(false);
+
         buscarPerfil();
         buscarUsuarioLogado();
+        buscarComunidadesPerfil();
     }, [id]);
 
+    // CURTIR OU DESCURTIR PUBLICAÇÃO
     async function handleCurtir(publicacao_id) {
         try {
             await curtirPublicacao(publicacao_id);
@@ -83,6 +132,7 @@ function Perfil() {
 
             setPerfil((perfilAnterior) => ({
                 ...perfilAnterior,
+
                 publicacoes: perfilAnterior.publicacoes.map((publicacao) => {
                     if (publicacao.id !== publicacao_id) {
                         return publicacao;
@@ -99,22 +149,32 @@ function Perfil() {
                     };
                 })
             }));
+
         } catch (erro) {
             console.error("Erro ao curtir publicação:", erro);
             setErro("Erro ao curtir a publicação.");
         }
     }
 
+    // VERIFICAR SE O PERFIL É DO USUÁRIO LOGADO
+    const perfilEhMeu =
+        usuarioLogadoId !== null &&
+        perfil?.usuario?.id != null &&
+        Number(perfil.usuario.id) === usuarioLogadoId;
+
+    // ABRIR MODAL DE EXCLUSÃO
     function abrirModalApagar(publicacao) {
         if (!perfilEhMeu) return;
 
         setPublicacaoSelecionada(publicacao);
     }
 
+    // FECHAR MODAL DE EXCLUSÃO
     function fecharModalApagar() {
         setPublicacaoSelecionada(null);
     }
 
+    // ESTADOS DE CARREGAMENTO
     if (carregando) {
         return <p>Carregando perfil...</p>;
     }
@@ -130,18 +190,14 @@ function Perfil() {
     const usuario = perfil.usuario;
     const publicacoes = perfil.publicacoes || [];
     const avaliacoes = perfil.avaliacoes || [];
-    const comunidades = perfil.comunidades || [];
-
-    const perfilEhMeu =
-        usuarioLogadoId !== null &&
-        usuario?.id != null &&
-        Number(usuario.id) === usuarioLogadoId;
+    const comunidades = comunidadesPerfil;
 
     const capaUrl =
         usuario.foto_url_background || usuario.capa_url || "";
 
-    const totalComunidades =
-        usuario.total_comunidades ?? comunidades.length;
+    const totalComunidades = carregandoComunidades
+        ? (usuario.total_comunidades ?? 0)
+        : comunidades.length;
 
     const totalAlbuns =
         usuario.total_albuns_avaliados ?? avaliacoes.length;
@@ -149,20 +205,23 @@ function Perfil() {
     return (
         <>
             <main className="perfil-page">
+
                 {/* CABEÇALHO DO PERFIL */}
                 <section className="perfil-header">
+
                     <div
                         className="perfil-capa"
                         style={
                             capaUrl
                                 ? {
-                                      backgroundImage: `url("${capaUrl}")`
-                                  }
+                                    backgroundImage: `url("${capaUrl}")`
+                                }
                                 : {}
                         }
                     />
 
                     <div className="perfil-identidade">
+
                         <img
                             src={usuario.foto_url || "/avatar-padrao.png"}
                             alt={`Foto de ${usuario.nome}`}
@@ -170,6 +229,7 @@ function Perfil() {
                         />
 
                         <div className="perfil-dados">
+
                             <h1 className="perfil-nome">
                                 {usuario.nome}
                             </h1>
@@ -183,6 +243,7 @@ function Perfil() {
                             </p>
 
                             <div className="perfil-estatisticas">
+
                                 <div>
                                     <strong>{publicacoes.length}</strong>
                                     <span>publicações</span>
@@ -197,6 +258,7 @@ function Perfil() {
                                     <strong>{totalAlbuns}</strong>
                                     <span>álbuns avaliados</span>
                                 </div>
+
                             </div>
                         </div>
 
@@ -211,11 +273,13 @@ function Perfil() {
                                 <HiOutlineDotsVertical />
                             </button>
                         )}
+
                     </div>
                 </section>
 
                 {/* NAVEGAÇÃO ENTRE ABAS */}
                 <nav className="perfil-abas">
+
                     <button
                         type="button"
                         className={`perfil-aba ${
@@ -245,11 +309,13 @@ function Perfil() {
                     >
                         Avaliações
                     </button>
+
                 </nav>
 
                 {/* ABA: VISÃO GERAL */}
                 {abaAtiva === "visao-geral" && (
                     <section className="perfil-publicacoes">
+
                         <h2>Publicações</h2>
 
                         {publicacoes.length === 0 ? (
@@ -258,6 +324,7 @@ function Perfil() {
                             </p>
                         ) : (
                             <div className="feed">
+
                                 {publicacoes.map((publicacao) => (
                                     <Publicacao
                                         key={publicacao.id}
@@ -270,42 +337,96 @@ function Perfil() {
                                         onExcluir={abrirModalApagar}
                                     />
                                 ))}
+
                             </div>
                         )}
+
                     </section>
                 )}
 
                 {/* ABA: COMUNIDADES */}
                 {abaAtiva === "comunidades" && (
                     <section className="perfil-conteudo-aba">
+
                         <h2>Comunidades</h2>
 
-                        {comunidades.length === 0 ? (
+                        {carregandoComunidades ? (
+                            <p>Carregando comunidades...</p>
+                        ) : erroComunidades ? (
+                            <p>{erroComunidades}</p>
+                        ) : comunidades.length === 0 ? (
                             <p>
                                 Esse usuário ainda não participa de comunidades.
                             </p>
                         ) : (
                             <div className="perfil-comunidades-lista">
+
                                 {comunidades.map((comunidade) => (
                                     <article
                                         className="perfil-comunidade-card"
                                         key={comunidade.id}
+                                        onClick={() =>
+                                            navigate(`/comunidade/${comunidade.id}`)
+                                        }
+                                        role="link"
+                                        tabIndex={0}
+                                        onKeyDown={(evento) => {
+                                            if (
+                                                evento.key === "Enter" ||
+                                                evento.key === " "
+                                            ) {
+                                                evento.preventDefault();
+                                                navigate(
+                                                    `/comunidade/${comunidade.id}`
+                                                );
+                                            }
+                                        }}
                                     >
-                                        <h3>{comunidade.nome}</h3>
 
-                                        {comunidade.descricao && (
-                                            <p>{comunidade.descricao}</p>
+                                        {comunidade.imagem_url && (
+                                            <img
+                                                src={comunidade.imagem_url}
+                                                alt={`Imagem da comunidade ${comunidade.nome}`}
+                                                className="perfil-comunidade-imagem"
+                                            />
                                         )}
+
+                                        <div className="perfil-comunidade-info">
+
+                                            <h3>{comunidade.nome}</h3>
+
+                                            {comunidade.genero && (
+                                                <span>
+                                                    {comunidade.genero}
+                                                </span>
+                                            )}
+
+                                            <p>
+                                                {Number(comunidade.total_membros) || 0}{" "}
+                                                {Number(comunidade.total_membros) === 1
+                                                    ? "membro"
+                                                    : "membros"}
+                                            </p>
+
+                                            {comunidade.descricao && (
+                                                <p>{comunidade.descricao}</p>
+                                            )}
+
+                                        </div>
+
                                     </article>
                                 ))}
+
                             </div>
                         )}
+
                     </section>
                 )}
 
                 {/* ABA: AVALIAÇÕES */}
                 {abaAtiva === "avaliacoes" && (
                     <section className="perfil-avaliacoes">
+
                         <h2>Avaliações musicais</h2>
 
                         {avaliacoes.length === 0 ? (
@@ -314,11 +435,13 @@ function Perfil() {
                             </p>
                         ) : (
                             <div className="perfil-avaliacoes-grade">
+
                                 {avaliacoes.map((avaliacao) => (
                                     <article
                                         className="perfil-avaliacao-card"
                                         key={avaliacao.album_id}
                                     >
+
                                         {avaliacao.capa_url ? (
                                             <img
                                                 src={avaliacao.capa_url}
@@ -331,17 +454,22 @@ function Perfil() {
                                         )}
 
                                         <h3>{avaliacao.titulo}</h3>
+
                                         <p>{avaliacao.artista}</p>
 
                                         <span className="perfil-avaliacao-nota">
                                             ★ {avaliacao.nota}/10
                                         </span>
+
                                     </article>
                                 ))}
+
                             </div>
                         )}
+
                     </section>
                 )}
+
             </main>
 
             {/* MODAL DE EXCLUSÃO */}
@@ -367,6 +495,7 @@ function Perfil() {
                     }}
                 />
             )}
+
         </>
     );
 }

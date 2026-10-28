@@ -371,3 +371,162 @@
         padding: 8px;
     }
 }
+
+
+/* LISTA DE COMUNIDADES DO PERFIL */
+
+.perfil-comunidades-lista {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    gap: 0;
+}
+
+/* CADA COMUNIDADE */
+
+.perfil-comunidade-card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    width: 100%;
+    min-width: 0;
+    padding: 18px 12px;
+    box-sizing: border-box;
+
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #303030;
+    border-radius: 0;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.perfil-comunidade-card:first-child {
+    padding-top: 8px;
+}
+
+.perfil-comunidade-card:last-child {
+    border-bottom: none;
+    padding-bottom: 8px;
+}
+
+.perfil-comunidade-card:hover {
+    background-color: #242424;
+}
+
+.perfil-comunidade-card:focus-visible {
+    outline: 2px solid #a855f7;
+    outline-offset: -2px;
+}
+
+/* IMAGEM DA COMUNIDADE */
+
+.perfil-comunidade-imagem {
+    width: 82px;
+    height: 82px;
+    flex-shrink: 0;
+
+    object-fit: cover;
+    display: block;
+
+    border-radius: 12px;
+    border: 1px solid #383838;
+}
+
+/* INFORMAÇÕES */
+
+.perfil-comunidade-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    flex: 1;
+    min-width: 0;
+
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+}
+
+/* NOME */
+
+.perfil-comunidade-info h3 {
+    margin: 0;
+
+    color: #f5f5f5;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+/* GÊNERO MUSICAL */
+
+.perfil-comunidade-info span {
+    color: #c084fc;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* QUANTIDADE DE MEMBROS */
+
+.perfil-comunidade-info p {
+    margin: 0;
+
+    color: #a3a3a3;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* DESCRIÇÃO DA COMUNIDADE */
+
+.perfil-comunidade-info p:last-child {
+    color: #b8b8b8;
+    font-size: 13px;
+    line-height: 1.5;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    overflow-wrap: anywhere;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 650px) {
+    .perfil-comunidades-lista {
+        margin-top: 14px;
+    }
+
+    .perfil-comunidade-card {
+        gap: 12px;
+        padding: 14px 6px;
+    }
+
+    .perfil-comunidade-imagem {
+        width: 65px;
+        height: 65px;
+        border-radius: 10px;
+    }
+
+    .perfil-comunidade-info h3 {
+        font-size: 14px;
+    }
+
+    .perfil-comunidade-info span,
+    .perfil-comunidade-info p {
+        font-size: 11px;
+    }
+
+    .perfil-comunidade-info p:last-child {
+        font-size: 12px;
+        -webkit-line-clamp: 1;
+    }
+}
