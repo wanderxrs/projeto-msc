@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -14,42 +15,6 @@ import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicaca
 
 import "./ComunidadeTela.css";
 
-function obterUsuarioLogadoId() {
-    try {
-        const usuarioSalvo = localStorage.getItem("usuario");
-
-        if (usuarioSalvo) {
-            const usuario = JSON.parse(usuarioSalvo);
-
-            if (usuario?.id != null) {
-                return usuario.id;
-            }
-        }
-
-        const token = localStorage.getItem("token");
-
-        if (token) {
-            const partes = token.split(".");
-
-            if (partes.length === 3) {
-                const payload = JSON.parse(atob(partes[1]));
-
-                if (payload?.id != null) {
-                    return payload.id;
-                }
-
-                if (payload?.user_id != null) {
-                    return payload.user_id;
-                }
-            }
-        }
-    } catch (erro) {
-        console.error("Erro ao obter usuário logado:", erro);
-    }
-
-    return null;
-}
-
 function ComunidadeTela() {
     const { id } = useParams();
 
@@ -58,12 +23,8 @@ function ComunidadeTela() {
     const [modalAberto, setModalAberto] = useState(false);
     const [publicacaoSelecionada, setPublicacaoSelecionada] = useState(null);
     const [comunidade, setComunidade] = useState(null);
-    const [usuarioId, setUsuarioId] = useState(null);
 
-    useEffect(() => {
-        setUsuarioId(obterUsuarioLogadoId());
-    }, []);
-
+    // Busca as informações da comunidade
     async function buscarDadosComunidade() {
         try {
             const response = await buscarComunidade(id);
@@ -76,6 +37,7 @@ function ComunidadeTela() {
         }
     }
 
+    // Busca as publicações da comunidade
     async function buscarPublicacoes() {
         try {
             const response = await buscarPublicacoesDaComunidade(id);
@@ -89,9 +51,9 @@ function ComunidadeTela() {
             const estadoCurtidas = {};
 
             lista.forEach((publicacao) => {
-                estadoCurtidas[publicacao.id] = Boolean(
-                    publicacao.curtida_usuario
-                );
+                estadoCurtidas[publicacao.id] =
+                    publicacao.curtida_usuario === true ||
+                    publicacao.curtida_usuario === 1;
             });
 
             setCurtidas(estadoCurtidas);
@@ -103,11 +65,18 @@ function ComunidadeTela() {
         }
     }
 
+    // Carrega os dados quando a comunidade muda
     useEffect(() => {
+        setComunidade(null);
+        setPublicacoes([]);
+        setCurtidas({});
+        setPublicacaoSelecionada(null);
+
         buscarDadosComunidade();
         buscarPublicacoes();
     }, [id]);
 
+    // Curtir ou descurtir publicação
     async function handleCurtir(publicacaoId) {
         try {
             await curtirPublicacao(publicacaoId);
@@ -144,25 +113,24 @@ function ComunidadeTela() {
         }
     }
 
+    // Abre o modal de exclusão
     function abrirModalApagar(publicacao) {
         setPublicacaoSelecionada(publicacao);
     }
 
+    // Fecha o modal de exclusão
     function fecharModalApagar() {
         setPublicacaoSelecionada(null);
     }
 
+    // Verifica se o usuário é criador da comunidade
     const ehCriadorComunidade =
-        Boolean(comunidade?.eh_criador) ||
-        (
-            comunidade?.criador_id != null &&
-            usuarioId != null &&
-            Number(comunidade.criador_id) === Number(usuarioId)
-        );
+        comunidade?.eh_criador === true;
 
     return (
         <div className="comunidade-tela">
             <div className="conteudo-comunidade">
+
                 <main className="feed-comunidade">
                     {publicacoes.length === 0 ? (
                         <p>
@@ -170,8 +138,12 @@ function ComunidadeTela() {
                         </p>
                     ) : (
                         publicacoes.map((publicacao) => {
-                            const ehAutor = Boolean(publicacao.eh_dono);
 
+                            // Verifica se é autor da publicação
+                            const ehAutor =
+                                publicacao.eh_dono === true;
+
+                            // Autor ou criador podem excluir
                             const podeApagar =
                                 ehAutor || ehCriadorComunidade;
 
@@ -179,7 +151,9 @@ function ComunidadeTela() {
                                 <Publicacao
                                     key={publicacao.id}
                                     publicacao={publicacao}
-                                    curtido={Boolean(curtidas[publicacao.id])}
+                                    curtido={Boolean(
+                                        curtidas[publicacao.id]
+                                    )}
                                     onCurtir={handleCurtir}
                                     podeExcluir={podeApagar}
                                     onExcluir={abrirModalApagar}
@@ -202,6 +176,7 @@ function ComunidadeTela() {
                 </aside>
             </div>
 
+            {/* Modal para criar publicação */}
             {modalAberto && (
                 <ModalPublicacao
                     onClose={() => setModalAberto(false)}
@@ -213,6 +188,7 @@ function ComunidadeTela() {
                 />
             )}
 
+            {/* Modal para apagar publicação */}
             {publicacaoSelecionada && (
                 <ModalApagarPublicacao
                     publicacao={publicacaoSelecionada}
