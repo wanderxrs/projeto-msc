@@ -1,0 +1,101 @@
+
+/* Modal */
+
+.yrplace-atualizar-dialog .MuiPaper-root {
+    background: #161616;
+    color: #f5f5f5;
+    border: 1px solid #303030;
+    border-radius: 12px;
+    font-family: "Inter", sans-serif;
+}
+
+/* Título */
+
+.yrplace-atualizar-titulo {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.yrplace-atualizar-subtitulo {
+    margin-top: 6px;
+    color: #888;
+    font-size: 12px;
+}
+
+/* Campos */
+
+.yrplace-atualizar-conteudo {
+    padding: 0 24px 16px !important;
+}
+
+.yrplace-atualizar-conteudo .MuiOutlinedInput-root {
+    background: #202020;
+    border-radius: 8px;
+    color: #fff;
+}
+
+.yrplace-atualizar-conteudo .MuiOutlinedInput-notchedOutline {
+    border-color: #363636;
+}
+
+.yrplace-atualizar-conteudo .MuiInputLabel-root {
+    color: #929292;
+}
+
+/* Imagem */
+
+.yrplace-atualizar-imagem {
+    margin-top: 8px;
+    padding: 15px;
+    background: #1d1d1d;
+    border: 1px solid #303030;
+    border-radius: 8px;
+}
+
+.yrplace-atualizar-label {
+    margin-bottom: 10px;
+    color: #ddd;
+    font-size: 13px;
+}
+
+.yrplace-atualizar-upload {
+    color: #ddd !important;
+    border-color: #444 !important;
+    text-transform: none !important;
+}
+
+.yrplace-atualizar-nome-arquivo {
+    margin-top: 8px;
+    color: #888;
+    font-size: 11px;
+}
+
+/* Mensagem */
+
+.yrplace-atualizar-mensagem {
+    color: #ff9999;
+    font-size: 12px;
+}
+
+/* Botões */
+
+.yrplace-atualizar-acoes {
+    padding: 16px 24px 22px !important;
+    gap: 8px;
+}
+
+.yrplace-atualizar-cancelar {
+    color: #bbb !important;
+    border: 1px solid #393939 !important;
+    text-transform: none !important;
+}
+
+.yrplace-atualizar-confirmar {
+    background: #f0f0f0 !important;
+    color: #151515 !important;
+    text-transform: none !important;
+}
+
+.yrplace-atualizar-confirmar:hover {
+    background: #d5d5d5 !important;
+}

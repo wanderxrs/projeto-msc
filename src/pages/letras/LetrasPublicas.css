@@ -1,0 +1,175 @@
+
+.letras-publicas {
+    width: 90%;
+    max-width: 1000px;
+    min-height: 100vh;
+    margin: 30px auto;
+    padding-bottom: 40px;
+    color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    margin-top: 100px;
+}
+
+.letras-publicas * {
+    box-sizing: border-box;
+}
+
+/* TÍTULO E DESCRIÇÃO */
+
+.letras-publicas > h1 {
+    margin: 0 0 8px;
+    color: #fff;
+    font-size: 26px;
+}
+
+.letras-publicas > .descricao-letras {
+    margin: 0;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* LISTA DE LETRAS */
+
+.lista-letras-publicas {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+    align-items: start;
+}
+
+/* CARD DE CADA LETRA */
+
+.card-letra-publica {
+    min-width: 0;
+    padding: 16px;
+    background: #1a1a1a;
+    border: 1px solid #303030;
+    border-radius: 10px;
+}
+
+/* TÍTULO DA MÚSICA */
+
+.card-letra-publica h2 {
+    margin: 0 0 8px;
+    color: #f5f5f5;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* ESTILO MUSICAL */
+
+.estilo-letra-publica {
+    margin: 0 0 14px;
+    color: #aaa;
+    font-size: 12px;
+}
+
+/* BOTÃO PARA MOSTRAR A LETRA */
+
+.card-letra-publica button {
+    padding: 8px 12px;
+    background: #29212f;
+    border: 1px solid #59416e;
+    border-radius: 6px;
+    color: #d8b4fe;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.card-letra-publica button:hover {
+    background: #392846;
+    border-color: #a855f7;
+    color: #fff;
+}
+
+/* LETRA COMPLETA */
+
+.conteudo-letra-publica {
+    max-height: 280px;
+    margin: 14px 0 0;
+    padding: 14px 8px 4px 0;
+    overflow-y: auto;
+    border-top: 1px solid #383838;
+    color: #ddd;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* BARRA DE ROLAGEM */
+
+.conteudo-letra-publica::-webkit-scrollbar {
+    width: 5px;
+}
+
+.conteudo-letra-publica::-webkit-scrollbar-thumb {
+    background: #59416e;
+    border-radius: 5px;
+}
+
+.conteudo-letra-publica::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+/* MENSAGENS */
+
+.erro-letras,
+.vazio-letras {
+    margin-top: 24px;
+    padding: 14px;
+    background: #1a1a1a;
+    border: 1px solid #303030;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.erro-letras {
+    color: #fca5a5;
+}
+
+.vazio-letras {
+    color: #aaa;
+}
+
+/* TABLETS */
+
+@media (max-width: 900px) {
+    .lista-letras-publicas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+    .letras-publicas {
+        width: 94%;
+        margin-top: 20px;
+    }
+
+    .letras-publicas > h1 {
+        font-size: 22px;
+    }
+
+    .lista-letras-publicas {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 18px;
+    }
+
+    .card-letra-publica {
+        padding: 14px;
+    }
+
+    .conteudo-letra-publica {
+        max-height: 250px;
+    }
+}

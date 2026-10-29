@@ -1,267 +1,206 @@
+
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { buscarPublicacoesDaComunidade, curtirPublicacao} from "../../api";
-import { PiHeartStraight, PiHeartStraightFill } from "react-icons/pi";
-import { VscCommentCompact } from "react-icons/vsc";
-import { FiArrowLeft } from "react-icons/fi";
-import { IoMenu } from "react-icons/io5";
+import { useParams } from "react-router-dom";
+
+import {
+    buscarPublicacoesDaComunidade,
+    curtirPublicacao,
+    buscarComunidade
+} from "../../api";
+
 import InformacoesComunidade from "../../components/cabecalhoComunidade/InformacoesComunidade";
-import ModalPublicacao from "../../modals/modalPublicacao";
+import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
+import ModalPublicacao from "../../modals/ModalPublicacao";
+import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
+
 import "./ComunidadeTela.css";
 
-
 function ComunidadeTela() {
-
     const { id } = useParams();
-    const navigate = useNavigate();
+
     const [publicacoes, setPublicacoes] = useState([]);
     const [curtidas, setCurtidas] = useState({});
     const [modalAberto, setModalAberto] = useState(false);
+    const [publicacaoSelecionada, setPublicacaoSelecionada] = useState(null);
+    const [comunidade, setComunidade] = useState(null);
 
-
-    async function buscarPublicacoes() {
-
+    // Busca as informações da comunidade
+    async function buscarDadosComunidade() {
         try {
-            const response =
-                await buscarPublicacoesDaComunidade(id);
-
-            setPublicacoes(response.data);
-            const estadoCurtidas = {};
-
-            response.data.forEach((publicacao) => {
-
-                estadoCurtidas[publicacao.id] =
-                    publicacao.curtida_usuario;
-            });
-
-            setCurtidas(estadoCurtidas);
-
+            const response = await buscarComunidade(id);
+            setComunidade(response.data);
         } catch (erro) {
-
             console.error(
-                "Erro ao carregar publicações:",
-                erro
+                "Erro ao carregar comunidade:",
+                erro.response?.data || erro.message
             );
         }
     }
 
+    // Busca as publicações da comunidade
+    async function buscarPublicacoes() {
+        try {
+            const response = await buscarPublicacoesDaComunidade(id);
+
+            const lista = Array.isArray(response.data)
+                ? response.data
+                : [];
+
+            setPublicacoes(lista);
+
+            const estadoCurtidas = {};
+
+            lista.forEach((publicacao) => {
+                estadoCurtidas[publicacao.id] =
+                    publicacao.curtida_usuario === true ||
+                    publicacao.curtida_usuario === 1;
+            });
+
+            setCurtidas(estadoCurtidas);
+        } catch (erro) {
+            console.error(
+                "Erro ao carregar publicações:",
+                erro.response?.data || erro.message
+            );
+        }
+    }
+
+    // Carrega os dados quando a comunidade muda
     useEffect(() => {
+        setComunidade(null);
+        setPublicacoes([]);
+        setCurtidas({});
+        setPublicacaoSelecionada(null);
+
+        buscarDadosComunidade();
         buscarPublicacoes();
     }, [id]);
 
-
-    async function handleCurtir(publicacao_id) {
-
+    // Curtir ou descurtir publicação
+    async function handleCurtir(publicacaoId) {
         try {
+            await curtirPublicacao(publicacaoId);
 
-            await curtirPublicacao(publicacao_id);
+            const novoValor = !curtidas[publicacaoId];
 
-            const novoValor =
-                !curtidas[publicacao_id];
-
-            setCurtidas((curtidasAnteriores) => ({
-                ...curtidasAnteriores,
-                [publicacao_id]: novoValor
+            setCurtidas((anteriores) => ({
+                ...anteriores,
+                [publicacaoId]: novoValor
             }));
 
-
-            setPublicacoes((publicacoesAnteriores) =>
-
-                publicacoesAnteriores.map((publicacao) => {
-
-                    if (
-                        publicacao.id !== publicacao_id
-                    ) {
+            setPublicacoes((anteriores) =>
+                anteriores.map((publicacao) => {
+                    if (publicacao.id !== publicacaoId) {
                         return publicacao;
                     }
 
                     const quantidadeAtual =
-                        Number(
-                            publicacao.total_curtidas
-                        ) || 0;
-
+                        Number(publicacao.total_curtidas) || 0;
 
                     return {
-
                         ...publicacao,
                         total_curtidas: novoValor
                             ? quantidadeAtual + 1
-                            : Math.max(
-                                0,
-                                quantidadeAtual - 1
-                            )
+                            : Math.max(0, quantidadeAtual - 1)
                     };
                 })
             );
-
         } catch (erro) {
-            console.error(erro);
+            console.error(
+                "Erro ao curtir publicação:",
+                erro.response?.data || erro.message
+            );
         }
     }
 
+    // Abre o modal de exclusão
+    function abrirModalApagar(publicacao) {
+        setPublicacaoSelecionada(publicacao);
+    }
+
+    // Fecha o modal de exclusão
+    function fecharModalApagar() {
+        setPublicacaoSelecionada(null);
+    }
+
+    // Verifica se o usuário é criador da comunidade
+    const ehCriadorComunidade =
+        comunidade?.eh_criador === true;
 
     return (
-
         <div className="comunidade-tela">
-
-            <button
-                className="botao-voltar"
-                onClick={() => navigate("/home")}
-            >
-                <FiArrowLeft size={20} />
-
-                <span>Voltar para Home</span>
-            </button>
-
-
             <div className="conteudo-comunidade">
 
                 <main className="feed-comunidade">
+                    {publicacoes.length === 0 ? (
+                        <p>
+                            Ainda não há publicações nesta comunidade.
+                        </p>
+                    ) : (
+                        publicacoes.map((publicacao) => {
 
+                            // Verifica se é autor da publicação
+                            const ehAutor =
+                                publicacao.eh_dono === true;
 
-                    {publicacoes.map((publicacao) => (
-                        <div
-                            key={publicacao.id}
-                            className="publicacao">
+                            // Autor ou criador podem excluir
+                            const podeApagar =
+                                ehAutor || ehCriadorComunidade;
 
-                            <div className="cabecalho-publicacao">
-
-                                <img
-                                    src={publicacao.foto_url}
-                                    alt="Foto do usuário"
-                                    className="foto-usuario"
-                                />
-
-                                <h3>{publicacao.nome_usuario}</h3>
-
-
-                                <div className="data-publicacao">
-
-                                    {new Date(
-                                        publicacao.data_criacao
-                                    ).toLocaleDateString(
-                                        "pt-BR"
+                            return (
+                                <Publicacao
+                                    key={publicacao.id}
+                                    publicacao={publicacao}
+                                    curtido={Boolean(
+                                        curtidas[publicacao.id]
                                     )}
-
-                                </div>
-
-
-                                <button
-                                    className="hamburguer"
-                                    style={{
-                                        background: "none",
-                                        padding: "0",
-                                        height: "0",
-                                        marginLeft: "auto"
-                                    }}>
-
-                                    <IoMenu
-                                        size={25}
-                                        style={{
-                                            cursor: "pointer"
-                                        }}
-                                    />
-
-                                </button>
-
-                            </div>
-
-                            <p>{publicacao.legenda}</p>
-
-
-                            <img
-                                className="imagem-publicacao"
-                                src={publicacao.imagem_url}
-                                alt="Imagem da publicação"
-                            />
-
-
-                            <div className="area-curtida">
-
-
-                                <button
-                                    className="botao-curtida"
-                                    onClick={() =>
-                                        handleCurtir(
-                                            publicacao.id
-                                        )
-                                    }
-                                    style={{
-                                        background: "none"
-                                    }}
-                                >
-
-                                    {curtidas[publicacao.id]
-
-                                        ? (
-                                            <PiHeartStraightFill
-                                                color="white"
-                                                fontSize={30}
-                                            />
-                                        )
-
-                                        : (
-                                            <PiHeartStraight
-                                                color="white"
-                                                fontSize={30}
-                                            />
-                                        )}
-
-                                </button>
-
-
-                                <span className="quantidade-curtidas">
-
-                                    {Number(
-                                        publicacao.total_curtidas
-                                    ) || 0}
-
-                                </span>
-
-
-                                <button
-                                    className="botao-comentar"
-                                    onClick={() => navigate( `/comentarios/${publicacao.id}`)}>
-
-                                    <VscCommentCompact
-                                        fontSize={26}
-                                        color="white"
-                                    />
-
-                                </button>
-
-                                <span>
-
-                                    {Number(
-                                        publicacao.total_comentarios
-                                    ) || 0}
-
-                                </span>
-                            </div>
-                        </div>
-                    ))}
+                                    onCurtir={handleCurtir}
+                                    podeExcluir={podeApagar}
+                                    onExcluir={abrirModalApagar}
+                                />
+                            );
+                        })
+                    )}
                 </main>
 
                 <aside className="lateral-comunidade">
-
                     <InformacoesComunidade />
 
                     <button
                         className="botao-publicar-comunidade"
-                        onClick={() =>
-                            setModalAberto(true)}>
+                        type="button"
+                        onClick={() => setModalAberto(true)}
+                    >
                         Fazer publicação
-                        </button>
+                    </button>
                 </aside>
             </div>
 
+            {/* Modal para criar publicação */}
             {modalAberto && (
-                <ModalPublicacao onClose={() => setModalAberto(false) }
-                 onPublicacaoCriada={() => { setModalAberto(false); buscarPublicacoes();}}
-                 comunidadeId={id}/>)}
+                <ModalPublicacao
+                    onClose={() => setModalAberto(false)}
+                    onPublicacaoCriada={() => {
+                        setModalAberto(false);
+                        buscarPublicacoes();
+                    }}
+                    comunidadeId={id}
+                />
+            )}
+
+            {/* Modal para apagar publicação */}
+            {publicacaoSelecionada && (
+                <ModalApagarPublicacao
+                    publicacao={publicacaoSelecionada}
+                    onClose={fecharModalApagar}
+                    onPublicacaoApagada={() => {
+                        fecharModalApagar();
+                        buscarPublicacoes();
+                    }}
+                />
+            )}
         </div>
     );
 }
-
 
 export default ComunidadeTela;

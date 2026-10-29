@@ -1,33 +1,47 @@
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { buscarComunidade, entrarComunidade, sairComunidade } from "../../api";
 import "./informacoesComunidade.css";
+import { HiUsers } from "react-icons/hi";
+import "./InformacoesComunidade.css";
 
-function InformacoesComunidade() {
+function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizados }) {
 
     const { id } = useParams();
+
     const [comunidade, setComunidade] = useState(null);
     const [mensagem, setMensagem] = useState("");
     const [participando, setParticipando] = useState(false);
 
-    useEffect(() => {
-        async function carregarComunidade() {
-            try {
+    // Busca as informações da comunidade
+    async function carregarComunidade() {
+        try {
+            const resposta = await buscarComunidade(id);
 
-                const resposta = await buscarComunidade(id);
+            setComunidade(resposta.data);
+            setParticipando(resposta.data.participando);
 
-                setComunidade(resposta.data);
-                setParticipando(resposta.data.participando);
-
-            } catch (erro) {
-                console.error("Erro ao carregar comunidade:", erro);
-            }
+        } catch (erro) {
+            console.error("Erro ao carregar comunidade:", erro);
         }
+    }
 
+    useEffect(() => {
+        setComunidade(null);
+        setMensagem("");
         carregarComunidade();
     }, [id]);
 
+    // Atualiza os dados recebidos da tela principal
+    useEffect(() => {
+        if (dadosRecebidos && Number(dadosRecebidos.id) === Number(id)) {
+            setComunidade(dadosRecebidos);
+            setParticipando(dadosRecebidos.participando);
+        }
+    }, [dadosRecebidos, id]);
 
+    // Entrar na comunidade
     const handleEntrar = async () => {
         setMensagem("");
 
@@ -37,6 +51,12 @@ function InformacoesComunidade() {
             setParticipando(true);
             setMensagem(resposta.data.mensagem);
 
+            await carregarComunidade();
+
+            if (onMembrosAtualizados) {
+                await onMembrosAtualizados();
+            }
+
         } catch (erro) {
             setMensagem(
                 erro.response?.data?.erro ||
@@ -45,6 +65,7 @@ function InformacoesComunidade() {
         }
     };
 
+    // Sair da comunidade
     const handleSair = async () => {
         setMensagem("");
 
@@ -54,6 +75,12 @@ function InformacoesComunidade() {
             setParticipando(false);
             setMensagem(resposta.data.mensagem);
 
+            await carregarComunidade();
+
+            if (onMembrosAtualizados) {
+                await onMembrosAtualizados();
+            }
+
         } catch (erro) {
             setMensagem(
                 erro.response?.data?.erro ||
@@ -62,10 +89,11 @@ function InformacoesComunidade() {
         }
     };
 
-
     if (!comunidade) {
         return <p>Carregando...</p>;
     }
+
+    const totalMembros = Number(comunidade.total_membros) || 0;
 
     return (
         <div className="informacoes-comunidade">
@@ -81,6 +109,18 @@ function InformacoesComunidade() {
                 <h1>{comunidade.nome}</h1>
 
                 <p className="genero">{comunidade.genero}</p>
+
+                {/* QUANTIDADE DE MEMBROS ABAIXO DO GÊNERO */}
+                <div className="comunidade-total-membros">
+                    <HiUsers size={16} />
+
+                    <span>
+                        {totalMembros}{" "}
+                        {totalMembros === 1
+                            ? "membro"
+                            : "membros"}
+                    </span>
+                </div>
 
                 <p>{comunidade.descricao}</p>
 

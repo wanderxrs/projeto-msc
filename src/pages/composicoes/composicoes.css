@@ -1,0 +1,317 @@
+
+:root {
+    --roxo: #8b5cf6;
+    --roxo-escuro: #6d28d9;
+    --fundo: #0e0e0e;
+    --card: #191919;
+    --borda: #333333;
+    --texto: #f5f5f5;
+    --texto-secundario: #aaaaaa;
+}
+
+/* Página */
+.composicoes-pagina {
+    min-height: 100vh;
+    padding: 32px 20px;
+    background: var(--fundo);
+    color: var(--texto);
+    font-family: Inter, Arial, sans-serif;
+}
+
+/* Conteúdo centralizado */
+.composicoes-pagina > * {
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Formulário e lista */
+.composicoes-formulario,
+.composicoes-lista {
+    padding: 24px;
+    margin-bottom: 24px;
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+}
+
+/* Títulos */
+.composicoes-pagina h1 {
+    margin: 0 auto 28px;
+    text-align: center;
+    font-size: 30px;
+    color: var(--texto);
+}
+
+.composicoes-pagina h2 {
+    margin: 0 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--borda);
+    font-size: 21px;
+}
+
+.composicoes-pagina h3 {
+    margin: 0 0 12px;
+    font-size: 17px;
+    color: #c4b5fd;
+}
+
+/* Campos do formulário */
+.composicoes-formulario form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.composicoes-formulario label {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--texto-secundario);
+    font-size: 14px;
+}
+
+.composicoes-formulario input,
+.composicoes-formulario textarea,
+.composicoes-formulario select {
+    width: 100%;
+    padding: 12px;
+    background: #101010;
+    color: var(--texto);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.composicoes-formulario textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.composicoes-formulario input:focus,
+.composicoes-formulario textarea:focus,
+.composicoes-formulario select:focus {
+    outline: none;
+    border-color: var(--roxo);
+}
+
+/* Botões */
+.composicoes-pagina button {
+    padding: 10px 16px;
+    background: var(--roxo);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.composicoes-pagina button:hover {
+    background: var(--roxo-escuro);
+    transform: translateY(-1px);
+}
+
+.composicoes-pagina button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Cabeçalho da lista */
+.composicoes-lista-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.composicoes-lista-cabecalho h2 {
+    flex: 1;
+}
+
+/* Grade de composições */
+.composicoes-lista-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+/* Cartão de composição */
+.composicao-card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px;
+    background: #111111;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.composicao-card:hover {
+    border-color: var(--roxo);
+    transform: translateY(-2px);
+}
+
+.composicao-card p {
+    margin: 0;
+    color: var(--texto-secundario);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.composicao-card strong {
+    color: var(--texto);
+}
+
+/* Letra ou trecho da composição */
+.composicao-trecho {
+    padding: 12px;
+    background: #1c1726;
+    border-left: 3px solid var(--roxo);
+    border-radius: 5px;
+    color: #e5e5e5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    line-height: 1.6;
+}
+
+/* Informações e ações do cartão */
+.composicao-card-acoes {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.composicao-card-acoes button {
+    flex: 1;
+}
+
+.composicao-card-acoes .botao-excluir {
+    background: #292333;
+    border: 1px solid #57416e;
+}
+
+.composicao-card-acoes .botao-excluir:hover {
+    background: #3b294d;
+}
+
+/* Mensagens */
+.composicoes-vazio,
+.composicoes-carregando,
+.composicoes-erro {
+    padding: 20px;
+    text-align: center;
+    color: var(--texto-secundario);
+}
+
+.composicoes-erro {
+    color: #fca5a5;
+}
+
+/* Telas pequenas */
+@media (max-width: 600px) {
+    .composicoes-pagina {
+        padding: 20px 12px;
+    }
+
+    .composicoes-formulario,
+    .composicoes-lista {
+        padding: 16px;
+    }
+
+    .composicoes-pagina h1 {
+        font-size: 25px;
+    }
+
+    .composicoes-lista-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .composicoes-lista-cabecalho {
+        align-items: stretch;
+    }
+}
+
+/* Grade das letras */
+.composicoes-grade {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+/* Card individual */
+.composicao-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    min-width: 0;
+    min-height: 190px;
+    padding: 16px;
+    background: #111111;
+    border: 1px solid #333333;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+
+.composicao-card:hover {
+    border-color: #8b5cf6;
+    transform: translateY(-3px);
+}
+
+/* Nome da letra */
+.composicao-card h3 {
+    margin: 0;
+    color: #bda4ff;
+    font-size: 17px;
+    overflow-wrap: anywhere;
+}
+
+/* Informações */
+.composicao-card p {
+    margin: 0;
+    color: #b8b8b8;
+    font-size: 13px;
+}
+
+/* Trecho da letra */
+.composicao-trecho {
+    padding: 10px;
+    background: #1c1726;
+    border-left: 3px solid #8b5cf6;
+    border-radius: 6px;
+    color: #c9c2d8;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Botões */
+.composicao-card-acoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+}
+
+.composicao-card-acoes button {
+    width: 100%;
+    padding: 9px 6px;
+    font-size: 12px;
+}
+
+/* Celular */
+@media (max-width: 500px) {
+    .composicoes-grade {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .composicao-card {
+        padding: 12px;
+    }
+}

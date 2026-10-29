@@ -1,459 +1,311 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-// API e Estilos
-import { carregarPublicacoes, curtirPublicacao } from "../../api";
+import { useEffect, useState } from "react";
+
+import {
+    carregarPublicacoes,
+    carregarPublicacoesSeguindo,
+    curtirPublicacao
+} from "../../api";
+
 import "./home.css";
 
-// Componentes
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
 import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
 
 // Modais
 import ModalPublicacao from "../../modals/modalPublicacao";
+import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
+
+import ModalPublicacao from "../../modals/ModalPublicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 
-// Ícones
-import { IoMenu } from "react-icons/io5";
-import {
-    PiHeartStraight,
-    PiHeartStraightFill
-} from "react-icons/pi";
-import { VscCommentCompact } from "react-icons/vsc";
-
-
 function Home() {
-
     const [modalAberto, setModalAberto] = useState(false);
-
     const [publicacoes, setPublicacoes] = useState([]);
-
     const [carregando, setCarregando] = useState(true);
-
     const [erro, setErro] = useState("");
-
     const [curtidas, setCurtidas] = useState({});
+    const [abaAtiva, setAbaAtiva] = useState("descobrir");
+    const [segueComunidades, setSegueComunidades] = useState(true);
 
-    // Publicação que foi selecionada para apagar
     const [publicacaoSelecionada, setPublicacaoSelecionada] =
         useState(null);
 
-    const navigate = useNavigate();
-
-
+    // Carrega as publicações da aba selecionada.
     async function buscarPublicacoes() {
+        setCarregando(true);
+        setErro("");
 
         try {
+            let resposta;
+            let lista = [];
 
-            const resposta = await carregarPublicacoes();
+            if (abaAtiva === "descobrir") {
+                resposta = await carregarPublicacoes();
 
-            setPublicacoes(resposta.data);
+                lista = Array.isArray(resposta.data)
+                    ? resposta.data
+                    : resposta.data.publicacoes || [];
 
-            const estadoCurtidas = {};
+            } else {
+                resposta = await carregarPublicacoesSeguindo();
 
-            resposta.data.forEach((publicacao) => {
+                const dados = resposta.data;
 
-                estadoCurtidas[publicacao.id] =
-                    publicacao.curtida_usuario;
+                if (Array.isArray(dados)) {
+                    lista = dados;
 
-            });
-
-            setCurtidas(estadoCurtidas);
-
-        } catch (erro) {
-
-            console.error(erro);
-
-            setErro("Erro ao carregar as publicações.");
-
-        } finally {
-
-            setCarregando(false);
-
-        }
-
-    }
-
-
-    useEffect(() => {
-
-        buscarPublicacoes();
-
-    }, []);
-
-
-    async function handleCurtir(publicacao_id) {
-
-        try {
-
-            await curtirPublicacao(publicacao_id);
-
-            const novoValor = !curtidas[publicacao_id];
-
-            setCurtidas((curtidasAnteriores) => ({
-
-                ...curtidasAnteriores,
-
-                [publicacao_id]: novoValor
-
-            }));
-
-
-            setPublicacoes((publicacoesAnteriores) =>
-
-                publicacoesAnteriores.map((publicacao) => {
-
-                    if (publicacao.id !== publicacao_id) {
-
-                        return publicacao;
-
+                    if (lista.length > 0) {
+                        setSegueComunidades(true);
                     }
 
+                } else {
+                    lista = dados.publicacoes || [];
 
-                    const quantidadeAtual =
-                        Number(publicacao.total_curtidas) || 0;
+                    setSegueComunidades(
+                        dados.segueComunidades ?? true
+                    );
+                }
+            }
 
+            setPublicacoes(lista);
+
+            // Recupera o estado das curtidas do backend.
+            const estadoCurtidas = {};
+
+            lista.forEach((publicacao) => {
+                estadoCurtidas[publicacao.id] =
+                    Boolean(publicacao.curtida_usuario);
+            });
+
+            setCurtidas((anteriores) => ({
+                ...anteriores,
+                ...estadoCurtidas
+            }));
+
+        } catch (erro) {
+            console.error(erro);
+
+            setErro(
+                "Não foi possível carregar as publicações. Tente novamente."
+            );
+
+        } finally {
+            setCarregando(false);
+        }
+    }
+
+    useEffect(() => {
+        buscarPublicacoes();
+    }, [abaAtiva]);
+
+    // Curtir ou descurtir uma publicação.
+    // Usa os valores reais retornados pelo backend.
+    async function handleCurtir(publicacao_id) {
+        try {
+            const resposta = await curtirPublicacao(publicacao_id);
+
+            const { curtido, total_curtidas } = resposta.data;
+
+            setCurtidas((anteriores) => ({
+                ...anteriores,
+                [publicacao_id]: curtido
+            }));
+
+            setPublicacoes((anteriores) =>
+                anteriores.map((publicacao) => {
+                    if (publicacao.id !== publicacao_id) {
+                        return publicacao;
+                    }
 
                     return {
-
                         ...publicacao,
-
-                        total_curtidas: novoValor
-                            ? quantidadeAtual + 1
-                            : Math.max(0, quantidadeAtual - 1)
-
+                        total_curtidas: total_curtidas
                     };
-
                 })
-
             );
 
         } catch (erro) {
-
             console.error(erro);
-
             setErro("Erro ao curtir a publicação.");
-
         }
-
     }
 
-
-    // Abre o modal de apagar
+    // Abre o modal de exclusão.
     function abrirModalApagar(publicacao) {
-
         setPublicacaoSelecionada(publicacao);
-
     }
 
-
-    // Fecha o modal de apagar
+    // Fecha o modal de exclusão.
     function fecharModalApagar() {
-
         setPublicacaoSelecionada(null);
-
     }
-
 
     return (
-
         <>
-
             <div className="conteudo-principal">
 
                 <ComunidadesRecomendadas />
 
-
                 <main className="conteudo-central">
 
-
                     {modalAberto && (
-
                         <ModalPublicacao
-
-                            onClose={() =>
-                                setModalAberto(false)
-                            }
-
-                            onPublicacaoCriada={
-                                buscarPublicacoes
-                            }
-
+                            onClose={() => setModalAberto(false)}
+                            onPublicacaoCriada={buscarPublicacoes}
                         />
-
                     )}
 
-
-                    <h1>
-                        Feed inicial
-                    </h1>
-
-
-                    {carregando && (
-
-                        <p>
-                            Carregando publicações...
-                        </p>
-
-                    )}
-
-
-                    {erro && (
-
-                        <p>
-                            {erro}
-                        </p>
-
-                    )}
-
-
-                    {!carregando &&
-                        publicacoes.length === 0 && (
-
-                            <p>
-                                Nenhuma publicação encontrada.
-                            </p>
-
-                        )}
-
-
-                    <div className="feed">
-
-                        {publicacoes.map((publicacao) => (
-
-                            <div
-                                key={publicacao.id}
-                                className="publicacao"
-                            >
-
-
-                                <div className="cabecalho-publicacao">
-
-
-                                    <img
-                                        src={publicacao.foto_url}
-                                        alt="foto de usuario"
-                                        className="foto-usuario"
-                                    />
-
-
-                                    <h3
-                                        onClick={() =>
-                                            navigate(
-                                                `/perfil/${publicacao.usuario_id}`
-                                            )
-                                        }
-                                        style={{
-                                            cursor: "pointer"
-                                        }}
-                                    >
-                                        {publicacao.nome_usuario}
-                                    </h3>
-
-
-                                    <div className="data-publicacao">
-
-                                        {new Date(
-                                            publicacao.data_criacao
-                                        ).toLocaleDateString(
-                                            "pt-BR"
-                                        )}
-
-                                    </div>
-
-
-                                    {/* 
-                                        Só mostra os três riscos
-                                        se a publicação pertencer
-                                        ao usuário logado.
-                                    */}
-
-                                    {publicacao.eh_dono && (
-
-                                        <button
-                                            className="hamburguer"
-                                            onClick={() =>
-                                                abrirModalApagar(
-                                                    publicacao
-                                                )
-                                            }
-                                            style={{
-                                                background: "none",
-                                                padding: "0",
-                                                height: "0",
-                                                marginLeft: "auto"
-                                            }}
-                                        >
-
-                                            <IoMenu
-                                                size={25}
-                                                style={{
-                                                    cursor: "pointer"
-                                                }}
-                                            />
-
-                                        </button>
-
-                                    )}
-
-
-                                </div>
-
-
-                                <p>
-                                    {publicacao.legenda}
-                                </p>
-
-
-                                <img
-                                    src={publicacao.imagem_url}
-                                    alt="Imagem da publicação"
-                                />
-
-
-                                <div className="area-curtida">
-
-
-                                    <button
-                                        className="botao-curtida"
-
-                                        onClick={() =>
-                                            handleCurtir(
-                                                publicacao.id
-                                            )
-                                        }
-
-                                        aria-label={
-                                            curtidas[
-                                                publicacao.id
-                                            ]
-                                                ? "Descurtir publicação"
-                                                : "Curtir publicação"
-                                        }
-
-                                        style={{
-                                            background: "none"
-                                        }}
-                                    >
-
-                                        <span
-                                            className={
-                                                curtidas[
-                                                    publicacao.id
-                                                ]
-                                                    ? "coracao curtido"
-                                                    : "coracao"
-                                            }
-                                        >
-
-                                            {curtidas[
-                                                publicacao.id
-                                            ]
-
-                                                ? (
-
-                                                    <PiHeartStraightFill
-                                                        color="white"
-                                                        fontSize={30}
-                                                    />
-
-                                                )
-
-                                                : (
-
-                                                    <PiHeartStraight
-                                                        color="white"
-                                                        fontSize={30}
-                                                    />
-
-                                                )}
-
-                                        </span>
-
-                                    </button>
-
-
-                                    <span className="quantidade-curtidas">
-
-                                        {Number(
-                                            publicacao.total_curtidas
-                                        ) || 0}
-
-                                    </span>
-
-
-                                    <button
-                                        className="botao-comentar"
-
-                                        onClick={() =>
-                                            navigate(
-                                                `/comentarios/${publicacao.id}`
-                                            )
-                                        }
-                                    >
-
-                                        <VscCommentCompact
-                                            fontSize={26}
-                                            color="white"
-                                        />
-
-                                    </button>
-
-
-                                    {Number(
-                                        publicacao.total_comentarios
-                                    ) || 0}
-
-
-                                </div>
-
-
-                            </div>
-
-                        ))}
+                    <h1>Feed inicial</h1>
+
+                    {/* Abas do feed */}
+                    <div className="abas-feed">
+
+                        <button
+                            type="button"
+                            className={
+                                abaAtiva === "descobrir"
+                                    ? "aba-feed ativa"
+                                    : "aba-feed"
+                            }
+                            onClick={() => setAbaAtiva("descobrir")}
+                        >
+                            Descobrir
+                        </button>
+
+                        <button
+                            type="button"
+                            className={
+                                abaAtiva === "seguindo"
+                                    ? "aba-feed ativa"
+                                    : "aba-feed"
+                            }
+                            onClick={() => setAbaAtiva("seguindo")}
+                        >
+                            Seguindo
+                        </button>
 
                     </div>
 
+                    {/* Carregamento */}
+                    {carregando && (
+                        <p className="mensagem-feed">
+                            Carregando publicações...
+                        </p>
+                    )}
+
+                    {/* Erro ao carregar */}
+                    {!carregando && erro && (
+                        <div className="mensagem-feed">
+
+                            <p>{erro}</p>
+
+                            <button
+                                type="button"
+                                onClick={buscarPublicacoes}
+                            >
+                                Tentar novamente
+                            </button>
+
+                        </div>
+                    )}
+
+                    {/* Usuário ainda não segue comunidades */}
+                    {!carregando &&
+                        !erro &&
+                        abaAtiva === "seguindo" &&
+                        !segueComunidades && (
+
+                            <div className="feed-vazio">
+
+                                <h2>
+                                    Seu feed está esperando por você 🎵
+                                </h2>
+
+                                <p>
+                                    Você ainda não segue nenhuma comunidade.
+                                </p>
+
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        setAbaAtiva("descobrir")
+                                    }
+                                >
+                                    Explorar publicações
+                                </button>
+
+                            </div>
+                        )}
+
+                    {/* Não existem publicações nas comunidades seguidas */}
+                    {!carregando &&
+                        !erro &&
+                        abaAtiva === "seguindo" &&
+                        segueComunidades &&
+                        publicacoes.length === 0 && (
+
+                            <div className="feed-vazio">
+
+                                <h2>
+                                    Nenhuma publicação por enquanto 🎧
+                                </h2>
+
+                            </div>
+                        )}
+
+                    {/* Não existem publicações para descobrir */}
+                    {!carregando &&
+                        !erro &&
+                        abaAtiva === "descobrir" &&
+                        publicacoes.length === 0 && (
+
+                            <p className="mensagem-feed">
+                                Nenhuma publicação encontrada.
+                            </p>
+                        )}
+
+                    {/* Lista de publicações */}
+                    {!carregando && !erro && (
+
+                        <div className="feed">
+
+                            {publicacoes.map((publicacao) => (
+
+                                <Publicacao
+                                    key={publicacao.id}
+                                    publicacao={publicacao}
+                                    curtido={
+                                        Boolean(curtidas[publicacao.id])
+                                    }
+                                    onCurtir={handleCurtir}
+                                    onExcluir={abrirModalApagar}
+                                />
+
+                            ))}
+
+                        </div>
+                    )}
 
                 </main>
 
-
                 <PerfilComponente />
-
 
             </div>
 
-
-            {/* 
-                Modal de apagar publicação.
-
-                Ele só existe quando uma publicação
-                foi selecionada.
-            */}
-
+            {/* Modal de exclusão */}
             {publicacaoSelecionada && (
 
                 <ModalApagarPublicacao
-
                     publicacao={publicacaoSelecionada}
-
-                    onClose={
-                        fecharModalApagar
-                    }
-
-                    onPublicacaoApagada={
-                        buscarPublicacoes
-                    }
-
+                    onClose={fecharModalApagar}
+                    onPublicacaoApagada={buscarPublicacoes}
                 />
 
             )}
 
         </>
-
     );
-
 }
-
 
 export default Home;

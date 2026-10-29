@@ -157,6 +157,10 @@ export function carregarPerfilUsuario(id) {
     return api.get(`/perfil/${id}`);
 }
 
+export function atualizarPerfil(dados) {
+    return api.post("/perfil", dados);
+}
+
 // tela de mostrar todos os posts de x comunidade
 
 export function buscarPublicacoesDaComunidade(id) {
@@ -170,4 +174,87 @@ export function buscarComunidadesPeloNome(nome) {
     return api.get(`buscarComunidades`, {params: {nome}})
 }
 
+// ÁLBUNS ####################################################
+
+// Pesquisar álbuns na Deezer
+export const buscarAlbunsDeezer = (query) => {
+    return api.get("/albuns/buscar", {
+        params: { query }
+    });
+};
+
+// Salvar álbum na biblioteca
+export const salvarAlbum = (dadosAlbum) => {
+    return api.post("/albuns/salvar", dadosAlbum);
+};
+
+// Carregar álbuns salvos pelo usuário
+export const carregarAlbunsSalvos = () => {
+    return api.get("/albuns/salvos");
+};
+
+// Remover álbum da biblioteca
+export const removerAlbumSalvo = (album_id) => {
+    return api.delete(`/albuns/salvos/${album_id}`);
+};
+
+
+// AVALIAÇÕES ################################################
+
+// Criar avaliação
+export const salvarAvaliacao = (dadosAvaliacao) => {
+    return api.post("/avaliacoes", dadosAvaliacao);
+};
+
+// Editar nota de uma avaliação existente
+export const editarAvaliacao = (album_id, nota) => {
+    return api.put(`/avaliacoes/${album_id}`, {
+        nota
+    });
+};
+
+// Carregar avaliações do usuário
+export const carregarAvaliacoes = () => {
+    return api.get("/avaliacoes");
+};
+
+// Pesquisar perfis pelo nome
+export function buscarUsuariosPorNome(nome) {
+    return api.get("/buscarUsuarios", {
+        params: { nome }
+    });
+}
+
+// COMPOSIÇÕES MUSICAIS
+
+export const criarComposicao = (dados) => {
+    return api.post("/composicoes", dados);
+};
+
+export const carregarComposicoes = () => {
+    return api.get("/composicoes");
+};
+
+export const buscarComposicao = (id) => {
+    return api.get(`/composicoes/${id}`);
+};
+
+export const atualizarComposicao = (id, dados) => {
+    return api.put(`/composicoes/${id}`, dados);
+};
+
+export const excluirComposicao = (id) => {
+    return api.delete(`/composicoes/${id}`);
+};
+
+export const listarLetrasPublicas = () => api.get("/composicoes/publicas");
+
+
+export function carregarPublicacoesSeguindo() {
+    return api.get("/publicacoes/seguindo");
+}
+
+export const buscarComunidadesDoPerfil = (usuarioId) => {
+    return api.get(`/comunidadesUsuario/${usuarioId}`);
+};
 export default api

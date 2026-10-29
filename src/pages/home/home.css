@@ -1,8 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* CONTEÚDO CENTRAL */
 .conteudo-central {
-    margin-top: 110px;
+    width: 100%;
+    max-width: 680px;
+    min-width: 0;
+    margin: 110px auto 0;
+    padding: 0 16px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+    color: #f5f5f5;
 }
+
+/* TÍTULO DO FEED */
 .conteudo-central > h1 {
     color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
     font-size: 28px;
     font-weight: 700;
     margin: 0 auto 24px;
@@ -10,121 +23,133 @@
     text-align: left;
 }
 
+/* ABAS DESCOBRIR E SEGUINDO */
+.abas-feed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto 24px;
+    padding: 0 0 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #303030;
+}
+
+.aba-feed {
+    flex: 1;
+    max-width: 220px;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #1a1a1a;
+    color: #aaa;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.aba-feed:hover {
+    background: #292330;
+    color: #fff;
+}
+
+.aba-feed.ativa {
+    background: #702be8;
+    color: #fff;
+}
+
+/* LISTA DE PUBLICAÇÕES */
 .feed {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    width: 100%;
     max-width: 600px;
     margin: 24px auto;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
-.publicacao {
-    background: #1a1a1a;
-    color: #f5f5f5;
-    border-radius: 12px;
-    padding: 16px;
-}
-
-.publicacao h3 {
-    margin-top: 0;
-}
-
-.publicacao img {
-    display: block;
+/* ESTADO VAZIO E MENSAGENS */
+.feed-vazio,
+.mensagem-feed {
     width: 100%;
-    max-height: 600px;
-    object-fit: cover;
-    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 36px 20px;
+    color: #bbb;
 }
 
-.publicacao p {
-    overflow-wrap: anywhere;
+.feed-vazio h2 {
+    color: #fff;
+    font-size: 21px;
+    margin-bottom: 12px;
 }
 
-.botao-curtida {
-    background: transparent;
+.feed-vazio p {
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+.feed-vazio button,
+.mensagem-feed button {
+    margin-top: 16px;
+    padding: 11px 18px;
     border: none;
+    border-radius: 8px;
+    background: #702be8;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     cursor: pointer;
-    padding: 4px;
-    font-size: 32px;
-    color: #777;
+    transition: background 0.2s ease;
 }
 
-.coracao {
-    color: #777;
-    transition: color 0.2s ease;
+.feed-vazio button:hover,
+.mensagem-feed button:hover {
+    background: #8547f5;
 }
 
-.coracao.curtido {
-    color: #e63946;
+/* TELAS MENORES */
+@media (max-width: 768px) {
+    .conteudo-central {
+        max-width: 100%;
+        margin-top: 90px;
+        padding: 0 12px;
+    }
+
+    .conteudo-central > h1 {
+        font-size: 24px;
+    }
+
+    .abas-feed {
+        gap: 8px;
+    }
+
+    .aba-feed {
+        padding: 11px 8px;
+        font-size: 14px;
+    }
+
+    .feed {
+        gap: 16px;
+        margin-top: 20px;
+    }
 }
 
-.botao-comentar {
-    background-color: transparent;
+@media (max-width: 400px) {
+    .conteudo-central > h1 {
+        font-size: 21px;
+    }
+
+    .aba-feed {
+        font-size: 13px;
+        padding: 10px 6px;
+    }
 }
-
-.botao-comentar:hover {
-    background-color: transparent;
-}
-
-
-
-
-.publicacao img {
-    width: 100%;
-    height: auto;
-}
-
-.publicacao .foto-usuario {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
-}
-
-.cabecalho-publicacao {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.foto-usuario {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-
-.cabecalho-publicacao h3 {
-    margin: 0;
-}
-
-.data-publicacao {
-    font-size: 14px;
-    opacity: 0.7;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

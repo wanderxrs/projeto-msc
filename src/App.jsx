@@ -11,6 +11,10 @@ import Header from "./components/Header/header";
 import ConfirmarSenha from "./pages/auth/confirmarSenha";
 import ComunidadeTela from "./pages/comunidadeTela/ComunidadeTela";
 import Perfil from "./pages/perfil/perfil";
+import AlbunsAvaliados from "./pages/albunsAvaliados/albunsAvaliados";
+import Composicoes from "./pages/composicoes/composicoes";
+import LetrasPublicas from "./pages/letras/LetrasPublicas";
+
 
 function App() {
     return (
@@ -33,9 +37,56 @@ function App() {
 
                 <Route path="/home" element={<> <Header /> <Home /> </>} />
 
-                <Route path="/comentarios/:publicacao_id" element={<Comentarios />}/>
-                <Route path="/perfil/:id" element={<Perfil />}/>
+                <Route
+                    path="/comentarios/:publicacao_id"
+                    element={
+                        <>
+                            <Header />
+                            <Comentarios />
+                        </>
+                    }
+                />
+
+                <Route
+                    path="/perfil/:id"
+                    element={
+                        <>
+                            <Header />
+                            <Perfil />
+                        </>
+                    }
+                />
                 
+                <Route
+                    path="/albuns-avaliados"
+                    element={
+                        <>
+                            <Header />
+                            <AlbunsAvaliados />
+                        </>
+                    }
+                />
+
+                <Route
+                     path="/composicoes"
+                     element={
+                        <>
+                            <Header />
+                            <Composicoes />
+                        </>
+                    } 
+                />
+
+                <Route
+                     path="/letras-publicas"
+                    element={
+                        <>
+                            <Header />
+                            <LetrasPublicas />
+                        </> 
+                    }
+                />
+
             </Routes>
         </BrowserRouter>
     );

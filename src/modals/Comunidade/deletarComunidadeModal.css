@@ -1,0 +1,93 @@
+
+.yrplace-deletar-dialog .MuiPaper-root {
+    background: #1a1a1a;
+    color: #f5f5f5;
+    border: 1px solid #333;
+    border-radius: 14px;
+    font-family: "Inter", sans-serif;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.yrplace-deletar-titulo.MuiDialogTitle-root {
+    padding: 24px 24px 12px;
+    color: #f5f5f5;
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.yrplace-deletar-conteudo.MuiDialogContent-root {
+    padding: 8px 24px 20px;
+}
+
+.yrplace-deletar-aviso.MuiTypography-root {
+    color: #eaeaea;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.yrplace-deletar-descricao.MuiTypography-root {
+    margin-top: 10px;
+    color: #929292;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.yrplace-deletar-erro.MuiTypography-root {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: #292020;
+    border: 1px solid #513333;
+    border-radius: 8px;
+    color: #ff8c8c;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+}
+
+.yrplace-deletar-acoes.MuiDialogActions-root {
+    padding: 12px 24px 22px;
+    gap: 10px;
+}
+
+.yrplace-deletar-cancelar.MuiButton-root {
+    padding: 9px 16px;
+    border: 1px solid #393939;
+    border-radius: 8px;
+    color: #bdbdbd;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.yrplace-deletar-cancelar.MuiButton-root:hover {
+    background: #292929;
+    border-color: #555;
+    color: #fff;
+}
+
+.yrplace-deletar-confirmar.MuiButton-root {
+    padding: 9px 16px;
+    background: #d93636;
+    border-radius: 8px;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+    transition: background 0.2s;
+}
+
+.yrplace-deletar-confirmar.MuiButton-root:hover {
+    background: #b92c2c;
+    box-shadow: none;
+}
+
+.yrplace-deletar-confirmar.MuiButton-root.Mui-disabled {
+    background: #572d2d;
+    color: #999;
+}
