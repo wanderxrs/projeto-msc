@@ -10,7 +10,7 @@ import {
 
 import InformacoesComunidade from "../../components/cabecalhoComunidade/InformacoesComunidade";
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
-import ModalPublicacao from "../../modals/ModalPublicacao";
+import ModalPublicacao from "../../modals/modalPublicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 
 import "./comunidadeTela.css";
