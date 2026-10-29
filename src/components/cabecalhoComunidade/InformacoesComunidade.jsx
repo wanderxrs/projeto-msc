@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { buscarComunidade, entrarComunidade, sairComunidade } from "../../api";
 import "./informacoesComunidade.css";
 import { HiUsers } from "react-icons/hi";
-import "./InformacoesComunidade.css";
+import "./informacoesComunidade.css";
 
 function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizados }) {
 
