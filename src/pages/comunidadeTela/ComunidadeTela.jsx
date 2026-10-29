@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+// ISSO NAO SIGINIFA NADA (REMOVER DPS) SOCORRO DEUS, CHEGA AQUI 
 import {
     buscarPublicacoesDaComunidade,
     curtirPublicacao,
