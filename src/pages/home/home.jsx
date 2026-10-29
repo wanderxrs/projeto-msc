@@ -24,6 +24,7 @@ function Home() {
     const [curtidas, setCurtidas] = useState({});
     const [abaAtiva, setAbaAtiva] = useState("descobrir");
     const [segueComunidades, setSegueComunidades] = useState(true);
+
     const [publicacaoSelecionada, setPublicacaoSelecionada] =
         useState(null);
 
@@ -42,6 +43,7 @@ function Home() {
                 lista = Array.isArray(resposta.data)
                     ? resposta.data
                     : resposta.data.publicacoes || [];
+
             } else {
                 resposta = await carregarPublicacoesSeguindo();
 
@@ -53,6 +55,7 @@ function Home() {
                     if (lista.length > 0) {
                         setSegueComunidades(true);
                     }
+
                 } else {
                     lista = dados.publicacoes || [];
 
@@ -64,6 +67,7 @@ function Home() {
 
             setPublicacoes(lista);
 
+            // Recupera o estado das curtidas do backend.
             const estadoCurtidas = {};
 
             lista.forEach((publicacao) => {
@@ -75,12 +79,14 @@ function Home() {
                 ...anteriores,
                 ...estadoCurtidas
             }));
+
         } catch (erro) {
             console.error(erro);
 
             setErro(
                 "Não foi possível carregar as publicações. Tente novamente."
             );
+
         } finally {
             setCarregando(false);
         }
@@ -91,15 +97,16 @@ function Home() {
     }, [abaAtiva]);
 
     // Curtir ou descurtir uma publicação.
+    // Usa os valores reais retornados pelo backend.
     async function handleCurtir(publicacao_id) {
         try {
-            await curtirPublicacao(publicacao_id);
+            const resposta = await curtirPublicacao(publicacao_id);
 
-            const novoValor = !curtidas[publicacao_id];
+            const { curtido, total_curtidas } = resposta.data;
 
             setCurtidas((anteriores) => ({
                 ...anteriores,
-                [publicacao_id]: novoValor
+                [publicacao_id]: curtido
             }));
 
             setPublicacoes((anteriores) =>
@@ -108,17 +115,13 @@ function Home() {
                         return publicacao;
                     }
 
-                    const quantidadeAtual =
-                        Number(publicacao.total_curtidas) || 0;
-
                     return {
                         ...publicacao,
-                        total_curtidas: novoValor
-                            ? quantidadeAtual + 1
-                            : Math.max(0, quantidadeAtual - 1)
+                        total_curtidas: total_curtidas
                     };
                 })
             );
+
         } catch (erro) {
             console.error(erro);
             setErro("Erro ao curtir a publicação.");
@@ -138,9 +141,11 @@ function Home() {
     return (
         <>
             <div className="conteudo-principal">
+
                 <ComunidadesRecomendadas />
 
                 <main className="conteudo-central">
+
                     {modalAberto && (
                         <ModalPublicacao
                             onClose={() => setModalAberto(false)}
@@ -152,6 +157,7 @@ function Home() {
 
                     {/* Abas do feed */}
                     <div className="abas-feed">
+
                         <button
                             type="button"
                             className={
@@ -175,6 +181,7 @@ function Home() {
                         >
                             Seguindo
                         </button>
+
                     </div>
 
                     {/* Carregamento */}
@@ -187,6 +194,7 @@ function Home() {
                     {/* Erro ao carregar */}
                     {!carregando && erro && (
                         <div className="mensagem-feed">
+
                             <p>{erro}</p>
 
                             <button
@@ -195,6 +203,7 @@ function Home() {
                             >
                                 Tentar novamente
                             </button>
+
                         </div>
                     )}
 
@@ -203,7 +212,9 @@ function Home() {
                         !erro &&
                         abaAtiva === "seguindo" &&
                         !segueComunidades && (
+
                             <div className="feed-vazio">
+
                                 <h2>
                                     Seu feed está esperando por você 🎵
                                 </h2>
@@ -214,10 +225,13 @@ function Home() {
 
                                 <button
                                     type="button"
-                                    onClick={() => setAbaAtiva("descobrir")}
+                                    onClick={() =>
+                                        setAbaAtiva("descobrir")
+                                    }
                                 >
                                     Explorar publicações
                                 </button>
+
                             </div>
                         )}
 
@@ -227,10 +241,13 @@ function Home() {
                         abaAtiva === "seguindo" &&
                         segueComunidades &&
                         publicacoes.length === 0 && (
+
                             <div className="feed-vazio">
+
                                 <h2>
                                     Nenhuma publicação por enquanto 🎧
                                 </h2>
+
                             </div>
                         )}
 
@@ -239,38 +256,51 @@ function Home() {
                         !erro &&
                         abaAtiva === "descobrir" &&
                         publicacoes.length === 0 && (
+
                             <p className="mensagem-feed">
                                 Nenhuma publicação encontrada.
                             </p>
                         )}
 
-                    {/* Lista de publicações reutilizando Publicacao.jsx */}
+                    {/* Lista de publicações */}
                     {!carregando && !erro && (
+
                         <div className="feed">
+
                             {publicacoes.map((publicacao) => (
+
                                 <Publicacao
                                     key={publicacao.id}
                                     publicacao={publicacao}
-                                    curtido={Boolean(curtidas[publicacao.id])}
+                                    curtido={
+                                        Boolean(curtidas[publicacao.id])
+                                    }
                                     onCurtir={handleCurtir}
                                     onExcluir={abrirModalApagar}
                                 />
+
                             ))}
+
                         </div>
                     )}
+
                 </main>
 
                 <PerfilComponente />
+
             </div>
 
             {/* Modal de exclusão */}
             {publicacaoSelecionada && (
+
                 <ModalApagarPublicacao
                     publicacao={publicacaoSelecionada}
                     onClose={fecharModalApagar}
                     onPublicacaoApagada={buscarPublicacoes}
                 />
+
             )}
+
         </>
     );
 }
