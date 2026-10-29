@@ -13,7 +13,7 @@ import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalPublicacao from "../../modals/ModalPublicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 
-import "./ComunidadeTela.css";
+import "./comunidadeTela.css";
 
 function ComunidadeTela() {
     const { id } = useParams();

@@ -1,4 +1,4 @@
-import "../../modals/FazerLogout/FazerLogoutModal.css";
+import "../../modals/fazerLogout/FazerLogoutModal.css";
 
 function FazerLogoutModal({ onClose, onConfirmar }) {
     return (

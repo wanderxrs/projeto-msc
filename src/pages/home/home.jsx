@@ -15,8 +15,6 @@ import PerfilComponente from "../../components/PerfilComponente/PerfilComponente
 // Modais
 import ModalPublicacao from "../../modals/modalPublicacao";
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
-
-import ModalPublicacao from "../../modals/ModalPublicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 
 function Home() {
