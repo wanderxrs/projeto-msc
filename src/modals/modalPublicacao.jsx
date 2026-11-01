@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { fazerPublicacao } from "../api";
 import { IoClose } from "react-icons/io5";
@@ -82,8 +83,11 @@ function ModalPublicacao({
 
         if (carregando) return;
 
-        if (!imagem) {
-            setMensagem("Selecione uma imagem ou um vídeo.");
+        // Impede publicações completamente vazias.
+        if (!imagem && !legenda.trim()) {
+            setMensagem(
+                "Adicione uma legenda ou selecione uma imagem/vídeo."
+            );
             return;
         }
 
@@ -94,11 +98,14 @@ function ModalPublicacao({
 
         const dadosPublicacao = new FormData();
 
-        // Mantém o nome do campo esperado pela rota Flask.
-        dadosPublicacao.append("imagem", imagem);
-        dadosPublicacao.append("legenda", legenda);
+        // A mídia agora é opcional.
+        if (imagem) {
+            dadosPublicacao.append("imagem", imagem);
+            dadosPublicacao.append("tipo_midia", tipoMidia);
+        }
+
+        dadosPublicacao.append("legenda", legenda.trim());
         dadosPublicacao.append("comunidade", comunidade);
-        dadosPublicacao.append("tipo_midia", tipoMidia);
 
         setCarregando(true);
         setMensagem("");
@@ -113,6 +120,7 @@ function ModalPublicacao({
             }
 
             onClose();
+
         } catch (erro) {
             console.error("Erro ao publicar:", erro);
 
@@ -131,6 +139,7 @@ function ModalPublicacao({
                     "Erro ao conectar com o servidor."
                 );
             }
+
         } finally {
             setCarregando(false);
         }
@@ -139,6 +148,7 @@ function ModalPublicacao({
     return (
         <div className="modal-overlay">
             <div className="modal-publicacao">
+
                 <div className="modal-header">
                     <h2>Nova publicação</h2>
 
@@ -158,8 +168,10 @@ function ModalPublicacao({
                 </div>
 
                 <form onSubmit={handlePublicar}>
+
                     <label htmlFor="imagem">
                         Imagem ou vídeo da publicação
+                        <span> (opcional)</span>
                     </label>
 
                     <input
@@ -168,12 +180,12 @@ function ModalPublicacao({
                         accept="image/*,video/mp4,video/webm,video/quicktime,video/ogg"
                         onChange={handleImagem}
                         disabled={carregando}
-                        required
                     />
 
-                    {/* Exibe somente as informações do arquivo */}
+                    {/* Informações do arquivo selecionado */}
                     {imagem && (
                         <div className="arquivo-selecionado">
+
                             <p>
                                 {tipoMidia === "video" ? "🎬" : "🖼️"}{" "}
                                 {tipoMidia === "video"
@@ -192,11 +204,13 @@ function ModalPublicacao({
                             >
                                 Remover arquivo
                             </button>
+
                         </div>
                     )}
 
                     <label htmlFor="legenda">
                         Legenda
+                        <span> (opcional)</span>
                     </label>
 
                     <textarea
@@ -238,6 +252,7 @@ function ModalPublicacao({
                     )}
 
                     <div className="modal-acoes">
+
                         <button
                             type="button"
                             onClick={onClose}
@@ -254,7 +269,9 @@ function ModalPublicacao({
                                 ? "Publicando..."
                                 : "Publicar"}
                         </button>
+
                     </div>
+
                 </form>
             </div>
         </div>
