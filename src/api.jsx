@@ -74,6 +74,28 @@ export const sairComunidade = (comunidade_id) => {
     return api.post(`/sairComunidade/${comunidade_id}`)
 }
 
+// GERENCIAR PARTICIPANTES DA COMUNIDADE
+
+// Listar participantes bloqueados
+
+export const listarParticipantes = (comunidade_id) => {
+    return api.get(`/comunidade/${comunidade_id}/participantes`);
+};
+
+export const listarUsuariosBloqueados = (comunidade_id) => {
+    return api.get(`/comunidade/${comunidade_id}/bloqueados`);
+};
+
+// Bloquear participante
+export const bloquearUsuario = (comunidade_id, usuario_id) => {
+    return api.post(`/comunidade/${comunidade_id}/bloquear/${usuario_id}`);
+};
+
+// Desbloquear participante
+export const desbloquearUsuario = (comunidade_id, usuario_id) => {
+    return api.delete(`/comunidade/${comunidade_id}/desbloquear/${usuario_id}`);
+};
+
 
 // trocar senha
 

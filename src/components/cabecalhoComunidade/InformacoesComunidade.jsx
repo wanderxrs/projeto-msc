@@ -1,45 +1,60 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { buscarComunidade, entrarComunidade, sairComunidade } from "../../api";
-import "./informacoesComunidade.css";
+import {
+    buscarComunidade,
+    entrarComunidade,
+    sairComunidade
+} from "../../api";
 import { HiUsers } from "react-icons/hi";
+import ModalGerenciarParticipantes from "../../modals/Comunidade/ModalGerenciarParticipantes";
 import "./informacoesComunidade.css";
 
-function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizados }) {
+function InformacoesComunidade({ onMembrosAtualizados }) {
 
     const { id } = useParams();
 
     const [comunidade, setComunidade] = useState(null);
     const [mensagem, setMensagem] = useState("");
-    const [participando, setParticipando] = useState(false);
+    const [modalParticipantesAberto, setModalParticipantesAberto] = useState(false);
 
-    // Busca as informações da comunidade
-    async function carregarComunidade() {
+    const ehCriador = comunidade?.eh_criador === true;
+    const participando = comunidade?.participando === true;
+
+    const carregarComunidade = useCallback(async () => {
         try {
             const resposta = await buscarComunidade(id);
-
             setComunidade(resposta.data);
-            setParticipando(resposta.data.participando);
 
         } catch (erro) {
             console.error("Erro ao carregar comunidade:", erro);
         }
-    }
-
-    useEffect(() => {
-        setComunidade(null);
-        setMensagem("");
-        carregarComunidade();
     }, [id]);
 
-    // Atualiza os dados recebidos da tela principal
     useEffect(() => {
-        if (dadosRecebidos && Number(dadosRecebidos.id) === Number(id)) {
-            setComunidade(dadosRecebidos);
-            setParticipando(dadosRecebidos.participando);
+        let ativo = true;
+
+        async function carregar() {
+            try {
+                const resposta = await buscarComunidade(id);
+
+                if (ativo) {
+                    setComunidade(resposta.data);
+                }
+
+            } catch (erro) {
+                if (ativo) {
+                    console.error("Erro ao carregar comunidade:", erro);
+                }
+            }
         }
-    }, [dadosRecebidos, id]);
+
+        carregar();
+
+        return () => {
+            ativo = false;
+        };
+    }, [id]);
 
     // Entrar na comunidade
     const handleEntrar = async () => {
@@ -48,7 +63,6 @@ function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizado
         try {
             const resposta = await entrarComunidade(id);
 
-            setParticipando(true);
             setMensagem(resposta.data.mensagem);
 
             await carregarComunidade();
@@ -72,7 +86,6 @@ function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizado
         try {
             const resposta = await sairComunidade(id);
 
-            setParticipando(false);
             setMensagem(resposta.data.mensagem);
 
             await carregarComunidade();
@@ -89,7 +102,8 @@ function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizado
         }
     };
 
-    if (!comunidade) {
+    // Evita mostrar os dados da comunidade anterior enquanto carrega outra
+    if (!comunidade || Number(comunidade.id) !== Number(id)) {
         return <p>Carregando...</p>;
     }
 
@@ -110,7 +124,6 @@ function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizado
 
                 <p className="genero">{comunidade.genero}</p>
 
-                {/* QUANTIDADE DE MEMBROS ABAIXO DO GÊNERO */}
                 <div className="comunidade-total-membros">
                     <HiUsers size={16} />
 
@@ -138,9 +151,25 @@ function InformacoesComunidade({ comunidade: dadosRecebidos, onMembrosAtualizado
                     </button>
                 )}
 
+                {ehCriador && (
+                    <button
+                        onClick={() => setModalParticipantesAberto(true)}
+                    >
+                        Gerenciar participantes
+                    </button>
+                )}
+
                 {mensagem && <p>{mensagem}</p>}
 
             </div>
+
+            {modalParticipantesAberto && (
+                <ModalGerenciarParticipantes
+                    comunidadeId={id}
+                    onFechar={() => setModalParticipantesAberto(false)}
+                    onMembrosAtualizados={carregarComunidade}
+                />
+            )}
 
         </div>
     );
