@@ -11,10 +11,11 @@ import "./home.css";
 
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
 import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
-import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 
-import ModalPublicacao from "../../modals/ModalPublicacao";
+// Modais
+import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
+import ModalPublicacao from "../../modals/modalPublicacao";
 
 function Home() {
     const [modalAberto, setModalAberto] = useState(false);
