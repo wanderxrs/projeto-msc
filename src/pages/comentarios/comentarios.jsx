@@ -1,9 +1,12 @@
+
 import { useEffect, useState } from "react";
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
-carregarComentarios,criarComentario} from "../../api";
+    carregarComentarios,
+    criarComentario
+} from "../../api";
 
 import "./comentarios.css";
 
@@ -17,6 +20,7 @@ import { IoMenu } from "react-icons/io5";
 function Comentarios() {
 
     const { publicacao_id } = useParams();
+    const navigate = useNavigate();
 
     const [comentarios, setComentarios] = useState([]);
 
@@ -24,7 +28,6 @@ function Comentarios() {
 
     const [comentarioSelecionado, setComentarioSelecionado] =
         useState(null);
-
 
 
     async function buscarComentarios() {
@@ -53,13 +56,11 @@ function Comentarios() {
     }
 
 
-
     useEffect(() => {
 
         buscarComentarios();
 
     }, [publicacao_id]);
-
 
 
     async function handleComentario(event) {
@@ -96,6 +97,18 @@ function Comentarios() {
     }
 
 
+    // Abrir perfil do usuário que comentou
+    function abrirPerfil(usuario_id) {
+
+        if (!usuario_id) {
+            console.error("ID do usuário não encontrado.");
+            return;
+        }
+
+        navigate(`/perfil/${usuario_id}`);
+
+    }
+
 
     function abrirModalComentario(comentario) {
 
@@ -104,13 +117,11 @@ function Comentarios() {
     }
 
 
-
     function fecharModalComentario() {
 
         setComentarioSelecionado(null);
 
     }
-
 
 
     return (
@@ -122,7 +133,6 @@ function Comentarios() {
                 Comentários
 
             </h3>
-
 
 
             <form onSubmit={handleComentario}>
@@ -150,7 +160,6 @@ function Comentarios() {
             </form>
 
 
-
             <div className="lista-comentarios">
 
                 {comentarios.map((comentario) => (
@@ -168,9 +177,19 @@ function Comentarios() {
                                     className="foto-comentario"
                                     src={comentario.foto_url}
                                     alt="Foto do usuário"
+                                    onClick={() =>
+                                        abrirPerfil(comentario.usuario_id)
+                                    }
+                                    style={{ cursor: "pointer" }}
                                 />
 
-                                <strong className="usuario-nome">
+                                <strong
+                                    className="usuario-nome"
+                                    onClick={() =>
+                                        abrirPerfil(comentario.usuario_id)
+                                    }
+                                    style={{ cursor: "pointer" }}
+                                >
 
                                     {comentario.nome_usuario}
 
@@ -227,7 +246,6 @@ function Comentarios() {
                 ))}
 
             </div>
-
 
 
             {comentarioSelecionado && (
