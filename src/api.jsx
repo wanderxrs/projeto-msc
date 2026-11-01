@@ -279,4 +279,10 @@ export function carregarPublicacoesSeguindo() {
 export const buscarComunidadesDoPerfil = (usuarioId) => {
     return api.get(`/comunidadesUsuario/${usuarioId}`);
 };
+
+// NOTIFICAÇÕES
+
+export const carregarNotificacoes = () => {
+    return api.get("/notificacoes");
+};
 export default api
