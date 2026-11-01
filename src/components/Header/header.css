@@ -1,4 +1,7 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* HEADER */
 
 .header {
     width: 100%;
@@ -19,16 +22,15 @@
 }
 
 .header h1 {
-    margin: 0 15px 0 70px;
+    margin: 0 0 0 70px;
     font-size: 28px;
     font-weight: 600;
     white-space: nowrap;
     cursor: pointer;
-    margin: 0 0 0 70px;
     font-family: 'Inter', sans-serif;
-    font-size: 28px;
-    font-weight: 600;
 }
+
+/* BOTÃO MENU */
 
 .botao-menu {
     position: absolute;
@@ -45,26 +47,20 @@
     cursor: pointer;
 }
 
+/* MENU */
+
 .menu {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 330px;
-    left: auto;
+    right: 20px;
     z-index: 1100;
-
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: 10px;
-
     padding: 0;
     background: transparent;
     border: none;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
     font-family: 'Inter', sans-serif;
 }
 
@@ -78,6 +74,8 @@
     font-size: 1rem;
     white-space: nowrap;
 }
+
+/* BOTÕES DO HEADER */
 
 .boton-elegante {
     padding: 10px 20px;
@@ -95,6 +93,8 @@
 .boton-elegante:hover {
     background: radial-gradient(circle, #333 0%, #1a1a1a 100%);
 }
+
+/* PESQUISA DE USUÁRIOS */
 
 .pesquisa-usuarios {
     position: relative;
@@ -124,6 +124,7 @@
     color: white;
     outline: none;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 .pesquisa-usuarios input::placeholder {
@@ -133,6 +134,8 @@
 .pesquisa-usuarios input:focus {
     border-color: #53CA97;
 }
+
+/* RESULTADOS DA PESQUISA */
 
 .resultados-usuarios {
     position: absolute;
@@ -176,8 +179,51 @@
     height: 35px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.resultado-usuario span {
     font-family: 'Inter', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
+}
+
+/* NOTIFICAÇÕES */
+
+.container-notificacoes {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botao-notificacoes {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    color: #d0d0d0;
+    font-size: 21px;
     cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.botao-notificacoes:hover {
+    background: #292929;
+    color: #ffffff;
+}
+
+.bolinha-notificacao {
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 9px;
+    height: 9px;
+    background-color: #ef4444;
+    border: 2px solid #1a1a1a;
+    border-radius: 50%;
 }

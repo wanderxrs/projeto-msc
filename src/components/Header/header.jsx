@@ -1,14 +1,19 @@
+
 import { useEffect, useState } from "react";
 import { FiMenu, FiSearch } from "react-icons/fi";
+import { FaBell } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+
 import "./header.css";
 
 import {
     fazerLogout,
-    buscarUsuariosPorNome
+    buscarUsuariosPorNome,
+    carregarNotificacoes
 } from "../../api";
 
 import FazerLogoutModal from "../../modals/FazerLogout/fazerLogoutModal";
+import ModalNotificacoes from "../../modals/Notificacao/ModalNotificacoes";
 
 function Header() {
     const [menuAberto, setMenuAberto] = useState(false);
@@ -17,8 +22,13 @@ function Header() {
     const [carregando, setCarregando] = useState(false);
     const [modalLogoutAberto, setModalLogoutAberto] = useState(false);
 
+    // Notificações
+    const [modalNotificacoesAberto, setModalNotificacoesAberto] = useState(false);
+    const [temNotificacaoNova, setTemNotificacaoNova] = useState(false);
+
     const navigate = useNavigate();
 
+    // PESQUISAR USUÁRIOS
     useEffect(() => {
         const nome = nomeBusca.trim();
 
@@ -39,12 +49,14 @@ function Header() {
                 if (!cancelado) {
                     setUsuarios(resposta.data);
                 }
+
             } catch (error) {
                 console.error("Erro ao pesquisar usuários:", error);
 
                 if (!cancelado) {
                     setUsuarios([]);
                 }
+
             } finally {
                 if (!cancelado) {
                     setCarregando(false);
@@ -58,16 +70,53 @@ function Header() {
         };
     }, [nomeBusca]);
 
+    // VERIFICAR NOTIFICAÇÕES NOVAS
+    useEffect(() => {
+        async function verificarNotificacoes() {
+            try {
+                const resposta = await carregarNotificacoes();
+                const notificacoes = resposta.data;
+
+                if (notificacoes.length === 0) {
+                    setTemNotificacaoNova(false);
+                    return;
+                }
+
+                // Pega a notificação mais recente
+                const ultimaNotificacao = notificacoes[0];
+
+                // Recupera a última notificação visualizada
+                const ultimaVisualizada = localStorage.getItem(
+                    "ultimaNotificacaoVisualizada"
+                );
+
+                // Só mostra a bolinha se houver uma notificação nova
+                setTemNotificacaoNova(
+                    String(ultimaNotificacao.id) !== ultimaVisualizada
+                );
+
+            } catch (error) {
+                console.error("Erro ao verificar notificações:", error);
+            }
+        }
+
+        verificarNotificacoes();
+    }, []);
+
+    // LOGOUT
     const fazendoLogout = async () => {
         try {
             await fazerLogout();
+
             setModalLogoutAberto(false);
             navigate("/login");
+
         } catch (error) {
             console.error("Não foi possível fazer o logout:", error);
         }
     };
 
+    // ABRIR PERFIL
     function abrirPerfil(usuario) {
         setNomeBusca("");
         setUsuarios([]);
@@ -76,8 +125,34 @@ function Header() {
         navigate(`/perfil/${usuario.id}`);
     }
 
+    // ABRIR NOTIFICAÇÕES
+    async function abrirNotificacoes() {
+        try {
+            const resposta = await carregarNotificacoes();
+
+            if (resposta.data.length > 0) {
+                const ultimaNotificacao = resposta.data[0];
+
+                // Salva a última notificação visualizada
+                localStorage.setItem(
+                    "ultimaNotificacaoVisualizada",
+                    String(ultimaNotificacao.id)
+                );
+            }
+
+            setTemNotificacaoNova(false);
+            setModalNotificacoesAberto(true);
+
+        } catch (error) {
+            console.error("Erro ao abrir notificações:", error);
+            setModalNotificacoesAberto(true);
+        }
+    }
+
     return (
         <header className="header">
+
+            {/* MENU */}
             <button
                 type="button"
                 className="botao-menu"
@@ -101,6 +176,7 @@ function Header() {
                 </div>
             )}
 
+            {/* LOGO */}
             <h1
                 className="logo-yrplace"
                 onClick={() => navigate("/home")}
@@ -108,6 +184,7 @@ function Header() {
                 YrPlace
             </h1>
 
+            {/* INÍCIO */}
             <button
                 type="button"
                 className="boton-elegante"
@@ -116,6 +193,7 @@ function Header() {
                 Início
             </button>
 
+            {/* SAIR */}
             <button
                 type="button"
                 className="boton-elegante"
@@ -124,7 +202,9 @@ function Header() {
                 Sair
             </button>
 
+            {/* PESQUISA DE USUÁRIOS */}
             <div className="pesquisa-usuarios">
+
                 <FiSearch className="icone-pesquisa" />
 
                 <input
@@ -136,9 +216,12 @@ function Header() {
 
                 {nomeBusca.trim() !== "" && (
                     <div className="resultados-usuarios">
+
                         {carregando ? (
                             <p>Pesquisando...</p>
+
                         ) : usuarios.length > 0 ? (
+
                             usuarios.map((usuario) => (
                                 <button
                                     type="button"
@@ -154,20 +237,49 @@ function Header() {
                                     <span>{usuario.nome}</span>
                                 </button>
                             ))
+
                         ) : (
                             <p>Nenhum usuário encontrado.</p>
                         )}
+
                     </div>
                 )}
+
             </div>
 
-        {modalLogoutAberto && (
-            <FazerLogoutModal
-                onClose={() => setModalLogoutAberto(false)}
-                onConfirmar={fazendoLogout}
-            />
-        )}
-        
+            {/* SINO DE NOTIFICAÇÕES */}
+            <div className="container-notificacoes">
+
+                <button
+                    type="button"
+                    className="botao-notificacoes"
+                    onClick={abrirNotificacoes}
+                    aria-label="Abrir notificações"
+                >
+                    <FaBell />
+
+                    {temNotificacaoNova && (
+                        <span className="bolinha-notificacao"></span>
+                    )}
+                </button>
+
+            </div>
+
+            {/* MODAL DE NOTIFICAÇÕES */}
+            {modalNotificacoesAberto && (
+                <ModalNotificacoes
+                    onClose={() => setModalNotificacoesAberto(false)}
+                />
+            )}
+
+            {/* MODAL DE LOGOUT */}
+            {modalLogoutAberto && (
+                <FazerLogoutModal
+                    onClose={() => setModalLogoutAberto(false)}
+                    onConfirmar={fazendoLogout}
+                />
+            )}
+
         </header>
     );
 }
