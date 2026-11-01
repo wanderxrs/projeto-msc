@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { fazerPublicacao } from "../api";
-import "./ModalPublicacao.css";
 import { IoClose } from "react-icons/io5";
+import "./ModalPublicacao.css";
 
 function ModalPublicacao({
     onClose,

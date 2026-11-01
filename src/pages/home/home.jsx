@@ -13,9 +13,9 @@ import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/Co
 import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
 
 // Modais
-import ModalPublicacao from "../../modals/modalPublicacao";
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
+import ModalPublicacao from "../../modals/modalPublicacao";
 
 function Home() {
     const [modalAberto, setModalAberto] = useState(false);
