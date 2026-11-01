@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { IoSearchOutline, IoClose } from "react-icons/io5";
 import { listarLetrasPublicas } from "../../api";
 import "./LetrasPublicas.css";
 
@@ -8,6 +9,7 @@ function LetrasPublicas() {
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
     const [letraSelecionada, setLetraSelecionada] = useState(null);
+    const [pesquisa, setPesquisa] = useState("");
 
     useEffect(() => {
         async function carregarLetras() {
@@ -27,6 +29,12 @@ function LetrasPublicas() {
         carregarLetras();
     }, []);
 
+    const letrasFiltradas = letras.filter((letra) =>
+        letra.titulo
+            ?.toLowerCase()
+            .includes(pesquisa.trim().toLowerCase())
+    );
+
     if (carregando) {
         return (
             <main className="letras-publicas">
@@ -43,7 +51,31 @@ function LetrasPublicas() {
                 Explore as composições compartilhadas pela comunidade.
             </p>
 
-            {erro && <p className="erro-letras">{erro}</p>}
+            <div className="pesquisa-letras">
+                <IoSearchOutline className="icone-pesquisa-letras" />
+
+                <input
+                    type="text"
+                    placeholder="Pesquisar música pelo nome..."
+                    value={pesquisa}
+                    onChange={(e) => setPesquisa(e.target.value)}
+                />
+
+                {pesquisa && (
+                    <button
+                        type="button"
+                        className="limpar-pesquisa-letras"
+                        onClick={() => setPesquisa("")}
+                        aria-label="Limpar pesquisa"
+                    >
+                        <IoClose />
+                    </button>
+                )}
+            </div>
+
+            {erro && (
+                <p className="erro-letras">{erro}</p>
+            )}
 
             {!erro && letras.length === 0 && (
                 <p className="vazio-letras">
@@ -51,8 +83,14 @@ function LetrasPublicas() {
                 </p>
             )}
 
+            {!erro && letras.length > 0 && letrasFiltradas.length === 0 && (
+                <p className="vazio-letras">
+                    Nenhuma música encontrada com esse nome.
+                </p>
+            )}
+
             <div className="lista-letras-publicas">
-                {letras.map((letra) => (
+                {letrasFiltradas.map((letra) => (
                     <article
                         className="card-letra-publica"
                         key={letra.id}
