@@ -1,3 +1,4 @@
+
 import { useNavigate } from "react-router-dom";
 import { IoMenu } from "react-icons/io5";
 import {
@@ -34,22 +35,29 @@ function Publicacao({
     const mostrarExclusao =
         podeExcluir ?? publicacao.eh_dono;
 
+    // Abre o perfil do autor da publicação.
+    function abrirPerfil() {
+        navigate(`/perfil/${publicacao.usuario_id}`);
+    }
+
     return (
         <article className="publicacao">
 
             {/* Cabeçalho */}
             <div className="cabecalho-publicacao">
+
                 <img
                     src={publicacao.foto_url}
                     alt="Foto do usuário"
                     className="foto-usuario"
+                    onClick={abrirPerfil}
+                    style={{ cursor: "pointer" }}
                 />
 
                 <div className="informacoes-usuario">
+
                     <h3
-                        onClick={() =>
-                            navigate(`/perfil/${publicacao.usuario_id}`)
-                        }
+                        onClick={abrirPerfil}
                         style={{ cursor: "pointer" }}
                     >
                         {publicacao.nome_usuario}
@@ -61,6 +69,7 @@ function Publicacao({
                                 publicacao.data_criacao
                             ).toLocaleDateString("pt-BR")}
                     </div>
+
                 </div>
 
                 {mostrarExclusao && (
@@ -84,6 +93,7 @@ function Publicacao({
                         />
                     </button>
                 )}
+
             </div>
 
             {/* Legenda */}
@@ -99,13 +109,15 @@ function Publicacao({
                         `/comunidade/${publicacao.comunidade_id}`
                     )
                 }
+                style={{ cursor: "pointer" }}
             >
                 {publicacao.nome_comunidade}
             </strong>
 
-            {/* Imagem ou vídeo */}
+            {/* Imagem ou vídeo (opcional) */}
             {publicacao.imagem_url && (
                 <div className="midia-container">
+
                     {ehVideo() ? (
                         <video
                             className="midia-publicacao"
@@ -124,11 +136,13 @@ function Publicacao({
                             loading="lazy"
                         />
                     )}
+
                 </div>
             )}
 
             {/* Curtidas e comentários */}
             <div className="area-curtida">
+
                 <button
                     type="button"
                     className="botao-curtida"
@@ -180,6 +194,7 @@ function Publicacao({
                 </button>
 
                 {Number(publicacao.total_comentarios) || 0}
+
             </div>
 
         </article>
