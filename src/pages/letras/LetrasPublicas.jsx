@@ -38,6 +38,7 @@ function LetrasPublicas() {
     return (
         <main className="letras-publicas">
             <h1>Letras de músicas</h1>
+
             <p className="descricao-letras">
                 Explore as composições compartilhadas pela comunidade.
             </p>
@@ -56,6 +57,30 @@ function LetrasPublicas() {
                         className="card-letra-publica"
                         key={letra.id}
                     >
+                        <div className="autor-letra-publica">
+                            {letra.autor_foto_url ? (
+                                <img
+                                    src={letra.autor_foto_url}
+                                    alt={`Foto de ${letra.autor_nome}`}
+                                    className="foto-autor-letra"
+                                />
+                            ) : (
+                                <div className="foto-autor-letra foto-autor-fallback">
+                                    {letra.autor_nome?.charAt(0)?.toUpperCase() || "?"}
+                                </div>
+                            )}
+
+                            <div className="dados-autor-letra">
+                                <span className="nome-autor-letra">
+                                    {letra.autor_nome || "Usuário"}
+                                </span>
+
+                                <span className="legenda-autor-letra">
+                                    Publicou uma composição
+                                </span>
+                            </div>
+                        </div>
+
                         <h2>{letra.titulo}</h2>
 
                         <p className="estilo-letra-publica">

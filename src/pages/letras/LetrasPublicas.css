@@ -173,3 +173,47 @@
         max-height: 250px;
     }
 }
+
+
+.autor-letra-publica {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.foto-autor-letra {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #53ca97;
+}
+
+.foto-autor-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #202020;
+    color: #53ca97;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.dados-autor-letra {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.nome-autor-letra {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.legenda-autor-letra {
+    color: #999999;
+    font-size: 12px;
+}
