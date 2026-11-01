@@ -1,5 +1,5 @@
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
     buscarComunidade,
@@ -17,19 +17,21 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
     const [comunidade, setComunidade] = useState(null);
     const [mensagem, setMensagem] = useState("");
     const [modalParticipantesAberto, setModalParticipantesAberto] = useState(false);
+    const [carregandoAcao, setCarregandoAcao] = useState(false);
 
     const ehCriador = comunidade?.eh_criador === true;
     const participando = comunidade?.participando === true;
 
-    const carregarComunidade = useCallback(async () => {
+    const carregarComunidade = async () => {
         try {
             const resposta = await buscarComunidade(id);
             setComunidade(resposta.data);
-
+            return resposta.data;
         } catch (erro) {
             console.error("Erro ao carregar comunidade:", erro);
+            throw erro;
         }
-    }, [id]);
+    };
 
     useEffect(() => {
         let ativo = true;
@@ -41,11 +43,8 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
                 if (ativo) {
                     setComunidade(resposta.data);
                 }
-
             } catch (erro) {
-                if (ativo) {
-                    console.error("Erro ao carregar comunidade:", erro);
-                }
+                console.error("Erro ao carregar comunidade:", erro);
             }
         }
 
@@ -56,9 +55,14 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
         };
     }, [id]);
 
-    // Entrar na comunidade
+    // ENTRAR NA COMUNIDADE
+
     const handleEntrar = async () => {
+
+        if (carregandoAcao) return;
+
         setMensagem("");
+        setCarregandoAcao(true);
 
         try {
             const resposta = await entrarComunidade(id);
@@ -72,16 +76,41 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
             }
 
         } catch (erro) {
-            setMensagem(
-                erro.response?.data?.erro ||
-                "Erro ao entrar na comunidade"
-            );
+
+            const status = erro.response?.status;
+
+            if (status === 403) {
+                setMensagem(
+                    "Você foi bloqueado pelo criador desta comunidade."
+                );
+            } else if (status === 409) {
+                setMensagem(
+                    "Você já participa desta comunidade."
+                );
+            } else if (status === 404) {
+                setMensagem(
+                    "Comunidade não encontrada."
+                );
+            } else {
+                setMensagem(
+                    erro.response?.data?.erro ||
+                    "Erro ao entrar na comunidade."
+                );
+            }
+
+        } finally {
+            setCarregandoAcao(false);
         }
     };
 
-    // Sair da comunidade
+    // SAIR DA COMUNIDADE
+
     const handleSair = async () => {
+
+        if (carregandoAcao) return;
+
         setMensagem("");
+        setCarregandoAcao(true);
 
         try {
             const resposta = await sairComunidade(id);
@@ -97,12 +126,14 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
         } catch (erro) {
             setMensagem(
                 erro.response?.data?.erro ||
-                "Erro ao sair da comunidade"
+                "Erro ao sair da comunidade."
             );
+
+        } finally {
+            setCarregandoAcao(false);
         }
     };
 
-    // Evita mostrar os dados da comunidade anterior enquanto carrega outra
     if (!comunidade || Number(comunidade.id) !== Number(id)) {
         return <p>Carregando...</p>;
     }
@@ -129,9 +160,7 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
 
                     <span>
                         {totalMembros}{" "}
-                        {totalMembros === 1
-                            ? "membro"
-                            : "membros"}
+                        {totalMembros === 1 ? "membro" : "membros"}
                     </span>
                 </div>
 
@@ -142,12 +171,22 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
             <div className="botoes-comunidade">
 
                 {participando ? (
-                    <button onClick={handleSair}>
-                        Sair da comunidade
+                    <button
+                        onClick={handleSair}
+                        disabled={carregandoAcao}
+                    >
+                        {carregandoAcao
+                            ? "Saindo..."
+                            : "Sair da comunidade"}
                     </button>
                 ) : (
-                    <button onClick={handleEntrar}>
-                        Entrar na comunidade
+                    <button
+                        onClick={handleEntrar}
+                        disabled={carregandoAcao}
+                    >
+                        {carregandoAcao
+                            ? "Entrando..."
+                            : "Entrar na comunidade"}
                     </button>
                 )}
 
