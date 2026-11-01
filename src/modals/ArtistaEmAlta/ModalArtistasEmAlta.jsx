@@ -168,7 +168,6 @@ export default function ModalArtistasEmAlta({ onFechar }) {
         </div>
 
         <footer className="artistas-footer">
-          <span>Top 10 Brasil</span>
           <span>Dados da Deezer</span>
         </footer>
       </section>
