@@ -110,14 +110,43 @@
     border-radius: 10px;
 }
 
-/* AUTOR */
+/* AUTOR CLICÁVEL */
 
-.autor-letra-publica {
+.card-letra-publica .autor-letra-publica {
     display: flex;
     align-items: center;
     gap: 12px;
+    width: 100%;
     margin-bottom: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: opacity 0.2s;
 }
+
+.card-letra-publica .autor-letra-publica:hover {
+    background: transparent;
+    border: none;
+    color: inherit;
+    opacity: 0.8;
+}
+
+.card-letra-publica .autor-letra-publica:focus-visible {
+    outline: 2px solid #53ca97;
+    outline-offset: 4px;
+}
+
+.card-letra-publica .autor-letra-publica:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+/* FOTO DO AUTOR */
 
 .foto-autor-letra {
     width: 45px;
@@ -137,6 +166,8 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+/* DADOS DO AUTOR */
 
 .dados-autor-letra {
     display: flex;
@@ -175,7 +206,7 @@
 
 /* BOTÃO PARA MOSTRAR A LETRA */
 
-.card-letra-publica button {
+.card-letra-publica > button:not(.autor-letra-publica) {
     padding: 8px 12px;
     background: #29212f;
     border: 1px solid #59416e;
@@ -187,20 +218,10 @@
     cursor: pointer;
 }
 
-.card-letra-publica button:hover {
+.card-letra-publica > button:not(.autor-letra-publica):hover {
     background: #392846;
     border-color: #a855f7;
     color: #fff;
-}
-
-/* BOTÃO DE LIMPAR PESQUISA */
-
-.card-letra-publica .limpar-pesquisa-letras {
-    padding: 5px;
-    background: transparent;
-    border: none;
-    color: #999;
-    font-size: 20px;
 }
 
 /* LETRA COMPLETA */

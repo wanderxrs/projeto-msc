@@ -1,10 +1,13 @@
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IoSearchOutline, IoClose } from "react-icons/io5";
 import { listarLetrasPublicas } from "../../api";
 import "./LetrasPublicas.css";
 
 function LetrasPublicas() {
+    const navigate = useNavigate();
+
     const [letras, setLetras] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
@@ -34,6 +37,12 @@ function LetrasPublicas() {
             ?.toLowerCase()
             .includes(pesquisa.trim().toLowerCase())
     );
+
+    function abrirPerfil(usuarioId) {
+        if (!usuarioId) return;
+
+        navigate(`/perfil/${usuarioId}`);
+    }
 
     if (carregando) {
         return (
@@ -95,7 +104,13 @@ function LetrasPublicas() {
                         className="card-letra-publica"
                         key={letra.id}
                     >
-                        <div className="autor-letra-publica">
+                        <button
+                            type="button"
+                            className="autor-letra-publica"
+                            onClick={() => abrirPerfil(letra.usuario_id)}
+                            disabled={!letra.usuario_id}
+                            aria-label={`Acessar perfil de ${letra.autor_nome || "Usuário"}`}
+                        >
                             {letra.autor_foto_url ? (
                                 <img
                                     src={letra.autor_foto_url}
@@ -117,7 +132,7 @@ function LetrasPublicas() {
                                     Publicou uma composição
                                 </span>
                             </div>
-                        </div>
+                        </button>
 
                         <h2>{letra.titulo}</h2>
 
