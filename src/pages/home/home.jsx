@@ -12,6 +12,10 @@ import "./home.css";
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
 import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
 
+//icones
+import { FaUserGroup } from "react-icons/fa6";
+import { HiUser } from "react-icons/hi";
+
 // Modais
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
@@ -28,6 +32,9 @@ function Home() {
 
     const [publicacaoSelecionada, setPublicacaoSelecionada] =
         useState(null);
+
+    // Controla os painéis laterais no mobile.
+    const [painelAberto, setPainelAberto] = useState(null);
 
     // Carrega as publicações da aba selecionada.
     async function buscarPublicacoes() {
@@ -97,8 +104,22 @@ function Home() {
         buscarPublicacoes();
     }, [abaAtiva]);
 
+    // Fecha painel com a tecla ESC.
+    useEffect(() => {
+        function fecharComEsc(evento) {
+            if (evento.key === "Escape") {
+                setPainelAberto(null);
+            }
+        }
+
+        window.addEventListener("keydown", fecharComEsc);
+
+        return () => {
+            window.removeEventListener("keydown", fecharComEsc);
+        };
+    }, []);
+
     // Curtir ou descurtir uma publicação.
-    // Usa os valores reais retornados pelo backend.
     async function handleCurtir(publicacao_id) {
         try {
             const resposta = await curtirPublicacao(publicacao_id);
@@ -143,10 +164,68 @@ function Home() {
         <>
             <div className="conteudo-principal">
 
-                <ComunidadesRecomendadas />
+                {/* PAINEL DE COMUNIDADES */}
+                <div
+                    className={`painel-lateral painel-comunidades ${
+                        painelAberto === "comunidades"
+                            ? "painel-aberto"
+                            : ""
+                    }`}
+                >
+                    <div className="cabecalho-painel-mobile">
+                        <span>Comunidades</span>
 
+                        <button
+                            type="button"
+                            onClick={() => setPainelAberto(null)}
+                            aria-label="Fechar comunidades"
+                        >
+                            ✕
+                        </button>
+                    </div>
+
+                    <ComunidadesRecomendadas />
+                </div>
+
+                {/* FUNDO PARA FECHAR OS PAINÉIS */}
+                {painelAberto && (
+                    <button
+                        type="button"
+                        className="fundo-paineis-mobile"
+                        onClick={() => setPainelAberto(null)}
+                        aria-label="Fechar painel"
+                    />
+                )}
+
+                {/* CONTEÚDO CENTRAL */}
                 <main className="conteudo-central">
 
+                    {/* BOTÕES MOBILE */}
+                    <div className="acoes-mobile-paineis">
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setPainelAberto("comunidades")
+                            }
+                        >
+                            <span><FaUserGroup /></span>
+                            Comunidades
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setPainelAberto("perfil")
+                            }
+                        >
+                            <span><HiUser /></span>
+                            Meu perfil
+                        </button>
+
+                    </div>
+
+                    {/* MODAL DE PUBLICAÇÃO */}
                     {modalAberto && (
                         <ModalPublicacao
                             onClose={() => setModalAberto(false)}
@@ -156,7 +235,7 @@ function Home() {
 
                     <h1>Feed inicial</h1>
 
-                    {/* Abas do feed */}
+                    {/* ABAS DO FEED */}
                     <div className="abas-feed">
 
                         <button
@@ -185,14 +264,14 @@ function Home() {
 
                     </div>
 
-                    {/* Carregamento */}
+                    {/* CARREGAMENTO */}
                     {carregando && (
                         <p className="mensagem-feed">
                             Carregando publicações...
                         </p>
                     )}
 
-                    {/* Erro ao carregar */}
+                    {/* ERRO AO CARREGAR */}
                     {!carregando && erro && (
                         <div className="mensagem-feed">
 
@@ -208,7 +287,7 @@ function Home() {
                         </div>
                     )}
 
-                    {/* Usuário ainda não segue comunidades */}
+                    {/* USUÁRIO AINDA NÃO SEGUE COMUNIDADES */}
                     {!carregando &&
                         !erro &&
                         abaAtiva === "seguindo" &&
@@ -236,7 +315,7 @@ function Home() {
                             </div>
                         )}
 
-                    {/* Não existem publicações nas comunidades seguidas */}
+                    {/* NÃO EXISTEM PUBLICAÇÕES NAS COMUNIDADES SEGUIDAS */}
                     {!carregando &&
                         !erro &&
                         abaAtiva === "seguindo" &&
@@ -252,7 +331,7 @@ function Home() {
                             </div>
                         )}
 
-                    {/* Não existem publicações para descobrir */}
+                    {/* NÃO EXISTEM PUBLICAÇÕES PARA DESCOBRIR */}
                     {!carregando &&
                         !erro &&
                         abaAtiva === "descobrir" &&
@@ -263,7 +342,7 @@ function Home() {
                             </p>
                         )}
 
-                    {/* Lista de publicações */}
+                    {/* LISTA DE PUBLICAÇÕES */}
                     {!carregando && !erro && (
 
                         <div className="feed">
@@ -287,11 +366,32 @@ function Home() {
 
                 </main>
 
-                <PerfilComponente />
+                {/* PAINEL DE PERFIL */}
+                <div
+                    className={`painel-lateral painel-perfil ${
+                        painelAberto === "perfil"
+                            ? "painel-aberto"
+                            : ""
+                    }`}
+                >
+                    <div className="cabecalho-painel-mobile">
+                        <span>Meu perfil</span>
+
+                        <button
+                            type="button"
+                            onClick={() => setPainelAberto(null)}
+                            aria-label="Fechar perfil"
+                        >
+                            ✕
+                        </button>
+                    </div>
+
+                    <PerfilComponente />
+                </div>
 
             </div>
 
-            {/* Modal de exclusão */}
+            {/* MODAL DE EXCLUSÃO */}
             {publicacaoSelecionada && (
 
                 <ModalApagarPublicacao

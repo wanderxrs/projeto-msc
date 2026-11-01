@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* CONTEÚDO CENTRAL */
@@ -116,18 +117,134 @@
     background: #8547f5;
 }
 
+/* PAINÉIS LATERAIS NO DESKTOP */
+.painel-lateral {
+    display: contents;
+}
+
+/* ELEMENTOS EXCLUSIVOS DO MOBILE */
+.acoes-mobile-paineis,
+.cabecalho-painel-mobile,
+.fundo-paineis-mobile {
+    display: none;
+}
+
 /* TELAS MENORES */
 @media (max-width: 768px) {
+
     .conteudo-central {
+        width: 100%;
         max-width: 100%;
         margin-top: 90px;
-        padding: 0 12px;
+        padding: 0 12px 30px;
     }
 
     .conteudo-central > h1 {
         font-size: 24px;
     }
 
+    /* BOTÕES PARA ABRIR OS PAINÉIS */
+    .acoes-mobile-paineis {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .acoes-mobile-paineis button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex: 1;
+        padding: 12px 8px;
+        border: 1px solid #393039;
+        border-radius: 9px;
+        background: #1a1a1a;
+        color: #fff;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .acoes-mobile-paineis button:hover {
+        background: #292330;
+    }
+
+    .acoes-mobile-paineis button span {
+        font-size: 17px;
+    }
+
+    /* PAINÉIS LATERAIS */
+    .painel-lateral {
+        display: block;
+        position: fixed;
+        top: 80px;
+        bottom: 0;
+        width: min(88vw, 370px);
+        padding: 16px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        background: #171717;
+        z-index: 1000;
+        transition: transform 0.3s ease;
+        visibility: hidden;
+    }
+
+    /* COMUNIDADES ENTRAM PELA ESQUERDA */
+    .painel-comunidades {
+        left: 0;
+        transform: translateX(-105%);
+    }
+
+    /* PERFIL ENTRA PELA DIREITA */
+    .painel-perfil {
+        right: 0;
+        transform: translateX(105%);
+    }
+
+    /* PAINEL ABERTO */
+    .painel-lateral.painel-aberto {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    /* CABEÇALHO DOS PAINÉIS */
+    .cabecalho-painel-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        color: white;
+        font-family: 'Inter', sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .cabecalho-painel-mobile button {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    /* FUNDO ESCURO AO ABRIR PAINEL */
+    .fundo-paineis-mobile {
+        display: block;
+        position: fixed;
+        inset: 80px 0 0;
+        width: 100%;
+        height: calc(100% - 80px);
+        background: rgba(0, 0, 0, 0.65);
+        border: none;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+    /* ABAS */
     .abas-feed {
         gap: 8px;
     }
@@ -137,19 +254,29 @@
         font-size: 14px;
     }
 
+    /* PUBLICAÇÕES */
     .feed {
         gap: 16px;
         margin-top: 20px;
     }
 }
 
+/* CELULARES PEQUENOS */
 @media (max-width: 400px) {
+
     .conteudo-central > h1 {
         font-size: 21px;
     }
 
-    .aba-feed {
+    .abas-feed {
         font-size: 13px;
+    }
+
+    .aba-feed {
         padding: 10px 6px;
+    }
+
+    .acoes-mobile-paineis button {
+        font-size: 12px;
     }
 }
