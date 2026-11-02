@@ -1,0 +1,210 @@
+/* TELA DE CONFIRMAÇÃO DE SENHA */
+
+.confirmar-senha {
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 30px 16px;
+
+    background-color: #0f0f0f;
+    color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* CARD */
+
+.confirmar-senha .container {
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+
+    padding: 36px;
+
+    background-color: #1a1a1a;
+    border: 1px solid #303030;
+    border-radius: 18px;
+
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
+}
+
+/* LOGO */
+
+.confirmar-senha .container h1 {
+    margin: 0 0 30px;
+
+    text-align: center;
+
+    font-size: 2.3rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+
+    color: #ffffff;
+}
+
+/* FORMULÁRIO */
+
+.confirmar-senha .container form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* TEXTO INFORMATIVO */
+
+.confirmar-senha .container form > p:first-child {
+    margin: 0 0 10px;
+
+    color: #a5a5a5;
+
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* INPUT */
+
+.confirmar-senha .container input {
+    width: 100%;
+    height: 48px;
+    box-sizing: border-box;
+
+    padding: 0 14px;
+
+    border: 1px solid #383838;
+    border-radius: 9px;
+
+    background-color: #111111;
+    color: #ffffff;
+
+    font-size: 0.95rem;
+
+    outline: none;
+
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.confirmar-senha .container input::placeholder {
+    color: #777777;
+}
+
+.confirmar-senha .container input:focus {
+    border-color: #a0a0a0;
+    box-shadow: 0 0 0 3px rgba(180, 180, 180, 0.1);
+}
+
+/* BOTÃO PRINCIPAL */
+
+.confirmar-senha .container button[type="submit"] {
+    width: 100%;
+    height: 48px;
+
+    margin-top: 4px;
+
+    border: 1px solid #ffffff;
+    border-radius: 9px;
+
+    background-color: #ffffff;
+    color: #111111;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.confirmar-senha .container button[type="submit"]:hover {
+    background-color: #dcdcdc;
+    transform: translateY(-1px);
+}
+
+/* BOTÃO VOLTAR */
+
+.confirmar-senha .container button[type="button"] {
+    width: 100%;
+    height: 48px;
+
+    border: 1px solid #383838;
+    border-radius: 9px;
+
+    background-color: transparent;
+    color: #ffffff;
+
+    font-size: 1rem;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.confirmar-senha .container button[type="button"]:hover {
+    background-color: #292929;
+    border-color: #666666;
+}
+
+/* BOTÕES DESABILITADOS */
+
+.confirmar-senha .container button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* MENSAGEM DE ERRO */
+
+.confirmar-senha .container form p:not(:first-child) {
+    margin: 0;
+    padding: 12px;
+
+    border: 1px solid #594545;
+    border-radius: 8px;
+
+    background-color: #291d1d;
+    color: #ffb8b8;
+
+    font-size: 0.9rem;
+
+    overflow-wrap: anywhere;
+}
+
+/* LINK ESQUECI MINHA SENHA */
+
+.confirmar-senha .container a {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 8px;
+
+    color: #bdbdbd;
+
+    font-size: 0.85rem;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: color 0.2s;
+}
+
+.confirmar-senha .container a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 480px) {
+    .confirmar-senha .container {
+        padding: 26px 20px;
+    }
+
+    .confirmar-senha .container h1 {
+        font-size: 2rem;
+    }
+}
