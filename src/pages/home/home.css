@@ -219,8 +219,9 @@
     /* NAVBAR FIXA NA PARTE INFERIOR */
     .navbar-mobile {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
+        gap: 20px;
 
         position: fixed;
         bottom: 0;
@@ -229,7 +230,6 @@
         width: 100%;
         height: 72px;
 
-        padding: 0 24px;
         padding-bottom: env(safe-area-inset-bottom);
 
         box-sizing: border-box;
@@ -335,8 +335,7 @@
 
     /* NAVBAR EM CELULARES MENORES */
     .navbar-mobile {
-        padding-left: 18px;
-        padding-right: 18px;
+        gap: 16px;
     }
 
     .botao-navbar-mobile {
