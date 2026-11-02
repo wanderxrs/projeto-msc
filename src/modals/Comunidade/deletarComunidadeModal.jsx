@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import { deletarComunidade } from "../../api";
+
 import {
     Dialog,
     DialogTitle,
@@ -9,18 +9,23 @@ import {
     Button,
     Typography
 } from "@mui/material";
+
 import "./deletarComunidadeModal.css";
 
 function DeletarComunidadeModal({
     isOpen,
     onClose,
-    comunidade_id
+    comunidade_id,
+    onDeleted
 }) {
+
     const [mensagem, setMensagem] = useState("");
     const [carregando, setCarregando] = useState(false);
 
     const apagarComunidade = async () => {
+
         try {
+
             setCarregando(true);
             setMensagem("");
 
@@ -30,19 +35,29 @@ function DeletarComunidadeModal({
                 resposta.data.mensagem || "Comunidade deletada com sucesso!"
             );
 
+            if (onDeleted) {
+                onDeleted();
+            }
+
             onClose();
+
         } catch (e) {
+
             const erro =
                 e.response?.data?.erro ||
                 "Não foi possível conectar à API.";
 
             setMensagem(erro);
+
         } finally {
+
             setCarregando(false);
+
         }
     };
 
     return (
+
         <Dialog
             open={isOpen}
             onClose={carregando ? undefined : onClose}
@@ -50,11 +65,13 @@ function DeletarComunidadeModal({
             maxWidth="xs"
             className="yrplace-deletar-dialog"
         >
+
             <DialogTitle className="yrplace-deletar-titulo">
                 Deletar comunidade
             </DialogTitle>
 
             <DialogContent className="yrplace-deletar-conteudo">
+
                 <Typography className="yrplace-deletar-aviso">
                     Tem certeza de que deseja excluir esta comunidade?
                 </Typography>
@@ -65,13 +82,17 @@ function DeletarComunidadeModal({
                 </Typography>
 
                 {mensagem && (
+
                     <Typography className="yrplace-deletar-erro">
                         {mensagem}
                     </Typography>
+
                 )}
+
             </DialogContent>
 
             <DialogActions className="yrplace-deletar-acoes">
+
                 <Button
                     onClick={onClose}
                     disabled={carregando}
@@ -88,7 +109,9 @@ function DeletarComunidadeModal({
                 >
                     {carregando ? "Deletando..." : "Deletar comunidade"}
                 </Button>
+
             </DialogActions>
+
         </Dialog>
     );
 }
