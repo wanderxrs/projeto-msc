@@ -15,14 +15,19 @@ import PerfilComponente from "../../components/PerfilComponente/PerfilComponente
 
 // Ícones
 import { FaUserGroup } from "react-icons/fa6";
+import { IoAdd } from "react-icons/io5";
 
 // Modais
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 import ModalPublicacao from "../../modals/modalPublicacao";
+import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
 function Home() {
     const [modalAberto, setModalAberto] = useState(false);
+    const [modalCriarComunidadeAberto, setModalCriarComunidadeAberto] =
+        useState(false);
+
     const [publicacoes, setPublicacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
@@ -233,6 +238,15 @@ function Home() {
                         />
                     )}
 
+                    {/* MODAL DE CRIAR COMUNIDADE */}
+                    {modalCriarComunidadeAberto && (
+                        <CriarComunidadeModal
+                            onClose={() =>
+                                setModalCriarComunidadeAberto(false)
+                            }
+                        />
+                    )}
+
                     <h1>Feed inicial</h1>
 
                     {/* ABAS DO FEED */}
@@ -395,7 +409,7 @@ function Home() {
                     {/* BOTÃO DE COMUNIDADES */}
                     <button
                         type="button"
-                        className="botao-navbar-mobile"
+                        className="botao-navbar-mobile botao-icone-navbar"
                         onClick={() =>
                             setPainelAberto(
                                 painelAberto === "comunidades"
@@ -407,6 +421,19 @@ function Home() {
                         title="Comunidades"
                     >
                         <FaUserGroup />
+                    </button>
+
+                    {/* BOTÃO DE CRIAR COMUNIDADE */}
+                    <button
+                        type="button"
+                        className="botao-navbar-mobile botao-icone-navbar"
+                        onClick={() =>
+                            setModalCriarComunidadeAberto(true)
+                        }
+                        aria-label="Criar comunidade"
+                        title="Criar comunidade"
+                    >
+                        <IoAdd />
                     </button>
 
                     {/* BOTÃO DE PERFIL COM FOTO */}
