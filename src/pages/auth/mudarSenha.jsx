@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { trocarSenhaPerfil } from "../../api";
+import { mudarSenha } from "../../api";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
 
@@ -13,19 +13,21 @@ function MudarSenhaPerfil() {
     async function handleTrocarSenhaPerfil(event) {
         event.preventDefault();
 
-        try {
+        setMensagem("");
 
-            const resposta = await trocarSenhaPerfil(novasenha);
+        try {
+            const resposta = await mudarSenha(novasenha);
 
             setMensagem(resposta.data);
 
             navigate("/login");
 
         } catch (e) {
+            console.error("Erro ao alterar senha:", e.response?.data);
 
             const error =
                 e.response?.data ||
-                "Não foi possível alterar a senha";
+                "Não foi possível atualizar sua senha";
 
             setMensagem(error);
         }
@@ -68,7 +70,10 @@ function MudarSenhaPerfil() {
                         type="password"
                         placeholder="Nova senha"
                         value={novasenha}
-                        onChange={(event) => setNovasenha(event.target.value)}
+                        onChange={(event) =>
+                            setNovasenha(event.target.value)
+                        }
+                        required
                     />
 
                     <button
