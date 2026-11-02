@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { fazerPublicacao } from "../api";
 import { IoClose } from "react-icons/io5";
@@ -83,14 +82,15 @@ function ModalPublicacao({
 
         if (carregando) return;
 
-        // Impede publicações completamente vazias.
-        if (!imagem && !legenda.trim()) {
+        // Imagem ou vídeo é obrigatório.
+        if (!imagem) {
             setMensagem(
-                "Adicione uma legenda ou selecione uma imagem/vídeo."
+                "Selecione uma imagem ou vídeo para publicar."
             );
             return;
         }
 
+        // Comunidade é obrigatória.
         if (!comunidade) {
             setMensagem("Comunidade não definida.");
             return;
@@ -98,12 +98,11 @@ function ModalPublicacao({
 
         const dadosPublicacao = new FormData();
 
-        // A mídia agora é opcional.
-        if (imagem) {
-            dadosPublicacao.append("imagem", imagem);
-            dadosPublicacao.append("tipo_midia", tipoMidia);
-        }
+        // Envia obrigatoriamente a mídia.
+        dadosPublicacao.append("imagem", imagem);
+        dadosPublicacao.append("tipo_midia", tipoMidia);
 
+        // Legenda continua opcional.
         dadosPublicacao.append("legenda", legenda.trim());
         dadosPublicacao.append("comunidade", comunidade);
 
@@ -171,7 +170,7 @@ function ModalPublicacao({
 
                     <label htmlFor="imagem">
                         Imagem ou vídeo da publicação
-                        <span> (opcional)</span>
+                        <span> (obrigatório)</span>
                     </label>
 
                     <input
@@ -180,6 +179,7 @@ function ModalPublicacao({
                         accept="image/*,video/mp4,video/webm,video/quicktime,video/ogg"
                         onChange={handleImagem}
                         disabled={carregando}
+                        required
                     />
 
                     {/* Informações do arquivo selecionado */}
