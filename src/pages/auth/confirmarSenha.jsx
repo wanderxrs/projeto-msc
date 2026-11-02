@@ -1,35 +1,30 @@
+
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { confirmarSenha } from "../api";
 import "./ConfirmarSenha.css";
 
-import { confirmarSenha } from "../../api";
-
 function ConfirmarSenha() {
-
     const navigate = useNavigate();
     const location = useLocation();
+
+    const estado = location.state;
 
     const [senha, setSenha] = useState("");
     const [erro, setErro] = useState("");
     const [carregando, setCarregando] = useState(false);
 
-    const estado = location.state;
-
-    async function handleConfirmar(event) {
-
-        event.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
         setErro("");
         setCarregando(true);
 
         try {
-
             await confirmarSenha(senha);
 
-            // VERIFICA SE A CONFIRMAÇÃO VEIO DA EXCLUSÃO
-
+            // Fluxo para excluir uma comunidade
             if (estado?.acao === "excluir-comunidade") {
-
                 navigate(estado.returnTo, {
                     replace: true,
                     state: {
@@ -41,68 +36,85 @@ function ConfirmarSenha() {
                 return;
             }
 
-            // COMPORTAMENTO ORIGINAL: TROCAR SENHA
-
+            // Fluxo normal para alterar a senha do perfil
             navigate("/mudar-senha-perfil");
 
         } catch (error) {
-
             if (error.response?.status === 401) {
                 setErro("Senha incorreta.");
             } else {
                 setErro("Não foi possível confirmar a senha.");
             }
-
         } finally {
             setCarregando(false);
         }
-    }
+    };
+
+    const irParaRecuperacao = () => {
+        navigate("/Recuperacao", {
+            state: {
+                veioDoPerfil: true
+            }
+        });
+    };
 
     return (
+        <div className="confirmar-senha">
+            <div className="container">
+                <h2>Confirmar senha</h2>
 
-        <div className="container">
+                <p>
+                    Para continuar, confirme sua senha atual.
+                </p>
 
-            <h1>Yrplace</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="senha">
+                            Senha atual
+                        </label>
 
-            <form onSubmit={handleConfirmar}>
+                        <input
+                            type="password"
+                            id="senha"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            placeholder="Digite sua senha atual"
+                            required
+                        />
+                    </div>
 
-                <p>Digite sua senha atual para continuar.</p>
+                    {erro && (
+                        <p className="mensagem-erro">
+                            {erro}
+                        </p>
+                    )}
 
-                <input
-                    type="password"
-                    placeholder="Senha atual"
-                    value={senha}
-                    onChange={(event) => setSenha(event.target.value)}
-                    required
-                />
-
-                {erro && <p>{erro}</p>}
+                    <button
+                        type="submit"
+                        disabled={carregando}
+                    >
+                        {carregando
+                            ? "Verificando..."
+                            : "Confirmar"}
+                    </button>
+                </form>
 
                 <button
-                    type="submit"
-                    disabled={carregando}
+                    type="button"
+                    className="botao-recuperacao"
+                    onClick={irParaRecuperacao}
                 >
-                    {carregando ? "Confirmando..." : "Confirmar"}
+                    Esqueci minha senha
                 </button>
 
                 <button
                     type="button"
-                    onClick={() => navigate("/home")}
-                    disabled={carregando}
+                    className="botao-voltar"
+                    onClick={() => navigate(-1)}
                 >
                     Voltar
                 </button>
-
-                <a
-                    onClick={() => navigate("/Recuperacao", {
-                        state: { veioDoPerfil: true }
-                    })}
-                >
-                    Esqueci minha senha
-                </a>
-
-            </form>
-
+            </div>
         </div>
     );
 }
