@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import {
     carregarPublicacoes,
     carregarPublicacoesSeguindo,
-    curtirPublicacao
+    curtirPublicacao,
+    carregarPerfil
 } from "../../api";
 
 import "./home.css";
@@ -12,9 +13,8 @@ import "./home.css";
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
 import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
 
-//icones
+// Ícones
 import { FaUserGroup } from "react-icons/fa6";
-import { HiUser } from "react-icons/hi";
 
 // Modais
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
@@ -35,6 +35,31 @@ function Home() {
 
     // Controla os painéis laterais no mobile.
     const [painelAberto, setPainelAberto] = useState(null);
+
+    // Foto de perfil do usuário logado.
+    const [fotoPerfil, setFotoPerfil] = useState(
+        "/avatar-padrao.png"
+    );
+
+    // Carrega a foto de perfil do usuário.
+    useEffect(() => {
+        async function buscarPerfil() {
+            try {
+                const resposta = await carregarPerfil();
+
+                setFotoPerfil(
+                    resposta.data.foto_url || "/avatar-padrao.png"
+                );
+            } catch (erro) {
+                console.error(
+                    "Erro ao carregar foto de perfil:",
+                    erro
+                );
+            }
+        }
+
+        buscarPerfil();
+    }, []);
 
     // Carrega as publicações da aba selecionada.
     async function buscarPublicacoes() {
@@ -200,31 +225,6 @@ function Home() {
                 {/* CONTEÚDO CENTRAL */}
                 <main className="conteudo-central">
 
-                    {/* BOTÕES MOBILE */}
-                    <div className="acoes-mobile-paineis">
-
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setPainelAberto("comunidades")
-                            }
-                        >
-                            <span><FaUserGroup /></span>
-                            Comunidades
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setPainelAberto("perfil")
-                            }
-                        >
-                            <span><HiUser /></span>
-                            Meu perfil
-                        </button>
-
-                    </div>
-
                     {/* MODAL DE PUBLICAÇÃO */}
                     {modalAberto && (
                         <ModalPublicacao
@@ -388,6 +388,52 @@ function Home() {
 
                     <PerfilComponente />
                 </div>
+
+                {/* NAVBAR MOBILE INFERIOR */}
+                <nav className="navbar-mobile">
+
+                    {/* BOTÃO DE COMUNIDADES */}
+                    <button
+                        type="button"
+                        className="botao-navbar-mobile"
+                        onClick={() =>
+                            setPainelAberto(
+                                painelAberto === "comunidades"
+                                    ? null
+                                    : "comunidades"
+                            )
+                        }
+                        aria-label="Abrir comunidades"
+                        title="Comunidades"
+                    >
+                        <FaUserGroup />
+                    </button>
+
+                    {/* BOTÃO DE PERFIL COM FOTO */}
+                    <button
+                        type="button"
+                        className="botao-navbar-mobile botao-perfil-navbar"
+                        onClick={() =>
+                            setPainelAberto(
+                                painelAberto === "perfil"
+                                    ? null
+                                    : "perfil"
+                            )
+                        }
+                        aria-label="Abrir meu perfil"
+                        title="Meu perfil"
+                    >
+                        <img
+                            src={fotoPerfil}
+                            alt="Minha foto de perfil"
+                            onError={(evento) => {
+                                evento.currentTarget.src =
+                                    "/avatar-padrao.png";
+                            }}
+                        />
+                    </button>
+
+                </nav>
 
             </div>
 

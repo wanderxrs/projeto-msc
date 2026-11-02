@@ -122,6 +122,11 @@
     display: contents;
 }
 
+/* NAVBAR MOBILE */
+.navbar-mobile {
+    display: none;
+}
+
 /* ELEMENTOS EXCLUSIVOS DO MOBILE */
 .acoes-mobile-paineis,
 .cabecalho-painel-mobile,
@@ -132,49 +137,16 @@
 /* TELAS MENORES */
 @media (max-width: 768px) {
 
+    /* CONTEÚDO CENTRAL */
     .conteudo-central {
         width: 100%;
         max-width: 100%;
         margin-top: 90px;
-        padding: 0 12px 30px;
+        padding: 0 12px 110px;
     }
 
     .conteudo-central > h1 {
         font-size: 24px;
-    }
-
-    /* BOTÕES PARA ABRIR OS PAINÉIS */
-    .acoes-mobile-paineis {
-        display: flex;
-        gap: 10px;
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    .acoes-mobile-paineis button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        flex: 1;
-        padding: 12px 8px;
-        border: 1px solid #393039;
-        border-radius: 9px;
-        background: #1a1a1a;
-        color: #fff;
-        font-family: 'Inter', sans-serif;
-        font-weight: 600;
-        font-size: 13px;
-        cursor: pointer;
-        transition: background 0.2s ease;
-    }
-
-    .acoes-mobile-paineis button:hover {
-        background: #292330;
-    }
-
-    .acoes-mobile-paineis button span {
-        font-size: 17px;
     }
 
     /* PAINÉIS LATERAIS */
@@ -244,6 +216,91 @@
         cursor: pointer;
     }
 
+    /* NAVBAR FIXA NA PARTE INFERIOR */
+    .navbar-mobile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        position: fixed;
+        bottom: 0;
+        left: 0;
+
+        width: 100%;
+        height: 72px;
+
+        padding: 0 24px;
+        padding-bottom: env(safe-area-inset-bottom);
+
+        box-sizing: border-box;
+
+        background: rgba(15, 15, 15, 0.96);
+        border-top: 1px solid #303030;
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+
+        z-index: 1002;
+    }
+
+    /* BOTÕES CIRCULARES DA NAVBAR */
+    .botao-navbar-mobile {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 48px;
+        height: 48px;
+
+        min-width: 48px;
+
+        border-radius: 50%;
+        border: 1px solid #393039;
+
+        background: #1a1a1a;
+        color: #f5f5f5;
+
+        font-size: 21px;
+
+        cursor: pointer;
+
+        transition:
+            background 0.2s ease,
+            border-color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    /* HOVER DOS BOTÕES */
+    .botao-navbar-mobile:hover {
+        background: #292330;
+        border-color: #702be8;
+    }
+
+    /* EFEITO AO CLICAR */
+    .botao-navbar-mobile:active {
+        transform: scale(0.94);
+    }
+
+    /* BOTÃO DE PERFIL */
+    .botao-perfil-navbar {
+        padding: 0;
+        overflow: hidden;
+        background: #1a1a1a;
+    }
+
+    /* FOTO DE PERFIL DENTRO DO BOTÃO */
+    .botao-perfil-navbar img {
+        width: 100%;
+        height: 100%;
+
+        border-radius: 50%;
+
+        object-fit: cover;
+        object-position: center;
+
+        display: block;
+    }
+
     /* ABAS */
     .abas-feed {
         gap: 8px;
@@ -276,7 +333,16 @@
         padding: 10px 6px;
     }
 
-    .acoes-mobile-paineis button {
-        font-size: 12px;
+    /* NAVBAR EM CELULARES MENORES */
+    .navbar-mobile {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .botao-navbar-mobile {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+        font-size: 20px;
     }
 }
