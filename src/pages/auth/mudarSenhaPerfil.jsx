@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { trocarSenhaPerfil } from "../../api";
 import { useNavigate } from "react-router-dom";
+import "./MudarSenhaPerfil.css";
 
 function MudarSenhaPerfil() {
 
