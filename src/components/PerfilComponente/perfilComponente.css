@@ -317,3 +317,19 @@
 .botao-ver-minhas-comunidades:hover svg {
     color: #c49aff;
 }
+
+
+/* Foto de perfil clicável */
+.foto-perfil {
+    cursor: pointer;
+}
+
+/* Nome do usuário clicável */
+.informacoes-usuario h2 {
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.informacoes-usuario h2:hover {
+    opacity: 0.75;
+}
