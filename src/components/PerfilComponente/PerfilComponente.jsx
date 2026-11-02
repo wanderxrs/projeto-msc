@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { carregarPerfil } from "../../api";
@@ -10,7 +11,6 @@ import MinhasComunidadesModal from "../../modals/Comunidade/MinhasComunidadesMod
 import { HiChevronRight } from "react-icons/hi";
 import { HiUser } from "react-icons/hi";
 import { HiTrendingUp } from "react-icons/hi";
-import { LuBrainCircuit } from "react-icons/lu";
 import { PiVinylRecordBold } from "react-icons/pi";
 import { HiUsers } from "react-icons/hi";
 import { MdLyrics } from "react-icons/md";
@@ -45,18 +45,59 @@ function PerfilComponente() {
         );
     }
 
+    // Função para abrir o perfil do usuário
+    const abrirMeuPerfil = () => {
+        navegar(`/perfil/${usuario.id}`);
+    };
+
     return (
         <div className="perfil-componente">
+
             <div className="perfil-usuario">
+
                 <div className="perfil-usuario">
+
+                    {/* Foto de perfil clicável */}
                     <img
                         className="foto-perfil"
                         src={usuario.foto_url || "/avatar-padrao.png"}
                         alt="Foto de perfil"
+                        onClick={abrirMeuPerfil}
+                        title="Acessar meu perfil"
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(evento) => {
+                            if (
+                                evento.key === "Enter" ||
+                                evento.key === " "
+                            ) {
+                                evento.preventDefault();
+                                abrirMeuPerfil();
+                            }
+                        }}
                     />
 
                     <div className="informacoes-usuario">
-                        <h2>{usuario.nome}</h2>
+
+                        {/* Nome clicável */}
+                        <h2
+                            onClick={abrirMeuPerfil}
+                            title="Acessar meu perfil"
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(evento) => {
+                                if (
+                                    evento.key === "Enter" ||
+                                    evento.key === " "
+                                ) {
+                                    evento.preventDefault();
+                                    abrirMeuPerfil();
+                                }
+                            }}
+                        >
+                            {usuario.nome}
+                        </h2>
+
                     </div>
                 </div>
 
@@ -64,7 +105,7 @@ function PerfilComponente() {
                     <button
                         type="button"
                         className="botao-perfil"
-                        onClick={() => navegar(`/perfil/${usuario.id}`)}
+                        onClick={abrirMeuPerfil}
                     >
                         <HiUser />
                         <strong>Meu perfil</strong>
@@ -75,6 +116,7 @@ function PerfilComponente() {
                 <h3>Descobrir</h3>
 
                 <div className="container-artistas">
+
                     <button
                         type="button"
                         className="container1"
@@ -104,6 +146,7 @@ function PerfilComponente() {
                         <strong>Letras de músicas</strong>
                         <p>Explore composições</p>
                     </div>
+
                 </div>
 
                 <div
@@ -169,6 +212,7 @@ function PerfilComponente() {
                     <strong>Minhas comunidades</strong>
                     <HiChevronRight />
                 </div>
+
             </div>
 
             {modalArtistasAberto && (
@@ -181,6 +225,7 @@ function PerfilComponente() {
                 isOpen={minhasComunidadesAberto}
                 onClose={() => setMinhasComunidadesAberto(false)}
             />
+
         </div>
     );
 }
