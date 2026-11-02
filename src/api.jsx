@@ -1,151 +1,161 @@
-import axios from "axios"
-
+import axios from "axios";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     withCredentials: true
-})
+});
 
 
-    // AUTH
-
+// AUTH ##################################################
 
 export const fazerRegistro = (dadosUsuario) => {
-    return api.post(`/registro`, dadosUsuario)
-}
+    return api.post("/registro", dadosUsuario);
+};
 
 export const fazerLogin = (dadosUsuario) => {
-    return api.post(`/logar`, dadosUsuario)
-}
+    return api.post("/logar", dadosUsuario);
+};
 
 export const fazerLogout = () => {
-    return api.post(`/logout`)
-}
+    return api.post("/logout");
+};
 
 
-    // COMUNIDADES
-
+// COMUNIDADES ##########################################
 
 export const criarComunidade = (dadosComunidade) => {
-    return api.post(`/comunidade`, dadosComunidade)
-}
+    return api.post("/comunidade", dadosComunidade);
+};
 
 export const atualizarComunidade = (comunidade_id, dadosComunidade) => {
-    return api.put(`/comunidade/${comunidade_id}`, dadosComunidade)
-}
+    return api.put(`/comunidade/${comunidade_id}`, dadosComunidade);
+};
 
 export const deletarComunidade = (comunidade_id) => {
-    return api.delete(`/comunidade/${comunidade_id}`)
-}
+    return api.delete(`/comunidade/${comunidade_id}`);
+};
 
 
-    // BUSCA DE COMUNIDADES
-
+// BUSCA DE COMUNIDADES #################################
 
 export const buscarComunidade = (comunidade_id) => {
-    return api.get(`/buscarComunidade/${comunidade_id}`)
-}
+    return api.get(`/buscarComunidade/${comunidade_id}`);
+};
 
 export const buscarComunidadesDisponiveisParaEntrar = () => {
-    return api.get(`/buscarComunidadesDisponiveis`) // não manda o id do usuario pq ja vem no credentials
-}
+    return api.get("/buscarComunidadesDisponiveis");
+};
 
 export const buscarComunidadeUsuario = () => {
-    return api.get(`/buscarComunidadeUsuario`)
-}
+    return api.get("/buscarComunidadeUsuario");
+};
 
 
-    // FILTRO DE COMUNIDADES POR GENERO
-
+// FILTRO DE COMUNIDADES POR GÊNERO #####################
 
 export const filtroGeneroComunidade = (genero) => {
-    return api.get(`/filtroGeneroComunidade/${genero}`)
-}
+    return api.get(`/filtroGeneroComunidade/${genero}`);
+};
 
 
-    // ENTRAR E SAIR DE COMUNIDADES
-
+// ENTRAR E SAIR DE COMUNIDADES #########################
 
 export const entrarComunidade = (comunidade_id) => {
-    return api.post(`/entrarComunidade/${comunidade_id}`)
-}
+    return api.post(`/entrarComunidade/${comunidade_id}`);
+};
 
 export const sairComunidade = (comunidade_id) => {
-    return api.post(`/sairComunidade/${comunidade_id}`)
-}
+    return api.post(`/sairComunidade/${comunidade_id}`);
+};
 
-// GERENCIAR PARTICIPANTES DA COMUNIDADE
 
-// Listar participantes bloqueados
+// GERENCIAR PARTICIPANTES DA COMUNIDADE ################
+
+// Listar participantes
 
 export const listarParticipantes = (comunidade_id) => {
     return api.get(`/comunidade/${comunidade_id}/participantes`);
 };
+
+// Listar usuários bloqueados
 
 export const listarUsuariosBloqueados = (comunidade_id) => {
     return api.get(`/comunidade/${comunidade_id}/bloqueados`);
 };
 
 // Bloquear participante
+
 export const bloquearUsuario = (comunidade_id, usuario_id) => {
     return api.post(`/comunidade/${comunidade_id}/bloquear/${usuario_id}`);
 };
 
 // Desbloquear participante
+
 export const desbloquearUsuario = (comunidade_id, usuario_id) => {
     return api.delete(`/comunidade/${comunidade_id}/desbloquear/${usuario_id}`);
 };
 
 
-// trocar senha
+// TROCAR SENHA ########################################
 
+// Enviar código de recuperação para o e-mail
 
 export const confirmacao = (email) => {
-    return api.post(`/enviar-codigo`, {email})
-}
+    return api.post("/enviar-codigo", { email });
+};
+
+// Confirmar código de recuperação
+
 export const confirmarCodigo = (codigo) => {
-    return api.post(`/conf-codigo`, { codigo })
-}
+    return api.post("/confirmar-codigo", { codigo });
+};
+
+// Alterar senha após recuperação
 
 export const mudarSenha = (novasenha) => {
-    return api.post(`/mudar-senha`, {novasenha})
-}
+    return api.post("/mudar-senha", { novasenha });
+};
 
 
-// trocar senha no perfil
+// TROCAR SENHA NO PERFIL ###############################
 
+// Confirmar senha atual
 
 export const confirmarSenha = (senhaAtual) => {
-    return api.post(`/confirmar-senha`, {senha: senhaAtual})
-}
+    return api.post("/confirmar-senha", {
+        senha: senhaAtual
+    });
+};
 
+// Alterar senha do perfil
 
 export const trocarSenhaPerfil = (novasenha) => {
-    return api.post(`mudar-senha-perfil`, { novasenha })
-}
+    return api.post("/mudar-senha-perfil", {
+        novasenha
+    });
+};
 
 
-//partes reservadas a publicações############################
+// PUBLICAÇÕES ##########################################
 
 export const fazerPublicacao = (dadosPublicacao) => {
-    return api.post("/publicacao", dadosPublicacao)
-}
+    return api.post("/publicacao", dadosPublicacao);
+};
 
 export const carregarPublicacoes = () => {
-    return api.get("/publicacoes")
-}
+    return api.get("/publicacoes");
+};
 
 export const curtirPublicacao = (publicacao_id) => {
-    return api.post(`/curtir/${publicacao_id}`)
-}
+    return api.post(`/curtir/${publicacao_id}`);
+};
 
 export async function apagarPublicacao(id) {
     return api.delete(`/apagar-publicacao/${id}`);
 }
 
 
-
-//comentarios ################################################
+// COMENTÁRIOS #########################################
 
 export const carregarComentarios = (publicacao_id) => {
     return api.get(`/comentarios/${publicacao_id}`);
@@ -163,13 +173,15 @@ export const deletarComentario = (id) => {
     return api.delete(`/comentario/${id}`);
 };
 
-//comunidades##################################################
+
+// COMUNIDADES ##########################################
 
 export const buscarComunidadesDisponiveis = () => {
     return api.get("/buscarComunidadesDisponiveis");
 };
 
-//coisas do perfil##############################################
+
+// PERFIL ################################################
 
 export function carregarPerfil() {
     return api.get("/perfil");
@@ -183,22 +195,27 @@ export function atualizarPerfil(dados) {
     return api.post("/perfil", dados);
 }
 
-// tela de mostrar todos os posts de x comunidade
+
+// PUBLICAÇÕES DE UMA COMUNIDADE ########################
 
 export function buscarPublicacoesDaComunidade(id) {
     return api.get(`/publicacoes/comunidade/${id}`);
 }
 
 
-// PESQUISAR COMUNIDADES PELO NOME
+// PESQUISAR COMUNIDADES PELO NOME ######################
 
 export function buscarComunidadesPeloNome(nome) {
-    return api.get(`buscarComunidades`, {params: {nome}})
+    return api.get("/buscarComunidades", {
+        params: { nome }
+    });
 }
 
-// ÁLBUNS ####################################################
+
+// ÁLBUNS ################################################
 
 // Pesquisar álbuns na Deezer
+
 export const buscarAlbunsDeezer = (query) => {
     return api.get("/albuns/buscar", {
         params: { query }
@@ -206,29 +223,34 @@ export const buscarAlbunsDeezer = (query) => {
 };
 
 // Salvar álbum na biblioteca
+
 export const salvarAlbum = (dadosAlbum) => {
     return api.post("/albuns/salvar", dadosAlbum);
 };
 
 // Carregar álbuns salvos pelo usuário
+
 export const carregarAlbunsSalvos = () => {
     return api.get("/albuns/salvos");
 };
 
 // Remover álbum da biblioteca
+
 export const removerAlbumSalvo = (album_id) => {
     return api.delete(`/albuns/salvos/${album_id}`);
 };
 
 
-// AVALIAÇÕES ################################################
+// AVALIAÇÕES ###########################################
 
 // Criar avaliação
+
 export const salvarAvaliacao = (dadosAvaliacao) => {
     return api.post("/avaliacoes", dadosAvaliacao);
 };
 
 // Editar nota de uma avaliação existente
+
 export const editarAvaliacao = (album_id, nota) => {
     return api.put(`/avaliacoes/${album_id}`, {
         nota
@@ -236,18 +258,22 @@ export const editarAvaliacao = (album_id, nota) => {
 };
 
 // Carregar avaliações do usuário
+
 export const carregarAvaliacoes = () => {
     return api.get("/avaliacoes");
 };
 
-// Pesquisar perfis pelo nome
+
+// PESQUISAR PERFIS ####################################
+
 export function buscarUsuariosPorNome(nome) {
     return api.get("/buscarUsuarios", {
         params: { nome }
     });
 }
 
-// COMPOSIÇÕES MUSICAIS
+
+// COMPOSIÇÕES MUSICAIS #################################
 
 export const criarComposicao = (dados) => {
     return api.post("/composicoes", dados);
@@ -269,8 +295,12 @@ export const excluirComposicao = (id) => {
     return api.delete(`/composicoes/${id}`);
 };
 
-export const listarLetrasPublicas = () => api.get("/composicoes/publicas");
+export const listarLetrasPublicas = () => {
+    return api.get("/composicoes/publicas");
+};
 
+
+// FEED ###############################################
 
 export function carregarPublicacoesSeguindo() {
     return api.get("/publicacoes/seguindo");
@@ -280,9 +310,12 @@ export const buscarComunidadesDoPerfil = (usuarioId) => {
     return api.get(`/comunidadesUsuario/${usuarioId}`);
 };
 
-// NOTIFICAÇÕES
+
+// NOTIFICAÇÕES ########################################
 
 export const carregarNotificacoes = () => {
     return api.get("/notificacoes");
 };
-export default api
+
+
+export default api;

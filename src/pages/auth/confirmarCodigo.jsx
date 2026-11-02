@@ -13,8 +13,9 @@ function ConfirmarCodigo() {
     async function handleConfirmarCodigo(event) {
         event.preventDefault();
 
-        try {
+        setMensagem("");
 
+        try {
             const resposta = await confirmarCodigo(codigo);
 
             console.log(resposta.data);
@@ -22,10 +23,13 @@ function ConfirmarCodigo() {
             navigate("/mudar-senha");
 
         } catch (e) {
+            console.error("Erro ao confirmar código:", e.response?.data);
 
             const error =
-                e.response?.data?.error ||
-                "Código não compatível";
+                typeof e.response?.data === "string"
+                    ? e.response.data
+                    : e.response?.data?.error ||
+                      "Código não compatível";
 
             setMensagem(error);
         }
@@ -67,9 +71,12 @@ function ConfirmarCodigo() {
                     <input
                         id="codigo"
                         type="text"
+                        inputMode="numeric"
+                        maxLength={6}
                         placeholder="Digite o código"
                         value={codigo}
                         onChange={(event) => setCodigo(event.target.value)}
+                        required
                     />
 
                     <button
