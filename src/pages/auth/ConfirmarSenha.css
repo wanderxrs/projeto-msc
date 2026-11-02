@@ -1,3 +1,4 @@
+
 /* TELA DE CONFIRMAÇÃO DE SENHA */
 
 .confirmar-senha {
@@ -47,6 +48,17 @@
     color: #ffffff;
 }
 
+/* TEXTO INFORMATIVO */
+
+.confirmar-senha .descricao {
+    margin: 0 0 10px;
+
+    color: #a5a5a5;
+
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
 /* FORMULÁRIO */
 
 .confirmar-senha .container form {
@@ -55,15 +67,21 @@
     gap: 12px;
 }
 
-/* TEXTO INFORMATIVO */
+/* GRUPO DO INPUT */
 
-.confirmar-senha .container form > p:first-child {
-    margin: 0 0 10px;
+.confirmar-senha .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
 
-    color: #a5a5a5;
+/* LABEL */
 
-    font-size: 0.92rem;
-    line-height: 1.5;
+.confirmar-senha .form-group label {
+    color: #d4d4d4;
+
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 /* INPUT */
@@ -88,9 +106,13 @@
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* PLACEHOLDER */
+
 .confirmar-senha .container input::placeholder {
     color: #777777;
 }
+
+/* INPUT EM FOCO */
 
 .confirmar-senha .container input:focus {
     border-color: #a0a0a0;
@@ -126,7 +148,7 @@
 
 /* BOTÃO VOLTAR */
 
-.confirmar-senha .container button[type="button"] {
+.confirmar-senha .container .botao-voltar {
     width: 100%;
     height: 48px;
 
@@ -144,7 +166,7 @@
     transition: background-color 0.2s, border-color 0.2s;
 }
 
-.confirmar-senha .container button[type="button"]:hover {
+.confirmar-senha .container .botao-voltar:hover {
     background-color: #292929;
     border-color: #666666;
 }
@@ -159,7 +181,7 @@
 
 /* MENSAGEM DE ERRO */
 
-.confirmar-senha .container form p:not(:first-child) {
+.confirmar-senha .container .mensagem-erro {
     margin: 0;
     padding: 12px;
 
@@ -176,11 +198,17 @@
 
 /* LINK ESQUECI MINHA SENHA */
 
-.confirmar-senha .container a {
-    display: flex;
-    justify-content: center;
+.confirmar-senha .container .texto-recuperacao {
+    margin: 8px 0 0;
 
-    margin-top: 8px;
+    text-align: center;
+
+    color: #a5a5a5;
+    font-size: 0.85rem;
+}
+
+.confirmar-senha .container .texto-recuperacao a {
+    display: inline;
 
     color: #bdbdbd;
 
@@ -192,7 +220,7 @@
     transition: color 0.2s;
 }
 
-.confirmar-senha .container a:hover {
+.confirmar-senha .container .texto-recuperacao a:hover {
     color: #ffffff;
     text-decoration: underline;
 }
