@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { FiMenu, FiSearch } from "react-icons/fi";
 import { FaBell } from "react-icons/fa6";
@@ -162,20 +161,6 @@ function Header() {
                 <FiMenu />
             </button>
 
-            {menuAberto && (
-                <div className="menu">
-                    <button
-                        type="button"
-                        onClick={() => {
-                            setMenuAberto(false);
-                            navigate("/confirmar-senha");
-                        }}
-                    >
-                        Trocar Senha
-                    </button>
-                </div>
-            )}
-
             {/* LOGO */}
             <h1
                 className="logo-yrplace"
@@ -201,6 +186,21 @@ function Header() {
             >
                 Sair
             </button>
+
+            {/* MENU EXPANSÍVEL */}
+            {menuAberto && (
+                <div className="menu">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setMenuAberto(false);
+                            navigate("/confirmar-senha");
+                        }}
+                    >
+                        Trocar Senha
+                    </button>
+                </div>
+            )}
 
             {/* PESQUISA DE USUÁRIOS */}
             <div className="pesquisa-usuarios">
