@@ -10,7 +10,7 @@ import {
 import { HiUsers } from "react-icons/hi";
 
 import ModalGerenciarParticipantes from "../../modals/Comunidade/ModalGerenciarParticipantes";
-import DeletarComunidadeModal from "../../modals/Comunidade/DeletarComunidadeModal";
+import DeletarComunidadeModal from "../../modals/Comunidade/deletarComunidadeModal";
 
 import "./informacoesComunidade.css";
 
