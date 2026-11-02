@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* CONTEÚDO CENTRAL */
@@ -243,7 +242,7 @@
         z-index: 1002;
     }
 
-    /* BOTÕES DA NAVBAR */
+    /* PADRONIZAÇÃO DOS TRÊS BOTÕES */
     .botao-navbar-mobile {
         display: flex;
         justify-content: center;
@@ -252,6 +251,7 @@
         width: 48px;
         height: 48px;
         min-width: 48px;
+        min-height: 48px;
 
         padding: 0;
 
@@ -263,9 +263,7 @@
 
         cursor: pointer;
 
-        transition:
-            color 0.2s ease,
-            transform 0.2s ease;
+        transition: transform 0.2s ease;
     }
 
     /* ÍCONES DE COMUNIDADES E CRIAR COMUNIDADE */
@@ -290,6 +288,7 @@
         width: 48px;
         height: 48px;
         min-width: 48px;
+        min-height: 48px;
 
         padding: 0;
 
@@ -301,9 +300,10 @@
         background: #1a1a1a;
     }
 
+    /* REMOVE O HOVER ROXO DO PERFIL */
     .botao-perfil-navbar:hover {
-        background: #292330;
-        border-color: #702be8;
+        background: #1a1a1a;
+        border-color: #393039;
     }
 
     /* FOTO DE PERFIL */
@@ -356,17 +356,20 @@
         gap: 20px;
     }
 
+    /* TODOS OS TRÊS BOTÕES COM O MESMO TAMANHO */
     .botao-navbar-mobile {
         width: 44px;
         height: 44px;
         min-width: 44px;
+        min-height: 44px;
         font-size: 23px;
     }
 
-    /* PERFIL CONTINUA REDONDO */
+    /* PERFIL TAMBÉM SEGUE A MESMA MEDIDA */
     .botao-perfil-navbar {
-        width: 46px;
-        height: 46px;
-        min-width: 46px;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
     }
 }
