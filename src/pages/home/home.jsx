@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 import {
@@ -17,7 +16,7 @@ import PerfilComponente from "../../components/PerfilComponente/PerfilComponente
 import { FaUserGroup } from "react-icons/fa6";
 import { IoAdd } from "react-icons/io5";
 
-// Modais
+// Componentes e modais
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 import ModalPublicacao from "../../modals/modalPublicacao";
@@ -25,6 +24,7 @@ import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
 function Home() {
     const [modalAberto, setModalAberto] = useState(false);
+
     const [modalCriarComunidadeAberto, setModalCriarComunidadeAberto] =
         useState(false);
 
@@ -130,6 +130,7 @@ function Home() {
         }
     }
 
+    // Atualiza o feed quando a aba muda.
     useEffect(() => {
         buscarPublicacoes();
     }, [abaAtiva]);
@@ -190,6 +191,17 @@ function Home() {
         setPublicacaoSelecionada(null);
     }
 
+    // Abre o modal de criar comunidade.
+    function abrirModalCriarComunidade() {
+        setPainelAberto(null);
+        setModalCriarComunidadeAberto(true);
+    }
+
+    // Fecha o modal de criar comunidade.
+    function fecharModalCriarComunidade() {
+        setModalCriarComunidadeAberto(false);
+    }
+
     return (
         <>
             <div className="conteudo-principal">
@@ -235,15 +247,6 @@ function Home() {
                         <ModalPublicacao
                             onClose={() => setModalAberto(false)}
                             onPublicacaoCriada={buscarPublicacoes}
-                        />
-                    )}
-
-                    {/* MODAL DE CRIAR COMUNIDADE */}
-                    {modalCriarComunidadeAberto && (
-                        <CriarComunidadeModal
-                            onClose={() =>
-                                setModalCriarComunidadeAberto(false)
-                            }
                         />
                     )}
 
@@ -427,9 +430,7 @@ function Home() {
                     <button
                         type="button"
                         className="botao-navbar-mobile botao-icone-navbar"
-                        onClick={() =>
-                            setModalCriarComunidadeAberto(true)
-                        }
+                        onClick={abrirModalCriarComunidade}
                         aria-label="Criar comunidade"
                         title="Criar comunidade"
                     >
@@ -463,6 +464,12 @@ function Home() {
                 </nav>
 
             </div>
+
+            {/* MODAL DE CRIAR COMUNIDADE */}
+            <CriarComunidadeModal
+                isOpen={modalCriarComunidadeAberto}
+                onClose={fecharModalCriarComunidade}
+            />
 
             {/* MODAL DE EXCLUSÃO */}
             {publicacaoSelecionada && (
