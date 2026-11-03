@@ -46,7 +46,7 @@ function Home() {
         "/avatar-padrao.png"
     );
 
-    // Carrega a foto de perfil do usuário.
+    // Carrega a foto de perfil do usuário..
     useEffect(() => {
         async function buscarPerfil() {
             try {
