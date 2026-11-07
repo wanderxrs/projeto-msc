@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import {
     buscarComunidade,
@@ -10,7 +10,6 @@ import {
 import { HiUsers } from "react-icons/hi";
 
 import ModalGerenciarParticipantes from "../../modals/Comunidade/ModalGerenciarParticipantes";
-import DeletarComunidadeModal from "../../modals/Comunidade/deletarComunidadeModal";
 
 import "./CabecalhoComunidade.css";
 
@@ -18,14 +17,10 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
 
     const { id } = useParams();
 
-    const navigate = useNavigate();
-    const location = useLocation();
-
     const [comunidade, setComunidade] = useState(null);
     const [mensagem, setMensagem] = useState("");
 
     const [modalParticipantesAberto, setModalParticipantesAberto] = useState(false);
-    const [modalExclusaoAberto, setModalExclusaoAberto] = useState(false);
 
     const [carregandoAcao, setCarregandoAcao] = useState(false);
 
@@ -71,23 +66,6 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
         };
 
     }, [id]);
-
-    // ABRIR MODAL APÓS CONFIRMAR SENHA
-
-    useEffect(() => {
-
-        if (location.state?.abrirModalExclusao) {
-
-            setModalExclusaoAberto(true);
-
-            // Limpa o estado para não abrir novamente
-            navigate(location.pathname, {
-                replace: true,
-                state: null
-            });
-        }
-
-    }, [location.state, location.pathname, navigate]);
 
     // ENTRAR NA COMUNIDADE
 
@@ -172,26 +150,6 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
         }
     };
 
-    // INICIAR EXCLUSÃO DA COMUNIDADE
-
-    const handleIniciarExclusao = () => {
-
-        navigate("/confirmar-senha", {
-            state: {
-                acao: "excluir-comunidade",
-                comunidadeId: id,
-                returnTo: location.pathname
-            }
-        });
-
-    };
-
-    // FECHAR MODAL DE EXCLUSÃO
-
-    const fecharModalExclusao = () => {
-        setModalExclusaoAberto(false);
-    };
-
     // CARREGAMENTO
 
     if (!comunidade || Number(comunidade.id) !== Number(id)) {
@@ -234,39 +192,36 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
 
             <div className="botoes-comunidade">
 
-                {ehCriador ? (
+                {/* BOTÃO PARA SAIR DA COMUNIDADE, aparece se não for o criador E estiver participando */}
+                {/* BOTÃO PARA ENTRAR NA COMUNIDADE, aparece se não for o criador E não estiver participando */}
+                {!ehCriador && (
+                    participando ? (
 
-                    <button
-                        onClick={handleIniciarExclusao}
-                        disabled={carregandoAcao}
-                    >
-                        Excluir comunidade
-                    </button>
+                        <button
+                            onClick={handleSair}
+                            disabled={carregandoAcao}
+                        >
+                            {carregandoAcao
+                                ? "Saindo..."
+                                : "Sair da comunidade"}
+                        </button>
 
-                ) : participando ? (
+                    ) : (
 
-                    <button
-                        onClick={handleSair}
-                        disabled={carregandoAcao}
-                    >
-                        {carregandoAcao
-                            ? "Saindo..."
-                            : "Sair da comunidade"}
-                    </button>
+                        <button
+                            onClick={handleEntrar}
+                            disabled={carregandoAcao}
+                        >
+                            {carregandoAcao
+                                ? "Entrando..."
+                                : "Entrar na comunidade"}
+                        </button>
 
-                ) : (
-
-                    <button
-                        onClick={handleEntrar}
-                        disabled={carregandoAcao}
-                    >
-                        {carregandoAcao
-                            ? "Entrando..."
-                            : "Entrar na comunidade"}
-                    </button>
+                    )
 
                 )}
 
+                {/* BOTÃO PARA GERENCIAR PARTICIPANTES (APENAS CRIADOR) */}
                 {ehCriador && (
 
                     <button
@@ -281,6 +236,7 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
 
             </div>
 
+
             {/* MODAL DE GERENCIAMENTO */}
 
             {modalParticipantesAberto && (
@@ -292,15 +248,6 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
                 />
 
             )}
-
-            {/* MODAL DE EXCLUSÃO */}
-
-            <DeletarComunidadeModal
-                isOpen={modalExclusaoAberto}
-                onClose={fecharModalExclusao}
-                comunidade_id={id}
-                onDeleted={() => navigate("/home")}
-            />
 
         </div>
     );

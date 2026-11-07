@@ -137,11 +137,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 
     margin-top: 22px;
 }
 
-/* BOTÃO ENTRAR / SAIR */
+/* BOTÕES */
 
 .botoes-comunidade button {
     width: 100%;
@@ -170,6 +171,27 @@
         background 0.2s ease,
         border-color 0.2s ease,
         transform 0.2s ease;
+}
+
+.botoes-comunidade button:hover {
+    background: #a855f7;
+    border-color: #a855f7;
+    transform: translateY(-1px);
+}
+
+.botoes-comunidade button:active {
+    transform: scale(0.98);
+}
+
+.botoes-comunidade button:focus-visible {
+    outline: 2px solid #c084fc;
+    outline-offset: 3px;
+}
+
+.botoes-comunidade button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .botoes-comunidade button:hover {
