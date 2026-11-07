@@ -12,6 +12,7 @@
 }
 
 .modal-composicoes {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -24,6 +25,70 @@
     overflow: hidden;
     font-family: 'Inter', sans-serif;
 }
+
+/* CARREGAMENTO DA IA */
+
+.loading-composicao {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background: rgba(15, 15, 15, 0.96);
+    text-align: center;
+    border-radius: 14px;
+}
+
+.spinner-composicao {
+    width: 55px;
+    height: 55px;
+    border: 5px solid #303030;
+    border-top: 5px solid #53ca97;
+    border-radius: 50%;
+    animation: girar-composicao 0.8s linear infinite;
+    margin-bottom: 25px;
+}
+
+@keyframes girar-composicao {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-composicao h3 {
+    margin: 0 0 12px;
+    color: #53ca97;
+    font-size: 19px;
+}
+
+.loading-composicao p {
+    max-width: 380px;
+    margin: 0 0 18px;
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.loading-composicao span {
+    color: #888;
+    font-size: 12px;
+    animation: pulsar-composicao 1.5s ease-in-out infinite;
+}
+
+@keyframes pulsar-composicao {
+    0%, 100% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+/* CABEÇALHO */
 
 .modal-composicoes-header {
     display: flex;
@@ -58,6 +123,13 @@
 .fechar-modal-composicoes:hover {
     color: #53ca97;
 }
+
+.fechar-modal-composicoes:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* CONTEÚDO */
 
 .modal-composicoes-conteudo {
     padding: 22px;
@@ -98,6 +170,7 @@
     color: #fff;
     font-family: inherit;
     font-size: 13px;
+    box-sizing: border-box;
 }
 
 .form-composicao input:focus,
@@ -154,7 +227,8 @@
     background: #3fb581;
 }
 
-.salvar-composicao:disabled {
+.salvar-composicao:disabled,
+.cancelar-edicao-composicao:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
@@ -164,6 +238,8 @@
     border: 1px solid #555;
     color: #ccc;
 }
+
+/* LISTA DE COMPOSIÇÕES */
 
 .minhas-lista-composicoes {
     margin-top: 25px;
@@ -251,6 +327,8 @@
     color: #111;
 }
 
+/* MENSAGENS */
+
 .estado-composicoes {
     padding: 15px;
     color: #999;
@@ -275,6 +353,8 @@
     color: #53ca97;
 }
 
+/* RESPONSIVIDADE */
+
 @media (max-width: 600px) {
     .modal-composicoes-overlay {
         padding: 10px;
@@ -295,5 +375,17 @@
 
     .alternar-visibilidade {
         width: 100%;
+    }
+
+    .loading-composicao {
+        padding: 20px;
+    }
+
+    .loading-composicao h3 {
+        font-size: 17px;
+    }
+
+    .loading-composicao p {
+        font-size: 13px;
     }
 }

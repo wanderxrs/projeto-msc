@@ -6,7 +6,7 @@ import {
     atualizarComposicao,
     excluirComposicao
 } from "../../api";
-import { IoClose, IoAddOutline, IoCreateOutline, IoTrashOutline } from "react-icons/io5";
+import { IoClose, IoCreateOutline, IoTrashOutline } from "react-icons/io5";
 import "./modalMinhasComposicoes.css";
 
 const formularioInicial = {
@@ -205,12 +205,27 @@ function ModalMinhasComposicoes({ isOpen, onClose }) {
     return (
         <div
             className="modal-composicoes-overlay"
-            onClick={onClose}
+            onClick={salvando ? undefined : onClose}
         >
             <div
                 className="modal-composicoes"
                 onClick={(evento) => evento.stopPropagation()}
             >
+                {salvando && (
+                    <div className="loading-composicao">
+                        <div className="spinner-composicao"></div>
+
+                        <h3>Analisando sua composição...</h3>
+
+                        <p>
+                            A inteligência artificial está verificando
+                            sua letra. Aguarde enquanto concluímos a análise.
+                        </p>
+
+                        <span>Verificando conteúdo...</span>
+                    </div>
+                )}
+
                 <header className="modal-composicoes-header">
                     <div>
                         <h2>Minhas composições</h2>
@@ -222,13 +237,13 @@ function ModalMinhasComposicoes({ isOpen, onClose }) {
                         className="fechar-modal-composicoes"
                         onClick={onClose}
                         aria-label="Fechar modal"
+                        disabled={salvando}
                     >
                         <IoClose />
                     </button>
                 </header>
 
                 <div className="modal-composicoes-conteudo">
-
                     <form
                         className="form-composicao"
                         onSubmit={salvarComposicao}
@@ -309,7 +324,7 @@ function ModalMinhasComposicoes({ isOpen, onClose }) {
                                 className="salvar-composicao"
                             >
                                 {salvando
-                                    ? "Salvando..."
+                                    ? "Verificando conteúdo..."
                                     : editando
                                         ? "Salvar alterações"
                                         : "Criar composição"}
@@ -320,6 +335,7 @@ function ModalMinhasComposicoes({ isOpen, onClose }) {
                                     type="button"
                                     className="cancelar-edicao-composicao"
                                     onClick={limparFormulario}
+                                    disabled={salvando}
                                 >
                                     Cancelar
                                 </button>
