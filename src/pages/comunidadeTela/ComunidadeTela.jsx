@@ -8,11 +8,11 @@ import {
     buscarComunidade
 } from "../../api";
 
-import InformacoesComunidade from "../../components/cabecalhoComunidade/InformacoesComunidade";
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 import ModalPublicacao from "../../modals/modalPublicacao";
 import "./ComunidadeTela.css";
+import CabecalhoComunidade from "../../components/CabecalhoComunidade/CabecalhoComunidade";
 
 function ComunidadeTela() {
     const { id } = useParams();
@@ -163,7 +163,7 @@ function ComunidadeTela() {
                 </main>
 
                 <aside className="lateral-comunidade">
-                    <InformacoesComunidade />
+                    <CabecalhoComunidade />
 
                     <button
                         className="botao-publicar-comunidade"

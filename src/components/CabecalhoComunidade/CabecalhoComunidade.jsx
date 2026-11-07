@@ -12,9 +12,9 @@ import { HiUsers } from "react-icons/hi";
 import ModalGerenciarParticipantes from "../../modals/Comunidade/ModalGerenciarParticipantes";
 import DeletarComunidadeModal from "../../modals/Comunidade/deletarComunidadeModal";
 
-import "./informacoesComunidade.css";
+import "./CabecalhoComunidade.css";
 
-function InformacoesComunidade({ onMembrosAtualizados }) {
+function CabecalhoComunidade({ onMembrosAtualizados }) {
 
     const { id } = useParams();
 
@@ -306,4 +306,4 @@ function InformacoesComunidade({ onMembrosAtualizados }) {
     );
 }
 
-export default InformacoesComunidade;
+export default CabecalhoComunidade;

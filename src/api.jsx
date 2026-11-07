@@ -317,5 +317,10 @@ export const carregarNotificacoes = () => {
     return api.get("/notificacoes");
 };
 
+// COMUNIDADES QUE O USUARIO É DONO
+
+export const comunidadesUsuarioDono = () => {
+    return api.get("/minhasComunidades");
+};
 
 export default api;

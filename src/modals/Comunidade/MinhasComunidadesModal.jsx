@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-    buscarComunidadeUsuario
+    comunidadesUsuarioDono
 } from "../../api";
 
 import AtualizarComunidadeModal from "./atualizarComunidadeModal";
@@ -24,7 +24,7 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
         setErro("");
 
         try {
-            const resposta = await buscarComunidadeUsuario();
+            const resposta = await comunidadesUsuarioDono();
 
             const dados = resposta.data;
 
