@@ -3,12 +3,11 @@
     width: 90%;
     max-width: 1000px;
     min-height: 100vh;
-    margin: 30px auto;
+    margin: 100px auto 30px;
     padding-bottom: 40px;
     color: #f5f5f5;
     font-family: 'Inter', sans-serif;
     box-sizing: border-box;
-    margin-top: 100px;
 }
 
 .letras-publicas * {
@@ -28,6 +27,47 @@
     color: #aaa;
     font-size: 14px;
     line-height: 1.6;
+}
+
+/* CABEÇALHO */
+
+.cabecalho-letras {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* BOTÃO MINHAS COMPOSIÇÕES */
+
+.letras-publicas .botao-minhas-composicoes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin-top: 18px;
+    padding: 11px 16px;
+    background: #29212f;
+    border: 1px solid #59416e;
+    border-radius: 8px;
+    color: #d8b4fe;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.botao-minhas-composicoes svg {
+    font-size: 18px;
+}
+
+.letras-publicas .botao-minhas-composicoes:hover {
+    background: #392846;
+    border-color: #a855f7;
+    color: #fff;
+    transform: translateY(-1px);
 }
 
 /* BARRA DE PESQUISA */
@@ -216,6 +256,7 @@
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .card-letra-publica > button:not(.autor-letra-publica):hover {
@@ -293,6 +334,14 @@
 
     .letras-publicas > h1 {
         font-size: 22px;
+    }
+
+    .cabecalho-letras {
+        align-items: flex-start;
+    }
+
+    .botao-minhas-composicoes {
+        width: 100%;
     }
 
     .pesquisa-letras {

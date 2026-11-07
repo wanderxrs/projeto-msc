@@ -1,0 +1,299 @@
+
+.modal-composicoes-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+}
+
+.modal-composicoes {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 750px;
+    max-height: 90vh;
+    background: #151515;
+    border: 1px solid #303030;
+    border-radius: 14px;
+    color: #f5f5f5;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+}
+
+.modal-composicoes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px;
+    border-bottom: 1px solid #303030;
+}
+
+.modal-composicoes-header h2 {
+    margin: 0 0 6px;
+    font-size: 21px;
+}
+
+.modal-composicoes-header p {
+    margin: 0;
+    color: #999;
+    font-size: 13px;
+}
+
+.fechar-modal-composicoes {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.fechar-modal-composicoes:hover {
+    color: #53ca97;
+}
+
+.modal-composicoes-conteudo {
+    padding: 22px;
+    overflow-y: auto;
+}
+
+.form-composicao {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding: 18px;
+    background: #1c1c1c;
+    border: 1px solid #303030;
+    border-radius: 10px;
+}
+
+.form-composicao h3,
+.minhas-lista-composicoes h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+}
+
+.form-composicao > label:not(.visibilidade-composicao) {
+    color: #ccc;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-composicao input:not([type="checkbox"]),
+.form-composicao select,
+.form-composicao textarea {
+    width: 100%;
+    padding: 12px;
+    background: #111;
+    border: 1px solid #383838;
+    border-radius: 7px;
+    outline: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.form-composicao input:focus,
+.form-composicao select:focus,
+.form-composicao textarea:focus {
+    border-color: #53ca97;
+}
+
+.form-composicao textarea {
+    min-height: 160px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.visibilidade-composicao {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 5px 0;
+    color: #ccc;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.visibilidade-composicao input {
+    accent-color: #53ca97;
+    width: 16px;
+    height: 16px;
+}
+
+.acoes-form-composicao {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.salvar-composicao,
+.cancelar-edicao-composicao {
+    padding: 10px 15px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.salvar-composicao {
+    background: #53ca97;
+    border: 1px solid #53ca97;
+    color: #101010;
+}
+
+.salvar-composicao:hover {
+    background: #3fb581;
+}
+
+.salvar-composicao:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.cancelar-edicao-composicao {
+    background: transparent;
+    border: 1px solid #555;
+    color: #ccc;
+}
+
+.minhas-lista-composicoes {
+    margin-top: 25px;
+}
+
+.minhas-lista-composicoes h3 {
+    margin-bottom: 14px;
+}
+
+.item-minha-composicao {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 15px;
+    background: #1c1c1c;
+    border: 1px solid #303030;
+    border-radius: 9px;
+}
+
+.dados-minha-composicao {
+    display: flex;
+    flex: 1;
+    min-width: 150px;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dados-minha-composicao h4 {
+    margin: 0;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+
+.dados-minha-composicao > span {
+    color: #999;
+    font-size: 12px;
+}
+
+.dados-minha-composicao .status-composicao.publica {
+    color: #53ca97;
+}
+
+.dados-minha-composicao .status-composicao.privada {
+    color: #d8b4fe;
+}
+
+.acoes-minha-composicao {
+    display: flex;
+    gap: 8px;
+}
+
+.acoes-minha-composicao button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: #29212f;
+    border: 1px solid #59416e;
+    border-radius: 7px;
+    color: #d8b4fe;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.acoes-minha-composicao button:hover {
+    background: #59416e;
+    color: #fff;
+}
+
+.alternar-visibilidade {
+    padding: 8px 11px;
+    background: transparent;
+    border: 1px solid #53ca97;
+    border-radius: 7px;
+    color: #53ca97;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.alternar-visibilidade:hover {
+    background: #53ca97;
+    color: #111;
+}
+
+.estado-composicoes {
+    padding: 15px;
+    color: #999;
+    font-size: 13px;
+}
+
+.mensagem-erro-composicao,
+.mensagem-sucesso-composicao {
+    margin: 14px 0;
+    padding: 11px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.mensagem-erro-composicao {
+    background: #351c1c;
+    color: #fca5a5;
+}
+
+.mensagem-sucesso-composicao {
+    background: #163326;
+    color: #53ca97;
+}
+
+@media (max-width: 600px) {
+    .modal-composicoes-overlay {
+        padding: 10px;
+    }
+
+    .modal-composicoes {
+        max-height: 95vh;
+    }
+
+    .modal-composicoes-header,
+    .modal-composicoes-conteudo {
+        padding: 15px;
+    }
+
+    .item-minha-composicao {
+        align-items: flex-start;
+    }
+
+    .alternar-visibilidade {
+        width: 100%;
+    }
+}

@@ -1,8 +1,13 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { IoSearchOutline, IoClose } from "react-icons/io5";
+import {
+    IoSearchOutline,
+    IoClose,
+    IoCreateOutline
+} from "react-icons/io5";
 import { listarLetrasPublicas } from "../../api";
+import ModalMinhasComposicoes from "../../modals/Composicoes/ModalMinhasComposicoes";
 import "./LetrasPublicas.css";
 
 function LetrasPublicas() {
@@ -13,22 +18,25 @@ function LetrasPublicas() {
     const [erro, setErro] = useState("");
     const [letraSelecionada, setLetraSelecionada] = useState(null);
     const [pesquisa, setPesquisa] = useState("");
+    const [modalComposicoesAberta, setModalComposicoesAberta] =
+        useState(false);
+
+    async function carregarLetras() {
+        try {
+            const resposta = await listarLetrasPublicas();
+            setLetras(resposta.data);
+            setErro("");
+        } catch (error) {
+            setErro(
+                error.response?.data?.erro ||
+                "Não foi possível carregar as letras públicas."
+            );
+        } finally {
+            setCarregando(false);
+        }
+    }
 
     useEffect(() => {
-        async function carregarLetras() {
-            try {
-                const resposta = await listarLetrasPublicas();
-                setLetras(resposta.data);
-            } catch (error) {
-                setErro(
-                    error.response?.data?.erro ||
-                    "Não foi possível carregar as letras públicas."
-                );
-            } finally {
-                setCarregando(false);
-            }
-        }
-
         carregarLetras();
     }, []);
 
@@ -40,25 +48,30 @@ function LetrasPublicas() {
 
     function abrirPerfil(usuarioId) {
         if (!usuarioId) return;
-
         navigate(`/perfil/${usuarioId}`);
-    }
-
-    if (carregando) {
-        return (
-            <main className="letras-publicas">
-                <p>Carregando letras...</p>
-            </main>
-        );
     }
 
     return (
         <main className="letras-publicas">
-            <h1>Letras de músicas</h1>
 
-            <p className="descricao-letras">
-                Explore as composições compartilhadas pela comunidade.
-            </p>
+            <div className="cabecalho-letras">
+                <div>
+                    <h1>Letras de músicas</h1>
+
+                    <p className="descricao-letras">
+                        Explore as composições compartilhadas pela comunidade.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    className="botao-minhas-composicoes"
+                    onClick={() => setModalComposicoesAberta(true)}
+                >
+                    <IoCreateOutline />
+                    Minhas composições
+                </button>
+            </div>
 
             <div className="pesquisa-letras">
                 <IoSearchOutline className="icone-pesquisa-letras" />
@@ -82,87 +95,106 @@ function LetrasPublicas() {
                 )}
             </div>
 
+            {carregando && (
+                <p className="vazio-letras">
+                    Carregando letras...
+                </p>
+            )}
+
             {erro && (
                 <p className="erro-letras">{erro}</p>
             )}
 
-            {!erro && letras.length === 0 && (
+            {!carregando && !erro && letras.length === 0 && (
                 <p className="vazio-letras">
                     Ainda não há letras disponíveis.
                 </p>
             )}
 
-            {!erro && letras.length > 0 && letrasFiltradas.length === 0 && (
-                <p className="vazio-letras">
-                    Nenhuma música encontrada com esse nome.
-                </p>
+            {!carregando && !erro &&
+                letras.length > 0 &&
+                letrasFiltradas.length === 0 && (
+                    <p className="vazio-letras">
+                        Nenhuma música encontrada com esse nome.
+                    </p>
+                )}
+
+            {!carregando && !erro && (
+                <div className="lista-letras-publicas">
+                    {letrasFiltradas.map((letra) => (
+                        <article
+                            className="card-letra-publica"
+                            key={letra.id}
+                        >
+                            <button
+                                type="button"
+                                className="autor-letra-publica"
+                                onClick={() => abrirPerfil(letra.usuario_id)}
+                                disabled={!letra.usuario_id}
+                                aria-label={`Acessar perfil de ${letra.autor_nome || "Usuário"}`}
+                            >
+                                {letra.autor_foto_url ? (
+                                    <img
+                                        src={letra.autor_foto_url}
+                                        alt={`Foto de ${letra.autor_nome}`}
+                                        className="foto-autor-letra"
+                                    />
+                                ) : (
+                                    <div className="foto-autor-letra foto-autor-fallback">
+                                        {letra.autor_nome?.charAt(0)?.toUpperCase() || "?"}
+                                    </div>
+                                )}
+
+                                <div className="dados-autor-letra">
+                                    <span className="nome-autor-letra">
+                                        {letra.autor_nome || "Usuário"}
+                                    </span>
+
+                                    <span className="legenda-autor-letra">
+                                        Publicou uma composição
+                                    </span>
+                                </div>
+                            </button>
+
+                            <h2>{letra.titulo}</h2>
+
+                            <p className="estilo-letra-publica">
+                                {letra.estilo_musical}
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setLetraSelecionada(
+                                        letraSelecionada?.id === letra.id
+                                            ? null
+                                            : letra
+                                    )
+                                }
+                            >
+                                {letraSelecionada?.id === letra.id
+                                    ? "Ocultar letra"
+                                    : "Ver letra completa"}
+                            </button>
+
+                            {letraSelecionada?.id === letra.id && (
+                                <pre className="conteudo-letra-publica">
+                                    {letra.letra}
+                                </pre>
+                            )}
+                        </article>
+                    ))}
+                </div>
             )}
 
-            <div className="lista-letras-publicas">
-                {letrasFiltradas.map((letra) => (
-                    <article
-                        className="card-letra-publica"
-                        key={letra.id}
-                    >
-                        <button
-                            type="button"
-                            className="autor-letra-publica"
-                            onClick={() => abrirPerfil(letra.usuario_id)}
-                            disabled={!letra.usuario_id}
-                            aria-label={`Acessar perfil de ${letra.autor_nome || "Usuário"}`}
-                        >
-                            {letra.autor_foto_url ? (
-                                <img
-                                    src={letra.autor_foto_url}
-                                    alt={`Foto de ${letra.autor_nome}`}
-                                    className="foto-autor-letra"
-                                />
-                            ) : (
-                                <div className="foto-autor-letra foto-autor-fallback">
-                                    {letra.autor_nome?.charAt(0)?.toUpperCase() || "?"}
-                                </div>
-                            )}
+            <ModalMinhasComposicoes
+                isOpen={modalComposicoesAberta}
+                onClose={() => {
+                    setModalComposicoesAberta(false);
+                    carregarLetras();
+                }}
+            />
 
-                            <div className="dados-autor-letra">
-                                <span className="nome-autor-letra">
-                                    {letra.autor_nome || "Usuário"}
-                                </span>
-
-                                <span className="legenda-autor-letra">
-                                    Publicou uma composição
-                                </span>
-                            </div>
-                        </button>
-
-                        <h2>{letra.titulo}</h2>
-
-                        <p className="estilo-letra-publica">
-                            {letra.estilo_musical}
-                        </p>
-
-                        <button
-                            type="button"
-                            onClick={() =>
-                                setLetraSelecionada(
-                                    letraSelecionada?.id === letra.id
-                                        ? null
-                                        : letra
-                                )
-                            }
-                        >
-                            {letraSelecionada?.id === letra.id
-                                ? "Ocultar letra"
-                                : "Ver letra completa"}
-                        </button>
-
-                        {letraSelecionada?.id === letra.id && (
-                            <pre className="conteudo-letra-publica">
-                                {letra.letra}
-                            </pre>
-                        )}
-                    </article>
-                ))}
-            </div>
         </main>
     );
 }
