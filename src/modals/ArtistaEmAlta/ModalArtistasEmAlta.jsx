@@ -84,7 +84,7 @@ export default function ModalArtistasEmAlta({ onFechar }) {
 
             <div>
               <h2 id="titulo-artistas">O que está bombando?</h2>
-              <p>Artistas populares no Brasil</p>
+              <p>Artistas populares</p>
             </div>
           </div>
 

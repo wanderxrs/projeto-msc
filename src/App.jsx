@@ -12,9 +12,8 @@ import ConfirmarSenha from "./pages/auth/confirmarSenha";
 import ComunidadeTela from "./pages/comunidadeTela/ComunidadeTela";
 import Perfil from "./pages/perfil/perfil";
 import AlbunsAvaliados from "./pages/albunsAvaliados/albunsAvaliados";
-import Composicoes from "./pages/composicoes/composicoes";
 import LetrasPublicas from "./pages/letras/LetrasPublicas";
-
+import ParticipandoComunidade from "./pages/ParticipandoComunidade/ParticipandoComunidade";
 
 function App() {
     return (
@@ -68,13 +67,13 @@ function App() {
                 />
 
                 <Route
-                     path="/composicoes"
-                     element={
+                    path="/participandoComunidade/:id"
+                    element={
                         <>
                             <Header />
-                            <Composicoes />
+                            <ParticipandoComunidade />
                         </>
-                    } 
+                    }
                 />
 
                 <Route

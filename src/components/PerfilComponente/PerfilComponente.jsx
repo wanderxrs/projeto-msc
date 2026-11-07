@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { carregarPerfil } from "../../api";
@@ -45,23 +44,42 @@ function PerfilComponente() {
         );
     }
 
-    // Função para abrir o perfil do usuário
+    // Abrir perfil do usuário
     const abrirMeuPerfil = () => {
         navegar(`/perfil/${usuario.id}`);
     };
 
+    // Abrir comunidades das quais o usuário participa
+    const abrirComunidades = () => {
+        navegar(`/participandoComunidade/${usuario.id}`);
+    };
+
     return (
         <div className="perfil-componente">
-
             <div className="perfil-usuario">
+                {/* Foto de perfil clicável */}
+                <img
+                    className="foto-perfil"
+                    src={usuario.foto_url || "/avatar-padrao.png"}
+                    alt="Foto de perfil"
+                    onClick={abrirMeuPerfil}
+                    title="Acessar meu perfil"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(evento) => {
+                        if (
+                            evento.key === "Enter" ||
+                            evento.key === " "
+                        ) {
+                            evento.preventDefault();
+                            abrirMeuPerfil();
+                        }
+                    }}
+                />
 
-                <div className="perfil-usuario">
-
-                    {/* Foto de perfil clicável */}
-                    <img
-                        className="foto-perfil"
-                        src={usuario.foto_url || "/avatar-padrao.png"}
-                        alt="Foto de perfil"
+                <div className="informacoes-usuario">
+                    {/* Nome clicável */}
+                    <h2
                         onClick={abrirMeuPerfil}
                         title="Acessar meu perfil"
                         role="button"
@@ -75,144 +93,119 @@ function PerfilComponente() {
                                 abrirMeuPerfil();
                             }
                         }}
-                    />
-
-                    <div className="informacoes-usuario">
-
-                        {/* Nome clicável */}
-                        <h2
-                            onClick={abrirMeuPerfil}
-                            title="Acessar meu perfil"
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(evento) => {
-                                if (
-                                    evento.key === "Enter" ||
-                                    evento.key === " "
-                                ) {
-                                    evento.preventDefault();
-                                    abrirMeuPerfil();
-                                }
-                            }}
-                        >
-                            {usuario.nome}
-                        </h2>
-
-                    </div>
-                </div>
-
-                <div className="botoesDiv">
-                    <button
-                        type="button"
-                        className="botao-perfil"
-                        onClick={abrirMeuPerfil}
                     >
-                        <HiUser />
-                        <strong>Meu perfil</strong>
-                        <HiChevronRight />
-                    </button>
+                        {usuario.nome}
+                    </h2>
                 </div>
+            </div>
 
-                <h3>Descobrir</h3>
+            <div className="botoesDiv">
+                <button
+                    type="button"
+                    className="botao-perfil"
+                    onClick={abrirMeuPerfil}
+                >
+                    <HiUser />
+                    <strong>Meu perfil</strong>
+                    <HiChevronRight />
+                </button>
+            </div>
 
-                <div className="container-artistas">
+            <h3>Descobrir</h3>
 
-                    <button
-                        type="button"
-                        className="container1"
-                        onClick={() => setModalArtistasAberto(true)}
-                    >
-                        <HiTrendingUp />
-                        <strong>Artistas em alta</strong>
-                        <p>Quem está bombando</p>
-                    </button>
-
-                    <div
-                        className="container2"
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => navegar("/letras-publicas")}
-                        onKeyDown={(evento) => {
-                            if (
-                                evento.key === "Enter" ||
-                                evento.key === " "
-                            ) {
-                                evento.preventDefault();
-                                navegar("/letras-publicas");
-                            }
-                        }}
-                    >
-                        <MdLyrics />
-                        <strong>Letras de músicas</strong>
-                        <p>Explore composições</p>
-                    </div>
-
-                </div>
+            <div className="container-artistas">
+                <button
+                    type="button"
+                    className="container1"
+                    onClick={() => setModalArtistasAberto(true)}
+                >
+                    <HiTrendingUp />
+                    <strong>Artistas em alta</strong>
+                    <p>Quem está bombando</p>
+                </button>
 
                 <div
-                    className="botao-analise-ia"
+                    className="container2"
                     role="button"
                     tabIndex={0}
-                    onClick={() => navegar("/composicoes")}
+                    onClick={() => navegar("/letras-publicas")}
                     onKeyDown={(evento) => {
                         if (
                             evento.key === "Enter" ||
                             evento.key === " "
                         ) {
                             evento.preventDefault();
-                            navegar("/composicoes");
+                            navegar("/letras-publicas");
                         }
                     }}
                 >
-                    <FaPencil />
-                    <strong>Publique suas letras musicais</strong>
-                    <p>Mostre suas criações para outras pessoas</p>
-                    <HiChevronRight />
+                    <MdLyrics />
+                    <strong>Letras de músicas</strong>
+                    <p>Explore composições</p>
                 </div>
+            </div>
 
-                <div
-                    className="botao-album-avaliacao"
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => navegar("/albuns-avaliados")}
-                    onKeyDown={(evento) => {
-                        if (
-                            evento.key === "Enter" ||
-                            evento.key === " "
-                        ) {
-                            evento.preventDefault();
-                            navegar("/albuns-avaliados");
-                        }
-                    }}
-                >
-                    <PiVinylRecordBold />
-                    <strong>Álbuns avaliados</strong>
-                    <p>Suas avaliações</p>
-                    <HiChevronRight />
-                </div>
+            <div
+                className="botao-analise-ia"
+                role="button"
+                tabIndex={0}
+                onClick={abrirComunidades}
+                onKeyDown={(evento) => {
+                    if (
+                        evento.key === "Enter" ||
+                        evento.key === " "
+                    ) {
+                        evento.preventDefault();
+                        abrirComunidades();
+                    }
+                }}
+            >
+                <FaPencil />
+                <strong>Comunidades que faço parte</strong>
+                <HiChevronRight />
+            </div>
 
-                <hr className="linha-comunidades" />
+            <div
+                className="botao-album-avaliacao"
+                role="button"
+                tabIndex={0}
+                onClick={() => navegar("/albuns-avaliados")}
+                onKeyDown={(evento) => {
+                    if (
+                        evento.key === "Enter" ||
+                        evento.key === " "
+                    ) {
+                        evento.preventDefault();
+                        navegar("/albuns-avaliados");
+                    }
+                }}
+            >
+                <PiVinylRecordBold />
+                <strong>Álbuns avaliados</strong>
+                <p>Suas avaliações</p>
+                <HiChevronRight />
+            </div>
 
-                <div
-                    className="botao-ver-minhas-comunidades"
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => setMinhasComunidadesAberto(true)}
-                    onKeyDown={(evento) => {
-                        if (
-                            evento.key === "Enter" ||
-                            evento.key === " "
-                        ) {
-                            evento.preventDefault();
-                            setMinhasComunidadesAberto(true);
-                        }
-                    }}
-                >
-                    <HiUsers />
-                    <strong>Minhas comunidades</strong>
-                    <HiChevronRight />
-                </div>
+            <hr className="linha-comunidades" />
 
+            <div
+                className="botao-ver-minhas-comunidades"
+                role="button"
+                tabIndex={0}
+                onClick={() => setMinhasComunidadesAberto(true)}
+                onKeyDown={(evento) => {
+                    if (
+                        evento.key === "Enter" ||
+                        evento.key === " "
+                    ) {
+                        evento.preventDefault();
+                        setMinhasComunidadesAberto(true);
+                    }
+                }}
+            >
+                <HiUsers />
+                <strong>Minhas comunidades</strong>
+                <HiChevronRight />
             </div>
 
             {modalArtistasAberto && (
@@ -225,10 +218,8 @@ function PerfilComponente() {
                 isOpen={minhasComunidadesAberto}
                 onClose={() => setMinhasComunidadesAberto(false)}
             />
-
         </div>
     );
 }
 
 export default PerfilComponente;
-  
