@@ -1,181 +1,292 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* CARD PRINCIPAL */
+/* ========================================
+   CARD PRINCIPAL
+======================================== */
 
 .informacoes-comunidade {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    padding: 26px;
+    position: relative;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+    min-width: 0;
+    min-height: 270px;
+
+    margin: 0 auto;
+
+    overflow: hidden;
 
     background: #1a1a1a;
     color: #f5f5f5;
 
-    border: 1px solid #303030;
+    border: 1px solid #292929;
     border-radius: 16px;
 
     font-family: 'Inter', sans-serif;
-    text-align: center;
+    box-sizing: border-box;
+
+    container-type: inline-size;
 }
 
-/* IMAGEM DA COMUNIDADE */
+/* ========================================
+   CAPA DA COMUNIDADE
+======================================== */
+
+.comunidade-capa {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 155px;
+
+    background-color: #202020;
+    background-size: cover;
+    background-position: center;
+
+    transition: background-position 0.3s ease;
+}
+
+.comunidade-capa::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.20) 50%,
+        #1a1a1a 100%
+    );
+}
+
+/* ========================================
+   IDENTIDADE DA COMUNIDADE
+======================================== */
+
+.comunidade-identidade {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+
+    grid-template-columns: 104px minmax(0, 1fr) 190px;
+
+    align-items: start;
+
+    gap: 16px;
+
+    min-height: 270px;
+
+    padding: 62px 28px 22px;
+
+    box-sizing: border-box;
+}
+
+/* ========================================
+   FOTO QUADRADA
+======================================== */
 
 .imagem-comunidade {
-    width: 170px;
-    height: 170px;
+    width: 104px;
+    height: 104px;
+
     flex-shrink: 0;
 
-    object-fit: cover;
     display: block;
 
-    border-radius: 16px;
-    border: 2px solid #383038;
+    object-fit: cover;
 
-    margin-bottom: 20px;
+    background: #202020;
+
+    border: 3px solid #111;
+    border-radius: 12px;
+
+    box-sizing: border-box;
 }
 
-/* INFORMAÇÕES */
+/* ========================================
+   DADOS DA COMUNIDADE
+======================================== */
 
 .dados-comunidade {
-    width: 100%;
     min-width: 0;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+
+    padding-top: 12px;
+
+    text-align: left;
 }
 
 /* NOME */
 
 .dados-comunidade h1 {
-    margin: 0 0 10px;
+    width: 100%;
 
-    color: #ffffff;
-    font-size: 25px;
+    margin: 0;
+
+    color: #f5f5f5;
+
+    font-size: 24px;
     font-weight: 800;
-    line-height: 1.3;
-    letter-spacing: -0.7px;
 
-    overflow-wrap: anywhere;
+    line-height: 1.3;
+    letter-spacing: -0.5px;
+
+    overflow-wrap: break-word;
+    word-break: normal;
 }
 
 /* GÊNERO MUSICAL */
 
 .dados-comunidade .genero {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
 
     width: fit-content;
     max-width: 100%;
 
-    margin: 0 0 12px;
+    margin: 8px 0 12px;
     padding: 6px 13px;
 
-    background: rgba(168, 85, 247, 0.10);
-    color: #c084fc;
+    background: #29232f;
 
-    border: 1px solid rgba(168, 85, 247, 0.25);
+    border: 1px solid #493653;
     border-radius: 20px;
+
+    color: #c084fc;
 
     font-size: 12px;
     font-weight: 600;
+
     line-height: 1.3;
+
     text-transform: capitalize;
+
+    overflow-wrap: break-word;
 }
 
-/* CONTADOR DE MEMBROS */
+/* ========================================
+   TOTAL DE MEMBROS
+======================================== */
 
 .dados-comunidade .comunidade-total-membros {
     display: inline-flex;
+
     align-items: center;
-    justify-content: center;
     gap: 7px;
 
     width: fit-content;
+    max-width: 100%;
 
-    margin: 0 0 20px;
-    padding: 0;
+    margin: 0 0 12px;
 
-    background: transparent;
-    border: none;
+    color: #a3a3a3;
 
-    color: #a8a8a8;
     font-size: 13px;
     font-weight: 500;
 }
 
 .dados-comunidade .comunidade-total-membros svg {
     color: #a855f7;
+
     flex-shrink: 0;
 }
 
-/* DESCRIÇÃO */
+/* ========================================
+   DESCRIÇÃO
+======================================== */
 
-.dados-comunidade > p:not(.genero) {
+.dados-comunidade .comunidade-descricao {
     width: 100%;
+    max-width: 100%;
+
     margin: 0;
 
     color: #b8b8b8;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 1.7;
 
-    overflow-wrap: anywhere;
+    font-size: 13px;
+    font-weight: 400;
+
+    line-height: 1.6;
+
+    overflow-wrap: break-word;
+    word-break: normal;
 }
 
-/* ÁREA DOS BOTÕES */
+/* ========================================
+   BOTÕES DE AÇÃO
+======================================== */
 
 .botoes-comunidade {
+    min-width: 0;
     width: 100%;
+    max-width: 190px;
 
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    align-items: stretch;
     gap: 10px;
 
-    margin-top: 22px;
+    flex-shrink: 0;
+
+    margin-top: 140px;
 }
 
 /* BOTÕES */
 
 .botoes-comunidade button {
-    width: 100%;
-    min-height: 44px;
+    display: inline-flex;
 
-    display: flex;
     align-items: center;
     justify-content: center;
 
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+
     margin: 0;
-    padding: 12px 16px;
+    padding: 11px 14px;
 
     background: #8b3fe0;
+
     color: #ffffff;
 
     border: 1px solid #8b3fe0;
     border-radius: 10px;
 
     font-family: 'Inter', sans-serif;
+
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 600;
+
+    text-align: center;
+
+    overflow-wrap: break-word;
 
     cursor: pointer;
 
     transition:
-        background 0.2s ease,
+        background-color 0.2s ease,
         border-color 0.2s ease,
         transform 0.2s ease;
 }
 
 .botoes-comunidade button:hover {
     background: #a855f7;
+
     border-color: #a855f7;
+
     transform: translateY(-1px);
 }
 
@@ -190,76 +301,154 @@
 
 .botoes-comunidade button:disabled {
     opacity: 0.6;
+
     cursor: not-allowed;
+
     transform: none;
 }
 
-.botoes-comunidade button:hover {
-    background: #a855f7;
-    border-color: #a855f7;
-    transform: translateY(-1px);
-}
+/* ========================================
+   MENSAGEM DE ENTRADA OU SAÍDA
+======================================== */
 
-.botoes-comunidade button:active {
-    transform: scale(0.98);
-}
+.botoes-comunidade .mensagem-comunidade {
+    width: 100%;
 
-.botoes-comunidade button:focus-visible {
-    outline: 2px solid #c084fc;
-    outline-offset: 3px;
-}
+    margin: 0;
 
-/* MENSAGEM DE ENTRADA OU SAÍDA */
+    color: #c084fc;
 
-.botoes-comunidade p {
-    margin: 13px 0 0;
-
-    color: #bda0e9;
     font-size: 12px;
     font-weight: 500;
+
     line-height: 1.5;
+
     text-align: center;
+
+    overflow-wrap: break-word;
 }
 
-/* RESPONSIVIDADE */
+/* ========================================
+   CARD ESTREITO
+   Ex.: LATERAL DA COMUNIDADE
+======================================== */
 
-@media (max-width: 850px) {
-    .informacoes-comunidade {
-        padding: 22px 18px;
+@container (max-width: 620px) {
+
+    .comunidade-identidade {
+        grid-template-columns: 82px minmax(0, 1fr);
+
+        gap: 12px;
+
+        min-height: 0;
+
+        padding: 82px 18px 20px;
     }
 
     .imagem-comunidade {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 16px;
+        width: 82px;
+        height: 82px;
+
+        border-radius: 10px;
     }
 
-    .dados-comunidade h1 {
-        font-size: 23px;
-    }
-}
-
-@media (max-width: 480px) {
-    .informacoes-comunidade {
-        padding: 20px 16px;
-        border-radius: 12px;
-    }
-
-    .imagem-comunidade {
-        width: 120px;
-        height: 120px;
-        border-radius: 12px;
+    .dados-comunidade {
+        padding-top: 5px;
     }
 
     .dados-comunidade h1 {
         font-size: 21px;
     }
 
-    .dados-comunidade > p:not(.genero) {
-        font-size: 13px;
+    .dados-comunidade .genero {
+        margin: 6px 0 10px;
+
+        font-size: 11px;
+    }
+
+    .dados-comunidade .comunidade-total-membros {
+        font-size: 12px;
+    }
+
+    .dados-comunidade .comunidade-descricao {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .botoes-comunidade {
+        grid-column: 1 / -1;
+
+        width: 100%;
+        max-width: none;
+
+        margin-top: 12px;
     }
 
     .botoes-comunidade button {
+        width: 100%;
+        min-height: 42px;
+
         font-size: 13px;
+    }
+
+    .botoes-comunidade .mensagem-comunidade {
+        text-align: center;
+    }
+}
+
+/* ========================================
+   CELULARES
+======================================== */
+
+@media (max-width: 480px) {
+
+    .informacoes-comunidade {
+        border-radius: 12px;
+    }
+
+    .comunidade-capa {
+        height: 115px;
+    }
+
+    .comunidade-identidade {
+        grid-template-columns: 70px minmax(0, 1fr);
+
+        gap: 10px;
+
+        padding: 70px 14px 18px;
+    }
+
+    .imagem-comunidade {
+        width: 70px;
+        height: 70px;
+
+        border-radius: 9px;
+    }
+
+    .dados-comunidade {
+        padding-top: 4px;
+    }
+
+    .dados-comunidade h1 {
+        font-size: 18px;
+    }
+
+    .dados-comunidade .genero {
+        padding: 5px 10px;
+
+        font-size: 11px;
+    }
+
+    .dados-comunidade .comunidade-total-membros {
+        font-size: 11px;
+    }
+
+    .dados-comunidade .comunidade-descricao {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+    .botoes-comunidade {
+        margin-top: 10px;
     }
 }

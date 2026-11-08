@@ -1,15 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 import {
     buscarPublicacoesDaComunidade,
     curtirPublicacao,
     buscarComunidade
 } from "../../api";
 
+import { BsPlusLg } from "react-icons/bs";
+
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 import ModalPublicacao from "../../modals/modalPublicacao";
+
 import "./ComunidadeTela.css";
+
 import CabecalhoComunidade from "../../components/CabecalhoComunidade/CabecalhoComunidade";
 
 function ComunidadeTela() {
@@ -126,9 +131,12 @@ function ComunidadeTela() {
 
     return (
         <div className="comunidade-tela">
+
             <div className="conteudo-comunidade">
 
+                {/* FEED DA COMUNIDADE */}
                 <main className="feed-comunidade">
+
                     {publicacoes.length === 0 ? (
                         <p>
                             Ainda não há publicações nesta comunidade.
@@ -158,22 +166,30 @@ function ComunidadeTela() {
                             );
                         })
                     )}
+
                 </main>
 
+                {/* LATERAL DA COMUNIDADE */}
                 <aside className="lateral-comunidade">
+
                     <CabecalhoComunidade />
 
-                    <button
-                        className="botao-publicar-comunidade"
-                        type="button"
-                        onClick={() => setModalAberto(true)}
-                    >
-                        Fazer publicação
-                    </button>
                 </aside>
+
             </div>
 
-            {/* Modal para criar publicação */}
+            {/* BOTÃO FLUTUANTE DE PUBLICAÇÃO */}
+            <button
+                className="botao-publicar-comunidade"
+                type="button"
+                onClick={() => setModalAberto(true)}
+                aria-label="Fazer publicação"
+                title="Fazer publicação"
+            >
+                <BsPlusLg />
+            </button>
+
+            {/* MODAL PARA CRIAR PUBLICAÇÃO */}
             {modalAberto && (
                 <ModalPublicacao
                     onClose={() => setModalAberto(false)}
@@ -185,7 +201,7 @@ function ComunidadeTela() {
                 />
             )}
 
-            {/* Modal para apagar publicação */}
+            {/* MODAL PARA APAGAR PUBLICAÇÃO */}
             {publicacaoSelecionada && (
                 <ModalApagarPublicacao
                     publicacao={publicacaoSelecionada}
@@ -196,6 +212,7 @@ function ComunidadeTela() {
                     }}
                 />
             )}
+
         </div>
     );
 }

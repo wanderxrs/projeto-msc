@@ -28,7 +28,6 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
     const participando = comunidade?.participando === true;
 
     // CARREGAR COMUNIDADE
-
     const carregarComunidade = async () => {
         try {
             const resposta = await buscarComunidade(id);
@@ -68,7 +67,6 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
     }, [id]);
 
     // ENTRAR NA COMUNIDADE
-
     const handleEntrar = async () => {
 
         if (carregandoAcao) return;
@@ -119,7 +117,6 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
     };
 
     // SAIR DA COMUNIDADE
-
     const handleSair = async () => {
 
         if (carregandoAcao) return;
@@ -151,94 +148,130 @@ function CabecalhoComunidade({ onMembrosAtualizados }) {
     };
 
     // CARREGAMENTO
-
     if (!comunidade || Number(comunidade.id) !== Number(id)) {
         return <p>Carregando...</p>;
     }
 
     const totalMembros = Number(comunidade.total_membros) || 0;
 
+    // IMAGEM DA CAPA
+    const capaUrl =
+        comunidade.capa_url ||
+        comunidade.imagem_url ||
+        "";
+
     return (
         <div className="informacoes-comunidade">
 
-            <img
-                src={comunidade.imagem_url}
-                alt={`Imagem da comunidade ${comunidade.nome}`}
-                className="imagem-comunidade"
+            {/* CAPA */}
+            <div
+                className="comunidade-capa"
+                style={
+                    capaUrl
+                        ? {
+                            backgroundImage: `url("${capaUrl}")`
+                        }
+                        : {}
+                }
             />
 
-            <div className="dados-comunidade">
+            {/* IDENTIDADE DA COMUNIDADE */}
+            <div className="comunidade-identidade">
 
-                <h1>{comunidade.nome}</h1>
+                {/* FOTO QUADRADA */}
+                <img
+                    src={comunidade.imagem_url || "/avatar-padrao.png"}
+                    alt={`Imagem da comunidade ${comunidade.nome}`}
+                    className="imagem-comunidade"
+                />
 
-                <p className="genero">
-                    {comunidade.genero}
-                </p>
+                {/* DADOS */}
+                <div className="dados-comunidade">
 
-                <div className="comunidade-total-membros">
+                    <h1>{comunidade.nome}</h1>
 
-                    <HiUsers size={16} />
+                    {comunidade.genero && (
+                        <p className="genero">
+                            {comunidade.genero}
+                        </p>
+                    )}
 
-                    <span>
-                        {totalMembros}{" "}
-                        {totalMembros === 1 ? "membro" : "membros"}
-                    </span>
+                    {/* TOTAL DE MEMBROS */}
+                    <div className="comunidade-total-membros">
+
+                        <HiUsers size={16} />
+
+                        <span>
+                            {totalMembros}{" "}
+                            {totalMembros === 1
+                                ? "membro"
+                                : "membros"}
+                        </span>
+
+                    </div>
+
+                    {/* DESCRIÇÃO */}
+                    {comunidade.descricao && (
+                        <p className="comunidade-descricao">
+                            {comunidade.descricao}
+                        </p>
+                    )}
 
                 </div>
 
-                <p>{comunidade.descricao}</p>
+                {/* BOTÕES DE AÇÃO */}
+                <div className="botoes-comunidade">
 
-            </div>
+                    {!ehCriador && (
+                        participando ? (
 
-            <div className="botoes-comunidade">
+                            <button
+                                type="button"
+                                onClick={handleSair}
+                                disabled={carregandoAcao}
+                            >
+                                {carregandoAcao
+                                    ? "Saindo..."
+                                    : "Sair da comunidade"}
+                            </button>
 
-                {/* BOTÃO PARA SAIR DA COMUNIDADE, aparece se não for o criador E estiver participando */}
-                {/* BOTÃO PARA ENTRAR NA COMUNIDADE, aparece se não for o criador E não estiver participando */}
-                {!ehCriador && (
-                    participando ? (
+                        ) : (
+
+                            <button
+                                type="button"
+                                onClick={handleEntrar}
+                                disabled={carregandoAcao}
+                            >
+                                {carregandoAcao
+                                    ? "Entrando..."
+                                    : "Entrar na comunidade"}
+                            </button>
+
+                        )
+                    )}
+
+                    {ehCriador && (
 
                         <button
-                            onClick={handleSair}
-                            disabled={carregandoAcao}
+                            type="button"
+                            onClick={() => setModalParticipantesAberto(true)}
                         >
-                            {carregandoAcao
-                                ? "Saindo..."
-                                : "Sair da comunidade"}
+                            Gerenciar participantes
                         </button>
 
-                    ) : (
+                    )}
 
-                        <button
-                            onClick={handleEntrar}
-                            disabled={carregandoAcao}
-                        >
-                            {carregandoAcao
-                                ? "Entrando..."
-                                : "Entrar na comunidade"}
-                        </button>
+                    {mensagem && (
+                        <p className="mensagem-comunidade">
+                            {mensagem}
+                        </p>
+                    )}
 
-                    )
-
-                )}
-
-                {/* BOTÃO PARA GERENCIAR PARTICIPANTES (APENAS CRIADOR) */}
-                {ehCriador && (
-
-                    <button
-                        onClick={() => setModalParticipantesAberto(true)}
-                    >
-                        Gerenciar participantes
-                    </button>
-
-                )}
-
-                {mensagem && <p>{mensagem}</p>}
+                </div>
 
             </div>
-
 
             {/* MODAL DE GERENCIAMENTO */}
-
             {modalParticipantesAberto && (
 
                 <ModalGerenciarParticipantes
