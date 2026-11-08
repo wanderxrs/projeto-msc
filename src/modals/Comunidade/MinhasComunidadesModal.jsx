@@ -1,7 +1,8 @@
+
 import { useEffect, useState } from "react";
-import {
-    comunidadesUsuarioDono
-} from "../../api";
+import { useNavigate } from "react-router-dom";
+
+import { comunidadesUsuarioDono } from "../../api";
 
 import AtualizarComunidadeModal from "./atualizarComunidadeModal";
 import CriarComunidadeModal from "./criarComunidadeModal";
@@ -10,6 +11,8 @@ import DeletarComunidadeModal from "./deletarComunidadeModal";
 import "./minhasComunidadesModal.css";
 
 function MinhasComunidadesModal({ isOpen, onClose }) {
+    const navigate = useNavigate();
+
     const [comunidades, setComunidades] = useState([]);
     const [carregando, setCarregando] = useState(false);
     const [erro, setErro] = useState("");
@@ -55,6 +58,21 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
             carregarMinhasComunidades();
         }
     }, [isOpen]);
+
+    // Abre o perfil da comunidade ao clicar no card
+    function abrirComunidade(comunidade) {
+        const comunidadeId =
+            comunidade.id ?? comunidade.comunidade_id;
+
+        if (!comunidadeId) {
+            console.error("ID da comunidade não encontrado.");
+            return;
+        }
+
+        onClose();
+
+        navigate(`/comunidade/${comunidadeId}`);
+    }
 
     function abrirEdicao(comunidade) {
         setComunidadeSelecionada(comunidade);
@@ -157,7 +175,11 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
                         ) : comunidades.length === 0 ? (
                             <div className="minhas-comunidades-vazio">
                                 <span>🎵</span>
-                                <h3>Você ainda não criou comunidades</h3>
+
+                                <h3>
+                                    Você ainda não criou comunidades
+                                </h3>
+
                                 <p>
                                     Crie a primeira e reúna pessoas que
                                     compartilham seus gostos musicais.
@@ -175,7 +197,26 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
                             comunidades.map((comunidade) => (
                                 <article
                                     className="minha-comunidade-card"
-                                    key={comunidade.id ?? comunidade.comunidade_id}
+                                    key={
+                                        comunidade.id ??
+                                        comunidade.comunidade_id
+                                    }
+                                    onClick={() =>
+                                        abrirComunidade(comunidade)
+                                    }
+                                    onKeyDown={(e) => {
+                                        if (
+                                            e.target === e.currentTarget &&
+                                            (e.key === "Enter" ||
+                                                e.key === " ")
+                                        ) {
+                                            e.preventDefault();
+                                            abrirComunidade(comunidade);
+                                        }
+                                    }}
+                                    role="link"
+                                    tabIndex={0}
+                                    aria-label={`Abrir comunidade ${comunidade.nome}`}
                                 >
                                     <img
                                         src={
@@ -205,9 +246,10 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
                                         <button
                                             type="button"
                                             className="botao-editar-comunidade"
-                                            onClick={() =>
-                                                abrirEdicao(comunidade)
-                                            }
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                abrirEdicao(comunidade);
+                                            }}
                                         >
                                             Editar
                                         </button>
@@ -215,9 +257,10 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
                                         <button
                                             type="button"
                                             className="botao-excluir-comunidade"
-                                            onClick={() =>
-                                                abrirExclusao(comunidade)
-                                            }
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                abrirExclusao(comunidade);
+                                            }}
                                         >
                                             Excluir
                                         </button>
