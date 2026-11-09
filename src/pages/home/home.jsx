@@ -46,7 +46,7 @@ function Home() {
         "/avatar-padrao.png"
     );
 
-    // Carrega a foto de perfil do usuário..
+    // Carrega a foto de perfil do usuário.
     useEffect(() => {
         async function buscarPerfil() {
             try {
@@ -134,21 +134,6 @@ function Home() {
     useEffect(() => {
         buscarPublicacoes();
     }, [abaAtiva]);
-
-    // Fecha painel com a tecla ESC.
-    useEffect(() => {
-        function fecharComEsc(evento) {
-            if (evento.key === "Escape") {
-                setPainelAberto(null);
-            }
-        }
-
-        window.addEventListener("keydown", fecharComEsc);
-
-        return () => {
-            window.removeEventListener("keydown", fecharComEsc);
-        };
-    }, []);
 
     // Curtir ou descurtir uma publicação.
     async function handleCurtir(publicacao_id) {
