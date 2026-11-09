@@ -1,11 +1,7 @@
+
 import { useEffect, useState } from "react";
 
-import {
-    carregarPublicacoes,
-    carregarPublicacoesSeguindo,
-    curtirPublicacao,
-    carregarPerfil
-} from "../../api";
+import { carregarPublicacoes, carregarPublicacoesSeguindo, curtirPublicacao, carregarPerfil} from "../../api";
 
 import "./home.css";
 
@@ -15,16 +11,15 @@ import PerfilComponente from "../../components/PerfilComponente/PerfilComponente
 // Ícones
 import { FaUserGroup } from "react-icons/fa6";
 import { IoAdd } from "react-icons/io5";
+import { PiMusicNotesFill } from "react-icons/pi";
+import { ImHeadphones } from "react-icons/im";
 
 // Componentes e modais
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
-import ModalPublicacao from "../../modals/modalPublicacao";
 import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
 function Home() {
-    const [modalAberto, setModalAberto] = useState(false);
-
     const [modalCriarComunidadeAberto, setModalCriarComunidadeAberto] =
         useState(false);
 
@@ -46,7 +41,7 @@ function Home() {
         "/avatar-padrao.png"
     );
 
-    // Carrega a foto de perfil do usuário.
+    // Carrega a foto de perfil do usuário na navbar.
     useEffect(() => {
         async function buscarPerfil() {
             try {
@@ -227,14 +222,6 @@ function Home() {
                 {/* CONTEÚDO CENTRAL */}
                 <main className="conteudo-central">
 
-                    {/* MODAL DE PUBLICAÇÃO */}
-                    {modalAberto && (
-                        <ModalPublicacao
-                            onClose={() => setModalAberto(false)}
-                            onPublicacaoCriada={buscarPublicacoes}
-                        />
-                    )}
-
                     <h1>Feed inicial</h1>
 
                     {/* ABAS DO FEED */}
@@ -298,7 +285,7 @@ function Home() {
                             <div className="feed-vazio">
 
                                 <h2>
-                                    Seu feed está esperando por você 🎵
+                                    Seu feed está esperando por você <PiMusicNotesFill />
                                 </h2>
 
                                 <p>
@@ -327,7 +314,7 @@ function Home() {
                             <div className="feed-vazio">
 
                                 <h2>
-                                    Nenhuma publicação por enquanto 🎧
+                                    Nenhuma publicação por enquanto  <ImHeadphones />
                                 </h2>
 
                             </div>
