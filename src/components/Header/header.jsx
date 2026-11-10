@@ -13,13 +13,16 @@ import {
 
 import FazerLogoutModal from "../../modals/FazerLogout/fazerLogoutModal";
 import ModalNotificacoes from "../../modals/Notificacao/ModalNotificacoes";
+import ModalMenu from "../../modals/MenuHeader/MenuHeaderModal";
 
 function Header() {
-    const [menuAberto, setMenuAberto] = useState(false);
     const [nomeBusca, setNomeBusca] = useState("");
     const [usuarios, setUsuarios] = useState([]);
     const [carregando, setCarregando] = useState(false);
     const [modalLogoutAberto, setModalLogoutAberto] = useState(false);
+
+    // Menu
+    const [modalMenuAberto, setModalMenuAberto] = useState(false);
 
     // Notificações
     const [modalNotificacoesAberto, setModalNotificacoesAberto] = useState(false);
@@ -81,15 +84,12 @@ function Header() {
                     return;
                 }
 
-                // Pega a notificação mais recente
                 const ultimaNotificacao = notificacoes[0];
 
-                // Recupera a última notificação visualizada
                 const ultimaVisualizada = localStorage.getItem(
                     "ultimaNotificacaoVisualizada"
                 );
 
-                // Só mostra a bolinha se houver uma notificação nova
                 setTemNotificacaoNova(
                     String(ultimaNotificacao.id) !== ultimaVisualizada
                 );
@@ -119,7 +119,6 @@ function Header() {
     function abrirPerfil(usuario) {
         setNomeBusca("");
         setUsuarios([]);
-        setMenuAberto(false);
 
         navigate(`/perfil/${usuario.id}`);
     }
@@ -132,7 +131,6 @@ function Header() {
             if (resposta.data.length > 0) {
                 const ultimaNotificacao = resposta.data[0];
 
-                // Salva a última notificação visualizada
                 localStorage.setItem(
                     "ultimaNotificacaoVisualizada",
                     String(ultimaNotificacao.id)
@@ -155,7 +153,7 @@ function Header() {
             <button
                 type="button"
                 className="botao-menu"
-                onClick={() => setMenuAberto(!menuAberto)}
+                onClick={() => setModalMenuAberto(true)}
                 aria-label="Abrir menu"
             >
                 <FiMenu />
@@ -186,21 +184,6 @@ function Header() {
             >
                 Sair
             </button>
-
-            {/* MENU EXPANSÍVEL */}
-            {menuAberto && (
-                <div className="menu">
-                    <button
-                        type="button"
-                        onClick={() => {
-                            setMenuAberto(false);
-                            navigate("/confirmar-senha");
-                        }}
-                    >
-                        Trocar Senha
-                    </button>
-                </div>
-            )}
 
             {/* PESQUISA DE USUÁRIOS */}
             <div className="pesquisa-usuarios">
@@ -264,6 +247,17 @@ function Header() {
                 </button>
 
             </div>
+
+            {/* MODAL DO MENU */}
+            {modalMenuAberto && (
+                <ModalMenu
+                    onClose={() => setModalMenuAberto(false)}
+                    onTrocarSenha={() => {
+                        setModalMenuAberto(false);
+                        navigate("/confirmar-senha");
+                    }}
+                />
+            )}
 
             {/* MODAL DE NOTIFICAÇÕES */}
             {modalNotificacoesAberto && (
