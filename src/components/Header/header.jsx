@@ -13,7 +13,7 @@ import {
 
 import FazerLogoutModal from "../../modals/FazerLogout/fazerLogoutModal";
 import ModalNotificacoes from "../../modals/Notificacao/ModalNotificacoes";
-import ModalMenu from "../../modals/MenuHeader/MenuHeaderModal";
+import ModalMenu from "../../modals/MenuHeader/MenuHeaderModal";  
 
 function Header() {
     const [nomeBusca, setNomeBusca] = useState("");
@@ -176,15 +176,6 @@ function Header() {
                 Início
             </button>
 
-            {/* SAIR */}
-            <button
-                type="button"
-                className="boton-elegante"
-                onClick={() => setModalLogoutAberto(true)}
-            >
-                Sair
-            </button>
-
             {/* PESQUISA DE USUÁRIOS */}
             <div className="pesquisa-usuarios">
 
@@ -255,6 +246,10 @@ function Header() {
                     onTrocarSenha={() => {
                         setModalMenuAberto(false);
                         navigate("/confirmar-senha");
+                    }}
+                    onSair={() => {
+                        setModalMenuAberto(false);
+                        setModalLogoutAberto(true);
                     }}
                 />
             )}
