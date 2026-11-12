@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -21,9 +20,19 @@ import ParticipandoComunidade from "./pages/ParticipandoComunidade/ParticipandoC
 import Header from "./components/Header/header";
 
 function App() {
-    // Recupera o tema salvo no navegador.
+    // Recupera o tema salvo ou detecta a preferência do sistema.
     const [tema, setTema] = useState(() => {
-        return localStorage.getItem("tema") || "dark";
+        const temaSalvo = localStorage.getItem("tema");
+
+        if (temaSalvo) {
+            return temaSalvo;
+        }
+
+        const prefereEscuro = window.matchMedia(
+            "(prefers-color-scheme: dark)"
+        ).matches;
+
+        return prefereEscuro ? "dark" : "light";
     });
 
     // Aplica e salva o tema selecionado.
@@ -42,15 +51,45 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Navigate to="/login" />} />
+                <Route
+                    path="/"
+                    element={<Navigate to="/login" />}
+                />
 
-                <Route path="/login" element={<Login />} />
-                <Route path="/registro" element={<Registro />} />
-                <Route path="/Recuperacao" element={<Recuperacao />} />
-                <Route path="/confirma-codigo" element={<ConfirmarCodigo />} />
-                <Route path="/mudar-senha" element={<MudarSenha />} />
-                <Route path="/mudar-senha-perfil" element={<MudarSenhaPerfil />} />
-                <Route path="/confirmar-senha" element={<ConfirmarSenha />} />
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
+
+                <Route
+                    path="/registro"
+                    element={<Registro />}
+                />
+
+                <Route
+                    path="/Recuperacao"
+                    element={<Recuperacao />}
+                />
+
+                <Route
+                    path="/confirma-codigo"
+                    element={<ConfirmarCodigo />}
+                />
+
+                <Route
+                    path="/mudar-senha"
+                    element={<MudarSenha />}
+                />
+
+                <Route
+                    path="/mudar-senha-perfil"
+                    element={<MudarSenhaPerfil />}
+                />
+
+                <Route
+                    path="/confirmar-senha"
+                    element={<ConfirmarSenha />}
+                />
 
                 <Route
                     path="/comunidade/:id"
