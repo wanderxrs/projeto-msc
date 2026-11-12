@@ -204,9 +204,10 @@ function Perfil() {
 
     return (
         <>
+        <br></br> <br></br><br></br> <br></br>
             <main className="perfil-page">
 
-                {/* CABEÇALHO DO PERFIL */}
+                {/* CABEÇALHO DO PERFIL. */}
                 <section className="perfil-header">
 
                     <div
