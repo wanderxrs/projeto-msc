@@ -1,5 +1,3 @@
-
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* ========================================
@@ -73,8 +71,8 @@
     border-bottom: 1px solid var(--header-borda);
     background: var(--header-fundo);
 
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
 
     position: fixed;
     top: 0;
@@ -462,8 +460,6 @@
         overflow: visible;
     }
 
-    /* Menu */
-
     .botao-menu {
         position: absolute;
 
@@ -475,8 +471,6 @@
         height: 35px;
     }
 
-    /* Logo */
-
     .header h1 {
         margin: 0 0 0 35px;
 
@@ -484,8 +478,6 @@
 
         flex-shrink: 0;
     }
-
-    /* Botões início e sair */
 
     .boton-elegante {
         padding: 7px 9px;
@@ -496,8 +488,6 @@
 
         flex-shrink: 0;
     }
-
-    /* Pesquisa */
 
     .pesquisa-usuarios {
         margin-left: auto;
@@ -528,8 +518,6 @@
         color: var(--header-placeholder);
     }
 
-    /* Resultados */
-
     .resultados-usuarios {
         width: 100%;
 
@@ -545,8 +533,6 @@
     .resultado-usuario span {
         font-size: 13px;
     }
-
-    /* Notificações */
 
     .container-notificacoes {
         flex-shrink: 0;
