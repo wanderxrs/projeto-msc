@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* ========================================
@@ -71,8 +72,8 @@
     border-bottom: 1px solid var(--header-borda);
     background: var(--header-fundo);
 
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
+    /* BLUR DO HEADER */
+    backdrop-filter: blur(16px);
 
     position: fixed;
     top: 0;
