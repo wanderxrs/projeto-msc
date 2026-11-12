@@ -1,69 +1,152 @@
+
+/* ========================================
+   VARIÁVEIS DE TEMA
+======================================== */
+
+:root {
+    --comentarios-texto: #f5f5f5;
+    --comentarios-texto-secundario: #888;
+    --comentarios-texto-conteudo: #dedede;
+    --comentarios-placeholder: #888;
+
+    --comentarios-fundo: #1a1a1a;
+    --comentarios-fundo-secundario: #292929;
+    --comentarios-fundo-hover: #3a3a3a;
+
+    --comentarios-borda: #2c2c2c;
+    --comentarios-borda-input: #333;
+    --comentarios-borda-botao: #3a3a3a;
+    --comentarios-borda-hover: #414141;
+    --comentarios-borda-focus: #666;
+}
+
+/* ========================================
+   TEMA CLARO
+======================================== */
+
+:root[data-theme="light"] {
+    --comentarios-texto: #1f1f1f;
+    --comentarios-texto-secundario: #737373;
+    --comentarios-texto-conteudo: #404040;
+    --comentarios-placeholder: #999;
+
+    --comentarios-fundo: #ffffff;
+    --comentarios-fundo-secundario: #ffffff;
+    --comentarios-fundo-hover: #eeeeee;
+
+    --comentarios-borda: #e5e5e5;
+    --comentarios-borda-input: #dedede;
+    --comentarios-borda-botao: #d4d4d4;
+    --comentarios-borda-hover: #c4c4c4;
+    --comentarios-borda-focus: #9333ea;
+}
+
+/* ========================================
+   CONFIGURAÇÕES GERAIS
+======================================== */
+
 .comentarios {
     width: 100%;
     max-width: 650px;
-    margin: 110px auto 40px;
+
+    margin: 130px auto 40px;
     padding: 0 20px;
+
     box-sizing: border-box;
-    color: #f5f5f5;
+
+    color: var(--comentarios-texto);
     font-family: Arial, Helvetica, sans-serif;
-    margin-top: 130;
 }
 
+.comentarios * {
+    box-sizing: border-box;
+}
+
+/* ========================================
+   TÍTULO
+======================================== */
+
 .titulo {
-    color: #f5f5f5;
+    color: var(--comentarios-texto);
+
     font-size: 26px;
     font-weight: 700;
+
     margin: 0 0 24px;
 }
+
+/* ========================================
+   FORMULÁRIO DE COMENTÁRIO
+======================================== */
 
 .comentarios form {
     display: flex;
     align-items: center;
     gap: 12px;
+
     width: 100%;
     margin-bottom: 28px;
 }
+
+/* CAMPO DE TEXTO */
 
 .comentarios form input {
     flex: 1;
     min-width: 0;
     height: 48px;
+
     padding: 0 18px;
-    box-sizing: border-box;
-    background-color: #1a1a1a;
-    border: 1px solid #333;
+
+    background-color: var(--comentarios-fundo);
+    border: 1px solid var(--comentarios-borda-input);
     border-radius: 12px;
-    color: #f5f5f5;
+
+    color: var(--comentarios-texto);
     font-size: 15px;
+
     outline: none;
+
     transition: border-color 0.2s ease;
 }
 
 .comentarios form input::placeholder {
-    color: #888;
+    color: var(--comentarios-placeholder);
 }
 
 .comentarios form input:focus {
-    border-color: #666;
+    border-color: var(--comentarios-borda-focus);
 }
+
+/* ========================================
+   BOTÃO DE ENVIAR
+======================================== */
 
 .botaoComentar {
     width: 46px;
     height: 46px;
+
     flex-shrink: 0;
+
     border-radius: 12px;
-    background-color: #292929;
-    color: #f5f5f5;
-    border: 1px solid #3a3a3a;
+
+    background-color: var(--comentarios-fundo-secundario);
+    color: var(--comentarios-texto);
+
+    border: 1px solid var(--comentarios-borda-botao);
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .botaoComentar:hover {
-    background-color: #3a3a3a;
+    background-color: var(--comentarios-fundo-hover);
     transform: translateY(-1px);
 }
 
@@ -71,74 +154,235 @@
     transform: scale(0.96);
 }
 
+/* ========================================
+   LISTA DE COMENTÁRIOS
+======================================== */
+
 .lista-comentarios {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
     width: 100%;
 }
+
+/* ========================================
+   CARD DO COMENTÁRIO
+======================================== */
 
 .caixa-comentario {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
     width: 100%;
-    box-sizing: border-box;
+
     padding: 16px;
     margin: 0;
-    background-color: #1a1a1a;
-    border: 1px solid #2c2c2c;
+
+    background-color: var(--comentarios-fundo);
+    border: 1px solid var(--comentarios-borda);
     border-radius: 14px;
+
     transition: border-color 0.2s ease;
 }
 
 .caixa-comentario:hover {
-    border-color: #414141;
+    border-color: var(--comentarios-borda-hover);
 }
+
+/* ========================================
+   CABEÇALHO DO COMENTÁRIO
+======================================== */
 
 .cabecalho-comentario {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 12px;
     width: 100%;
 }
+
+/* USUÁRIO */
 
 .usuario-comentario {
     display: flex;
     align-items: center;
     gap: 10px;
+
     min-width: 0;
 }
+
+/* FOTO */
 
 .foto-comentario {
     width: 38px;
     height: 38px;
+
     border-radius: 50%;
+
     object-fit: cover;
     display: block;
+
     flex-shrink: 0;
 }
 
+/* NOME */
+
 .usuario-nome {
-    color: #f5f5f5;
+    color: var(--comentarios-texto);
+
     font-size: 14px;
     font-weight: 600;
+
     overflow-wrap: anywhere;
 }
 
+/* DATA E MENU */
+
+.opcoes-comentario {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* DATA */
+
 .data-comentario {
-    color: #888;
+    color: var(--comentarios-texto-secundario);
+
     font-size: 12px;
     white-space: nowrap;
 }
 
+/* ÍCONE DE MENU */
+
+.icone-menu-comentario {
+    color: var(--comentarios-texto);
+
+    cursor: pointer;
+    flex-shrink: 0;
+
+    transition: color 0.2s ease;
+}
+
+.icone-menu-comentario:hover {
+    color: var(--comentarios-texto-secundario);
+}
+
+/* ========================================
+   TEXTO DO COMENTÁRIO
+======================================== */
+
 .comentario-texto {
-    color: #dedede;
+    color: var(--comentarios-texto-conteudo);
+
     font-size: 15px;
     line-height: 1.6;
+
     margin: 0;
+
     word-break: break-word;
     overflow-wrap: anywhere;
     white-space: pre-wrap;
+}
+
+/* ========================================
+   TEMA CLARO: AJUSTES EXTRAS
+======================================== */
+
+:root[data-theme="light"] .comentarios {
+    color: #1f1f1f;
+}
+
+:root[data-theme="light"] .caixa-comentario {
+    background-color: #ffffff;
+    border-color: #e5e5e5;
+}
+
+:root[data-theme="light"] .caixa-comentario:hover {
+    border-color: #d4d4d4;
+}
+
+:root[data-theme="light"] .comentarios form input {
+    background-color: #ffffff;
+    color: #1f1f1f;
+}
+
+:root[data-theme="light"] .botaoComentar {
+    background-color: #ffffff;
+    color: #1f1f1f;
+    border-color: #d4d4d4;
+}
+
+:root[data-theme="light"] .botaoComentar:hover {
+    background-color: #f5f5f5;
+}
+
+:root[data-theme="light"] .icone-menu-comentario {
+    color: #1f1f1f;
+}
+
+:root[data-theme="light"] .icone-menu-comentario:hover {
+    color: #737373;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 600px) {
+    .comentarios {
+        margin-top: 100px;
+        padding: 0 12px;
+    }
+
+    .titulo {
+        font-size: 23px;
+    }
+
+    .caixa-comentario {
+        padding: 14px;
+    }
+
+    .comentario-texto {
+        font-size: 14px;
+    }
+
+    .usuario-nome {
+        font-size: 13px;
+    }
+
+    .data-comentario {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 400px) {
+    .comentarios form {
+        gap: 8px;
+    }
+
+    .comentarios form input {
+        padding: 0 12px;
+        font-size: 14px;
+    }
+
+    .botaoComentar {
+        width: 42px;
+        height: 42px;
+    }
+
+    .foto-comentario {
+        width: 32px;
+        height: 32px;
+    }
+
+    .opcoes-comentario {
+        gap: 4px;
+    }
 }

@@ -1,34 +1,101 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* CONTEÚDO CENTRAL */
+/* ========================================
+   VARIÁVEIS DOS TEMAS
+======================================== */
+
+/* TEMA ESCURO: PADRÃO */
+:root {
+    --home-texto: #f5f5f5;
+    --home-texto-secundario: #a0a0a0;
+
+    --home-linha: #383838;
+    --home-linha-vertical: #454545;
+
+    --home-painel: #171717;
+    --home-painel-borda: #303030;
+
+    --home-navbar: rgba(15, 15, 15, 0.78);
+    --home-navbar-borda: rgba(255, 255, 255, 0.12);
+    --home-navbar-icone: #f5f5f5;
+
+    --home-botao-perfil: #1a1a1a;
+    --home-botao-perfil-borda: #393039;
+
+    --home-texto-vazio: #bbbbbb;
+}
+
+/* TEMA CLARO */
+[data-theme="light"] {
+    --home-texto: #222222;
+    --home-texto-secundario: #777777;
+
+    --home-linha: #d0d0d0;
+    --home-linha-vertical: #c6c6c6;
+
+    --home-painel: #ffffff;
+    --home-painel-borda: #dddddd;
+
+    --home-navbar: rgba(255, 255, 255, 0.78);
+    --home-navbar-borda: rgba(0, 0, 0, 0.12);
+    --home-navbar-icone: #555555;
+
+    --home-botao-perfil: #f5f5f5;
+    --home-botao-perfil-borda: #d0d0d0;
+
+    --home-texto-vazio: #666666;
+}
+
+
+/* ========================================
+   CONTEÚDO CENTRAL
+======================================== */
+
 .conteudo-central {
     width: 100%;
     max-width: 680px;
     min-width: 0;
+
     margin: 110px auto 0;
     padding: 0 16px;
+
     box-sizing: border-box;
+
     font-family: 'Inter', sans-serif;
-    color: #f5f5f5;
+    color: var(--home-texto);
 }
 
-/* TÍTULO DO FEED */
+
+/* ========================================
+   TÍTULO DO FEED
+======================================== */
+
 .conteudo-central > h1 {
-    color: #f5f5f5;
+    color: var(--home-texto);
+
     font-family: 'Inter', sans-serif;
     font-size: 28px;
     font-weight: 700;
+
     margin: 0 auto 24px;
+
     max-width: 600px;
+
     text-align: left;
 }
 
-/* ABAS DESCOBRIR E SEGUINDO */
+
+/* ========================================
+   ABAS DESCOBRIR E SEGUINDO
+======================================== */
+
 .abas-feed {
     display: flex;
+
     justify-content: center;
     align-items: center;
+
     gap: 0;
 
     width: 100%;
@@ -39,10 +106,13 @@
 
     box-sizing: border-box;
 
-    border-bottom: 1px solid #303030;
+    /* Linha horizontal mais suave */
+    border-bottom: 1px solid var(--home-linha);
 }
 
+
 /* BOTÕES DAS ABAS */
+
 .aba-feed {
     flex: 1;
     max-width: 220px;
@@ -54,7 +124,7 @@
 
     background: transparent;
 
-    color: #858585;
+    color: var(--home-texto-secundario);
 
     font-family: 'Inter', sans-serif;
     font-size: 15px;
@@ -65,27 +135,40 @@
     transition: color 0.2s ease;
 }
 
+
 /* HOVER DAS ABAS */
+
 .aba-feed:hover {
     background: transparent;
-    color: #d0d0d0;
+
+    color: var(--home-texto);
 }
+
 
 /* ABA SELECIONADA */
+
 .aba-feed.ativa {
     background: transparent;
-    color: #f5f5f5;
+
+    color: var(--home-texto);
 }
+
 
 /* LINHA VERTICAL ENTRE AS ABAS */
+
 .aba-feed + .aba-feed {
-    border-left: 1px solid #383838;
+    border-left: 1px solid var(--home-linha-vertical);
 }
 
-/* LISTA DE PUBLICAÇÕES */
+
+/* ========================================
+   LISTA DE PUBLICAÇÕES
+======================================== */
+
 .feed {
     display: flex;
     flex-direction: column;
+
     gap: 24px;
 
     width: 100%;
@@ -98,7 +181,11 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* ESTADO VAZIO E MENSAGENS */
+
+/* ========================================
+   ESTADO VAZIO E MENSAGENS
+======================================== */
+
 .feed-vazio,
 .mensagem-feed {
     width: 100%;
@@ -112,21 +199,30 @@
 
     padding: 36px 20px;
 
-    color: #bbb;
+    color: var(--home-texto-vazio);
 }
 
+
 .feed-vazio h2 {
-    color: #fff;
+    color: var(--home-texto);
+
     font-size: 21px;
+
     margin-bottom: 12px;
 }
 
+
 .feed-vazio p {
     line-height: 1.6;
+
     margin: 8px 0;
 }
 
-/* BOTÕES DE MENSAGENS */
+
+/* ========================================
+   BOTÕES DE MENSAGENS
+======================================== */
+
 .feed-vazio button,
 .mensagem-feed button {
     margin-top: 16px;
@@ -137,6 +233,7 @@
     border-radius: 8px;
 
     background: #702be8;
+
     color: white;
 
     font-family: 'Inter', sans-serif;
@@ -147,32 +244,48 @@
     transition: background 0.2s ease;
 }
 
+
 .feed-vazio button:hover,
 .mensagem-feed button:hover {
     background: #8547f5;
 }
 
-/* PAINÉIS LATERAIS NO DESKTOP */
+
+/* ========================================
+   PAINÉIS LATERAIS NO DESKTOP
+======================================== */
+
 .painel-lateral {
     display: contents;
 }
 
-/* NAVBAR MOBILE */
+
+/* ========================================
+   NAVBAR MOBILE
+======================================== */
+
 .navbar-mobile {
     display: none;
 }
 
+
 /* ELEMENTOS EXCLUSIVOS DO MOBILE */
+
 .acoes-mobile-paineis,
 .cabecalho-painel-mobile,
 .fundo-paineis-mobile {
     display: none;
 }
 
-/* TELAS MENORES */
+
+/* ========================================
+   TELAS MENORES
+======================================== */
+
 @media (max-width: 768px) {
 
     /* CONTEÚDO CENTRAL */
+
     .conteudo-central {
         width: 100%;
         max-width: 100%;
@@ -182,11 +295,16 @@
         padding: 0 12px 110px;
     }
 
+
     .conteudo-central > h1 {
         font-size: 24px;
     }
 
-    /* PAINÉIS LATERAIS */
+
+    /* ========================================
+       PAINÉIS LATERAIS
+    ======================================== */
+
     .painel-lateral {
         display: block;
 
@@ -203,7 +321,9 @@
 
         overflow-y: auto;
 
-        background: #171717;
+        background: var(--home-painel);
+
+        border: 1px solid var(--home-painel-borda);
 
         z-index: 1000;
 
@@ -212,25 +332,38 @@
         visibility: hidden;
     }
 
+
     /* COMUNIDADES ENTRAM PELA ESQUERDA */
+
     .painel-comunidades {
         left: 0;
+
         transform: translateX(-105%);
     }
 
+
     /* PERFIL ENTRA PELA DIREITA */
+
     .painel-perfil {
         right: 0;
+
         transform: translateX(105%);
     }
 
+
     /* PAINEL ABERTO */
+
     .painel-lateral.painel-aberto {
         transform: translateX(0);
+
         visibility: visible;
     }
 
-    /* CABEÇALHO DOS PAINÉIS */
+
+    /* ========================================
+       CABEÇALHO DOS PAINÉIS
+    ======================================== */
+
     .cabecalho-painel-mobile {
         display: flex;
 
@@ -239,25 +372,31 @@
 
         margin-bottom: 20px;
 
-        color: white;
+        color: var(--home-texto);
 
         font-family: 'Inter', sans-serif;
         font-size: 16px;
         font-weight: 700;
     }
 
+
     .cabecalho-painel-mobile button {
         background: transparent;
+
         border: none;
 
-        color: white;
+        color: var(--home-texto);
 
         font-size: 22px;
 
         cursor: pointer;
     }
 
-    /* FUNDO ESCURO AO ABRIR PAINEL */
+
+    /* ========================================
+       FUNDO AO ABRIR PAINEL
+    ======================================== */
+
     .fundo-paineis-mobile {
         display: block;
 
@@ -268,7 +407,7 @@
         width: 100%;
         height: calc(100% - 80px);
 
-        background: rgba(0, 0, 0, 0.65);
+        background: rgba(0, 0, 0, 0.45);
 
         border: none;
 
@@ -277,7 +416,11 @@
         cursor: pointer;
     }
 
-    /* NAVBAR FIXA NA PARTE INFERIOR */
+
+    /* ========================================
+       NAVBAR FIXA NA PARTE INFERIOR
+    ======================================== */
+
     .navbar-mobile {
         display: flex;
 
@@ -298,17 +441,23 @@
 
         box-sizing: border-box;
 
-        background: rgba(15, 15, 15, 0.96);
+        /* Cor e transparência adaptadas ao tema */
+        background: var(--home-navbar);
 
-        border-top: 1px solid #303030;
+        border-top: 1px solid var(--home-navbar-borda);
 
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        /* Mantém o efeito de vidro borrado */
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
 
         z-index: 1002;
     }
 
-    /* PADRONIZAÇÃO DOS TRÊS BOTÕES */
+
+    /* ========================================
+       PADRONIZAÇÃO DOS TRÊS BOTÕES
+    ======================================== */
+
     .botao-navbar-mobile {
         display: flex;
 
@@ -324,9 +473,10 @@
         padding: 0;
 
         border: none;
+
         background: transparent;
 
-        color: #ffffff;
+        color: var(--home-navbar-icone);
 
         font-size: 25px;
 
@@ -335,24 +485,36 @@
         transition: transform 0.2s ease;
     }
 
+
     /* ÍCONES DE COMUNIDADES E CRIAR COMUNIDADE */
+
     .botao-icone-navbar {
         border-radius: 0;
+
         background: transparent;
-        color: #ffffff;
+
+        color: var(--home-navbar-icone);
     }
+
 
     .botao-icone-navbar:hover {
         background: transparent;
-        color: #ffffff;
+
+        color: var(--home-navbar-icone);
     }
 
+
     /* EFEITO AO CLICAR */
+
     .botao-navbar-mobile:active {
         transform: scale(0.92);
     }
 
-    /* BOTÃO DE PERFIL: ÚNICO BOTÃO CIRCULAR */
+
+    /* ========================================
+       BOTÃO DE PERFIL
+    ======================================== */
+
     .botao-perfil-navbar {
         width: 48px;
         height: 48px;
@@ -363,20 +525,26 @@
         padding: 0;
 
         border-radius: 50%;
-        border: 1px solid #393039;
+
+        border: 1px solid var(--home-botao-perfil-borda);
 
         overflow: hidden;
 
-        background: #1a1a1a;
+        background: var(--home-botao-perfil);
     }
 
-    /* REMOVE O HOVER ROXO DO PERFIL */
+
+    /* REMOVE HOVER DO PERFIL */
+
     .botao-perfil-navbar:hover {
-        background: #1a1a1a;
-        border-color: #393039;
+        background: var(--home-botao-perfil);
+
+        border-color: var(--home-botao-perfil-borda);
     }
+
 
     /* FOTO DE PERFIL */
+
     .botao-perfil-navbar img {
         width: 100%;
         height: 100%;
@@ -389,45 +557,68 @@
         display: block;
     }
 
-    /* ABAS NO MOBILE */
+
+    /* ========================================
+       ABAS NO MOBILE
+    ======================================== */
+
     .abas-feed {
         gap: 0;
     }
 
+
     .aba-feed {
         padding: 11px 8px;
+
         font-size: 14px;
     }
 
-    /* PUBLICAÇÕES */
+
+    /* ========================================
+       PUBLICAÇÕES
+    ======================================== */
+
     .feed {
         gap: 16px;
+
         margin-top: 20px;
     }
+
 }
 
-/* CELULARES PEQUENOS */
+
+/* ========================================
+   CELULARES PEQUENOS
+======================================== */
+
 @media (max-width: 400px) {
 
     .conteudo-central > h1 {
         font-size: 21px;
     }
 
+
     /* ABAS */
+
     .abas-feed {
         font-size: 13px;
     }
+
 
     .aba-feed {
         padding: 10px 6px;
     }
 
+
     /* NAVBAR EM CELULARES MENORES */
+
     .navbar-mobile {
         gap: 20px;
     }
 
-    /* TODOS OS TRÊS BOTÕES COM O MESMO TAMANHO */
+
+    /* BOTÕES */
+
     .botao-navbar-mobile {
         width: 44px;
         height: 44px;
@@ -438,7 +629,9 @@
         font-size: 23px;
     }
 
-    /* PERFIL TAMBÉM SEGUE A MESMA MEDIDA */
+
+    /* PERFIL */
+
     .botao-perfil-navbar {
         width: 44px;
         height: 44px;
@@ -446,4 +639,5 @@
         min-width: 44px;
         min-height: 44px;
     }
+
 }

@@ -1,5 +1,5 @@
-
 import { useEffect, useState, useCallback } from "react";
+
 import {
     listarParticipantes,
     listarUsuariosBloqueados,
@@ -34,7 +34,6 @@ function ModalGerenciarParticipantes({
 
             setParticipantes(respostaParticipantes.data);
             setBloqueados(respostaBloqueados.data);
-
         } catch (erro) {
             console.error("Erro ao carregar participantes:", erro);
 
@@ -48,42 +47,45 @@ function ModalGerenciarParticipantes({
     }, [comunidadeId]);
 
     useEffect(() => {
-    let ativo = true;
+        let ativo = true;
 
-    async function carregar() {
-        try {
-            const [respostaParticipantes, respostaBloqueados] =
-                await Promise.all([
-                    listarParticipantes(comunidadeId),
-                    listarUsuariosBloqueados(comunidadeId)
-                ]);
+        async function carregar() {
+            try {
+                const [respostaParticipantes, respostaBloqueados] =
+                    await Promise.all([
+                        listarParticipantes(comunidadeId),
+                        listarUsuariosBloqueados(comunidadeId)
+                    ]);
 
-            if (ativo) {
-                setParticipantes(respostaParticipantes.data);
-                setBloqueados(respostaBloqueados.data);
-            }
-        } catch (erro) {
-            if (ativo) {
-                console.error("Erro ao carregar participantes:", erro);
+                if (ativo) {
+                    setParticipantes(respostaParticipantes.data);
+                    setBloqueados(respostaBloqueados.data);
+                }
+            } catch (erro) {
+                if (ativo) {
+                    console.error(
+                        "Erro ao carregar participantes:",
+                        erro
+                    );
 
-                setMensagem(
-                    erro.response?.data?.erro ||
-                    "Não foi possível carregar os participantes."
-                );
-            }
-        } finally {
-            if (ativo) {
-                setCarregando(false);
+                    setMensagem(
+                        erro.response?.data?.erro ||
+                        "Não foi possível carregar os participantes."
+                    );
+                }
+            } finally {
+                if (ativo) {
+                    setCarregando(false);
+                }
             }
         }
-    }
 
-    carregar();
+        carregar();
 
-    return () => {
-        ativo = false;
-    };
-}, [comunidadeId]);
+        return () => {
+            ativo = false;
+        };
+    }, [comunidadeId]);
 
     async function handleBloquear(usuarioId) {
         const confirmar = window.confirm(
@@ -105,7 +107,6 @@ function ModalGerenciarParticipantes({
             }
 
             setMensagem("Participante bloqueado com sucesso!");
-
         } catch (erro) {
             setMensagem(
                 erro.response?.data?.erro ||
@@ -132,7 +133,6 @@ function ModalGerenciarParticipantes({
             await carregarDados();
 
             setMensagem("Usuário desbloqueado com sucesso!");
-
         } catch (erro) {
             setMensagem(
                 erro.response?.data?.erro ||
@@ -150,12 +150,15 @@ function ModalGerenciarParticipantes({
                 <div className="modal-gerenciar-header">
                     <div>
                         <h2>Gerenciar participantes</h2>
-                        <p>Gerencie os membros da sua comunidade.</p>
+                        <p>
+                            Gerencie os membros da sua comunidade.
+                        </p>
                     </div>
 
                     <button
                         className="modal-gerenciar-fechar"
                         onClick={onFechar}
+                        aria-label="Fechar modal"
                     >
                         ×
                     </button>
@@ -163,7 +166,9 @@ function ModalGerenciarParticipantes({
 
                 <div className="modal-gerenciar-abas">
                     <button
-                        className={aba === "participantes" ? "ativa" : ""}
+                        className={
+                            aba === "participantes" ? "ativa" : ""
+                        }
                         onClick={() => {
                             setAba("participantes");
                             setMensagem("");
@@ -173,7 +178,9 @@ function ModalGerenciarParticipantes({
                     </button>
 
                     <button
-                        className={aba === "bloqueados" ? "ativa" : ""}
+                        className={
+                            aba === "bloqueados" ? "ativa" : ""
+                        }
                         onClick={() => {
                             setAba("bloqueados");
                             setMensagem("");
@@ -219,7 +226,9 @@ function ModalGerenciarParticipantes({
 
                                     <button
                                         className="botao-bloquear"
-                                        disabled={processando === usuario.id}
+                                        disabled={
+                                            processando === usuario.id
+                                        }
                                         onClick={() =>
                                             handleBloquear(usuario.id)
                                         }
@@ -231,43 +240,43 @@ function ModalGerenciarParticipantes({
                                 </div>
                             ))
                         )
+                    ) : bloqueados.length === 0 ? (
+                        <p className="modal-gerenciar-vazio">
+                            Nenhum usuário bloqueado.
+                        </p>
                     ) : (
-                        bloqueados.length === 0 ? (
-                            <p className="modal-gerenciar-vazio">
-                                Nenhum usuário bloqueado.
-                            </p>
-                        ) : (
-                            bloqueados.map((usuario) => (
-                                <div
-                                    className="participante-item"
-                                    key={usuario.id}
-                                >
-                                    <div className="participante-info">
-                                        <img
-                                            src={
-                                                usuario.foto_url ||
-                                                "/imagem-padrao.png"
-                                            }
-                                            alt={usuario.nome}
-                                        />
-
-                                        <span>{usuario.nome}</span>
-                                    </div>
-
-                                    <button
-                                        className="botao-desbloquear"
-                                        disabled={processando === usuario.id}
-                                        onClick={() =>
-                                            handleDesbloquear(usuario.id)
+                        bloqueados.map((usuario) => (
+                            <div
+                                className="participante-item"
+                                key={usuario.id}
+                            >
+                                <div className="participante-info">
+                                    <img
+                                        src={
+                                            usuario.foto_url ||
+                                            "/imagem-padrao.png"
                                         }
-                                    >
-                                        {processando === usuario.id
-                                            ? "Aguarde..."
-                                            : "Desbloquear"}
-                                    </button>
+                                        alt={usuario.nome}
+                                    />
+
+                                    <span>{usuario.nome}</span>
                                 </div>
-                            ))
-                        )
+
+                                <button
+                                    className="botao-desbloquear"
+                                    disabled={
+                                        processando === usuario.id
+                                    }
+                                    onClick={() =>
+                                        handleDesbloquear(usuario.id)
+                                    }
+                                >
+                                    {processando === usuario.id
+                                        ? "Aguarde..."
+                                        : "Desbloquear"}
+                                </button>
+                            </div>
+                        ))
                     )}
                 </div>
 

@@ -1,6 +1,6 @@
+/* OVERLAY */
 .modal-overlay {
     position: fixed;
-
     top: 0;
     left: 0;
 
@@ -9,7 +9,7 @@
 
     background: transparent;
     backdrop-filter: blur(3px);
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,93 +19,132 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
+/* MODAL */
 .modal-apagar {
     width: 400px;
+    max-width: calc(100% - 30px);
 
-    background: #0c0c0cd8;
+    background: var(--modal-apagar-bg);
+    border: 1px solid var(--modal-apagar-border);
 
     border-radius: 10px;
-
     padding: 25px;
 
-    color: white;
+    color: var(--modal-apagar-text);
 }
 
-
+/* CABEÇALHO */
 .modal-header {
     display: flex;
-
     justify-content: space-between;
     align-items: center;
 }
 
-
 .modal-header h2 {
     margin: 0;
+    color: var(--modal-apagar-text);
 }
 
-
+/* BOTÃO FECHAR */
 .btn-fechar {
     background: none;
-
     border: none;
 
-    color: white;
-
-    font-size: 20px;
+    color: var(--modal-apagar-text);
 
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
 }
 
+.btn-fechar:hover {
+    opacity: 0.7;
+}
 
+/* CONTEÚDO */
 .modal-conteudo {
     margin-top: 20px;
-
     margin-bottom: 25px;
 }
-
 
 .modal-conteudo p {
     margin: 8px 0;
 
-    color: #ccc;
+    color: var(--modal-apagar-text-secondary);
 }
 
-
+/* AÇÕES */
 .modal-acoes {
     display: flex;
-
     justify-content: flex-end;
-
     gap: 10px;
 }
-
 
 .modal-acoes button {
     padding: 10px 20px;
 
     border: none;
-
     border-radius: 6px;
 
     cursor: pointer;
+
+    font-weight: 500;
+    transition: background 0.2s ease;
 }
 
-
+/* CANCELAR */
 .modal-acoes button:first-child {
-    background: #444;
-
-    color: white;
+    background: var(--modal-apagar-cancel-bg);
+    color: var(--modal-apagar-cancel-text);
 }
 
+.modal-acoes button:first-child:hover {
+    background: var(--modal-apagar-cancel-hover);
+}
 
-
-.btn-apagar-publicacao{
+/* APAGAR */
+.btn-apagar-publicacao {
     background-color: #ec1616 !important;
-    color: white;
+    color: white !important;
 }
 
-.btn-apagar-publicacao:hover{
+.btn-apagar-publicacao:hover {
     background-color: #990808 !important;
+}
+
+/* =========================================
+   MODO ESCURO
+========================================= */
+
+[data-theme="dark"] .modal-apagar,
+:root:not([data-theme="light"]) .modal-apagar {
+    --modal-apagar-bg: #0c0c0cd8;
+    --modal-apagar-border: #2a2a2a;
+
+    --modal-apagar-text: #ffffff;
+    --modal-apagar-text-secondary: #cccccc;
+
+    --modal-apagar-cancel-bg: #444444;
+    --modal-apagar-cancel-text: #ffffff;
+    --modal-apagar-cancel-hover: #555555;
+}
+
+/* =========================================
+   MODO BRANCO
+========================================= */
+
+[data-theme="light"] .modal-apagar {
+    --modal-apagar-bg: #ffffff;
+    --modal-apagar-border: #e5e5e5;
+
+    --modal-apagar-text: #1a1a1a;
+    --modal-apagar-text-secondary: #666666;
+
+    --modal-apagar-cancel-bg: #e9e9e9;
+    --modal-apagar-cancel-text: #222222;
+    --modal-apagar-cancel-hover: #dcdcdc;
 }

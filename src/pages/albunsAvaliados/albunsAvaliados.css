@@ -1,12 +1,94 @@
-/* CONTAINER PRINCIPAL */
+/* =========================================
+   VARIÁVEIS DO TEMA ESCURO (PADRÃO)
+========================================= */
+
 .albuns-avaliados {
+    --albuns-fundo: #0f0f0f;
+    --albuns-card: #1b1b1b;
+    --albuns-card-secundario: #252525;
+    --albuns-input: #202020;
+    --albuns-input-nota: #242424;
+
+    --albuns-texto: #f5f5f5;
+    --albuns-texto-secundario: #aaa;
+    --albuns-texto-label: #ccc;
+
+    --albuns-borda: #303030;
+    --albuns-borda-input: #383838;
+
+    --albuns-botao: #e5e5e5;
+    --albuns-botao-texto: #111;
+    --albuns-botao-hover: #ccc;
+
+    --albuns-botao-remover: #292929;
+    --albuns-botao-remover-texto: #fff;
+    --albuns-botao-remover-hover: #404040;
+
+    --albuns-modal: #1b1b1b;
+    --albuns-modal-borda: #383838;
+    --albuns-modal-texto: #fff;
+    --albuns-modal-texto-secundario: #bbb;
+
+    --albuns-erro-fundo: #3b2222;
+    --albuns-erro-texto: #ffb3b3;
+
+    --albuns-sucesso-fundo: #203629;
+    --albuns-sucesso-texto: #b5e8c8;
+
+    --albuns-vazio-texto: #999;
+
     width: min(1200px, 94%);
     margin: 35px auto;
-    color: #f5f5f5;
+    color: var(--albuns-texto);
     font-family: Inter, Arial, sans-serif;
 }
 
-/* CABEÇALHO */
+
+/* =========================================
+   MODO CLARO (WHITE MODE)
+========================================= */
+
+:root[data-theme="light"] .albuns-avaliados {
+    --albuns-fundo: #f5f5f5;
+    --albuns-card: #ffffff;
+    --albuns-card-secundario: #f0f0f0;
+    --albuns-input: #ffffff;
+    --albuns-input-nota: #ffffff;
+
+    --albuns-texto: #171717;
+    --albuns-texto-secundario: #666;
+    --albuns-texto-label: #444;
+
+    --albuns-borda: #e0e0e0;
+    --albuns-borda-input: #d4d4d4;
+
+    --albuns-botao: #171717;
+    --albuns-botao-texto: #ffffff;
+    --albuns-botao-hover: #333;
+
+    --albuns-botao-remover: #f0f0f0;
+    --albuns-botao-remover-texto: #222;
+    --albuns-botao-remover-hover: #e0e0e0;
+
+    --albuns-modal: #ffffff;
+    --albuns-modal-borda: #e0e0e0;
+    --albuns-modal-texto: #171717;
+    --albuns-modal-texto-secundario: #555;
+
+    --albuns-erro-fundo: #fff0f0;
+    --albuns-erro-texto: #b42323;
+
+    --albuns-sucesso-fundo: #eaf8ef;
+    --albuns-sucesso-texto: #207443;
+
+    --albuns-vazio-texto: #777;
+}
+
+
+/* =========================================
+   CABEÇALHO
+========================================= */
+
 .albuns-cabecalho {
     margin-bottom: 30px;
 }
@@ -14,25 +96,35 @@
 .albuns-cabecalho h1 {
     margin-bottom: 8px;
     font-size: 28px;
+    color: var(--albuns-texto);
 }
 
 .albuns-cabecalho p,
 .album-card > p {
-    color: #aaa;
+    color: var(--albuns-texto-secundario);
 }
 
-/* SEÇÕES */
+
+/* =========================================
+   SEÇÕES
+========================================= */
+
 .albuns-secao {
     margin-bottom: 40px;
 }
 
 .albuns-secao h2 {
     padding-bottom: 12px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid var(--albuns-borda);
     font-size: 21px;
+    color: var(--albuns-texto);
 }
 
-/* PESQUISA */
+
+/* =========================================
+   PESQUISA
+========================================= */
+
 .albuns-form-pesquisa {
     display: flex;
     gap: 12px;
@@ -43,11 +135,16 @@
     flex: 1;
     min-width: 0;
     padding: 13px;
-    border: 1px solid #383838;
+    border: 1px solid var(--albuns-borda-input);
     border-radius: 8px;
     outline: none;
-    background: #202020;
-    color: white;
+    background: var(--albuns-input);
+    color: var(--albuns-texto);
+    transition: border-color 0.2s ease;
+}
+
+.albuns-form-pesquisa input::placeholder {
+    color: var(--albuns-texto-secundario);
 }
 
 .albuns-form-pesquisa input:focus,
@@ -55,19 +152,27 @@
     border-color: #888;
 }
 
-/* BOTÕES */
+
+/* =========================================
+   BOTÕES
+========================================= */
+
 .albuns-avaliados button {
     padding: 11px 14px;
-    border: 1px solid #383838;
+    border: 1px solid var(--albuns-borda-input);
     border-radius: 8px;
-    background: #e5e5e5;
-    color: #111;
+    background: var(--albuns-botao);
+    color: var(--albuns-botao-texto);
     font-weight: bold;
     cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .albuns-avaliados button:hover:not(:disabled) {
-    background: #ccc;
+    background: var(--albuns-botao-hover);
 }
 
 .albuns-avaliados button:disabled {
@@ -75,20 +180,32 @@
     opacity: 0.5;
 }
 
-/* GRADE DE ÁLBUNS */
+
+/* =========================================
+   GRADE DE ÁLBUNS
+========================================= */
+
 .albuns-grade {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
     gap: 20px;
 }
 
-/* CARD */
+
+/* =========================================
+   CARD DE ÁLBUM
+========================================= */
+
 .album-card {
     min-width: 0;
     padding: 16px;
-    border: 1px solid #303030;
+    border: 1px solid var(--albuns-borda);
     border-radius: 12px;
-    background: #1b1b1b;
+    background: var(--albuns-card);
+    color: var(--albuns-texto);
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .album-card img,
@@ -105,13 +222,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #252525;
-    color: #aaa;
+    background: var(--albuns-card-secundario);
+    color: var(--albuns-texto-secundario);
 }
 
 .album-card h3 {
     margin-bottom: 8px;
     font-size: 16px;
+    color: var(--albuns-texto);
     overflow-wrap: anywhere;
 }
 
@@ -120,7 +238,11 @@
     font-size: 14px;
 }
 
-/* AVALIAÇÃO */
+
+/* =========================================
+   FORMULÁRIO DE AVALIAÇÃO
+========================================= */
+
 .album-form-nota {
     display: flex;
     flex-direction: column;
@@ -129,7 +251,7 @@
 }
 
 .album-form-nota label {
-    color: #ccc;
+    color: var(--albuns-texto-label);
     font-size: 13px;
     text-align: center;
 }
@@ -138,11 +260,16 @@
     width: 120px;
     align-self: center;
     padding: 11px;
-    border: 1px solid #383838;
+    border: 1px solid var(--albuns-borda-input);
     border-radius: 7px;
     outline: none;
-    background: #242424;
-    color: white;
+    background: var(--albuns-input-nota);
+    color: var(--albuns-texto);
+    transition: border-color 0.2s ease;
+}
+
+.album-form-nota input::placeholder {
+    color: var(--albuns-texto-secundario);
 }
 
 .album-form-nota button,
@@ -151,17 +278,26 @@
     margin-top: 10px;
 }
 
-/* REMOVER ÁLBUM */
+
+/* =========================================
+   BOTÃO REMOVER ÁLBUM
+========================================= */
+
 .albuns-avaliados .album-botao-remover {
-    background: #292929;
-    color: white;
+    background: var(--albuns-botao-remover);
+    color: var(--albuns-botao-remover-texto);
+    border-color: var(--albuns-borda);
 }
 
 .albuns-avaliados .album-botao-remover:hover:not(:disabled) {
-    background: #404040;
+    background: var(--albuns-botao-remover-hover);
 }
 
-/* MENSAGENS */
+
+/* =========================================
+   MENSAGENS
+========================================= */
+
 .albuns-mensagem {
     margin-bottom: 20px;
     padding: 13px;
@@ -169,20 +305,24 @@
 }
 
 .albuns-erro {
-    background: #3b2222;
-    color: #ffb3b3;
+    background: var(--albuns-erro-fundo);
+    color: var(--albuns-erro-texto);
 }
 
 .albuns-sucesso {
-    background: #203629;
-    color: #b5e8c8;
+    background: var(--albuns-sucesso-fundo);
+    color: var(--albuns-sucesso-texto);
 }
 
 .albuns-vazio {
-    color: #999;
+    color: var(--albuns-vazio-texto);
 }
 
-/* MODAL */
+
+/* =========================================
+   MODAL
+========================================= */
+
 .modal-fundo {
     position: fixed;
     inset: 0;
@@ -192,31 +332,34 @@
     justify-content: center;
     padding: 20px;
     background: #000a;
+    backdrop-filter: blur(4px);
 }
 
 .modal-remover {
     width: 360px;
     max-width: 100%;
     padding: 25px;
-    border: 1px solid #383838;
+    border: 1px solid var(--albuns-modal-borda);
     border-radius: 12px;
-    background: #1b1b1b;
-    color: white;
+    background: var(--albuns-modal);
+    color: var(--albuns-modal-texto);
+    box-shadow: 0 10px 40px #0002;
 }
 
 .modal-remover h2 {
     font-size: 21px;
+    color: var(--albuns-modal-texto);
     text-align: center;
 }
 
 .modal-remover p {
-    color: #bbb;
+    color: var(--albuns-modal-texto-secundario);
     line-height: 1.6;
     text-align: center;
 }
 
 .modal-remover strong {
-    color: white;
+    color: var(--albuns-modal-texto);
     overflow-wrap: anywhere;
 }
 
@@ -228,16 +371,21 @@
 
 .albuns-avaliados .modal-acoes button {
     flex: 1;
-    background: #292929;
-    color: white;
+    background: var(--albuns-botao-remover);
+    color: var(--albuns-botao-remover-texto);
+    border-color: var(--albuns-borda);
 }
 
 .albuns-avaliados .modal-acoes .modal-confirmar {
-    background: #e5e5e5;
-    color: #111;
+    background: var(--albuns-botao);
+    color: var(--albuns-botao-texto);
 }
 
-/* RESPONSIVIDADE */
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
 @media (max-width: 600px) {
     .albuns-form-pesquisa {
         flex-direction: column;

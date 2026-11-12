@@ -1,18 +1,23 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { buscarComunidadesDisponiveis } from "../../api";
-import { buscarComunidadesPeloNome } from "../../api";
-import { filtroGeneroComunidade } from "../../api";
+
+import {
+    buscarComunidadesDisponiveis,
+    buscarComunidadesPeloNome,
+    filtroGeneroComunidade
+} from "../../api";
+
 import FiltroGeneroModal from "../FiltroGenero/FiltroGeneroModal";
 import "./ComunidadesRecomendadas.css";
 
 function ComunidadesRecomendadas() {
-
     const navigate = useNavigate();
+
     const [comunidades, setComunidades] = useState([]);
     const [nomeBusca, setNomeBusca] = useState("");
     const [modalFiltroAberto, setModalFiltroAberto] = useState(false);
 
+    // Carrega as comunidades disponíveis.
     async function carregarComunidades() {
         try {
             const resposta = await buscarComunidadesDisponiveis();
@@ -29,14 +34,13 @@ function ComunidadesRecomendadas() {
         }
     }
 
-
+    // Carrega as comunidades ao abrir o componente.
     useEffect(() => {
         carregarComunidades();
     }, []);
 
-
+    // Pesquisa comunidades pelo nome.
     async function pesquisarComunidades() {
-
         if (nomeBusca.trim() === "") {
             carregarComunidades();
             return;
@@ -57,6 +61,7 @@ function ComunidadesRecomendadas() {
         }
     }
 
+    // Filtra comunidades por gênero musical.
     async function filtrarPorGenero(genero) {
         try {
             const resposta = await filtroGeneroComunidade(genero);
@@ -70,51 +75,100 @@ function ComunidadesRecomendadas() {
             );
 
             setModalFiltroAberto(false);
-
         } catch (erro) {
             console.error("Erro ao filtrar comunidades:", erro);
         }
     }
 
+    // Abre a página da comunidade.
+    function abrirComunidade(id) {
+        navigate(`/comunidade/${id}`);
+    }
+
     return (
         <aside className="comunidades-recomendadas">
 
+            {/* Barra de pesquisa e filtro */}
             <div className="barra-comunidades">
+
                 <div className="input-container">
-                <input
+                    <input
                         className="styled_input_bar"
                         type="text"
-                        placeholder=""
-                        value={nomeBusca} name="pesquisa-comunidade"
+                        placeholder=" "
+                        value={nomeBusca}
+                        name="pesquisa-comunidade"
+                        id="styled_input_bar"
                         onChange={(e) => setNomeBusca(e.target.value)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 pesquisarComunidades();
                             }
-                        }}/>
-                         <label class="input-label" for="styled_input_bar">Pesquisar</label>
+                        }}
+                    />
+
+                    <label
+                        className="input-label"
+                        htmlFor="styled_input_bar"
+                    >
+                        Pesquisar
+                    </label>
                 </div>
 
-                <button className="boton-elegante" onClick={() => setModalFiltroAberto(true)}>Filtrar</button>
+                <button
+                    type="button"
+                    className="boton-elegante"
+                    onClick={() => setModalFiltroAberto(true)}
+                >
+                    Filtrar
+                </button>
             </div>
 
-            <h2>{nomeBusca ? "Resultados da pesquisa" : "Comunidades recomendadas"}</h2>
+            {/* Título */}
+            <h2>
+                {nomeBusca
+                    ? "Resultados da pesquisa"
+                    : "Comunidades recomendadas"}
+            </h2>
 
+            {/* Lista de comunidades */}
             <div className="lista-comunidades">
                 {comunidades.length === 0 ? (
                     <p>Nenhuma comunidade disponível.</p>
                 ) : (
                     comunidades.map((comunidade) => (
-                        <div className="item-comunidade" key={comunidade.id} onClick={() => navigate(`/comunidade/${comunidade.id}`)}>
-                           
-                            <img src={comunidade.imagem_url} alt="" className="imagem_rec_comunidades" />
+                        <div
+                            className="item-comunidade"
+                            key={comunidade.id}
+                            onClick={() => abrirComunidade(comunidade.id)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(evento) => {
+                                if (
+                                    evento.key === "Enter" ||
+                                    evento.key === " "
+                                ) {
+                                    evento.preventDefault();
+                                    abrirComunidade(comunidade.id);
+                                }
+                            }}
+                        >
+                            <img
+                                src={
+                                    comunidade.imagem_url ||
+                                    "/avatar-padrao.png"
+                                }
+                                alt={`Imagem da comunidade ${comunidade.nome}`}
+                                className="imagem_rec_comunidades"
+                            />
+
                             <p>{comunidade.nome}</p>
-                            
                         </div>
                     ))
                 )}
             </div>
 
+            {/* Modal de filtro por gênero */}
             <FiltroGeneroModal
                 aberto={modalFiltroAberto}
                 fechar={() => setModalFiltroAberto(false)}

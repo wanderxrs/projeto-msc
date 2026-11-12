@@ -1,133 +1,365 @@
+/* =========================================
+   CONFIGURAÇÕES DE TEMA
+========================================= */
+
+:root,
+:root[data-theme="dark"] {
+    --gerenciar-overlay: rgba(0, 0, 0, 0.75);
+
+    --gerenciar-bg: #171717;
+    --gerenciar-texto: #f5f5f5;
+    --gerenciar-texto-secundario: #aaaaaa;
+    --gerenciar-borda: #303030;
+
+    --gerenciar-fechar-texto: #ffffff;
+    --gerenciar-fechar-hover: #303030;
+
+    --gerenciar-aba-texto: #aaaaaa;
+    --gerenciar-aba-hover: #252525;
+    --gerenciar-aba-ativa: #f5f5f5;
+    --gerenciar-aba-borda-ativa: #f5f5f5;
+
+    --gerenciar-item-hover: #202020;
+    --gerenciar-foto-bg: #303030;
+
+    --gerenciar-bloquear-bg: #e74c3c;
+    --gerenciar-bloquear-texto: #ffffff;
+    --gerenciar-bloquear-hover: #c0392b;
+
+    --gerenciar-desbloquear-bg: #303030;
+    --gerenciar-desbloquear-texto: #f5f5f5;
+    --gerenciar-desbloquear-borda: #444444;
+    --gerenciar-desbloquear-hover: #414141;
+
+    --gerenciar-mensagem: #f5f5f5;
+    --gerenciar-vazio: #999999;
+
+    --gerenciar-footer-bg: #171717;
+    --gerenciar-footer-botao-bg: #303030;
+    --gerenciar-footer-botao-texto: #ffffff;
+    --gerenciar-footer-botao-hover: #414141;
+
+    --gerenciar-scrollbar: #444444;
+}
+
+/* =========================================
+   WHITE MODE
+========================================= */
+
+:root[data-theme="light"] {
+    --gerenciar-overlay: rgba(0, 0, 0, 0.35);
+
+    --gerenciar-bg: #ffffff;
+    --gerenciar-texto: #202020;
+    --gerenciar-texto-secundario: #777777;
+    --gerenciar-borda: #e5e5e5;
+
+    --gerenciar-fechar-texto: #333333;
+    --gerenciar-fechar-hover: #eeeeee;
+
+    --gerenciar-aba-texto: #777777;
+    --gerenciar-aba-hover: #f5f5f5;
+    --gerenciar-aba-ativa: #202020;
+    --gerenciar-aba-borda-ativa: #202020;
+
+    --gerenciar-item-hover: #f8f8f8;
+    --gerenciar-foto-bg: #eeeeee;
+
+    --gerenciar-bloquear-bg: #e74c3c;
+    --gerenciar-bloquear-texto: #ffffff;
+    --gerenciar-bloquear-hover: #c0392b;
+
+    --gerenciar-desbloquear-bg: #f0f0f0;
+    --gerenciar-desbloquear-texto: #333333;
+    --gerenciar-desbloquear-borda: #dddddd;
+    --gerenciar-desbloquear-hover: #e3e3e3;
+
+    --gerenciar-mensagem: #333333;
+    --gerenciar-vazio: #888888;
+
+    --gerenciar-footer-bg: #ffffff;
+    --gerenciar-footer-botao-bg: #f0f0f0;
+    --gerenciar-footer-botao-texto: #333333;
+    --gerenciar-footer-botao-hover: #e3e3e3;
+
+    --gerenciar-scrollbar: #cccccc;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
 
 .modal-gerenciar-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+
+    background: var(--gerenciar-overlay);
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     z-index: 9999;
+
     padding: 20px;
+    box-sizing: border-box;
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
 }
+
+/* =========================================
+   MODAL
+========================================= */
 
 .modal-gerenciar {
     width: 100%;
     max-width: 550px;
     max-height: 85vh;
-    background: #171717;
-    border: 1px solid #303030;
+
+    background: var(--gerenciar-bg);
+
+    border: 1px solid var(--gerenciar-borda);
     border-radius: 14px;
+
     display: flex;
     flex-direction: column;
+
     overflow: hidden;
-    color: #f5f5f5;
+
+    color: var(--gerenciar-texto);
+
+    font-family: 'Inter', sans-serif;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
+
+/* =========================================
+   CABEÇALHO
+========================================= */
 
 .modal-gerenciar-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
     padding: 22px;
-    border-bottom: 1px solid #303030;
+
+    border-bottom: 1px solid var(--gerenciar-borda);
 }
 
 .modal-gerenciar-header h2 {
     margin: 0 0 6px;
+
+    color: var(--gerenciar-texto);
+
     font-size: 21px;
+    font-weight: 600;
 }
 
 .modal-gerenciar-header p {
     margin: 0;
-    color: #aaa;
+
+    color: var(--gerenciar-texto-secundario);
+
     font-size: 13px;
+    line-height: 1.5;
 }
+
+/* =========================================
+   BOTÃO FECHAR
+========================================= */
 
 .modal-gerenciar-fechar {
     background: transparent;
+
     border: none;
-    color: #fff;
+
+    color: var(--gerenciar-fechar-texto);
+
     font-size: 28px;
+    line-height: 1;
+
     cursor: pointer;
+
+    border-radius: 6px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
+
+.modal-gerenciar-fechar:hover {
+    background: var(--gerenciar-fechar-hover);
+}
+
+/* =========================================
+   ABAS
+========================================= */
 
 .modal-gerenciar-abas {
     display: flex;
-    border-bottom: 1px solid #303030;
+
+    border-bottom: 1px solid var(--gerenciar-borda);
 }
 
 .modal-gerenciar-abas button {
     flex: 1;
+
     padding: 15px 8px;
+
     background: transparent;
+
     border: none;
     border-bottom: 3px solid transparent;
-    color: #aaa;
+
+    color: var(--gerenciar-aba-texto);
+
     cursor: pointer;
+
+    font-family: 'Inter', sans-serif;
     font-size: 14px;
+    font-weight: 500;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.modal-gerenciar-abas button:hover {
+    background: var(--gerenciar-aba-hover);
 }
 
 .modal-gerenciar-abas button.ativa {
-    color: #53ca97;
-    border-bottom-color: #53ca97;
+    color: var(--gerenciar-aba-ativa);
+    border-bottom-color: var(--gerenciar-aba-borda-ativa);
+    font-weight: 600;
 }
+
+/* =========================================
+   CONTEÚDO
+========================================= */
 
 .modal-gerenciar-conteudo {
     padding: 15px 20px;
+
     overflow-y: auto;
+
     min-height: 180px;
     max-height: 400px;
 }
+
+/* =========================================
+   PARTICIPANTES
+========================================= */
 
 .participante-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     gap: 12px;
+
     padding: 12px 0;
-    border-bottom: 1px solid #303030;
+
+    border-bottom: 1px solid var(--gerenciar-borda);
+
+    transition: background-color 0.2s ease;
+}
+
+.participante-item:last-child {
+    border-bottom: none;
 }
 
 .participante-info {
     display: flex;
     align-items: center;
+
     gap: 12px;
+
     min-width: 0;
 }
 
 .participante-info img {
     width: 42px;
     height: 42px;
+
+    flex-shrink: 0;
+
     border-radius: 50%;
+
     object-fit: cover;
-    background: #303030;
+
+    background: var(--gerenciar-foto-bg);
 }
 
 .participante-info span {
+    color: var(--gerenciar-texto);
+
     font-size: 14px;
+    font-weight: 500;
+
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
+/* =========================================
+   BOTÕES DE MODERAÇÃO
+========================================= */
 
 .botao-bloquear,
 .botao-desbloquear {
     padding: 9px 13px;
+
     border: none;
     border-radius: 7px;
+
     cursor: pointer;
+
+    font-family: 'Inter', sans-serif;
     font-size: 12px;
     font-weight: 600;
+
     white-space: nowrap;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        opacity 0.2s ease;
 }
+
+/* BLOQUEAR */
 
 .botao-bloquear {
-    background: #e74c3c;
-    color: white;
+    background: var(--gerenciar-bloquear-bg);
+    color: var(--gerenciar-bloquear-texto);
 }
 
-.botao-desbloquear {
-    background: #53ca97;
-    color: #111;
+.botao-bloquear:hover:not(:disabled) {
+    background: var(--gerenciar-bloquear-hover);
 }
+
+/* DESBLOQUEAR */
+
+.botao-desbloquear {
+    background: var(--gerenciar-desbloquear-bg);
+    color: var(--gerenciar-desbloquear-texto);
+
+    border: 1px solid var(--gerenciar-desbloquear-borda);
+}
+
+.botao-desbloquear:hover:not(:disabled) {
+    background: var(--gerenciar-desbloquear-hover);
+}
+
+/* DESABILITADOS */
 
 .botao-bloquear:disabled,
 .botao-desbloquear:disabled {
@@ -135,42 +367,106 @@
     cursor: not-allowed;
 }
 
+/* =========================================
+   MENSAGEM
+========================================= */
+
 .modal-gerenciar-mensagem {
     margin: 12px 20px 0;
-    color: #53ca97;
+
+    color: var(--gerenciar-mensagem);
+
     font-size: 13px;
+    line-height: 1.5;
 }
+
+/* =========================================
+   ESTADO VAZIO
+========================================= */
 
 .modal-gerenciar-vazio {
     text-align: center;
-    color: #999;
+
+    color: var(--gerenciar-vazio);
+
     padding: 35px 10px;
+
     font-size: 14px;
 }
 
+/* =========================================
+   RODAPÉ
+========================================= */
+
 .modal-gerenciar-footer {
     padding: 15px 20px;
+
     display: flex;
     justify-content: flex-end;
-    border-top: 1px solid #303030;
+
+    border-top: 1px solid var(--gerenciar-borda);
+
+    background: var(--gerenciar-footer-bg);
 }
 
 .modal-gerenciar-footer button {
     padding: 10px 20px;
-    background: #303030;
-    color: white;
-    border: none;
+
+    background: var(--gerenciar-footer-botao-bg);
+    color: var(--gerenciar-footer-botao-texto);
+
+    border: 1px solid var(--gerenciar-borda);
     border-radius: 7px;
+
     cursor: pointer;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+
+    transition: background-color 0.2s ease;
 }
+
+.modal-gerenciar-footer button:hover {
+    background: var(--gerenciar-footer-botao-hover);
+}
+
+/* =========================================
+   SCROLLBAR
+========================================= */
+
+.modal-gerenciar-conteudo::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-gerenciar-conteudo::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.modal-gerenciar-conteudo::-webkit-scrollbar-thumb {
+    background: var(--gerenciar-scrollbar);
+    border-radius: 10px;
+}
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
 
 @media (max-width: 480px) {
     .modal-gerenciar {
         max-height: 90vh;
     }
 
+    .modal-gerenciar-header {
+        padding: 18px;
+    }
+
     .modal-gerenciar-header h2 {
         font-size: 18px;
+    }
+
+    .modal-gerenciar-header p {
+        font-size: 12px;
     }
 
     .modal-gerenciar-conteudo {
@@ -181,14 +477,26 @@
         gap: 6px;
     }
 
+    .participante-info {
+        gap: 8px;
+    }
+
     .participante-info img {
         width: 36px;
         height: 36px;
+    }
+
+    .participante-info span {
+        font-size: 13px;
     }
 
     .botao-bloquear,
     .botao-desbloquear {
         padding: 8px;
         font-size: 11px;
+    }
+
+    .modal-gerenciar-footer {
+        padding: 12px;
     }
 }

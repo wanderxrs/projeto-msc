@@ -1,4 +1,7 @@
+ 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
+
 import { FaBell, FaHeart, FaComment } from "react-icons/fa6";
 import { FiX } from "react-icons/fi";
 
@@ -7,11 +10,11 @@ import { carregarNotificacoes } from "../../api";
 import "./modalNotificacoes.css";
 
 function ModalNotificacoes({ onClose }) {
-
     const [notificacoes, setNotificacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
 
+    // Buscar notificações
     useEffect(() => {
         async function buscarNotificacoes() {
             try {
@@ -20,8 +23,9 @@ function ModalNotificacoes({ onClose }) {
 
                 const resposta = await carregarNotificacoes();
 
-                setNotificacoes(resposta.data);
-
+                setNotificacoes(
+                    Array.isArray(resposta.data) ? resposta.data : []
+                );
             } catch (error) {
                 console.error("Erro ao carregar notificações:", error);
                 setErro("Não foi possível carregar as notificações.");
@@ -33,20 +37,27 @@ function ModalNotificacoes({ onClose }) {
         buscarNotificacoes();
     }, []);
 
+    // Fechar com ESC e bloquear rolagem da página
     useEffect(() => {
-        function fecharComEsc(e) {
-            if (e.key === "Escape") {
+        function fecharComEsc(event) {
+            if (event.key === "Escape") {
                 onClose();
             }
         }
+
+        const overflowAnterior = document.body.style.overflow;
+
+        document.body.style.overflow = "hidden";
 
         document.addEventListener("keydown", fecharComEsc);
 
         return () => {
             document.removeEventListener("keydown", fecharComEsc);
+            document.body.style.overflow = overflowAnterior;
         };
     }, [onClose]);
 
+    // Formatar data
     function formatarData(data) {
         if (!data) return "";
 
@@ -65,6 +76,7 @@ function ModalNotificacoes({ onClose }) {
         });
     }
 
+    // Mensagem da notificação
     function mensagemNotificacao(notificacao) {
         if (notificacao.tipo === "curtida") {
             return "curtiu sua publicação.";
@@ -77,6 +89,7 @@ function ModalNotificacoes({ onClose }) {
         return "interagiu com sua publicação.";
     }
 
+    // Ícone da notificação
     function iconeNotificacao(notificacao) {
         if (notificacao.tipo === "curtida") {
             return <FaHeart />;
@@ -89,22 +102,27 @@ function ModalNotificacoes({ onClose }) {
         return <FaBell />;
     }
 
-    return (
+    // Conteúdo do modal
+    const modal = (
         <div
             className="notificacoes-overlay"
             onClick={onClose}
         >
-
             <div
                 className="modal-notificacoes"
-                onClick={(e) => e.stopPropagation()}
+                onClick={(event) => event.stopPropagation()}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="titulo-notificacoes"
             >
-
+                {/* CABEÇALHO */}
                 <div className="notificacoes-cabecalho">
-
                     <div className="notificacoes-titulo">
                         <FaBell />
-                        <h2>Notificações</h2>
+
+                        <h2 id="titulo-notificacoes">
+                            Notificações
+                        </h2>
                     </div>
 
                     <button
@@ -115,27 +133,25 @@ function ModalNotificacoes({ onClose }) {
                     >
                         <FiX />
                     </button>
-
                 </div>
 
+                {/* CONTEÚDO */}
                 <div className="notificacoes-conteudo">
-
                     {carregando ? (
-
-                        <div className="notificacoes-vazias">
-                            <p>Carregando notificações...</p>
-                        </div>
-
-                    ) : erro ? (
-
                         <div className="notificacoes-vazias">
                             <FaBell />
+
+                            <p>Carregando notificações...</p>
+                        </div>
+                    ) : erro ? (
+                        <div className="notificacoes-vazias">
+                            <FaBell />
+
                             <h3>Ops!</h3>
+
                             <p>{erro}</p>
                         </div>
-
                     ) : notificacoes.length === 0 ? (
-
                         <div className="notificacoes-vazias">
                             <FaBell />
 
@@ -146,36 +162,38 @@ function ModalNotificacoes({ onClose }) {
                                 as notificações aparecerão aqui.
                             </p>
                         </div>
-
                     ) : (
-
                         <div className="lista-notificacoes">
-
                             {notificacoes.map((notificacao) => (
-
                                 <div
                                     className="item-notificacao"
                                     key={notificacao.id}
                                 >
-
+                                    {/* FOTO DO USUÁRIO */}
                                     <div className="notificacao-foto">
                                         {notificacao.foto_url ? (
                                             <img
                                                 src={notificacao.foto_url}
-                                                alt={notificacao.nome_usuario}
+                                                alt={
+                                                    notificacao.nome_usuario ||
+                                                    "Foto do usuário"
+                                                }
                                             />
                                         ) : (
                                             <div className="foto-padrao">
-                                                {notificacao.nome_usuario?.charAt(0)?.toUpperCase() || "U"}
+                                                {notificacao.nome_usuario
+                                                    ?.charAt(0)
+                                                    ?.toUpperCase() || "U"}
                                             </div>
                                         )}
                                     </div>
 
+                                    {/* TEXTO */}
                                     <div className="notificacao-texto">
-
                                         <p>
                                             <strong>
-                                                {notificacao.nome_usuario}
+                                                {notificacao.nome_usuario ||
+                                                    "Usuário"}
                                             </strong>{" "}
 
                                             {mensagemNotificacao(notificacao)}
@@ -188,29 +206,27 @@ function ModalNotificacoes({ onClose }) {
                                         )}
 
                                         <small>
-                                            {formatarData(notificacao.data_criacao)}
+                                            {formatarData(
+                                                notificacao.data_criacao
+                                            )}
                                         </small>
-
                                     </div>
 
+                                    {/* ÍCONE */}
                                     <div className="notificacao-icone">
                                         {iconeNotificacao(notificacao)}
                                     </div>
-
                                 </div>
-
                             ))}
-
                         </div>
-
                     )}
-
                 </div>
-
             </div>
-
         </div>
     );
+
+    // Renderiza diretamente no body para evitar problemas de posicionamento
+    return createPortal(modal, document.body);
 }
 
 export default ModalNotificacoes;

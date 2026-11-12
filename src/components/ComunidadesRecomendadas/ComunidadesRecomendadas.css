@@ -1,5 +1,50 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ========================================
+   VARIÁVEIS DO TEMA
+======================================== */
+
+.comunidades-recomendadas {
+    --comunidades-fundo: #1a1a1a;
+    --comunidades-texto: #f5f5f5;
+    --comunidades-texto-secundario: #a3a3a3;
+
+    --comunidades-card: #202020;
+    --comunidades-card-hover: #2b2b2b;
+
+    --comunidades-input: #212121;
+    --comunidades-input-focus: #242424;
+
+    --comunidades-borda: #303030;
+    --comunidades-borda-input: #484848;
+
+    --comunidades-divisoria: #303030;
+
+    --comunidades-scrollbar: #38393a;
+}
+
+/* ========================================
+   MODO CLARO
+======================================== */
+
+[data-theme="light"] .comunidades-recomendadas {
+    --comunidades-fundo: #ffffff;
+    --comunidades-texto: #222222;
+    --comunidades-texto-secundario: #777777;
+
+    --comunidades-card: #f5f5f5;
+    --comunidades-card-hover: #eeeeee;
+
+    --comunidades-input: #f4f4f4;
+    --comunidades-input-focus: #ffffff;
+
+    --comunidades-borda: #e2e2e2;
+    --comunidades-borda-input: #cccccc;
+
+    --comunidades-divisoria: #e5e5e5;
+
+    --comunidades-scrollbar: #c9c9c9;
+}
 
 /* ========================================
    COMUNIDADES RECOMENDADAS
@@ -16,19 +61,24 @@
     box-sizing: border-box;
     padding: 25px 18px;
 
-    background-color: #1a1a1a;
-    color: #f5f5f5;
+    background-color: var(--comunidades-fundo);
+    color: var(--comunidades-texto);
 
     display: flex;
     flex-direction: column;
 
-    border-right: 1px solid #242527;
+    border-right: 1px solid var(--comunidades-borda);
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
 
     font-family: 'Inter', sans-serif;
 
     overflow: hidden;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
 }
 
 /* ========================================
@@ -40,7 +90,7 @@
 
     margin: 0 0 20px;
 
-    color: #f5f5f5;
+    color: var(--comunidades-texto);
 
     font-family: 'Inter', sans-serif;
     font-size: 20px;
@@ -71,7 +121,7 @@
     min-width: 0;
 }
 
-/* Input */
+/* INPUT */
 
 .styled_input_bar {
     display: block;
@@ -83,11 +133,11 @@
 
     padding: 13px 14px;
 
-    border: 1px solid #484848;
+    border: 1px solid var(--comunidades-borda-input);
     border-radius: 24px;
 
-    background-color: #212121;
-    color: #f5f5f5;
+    background-color: var(--comunidades-input);
+    color: var(--comunidades-texto);
 
     font-family: 'Inter', sans-serif;
     font-size: 13px;
@@ -96,19 +146,20 @@
 
     transition:
         border-color 0.2s ease,
-        background-color 0.2s ease;
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .styled_input_bar:focus {
     border-color: #a3a3a3;
-    background-color: #242424;
+    background-color: var(--comunidades-input-focus);
 }
 
 .styled_input_bar::placeholder {
-    color: #888;
+    color: var(--comunidades-texto-secundario);
 }
 
-/* Label flutuante */
+/* LABEL FLUTUANTE */
 
 .input-label {
     position: absolute;
@@ -120,7 +171,7 @@
 
     padding: 0 3px;
 
-    color: #999;
+    color: var(--comunidades-texto-secundario);
     background-color: transparent;
 
     font-family: 'Inter', sans-serif;
@@ -140,8 +191,8 @@
 
     padding: 0 5px;
 
-    background-color: #212121;
-    color: #f5f5f5;
+    background-color: var(--comunidades-input);
+    color: var(--comunidades-texto);
 
     font-size: 10px;
 }
@@ -157,11 +208,11 @@
 
     padding: 11px 14px;
 
-    border: 1px solid #414141;
+    border: 1px solid var(--comunidades-borda-input);
     border-radius: 24px;
 
-    background-color: #252525;
-    color: #f5f5f5;
+    background-color: var(--comunidades-card);
+    color: var(--comunidades-texto);
 
     font-family: 'Inter', sans-serif;
     font-size: 12px;
@@ -176,7 +227,8 @@
 
     transition:
         background-color 0.2s ease,
-        border-color 0.2s ease;
+        border-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .boton-elegante::after {
@@ -187,8 +239,8 @@
 
     background: radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.15) 0%,
-        rgba(255, 255, 255, 0) 70%
+        rgba(128, 128, 128, 0.15) 0%,
+        rgba(128, 128, 128, 0) 70%
     );
 
     transform: scale(0);
@@ -199,8 +251,8 @@
 }
 
 .boton-elegante:hover {
-    border-color: #666;
-    background-color: #303030;
+    border-color: #888888;
+    background-color: var(--comunidades-card-hover);
 }
 
 .boton-elegante:hover::after {
@@ -209,7 +261,7 @@
 
 .boton-elegante:focus-visible,
 .styled_input_bar:focus-visible {
-    outline: 2px solid #aaa;
+    outline: 2px solid #999999;
     outline-offset: 2px;
 }
 
@@ -228,10 +280,12 @@
     padding-right: 6px;
 
     scrollbar-width: thin;
-    scrollbar-color: #38393a #1a1a1a;
+    scrollbar-color:
+        var(--comunidades-scrollbar)
+        var(--comunidades-fundo);
 }
 
-/* Item da comunidade */
+/* ITEM DA COMUNIDADE */
 
 .item-comunidade {
     display: flex;
@@ -239,30 +293,47 @@
 
     gap: 13px;
 
-    padding: 12px;
-    margin-bottom: 6px;
+    padding: 14px 12px;
+    margin: 0;
 
-    border-radius: 10px;
+    border-radius: 0;
 
-    color: #f5f5f5;
+    border-bottom: 1px solid var(--comunidades-divisoria);
+
+    color: var(--comunidades-texto);
 
     font-family: 'Inter', sans-serif;
 
     cursor: pointer;
 
-    transition: background-color 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
+
+/* Remove a linha do último item */
+
+.item-comunidade:last-child {
+    border-bottom: none;
+}
+
+/* HOVER */
 
 .item-comunidade:hover {
-    background-color: #2b2b2b;
+    background-color: var(--comunidades-card-hover);
+    border-radius: 8px;
 }
 
+/* ACESSIBILIDADE */
+
 .item-comunidade:focus-visible {
-    outline: 2px solid #aaa;
+    outline: 2px solid #999999;
     outline-offset: -2px;
 }
 
-/* Imagem da comunidade */
+/* ========================================
+   IMAGEM DA COMUNIDADE
+======================================== */
 
 .imagem_rec_comunidades {
     flex-shrink: 0;
@@ -274,17 +345,19 @@
 
     object-fit: cover;
 
-    background-color: #303030;
+    background-color: var(--comunidades-card-hover);
 }
 
-/* Nome da comunidade */
+/* ========================================
+   NOME DA COMUNIDADE
+======================================== */
 
 .item-comunidade p {
     min-width: 0;
 
     margin: 0;
 
-    color: #e5e5e5;
+    color: var(--comunidades-texto);
 
     font-family: 'Inter', sans-serif;
     font-size: 13px;
@@ -295,12 +368,14 @@
     overflow-wrap: anywhere;
 }
 
-/* Mensagem de lista vazia */
+/* ========================================
+   MENSAGEM DE LISTA VAZIA
+======================================== */
 
 .lista-comunidades > p {
     margin: 10px 4px;
 
-    color: #a3a3a3;
+    color: var(--comunidades-texto-secundario);
 
     font-family: 'Inter', sans-serif;
     font-size: 13px;
@@ -317,16 +392,16 @@
 }
 
 .lista-comunidades::-webkit-scrollbar-track {
-    background-color: #1a1a1a;
+    background-color: var(--comunidades-fundo);
 }
 
 .lista-comunidades::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #38393a;
+    background-color: var(--comunidades-scrollbar);
 }
 
 .lista-comunidades::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
+    background-color: #888888;
 }
 
 /* ========================================
@@ -427,7 +502,7 @@
     }
 
     .item-comunidade {
-        padding: 12px 10px;
+        padding: 13px 10px;
 
         gap: 12px;
     }
@@ -462,7 +537,7 @@
     }
 
     .item-comunidade {
-        padding: 10px 8px;
+        padding: 11px 8px;
     }
 
     .imagem_rec_comunidades {

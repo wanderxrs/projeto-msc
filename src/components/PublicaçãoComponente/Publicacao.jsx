@@ -18,7 +18,7 @@ function Publicacao({
 }) {
     const navigate = useNavigate();
 
-    // Identifica vídeos mesmo quando a API não informa o tipo.
+    // Identifica se a mídia da publicação é um vídeo.
     function ehVideo() {
         if (publicacao.tipo_midia) {
             return publicacao.tipo_midia.toLowerCase() === "video";
@@ -32,8 +32,8 @@ function Publicacao({
         );
     }
 
-    const mostrarExclusao =
-        podeExcluir ?? publicacao.eh_dono;
+    // Verifica se o usuário pode excluir a publicação.
+    const mostrarExclusao = podeExcluir ?? publicacao.eh_dono;
 
     // Abre o perfil do autor da publicação.
     function abrirPerfil() {
@@ -72,6 +72,7 @@ function Publicacao({
 
                 </div>
 
+                {/* Opções de exclusão */}
                 {mostrarExclusao && (
                     <button
                         type="button"
@@ -83,7 +84,6 @@ function Publicacao({
                             padding: 0,
                             height: "auto",
                             marginLeft: "auto",
-                            color: "white",
                             border: "none"
                         }}
                     >
@@ -105,16 +105,14 @@ function Publicacao({
             <strong
                 className="Nome-comunidade-feed"
                 onClick={() =>
-                    navigate(
-                        `/comunidade/${publicacao.comunidade_id}`
-                    )
+                    navigate(`/comunidade/${publicacao.comunidade_id}`)
                 }
                 style={{ cursor: "pointer" }}
             >
                 {publicacao.nome_comunidade}
             </strong>
 
-            {/* Imagem ou vídeo (opcional) */}
+            {/* Imagem ou vídeo */}
             {publicacao.imagem_url && (
                 <div className="midia-container">
 
@@ -143,6 +141,7 @@ function Publicacao({
             {/* Curtidas e comentários */}
             <div className="area-curtida">
 
+                {/* Botão de curtir */}
                 <button
                     type="button"
                     className="botao-curtida"
@@ -162,23 +161,19 @@ function Publicacao({
                         }
                     >
                         {curtido ? (
-                            <PiHeartStraightFill
-                                color="white"
-                                fontSize={30}
-                            />
+                            <PiHeartStraightFill fontSize={30} />
                         ) : (
-                            <PiHeartStraight
-                                color="white"
-                                fontSize={30}
-                            />
+                            <PiHeartStraight fontSize={30} />
                         )}
                     </span>
                 </button>
 
+                {/* Quantidade de curtidas */}
                 <span className="quantidade-curtidas">
                     {Number(publicacao.total_curtidas) || 0}
                 </span>
 
+                {/* Botão de comentários */}
                 <button
                     type="button"
                     className="botao-comentar"
@@ -187,12 +182,10 @@ function Publicacao({
                     }
                     aria-label="Ver comentários"
                 >
-                    <VscCommentCompact
-                        fontSize={26}
-                        color="white"
-                    />
+                    <VscCommentCompact fontSize={26} />
                 </button>
 
+                {/* Quantidade de comentários */}
                 {Number(publicacao.total_comentarios) || 0}
 
             </div>

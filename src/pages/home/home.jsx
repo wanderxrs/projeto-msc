@@ -221,9 +221,7 @@ function Home() {
 
                 {/* CONTEÚDO CENTRAL */}
                 <main className="conteudo-central">
-
-                    <h1>Feed inicial</h1>
-
+                    
                     {/* ABAS DO FEED */}
                     <div className="abas-feed">
 

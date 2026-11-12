@@ -1,35 +1,82 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* ========================================
+   VARIÁVEIS DE TEMA
+======================================== */
+
 .letras-publicas {
+    --letras-texto: #f5f5f5;
+    --letras-texto-secundario: #aaa;
+    --letras-texto-fraco: #999;
+
+    --letras-fundo: #1a1a1a;
+    --letras-fundo-card: #1a1a1a;
+    --letras-fundo-input: #1a1a1a;
+    --letras-fundo-hover: #252525;
+    --letras-fundo-avatar: #202020;
+
+    --letras-borda: #303030;
+    --letras-borda-hover: #454545;
+
+    --letras-acento: #53ca97;
+
+    --letras-botao-fundo: #29212f;
+    --letras-botao-borda: #59416e;
+    --letras-botao-texto: #d8b4fe;
+    --letras-botao-hover: #392846;
+
+    --letras-scrollbar: #59416e;
+
     width: 90%;
     max-width: 1000px;
     min-height: 100vh;
     margin: 100px auto 30px;
     padding-bottom: 40px;
-    color: #f5f5f5;
+
+    color: var(--letras-texto);
     font-family: 'Inter', sans-serif;
+
     box-sizing: border-box;
 }
+
+/* ========================================
+   TEMA CLARO
+======================================== */
+
+:root[data-theme="light"] .letras-publicas {
+    --letras-texto: #1f1f1f;
+    --letras-texto-secundario: #737373;
+    --letras-texto-fraco: #888;
+
+    --letras-fundo: #ffffff;
+    --letras-fundo-card: #ffffff;
+    --letras-fundo-input: #ffffff;
+    --letras-fundo-hover: #f5f5f5;
+    --letras-fundo-avatar: #eeeeee;
+
+    --letras-borda: #e5e5e5;
+    --letras-borda-hover: #d4d4d4;
+
+    --letras-acento: #16865c;
+
+    --letras-botao-fundo: #f3e8ff;
+    --letras-botao-borda: #d8b4fe;
+    --letras-botao-texto: #7e22ce;
+    --letras-botao-hover: #e9d5ff;
+
+    --letras-scrollbar: #c084fc;
+}
+
+/* BOX SIZING */
 
 .letras-publicas * {
     box-sizing: border-box;
 }
 
-/* TÍTULO E DESCRIÇÃO */
-
-.letras-publicas > h1 {
-    margin: 0 0 8px;
-    color: #fff;
-    font-size: 26px;
-}
-
-.letras-publicas > .descricao-letras {
-    margin: 0;
-    color: #aaa;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* CABEÇALHO */
+/* ========================================
+   CABEÇALHO
+======================================== */
 
 .cabecalho-letras {
     display: flex;
@@ -39,23 +86,44 @@
     flex-wrap: wrap;
 }
 
-/* BOTÃO MINHAS COMPOSIÇÕES */
+.cabecalho-letras h1 {
+    margin: 0 0 8px;
+    color: var(--letras-texto);
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.descricao-letras {
+    margin: 0;
+    color: var(--letras-texto-secundario);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ========================================
+   BOTÃO MINHAS COMPOSIÇÕES
+======================================== */
 
 .letras-publicas .botao-minhas-composicoes {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 9px;
+
     margin-top: 18px;
     padding: 11px 16px;
-    background: #29212f;
-    border: 1px solid #59416e;
+
+    background: var(--letras-botao-fundo);
+    border: 1px solid var(--letras-botao-borda);
     border-radius: 8px;
-    color: #d8b4fe;
-    font-family: 'Inter', sans-serif;
+
+    color: var(--letras-botao-texto);
+    font-family: inherit;
     font-size: 13px;
     font-weight: 600;
+
     cursor: pointer;
+
     transition: all 0.2s ease;
 }
 
@@ -64,37 +132,43 @@
 }
 
 .letras-publicas .botao-minhas-composicoes:hover {
-    background: #392846;
-    border-color: #a855f7;
-    color: #fff;
+    background: var(--letras-botao-hover);
+    border-color: var(--letras-acento);
+    color: var(--letras-texto);
     transform: translateY(-1px);
 }
 
-/* BARRA DE PESQUISA */
+/* ========================================
+   BARRA DE PESQUISA
+======================================== */
 
 .pesquisa-letras {
     display: flex;
     align-items: center;
     gap: 12px;
+
     width: 100%;
     max-width: 500px;
     height: 48px;
+
     margin-top: 25px;
     padding: 0 15px;
-    background: #1a1a1a;
-    border: 1px solid #303030;
+
+    background: var(--letras-fundo-input);
+    border: 1px solid var(--letras-borda);
     border-radius: 10px;
+
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .pesquisa-letras:focus-within {
-    border-color: #53ca97;
+    border-color: var(--letras-acento);
     box-shadow: 0 0 0 2px rgba(83, 202, 151, 0.12);
 }
 
 .icone-pesquisa-letras {
     flex-shrink: 0;
-    color: #53ca97;
+    color: var(--letras-acento);
     font-size: 20px;
 }
 
@@ -102,69 +176,92 @@
     flex: 1;
     width: 100%;
     height: 100%;
+
     background: transparent;
     border: none;
     outline: none;
-    color: #fff;
+
+    color: var(--letras-texto);
     font-family: inherit;
     font-size: 14px;
 }
 
 .pesquisa-letras input::placeholder {
-    color: #888;
+    color: var(--letras-texto-fraco);
 }
 
 .limpar-pesquisa-letras {
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 5px;
+
     background: transparent;
     border: none;
-    color: #999;
+
+    color: var(--letras-texto-secundario);
     cursor: pointer;
     font-size: 20px;
 }
 
 .limpar-pesquisa-letras:hover {
-    color: #53ca97;
+    color: var(--letras-acento);
 }
 
-/* LISTA DE LETRAS */
+/* ========================================
+   LISTA DE LETRAS
+======================================== */
 
 .lista-letras-publicas {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 16px;
+
     margin-top: 24px;
     align-items: start;
 }
 
-/* CARD DE CADA LETRA */
+/* ========================================
+   CARD DE CADA LETRA
+======================================== */
 
 .card-letra-publica {
     min-width: 0;
     padding: 16px;
-    background: #1a1a1a;
-    border: 1px solid #303030;
+
+    background: var(--letras-fundo-card);
+    border: 1px solid var(--letras-borda);
     border-radius: 10px;
+
+    transition: border-color 0.2s ease;
 }
 
-/* AUTOR CLICÁVEL */
+.card-letra-publica:hover {
+    border-color: var(--letras-borda-hover);
+}
+
+/* ========================================
+   AUTOR CLICÁVEL
+======================================== */
 
 .card-letra-publica .autor-letra-publica {
     display: flex;
     align-items: center;
     gap: 12px;
+
     width: 100%;
     margin-bottom: 20px;
     padding: 0;
+
     background: transparent;
     border: none;
     border-radius: 6px;
+
     color: inherit;
     font-family: inherit;
     text-align: left;
+
     cursor: pointer;
     transition: opacity 0.2s;
 }
@@ -177,7 +274,7 @@
 }
 
 .card-letra-publica .autor-letra-publica:focus-visible {
-    outline: 2px solid #53ca97;
+    outline: 2px solid var(--letras-acento);
     outline-offset: 4px;
 }
 
@@ -186,97 +283,126 @@
     opacity: 1;
 }
 
-/* FOTO DO AUTOR */
+/* ========================================
+   FOTO DO AUTOR
+======================================== */
 
 .foto-autor-letra {
     width: 45px;
     height: 45px;
     min-width: 45px;
+
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #53ca97;
+
+    border: 2px solid var(--letras-acento);
 }
 
 .foto-autor-fallback {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #202020;
-    color: #53ca97;
+
+    background: var(--letras-fundo-avatar);
+    color: var(--letras-acento);
+
     font-size: 18px;
     font-weight: bold;
 }
 
-/* DADOS DO AUTOR */
+/* ========================================
+   DADOS DO AUTOR
+======================================== */
 
 .dados-autor-letra {
     display: flex;
     flex-direction: column;
     gap: 4px;
+
+    min-width: 0;
 }
 
 .nome-autor-letra {
-    color: #ffffff;
+    color: var(--letras-texto);
     font-size: 15px;
     font-weight: 600;
 }
 
 .legenda-autor-letra {
-    color: #999999;
+    color: var(--letras-texto-secundario);
     font-size: 12px;
 }
 
-/* TÍTULO DA MÚSICA */
+/* ========================================
+   TÍTULO DA MÚSICA
+======================================== */
 
 .card-letra-publica h2 {
     margin: 0 0 8px;
-    color: #f5f5f5;
+
+    color: var(--letras-texto);
     font-size: 16px;
     line-height: 1.5;
+
     overflow-wrap: anywhere;
 }
 
-/* ESTILO MUSICAL */
+/* ========================================
+   ESTILO MUSICAL
+======================================== */
 
 .estilo-letra-publica {
     margin: 0 0 14px;
-    color: #aaa;
+
+    color: var(--letras-texto-secundario);
     font-size: 12px;
 }
 
-/* BOTÃO PARA MOSTRAR A LETRA */
+/* ========================================
+   BOTÃO VER / OCULTAR LETRA
+======================================== */
 
 .card-letra-publica > button:not(.autor-letra-publica) {
     padding: 8px 12px;
-    background: #29212f;
-    border: 1px solid #59416e;
+
+    background: var(--letras-botao-fundo);
+    border: 1px solid var(--letras-botao-borda);
     border-radius: 6px;
-    color: #d8b4fe;
+
+    color: var(--letras-botao-texto);
     font-family: inherit;
     font-size: 12px;
     font-weight: 600;
+
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .card-letra-publica > button:not(.autor-letra-publica):hover {
-    background: #392846;
-    border-color: #a855f7;
-    color: #fff;
+    background: var(--letras-botao-hover);
+    border-color: var(--letras-acento);
+    color: var(--letras-texto);
 }
 
-/* LETRA COMPLETA */
+/* ========================================
+   LETRA COMPLETA
+======================================== */
 
 .conteudo-letra-publica {
     max-height: 280px;
+
     margin: 14px 0 0;
     padding: 14px 8px 4px 0;
+
     overflow-y: auto;
-    border-top: 1px solid #383838;
-    color: #ddd;
+
+    border-top: 1px solid var(--letras-borda);
+
+    color: var(--letras-texto);
     font-family: inherit;
     font-size: 13px;
     line-height: 1.8;
+
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
@@ -288,35 +414,41 @@
 }
 
 .conteudo-letra-publica::-webkit-scrollbar-thumb {
-    background: #59416e;
+    background: var(--letras-scrollbar);
     border-radius: 5px;
 }
 
 .conteudo-letra-publica::-webkit-scrollbar-track {
-    background: #1a1a1a;
+    background: var(--letras-fundo-card);
 }
 
-/* MENSAGENS */
+/* ========================================
+   MENSAGENS
+======================================== */
 
 .erro-letras,
 .vazio-letras {
     margin-top: 24px;
     padding: 14px;
-    background: #1a1a1a;
-    border: 1px solid #303030;
+
+    background: var(--letras-fundo-card);
+    border: 1px solid var(--letras-borda);
     border-radius: 8px;
+
     font-size: 13px;
 }
 
 .erro-letras {
-    color: #fca5a5;
+    color: #f87171;
 }
 
 .vazio-letras {
-    color: #aaa;
+    color: var(--letras-texto-secundario);
 }
 
-/* TABLETS */
+/* ========================================
+   TABLETS
+======================================== */
 
 @media (max-width: 900px) {
     .lista-letras-publicas {
@@ -324,7 +456,9 @@
     }
 }
 
-/* CELULARES */
+/* ========================================
+   CELULARES
+======================================== */
 
 @media (max-width: 600px) {
     .letras-publicas {
@@ -332,12 +466,12 @@
         margin-top: 20px;
     }
 
-    .letras-publicas > h1 {
-        font-size: 22px;
-    }
-
     .cabecalho-letras {
         align-items: flex-start;
+    }
+
+    .cabecalho-letras h1 {
+        font-size: 22px;
     }
 
     .botao-minhas-composicoes {
@@ -361,5 +495,17 @@
 
     .conteudo-letra-publica {
         max-height: 250px;
+    }
+}
+
+/* ========================================
+   REDUZIR ANIMAÇÕES
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .card-letra-publica,
+    .botao-minhas-composicoes,
+    .card-letra-publica button {
+        transition: none;
     }
 }

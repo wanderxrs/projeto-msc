@@ -28,7 +28,6 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
 
         try {
             const resposta = await comunidadesUsuarioDono();
-
             const dados = resposta.data;
 
             const lista = Array.isArray(dados)
@@ -59,7 +58,6 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
         }
     }, [isOpen]);
 
-    // Abre o perfil da comunidade ao clicar no card
     function abrirComunidade(comunidade) {
         const comunidadeId =
             comunidade.id ?? comunidade.comunidade_id;
@@ -70,7 +68,6 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
         }
 
         onClose();
-
         navigate(`/comunidade/${comunidadeId}`);
     }
 
@@ -201,9 +198,7 @@ function MinhasComunidadesModal({ isOpen, onClose }) {
                                         comunidade.id ??
                                         comunidade.comunidade_id
                                     }
-                                    onClick={() =>
-                                        abrirComunidade(comunidade)
-                                    }
+                                    onClick={() => abrirComunidade(comunidade)}
                                     onKeyDown={(e) => {
                                         if (
                                             e.target === e.currentTarget &&

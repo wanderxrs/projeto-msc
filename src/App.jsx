@@ -1,26 +1,49 @@
+
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./pages/auth/login";
 import Registro from "./pages/auth/registro";
 import Recuperacao from "./pages/auth/recuperacao";
 import ConfirmarCodigo from "./pages/auth/confirmarCodigo";
 import MudarSenha from "./pages/auth/mudarSenha";
 import MudarSenhaPerfil from "./pages/auth/mudarSenhaPerfil";
+import ConfirmarSenha from "./pages/auth/confirmarSenha";
+
 import Home from "./pages/home/home";
 import Comentarios from "./pages/comentarios/comentarios";
-import Header from "./components/Header/header";
-import ConfirmarSenha from "./pages/auth/confirmarSenha";
 import ComunidadeTela from "./pages/comunidadeTela/ComunidadeTela";
 import Perfil from "./pages/perfil/perfil";
 import AlbunsAvaliados from "./pages/albunsAvaliados/albunsAvaliados";
 import LetrasPublicas from "./pages/letras/LetrasPublicas";
 import ParticipandoComunidade from "./pages/ParticipandoComunidade/ParticipandoComunidade";
 
+import Header from "./components/Header/header";
+
 function App() {
+    // Recupera o tema salvo no navegador.
+    const [tema, setTema] = useState(() => {
+        return localStorage.getItem("tema") || "dark";
+    });
+
+    // Aplica e salva o tema selecionado.
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", tema);
+        localStorage.setItem("tema", tema);
+    }, [tema]);
+
+    // Alterna entre modo escuro e claro.
+    function alternarTema() {
+        setTema((temaAtual) =>
+            temaAtual === "dark" ? "light" : "dark"
+        );
+    }
+
     return (
         <BrowserRouter>
-
             <Routes>
                 <Route path="/" element={<Navigate to="/login" />} />
+
                 <Route path="/login" element={<Login />} />
                 <Route path="/registro" element={<Registro />} />
                 <Route path="/Recuperacao" element={<Recuperacao />} />
@@ -29,18 +52,40 @@ function App() {
                 <Route path="/mudar-senha-perfil" element={<MudarSenhaPerfil />} />
                 <Route path="/confirmar-senha" element={<ConfirmarSenha />} />
 
-                <Route path="/comunidade/:id" element={<>
-                    <Header />
-                    <ComunidadeTela />
-                    </>} />
+                <Route
+                    path="/comunidade/:id"
+                    element={
+                        <>
+                            <Header
+                                tema={tema}
+                                onAlternarTema={alternarTema}
+                            />
+                            <ComunidadeTela />
+                        </>
+                    }
+                />
 
-                <Route path="/home" element={<> <Header /> <Home /> </>} />
+                <Route
+                    path="/home"
+                    element={
+                        <>
+                            <Header
+                                tema={tema}
+                                onAlternarTema={alternarTema}
+                            />
+                            <Home />
+                        </>
+                    }
+                />
 
                 <Route
                     path="/comentarios/:publicacao_id"
                     element={
                         <>
-                            <Header />
+                            <Header
+                                tema={tema}
+                                onAlternarTema={alternarTema}
+                            />
                             <Comentarios />
                         </>
                     }
@@ -50,17 +95,23 @@ function App() {
                     path="/perfil/:id"
                     element={
                         <>
-                            <Header />
+                            <Header
+                                tema={tema}
+                                onAlternarTema={alternarTema}
+                            />
                             <Perfil />
                         </>
                     }
                 />
-                
+
                 <Route
                     path="/albuns-avaliados"
                     element={
                         <>
-                            <Header />
+                            <Header
+                                tema={tema}
+                                onAlternarTema={alternarTema}
+                            />
                             <AlbunsAvaliados />
                         </>
                     }
@@ -70,22 +121,27 @@ function App() {
                     path="/participandoComunidade/:id"
                     element={
                         <>
-                            <Header />
+                            <Header
+                                tema={tema}
+                                onAlternarTema={alternarTema}
+                            />
                             <ParticipandoComunidade />
                         </>
                     }
                 />
 
                 <Route
-                     path="/letras-publicas"
+                    path="/letras-publicas"
                     element={
                         <>
-                            <Header />
+                            <Header
+                                tema={tema}
+                                onAlternarTema={alternarTema}
+                            />
                             <LetrasPublicas />
-                        </> 
+                        </>
                     }
                 />
-
             </Routes>
         </BrowserRouter>
     );

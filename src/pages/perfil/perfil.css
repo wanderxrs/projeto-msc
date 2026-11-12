@@ -1,19 +1,83 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* CONFIGURAÇÕES GERAIS */
+/* ========================================
+   VARIÁVEIS DE TEMA
+======================================== */
+
+:root {
+    --perfil-texto: #f5f5f5;
+    --perfil-texto-secundario: #aaa;
+    --perfil-texto-descricao: #d0d0d0;
+    --perfil-texto-comunidade: #b8b8b8;
+
+    --perfil-fundo-card: #1a1a1a;
+    --perfil-fundo-secundario: #202020;
+    --perfil-fundo-hover: #242424;
+    --perfil-fundo-botao: #171717;
+    --perfil-fundo-placeholder: #292929;
+
+    --perfil-borda: #292929;
+    --perfil-borda-secundaria: #303030;
+    --perfil-borda-forte: #383838;
+
+    --perfil-roxo: #c084fc;
+    --perfil-roxo-ativo: #a855f7;
+    --perfil-roxo-hover: #8054a8;
+    --perfil-roxo-fundo: #29232f;
+    --perfil-roxo-borda: #493653;
+
+    --perfil-borda-foto: #111;
+}
+
+/* ========================================
+   TEMA CLARO
+======================================== */
+
+:root[data-theme="light"] {
+    --perfil-texto: #1f1f1f;
+    --perfil-texto-secundario: #737373;
+    --perfil-texto-descricao: #525252;
+    --perfil-texto-comunidade: #525252;
+
+    --perfil-fundo-card: #ffffff;
+    --perfil-fundo-secundario: #f5f5f5;
+    --perfil-fundo-hover: #eeeeee;
+    --perfil-fundo-botao: #ffffff;
+    --perfil-fundo-placeholder: #e5e5e5;
+
+    --perfil-borda: #e5e5e5;
+    --perfil-borda-secundaria: #dedede;
+    --perfil-borda-forte: #d4d4d4;
+
+    --perfil-roxo: #9333ea;
+    --perfil-roxo-ativo: #9333ea;
+    --perfil-roxo-hover: #7e22ce;
+    --perfil-roxo-fundo: #f3e8ff;
+    --perfil-roxo-borda: #d8b4fe;
+
+    --perfil-borda-foto: #ffffff;
+}
+
+/* ========================================
+   CONFIGURAÇÕES GERAIS
+======================================== */
+
 .perfil-page {
     min-height: 100vh;
-    padding: 20px 0 40px;
-    color: #f5f5f5;
+    padding: 100px 0 40px;
+    color: var(--perfil-texto);
     font-family: 'Inter', sans-serif;
-    padding-top: 100px
 }
 
 .perfil-page * {
     box-sizing: border-box;
 }
 
-/* CABEÇALHO DO PERFIL */
+/* ========================================
+   CABEÇALHO DO PERFIL
+======================================== */
+
 .perfil-header {
     position: relative;
     width: 90%;
@@ -21,8 +85,9 @@
     min-height: 250px;
     margin: auto;
     overflow: hidden;
-    background: #1a1a1a;
-    border: 1px solid #292929;
+
+    background: var(--perfil-fundo-card);
+    border: 1px solid var(--perfil-borda);
     border-radius: 12px;
 }
 
@@ -30,9 +95,11 @@
     position: absolute;
     top: 0;
     left: 0;
+
     width: 100%;
     height: 155px;
-    background-color: #202020;
+
+    background-color: var(--perfil-fundo-secundario);
     background-size: cover;
     background-position: center;
 }
@@ -41,14 +108,20 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(transparent, #1a1a1a);
+
+    background: linear-gradient(
+        transparent,
+        var(--perfil-fundo-card)
+    );
 }
 
 .perfil-identidade {
     position: relative;
+
     display: flex;
     align-items: flex-start;
     gap: 16px;
+
     min-height: 250px;
     padding: 62px 28px 18px;
 }
@@ -57,10 +130,12 @@
     width: 104px;
     height: 104px;
     flex-shrink: 0;
-    border: 3px solid #111;
+
+    border: 3px solid var(--perfil-borda-foto);
     border-radius: 50%;
+
     object-fit: cover;
-    background: #202020;
+    background: var(--perfil-fundo-secundario);
 }
 
 .perfil-dados {
@@ -71,21 +146,24 @@
 
 .perfil-nome {
     margin: 0;
+    color: var(--perfil-texto);
     font-size: 24px;
 }
 
 .perfil-usuario-nome {
     margin: 3px 0;
-    color: #aaa;
+    color: var(--perfil-texto-secundario);
     font-size: 13px;
 }
 
 .perfil-descricao {
     margin: 8px 0;
-    color: #d0d0d0;
+    color: var(--perfil-texto-descricao);
     font-size: 13px;
     overflow-wrap: anywhere;
 }
+
+/* ESTATÍSTICAS */
 
 .perfil-estatisticas {
     display: flex;
@@ -101,67 +179,88 @@
 }
 
 .perfil-estatisticas strong {
+    color: var(--perfil-texto);
     font-size: 15px;
 }
 
 .perfil-estatisticas span {
-    color: #aaa;
+    color: var(--perfil-texto-secundario);
     font-size: 11px;
 }
+
+/* BOTÃO DE OPÇÕES */
 
 .perfil-opcoes {
     width: 36px;
     height: 36px;
     margin-top: 72px;
-    background: #171717;
-    border: 1px solid #383838;
+
+    background: var(--perfil-fundo-botao);
+    border: 1px solid var(--perfil-borda-forte);
     border-radius: 8px;
-    color: #eee;
+
+    color: var(--perfil-texto);
     font-size: 21px;
     cursor: pointer;
+
+    transition: background-color 0.2s ease;
 }
 
 .perfil-opcoes:hover {
-    background: #303030;
+    background: var(--perfil-fundo-hover);
 }
 
-/* ABAS DO PERFIL */
+/* ========================================
+   ABAS DO PERFIL
+======================================== */
+
 .perfil-abas {
     display: flex;
     gap: 8px;
+
     width: 90%;
     max-width: 1000px;
     margin: 8px auto 0;
-    border-bottom: 1px solid #292929;
+
+    border-bottom: 1px solid var(--perfil-borda);
     overflow-x: auto;
 }
 
 .perfil-aba {
     padding: 14px 18px;
+
     background: transparent;
     border: none;
     border-bottom: 2px solid transparent;
-    color: #aaa;
+
+    color: var(--perfil-texto-secundario);
     font-family: inherit;
     font-size: 13px;
+
     cursor: pointer;
     white-space: nowrap;
+
+    transition: color 0.2s ease;
 }
 
 .perfil-aba:hover {
-    color: #fff;
+    color: var(--perfil-texto);
 }
 
 .perfil-aba.ativa {
-    color: #fff;
-    border-bottom-color: #a855f7;
+    color: var(--perfil-texto);
+    border-bottom-color: var(--perfil-roxo-ativo);
 }
 
-/* ÁREA DE PUBLICAÇÕES */
+/* ========================================
+   ÁREA DE PUBLICAÇÕES
+======================================== */
+
 .perfil-publicacoes {
     display: flex;
     flex-direction: column;
     gap: 20px;
+
     width: 90%;
     max-width: 600px;
     margin: 24px auto;
@@ -171,52 +270,172 @@
 .perfil-conteudo-aba h2,
 .perfil-avaliacoes h2 {
     margin-top: 0;
-    color: #f5f5f5;
+    color: var(--perfil-texto);
     font-size: 20px;
 }
 
 .perfil-publicacoes > p {
-    color: #aaa;
+    color: var(--perfil-texto-secundario);
     font-size: 13px;
 }
 
-/* COMUNIDADES */
+/* ========================================
+   PAINÉIS DE CONTEÚDO
+   COMUNIDADES E AVALIAÇÕES
+======================================== */
+
 .perfil-conteudo-aba,
 .perfil-avaliacoes {
     width: 90%;
     max-width: 1000px;
     margin: 24px auto;
     padding: 20px;
-    background: #1a1a1a;
-    border: 1px solid #292929;
+
+    background: var(--perfil-fundo-card);
+    border: 1px solid var(--perfil-borda);
     border-radius: 12px;
 }
 
 .perfil-conteudo-aba p,
 .perfil-avaliacoes > p {
-    color: #aaa;
+    color: var(--perfil-texto-secundario);
     font-size: 13px;
 }
 
+/* ========================================
+   LISTA DE COMUNIDADES DO PERFIL
+======================================== */
+
 .perfil-comunidades-lista {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    margin-top: 20px;
+    gap: 0;
 }
+
+/* CADA COMUNIDADE */
 
 .perfil-comunidade-card {
-    padding: 14px;
-    background: #202020;
-    border: 1px solid #303030;
-    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    width: 100%;
+    min-width: 0;
+    padding: 18px 12px;
+
+    box-sizing: border-box;
+
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--perfil-borda-secundaria);
+    border-radius: 0;
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.perfil-comunidade-card h3 {
-    margin-top: 0;
-    font-size: 14px;
+.perfil-comunidade-card:first-child {
+    padding-top: 8px;
 }
 
-/* ÁLBUNS AVALIADOS */
+.perfil-comunidade-card:last-child {
+    border-bottom: none;
+    padding-bottom: 8px;
+}
+
+.perfil-comunidade-card:hover {
+    background-color: var(--perfil-fundo-hover);
+}
+
+.perfil-comunidade-card:focus-visible {
+    outline: 2px solid var(--perfil-roxo-ativo);
+    outline-offset: -2px;
+}
+
+/* IMAGEM DA COMUNIDADE */
+
+.perfil-comunidade-imagem {
+    width: 82px;
+    height: 82px;
+    flex-shrink: 0;
+
+    object-fit: cover;
+    display: block;
+
+    border-radius: 12px;
+    border: 1px solid var(--perfil-borda-forte);
+}
+
+/* INFORMAÇÕES DA COMUNIDADE */
+
+.perfil-comunidade-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    flex: 1;
+    min-width: 0;
+
+    font-family: 'Inter', sans-serif;
+    text-align: left;
+}
+
+/* NOME */
+
+.perfil-comunidade-info h3 {
+    margin: 0;
+
+    color: var(--perfil-texto);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+/* GÊNERO MUSICAL */
+
+.perfil-comunidade-info span {
+    color: var(--perfil-roxo);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* QUANTIDADE DE MEMBROS */
+
+.perfil-comunidade-info p {
+    margin: 0;
+
+    color: var(--perfil-texto-secundario);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* DESCRIÇÃO DA COMUNIDADE */
+
+.perfil-comunidade-info p:last-child {
+    color: var(--perfil-texto-comunidade);
+    font-size: 13px;
+    line-height: 1.5;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   ÁLBUNS AVALIADOS
+======================================== */
+
 .perfil-avaliacoes h2 {
     margin-bottom: 18px;
 }
@@ -230,21 +449,26 @@
 .perfil-avaliacao-card {
     min-width: 0;
     padding: 10px;
-    background: #202020;
-    border: 1px solid #303030;
+
+    background: var(--perfil-fundo-secundario);
+    border: 1px solid var(--perfil-borda-secundaria);
     border-radius: 8px;
+
+    transition: border-color 0.2s ease;
 }
 
 .perfil-avaliacao-card:hover {
-    border-color: #8054a8;
+    border-color: var(--perfil-roxo-hover);
 }
 
 .perfil-avaliacao-card img,
 .perfil-avaliacao-sem-capa {
     display: block;
+
     width: 100%;
     aspect-ratio: 1;
     margin-bottom: 10px;
+
     border-radius: 6px;
     object-fit: cover;
 }
@@ -253,38 +477,109 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #292929;
-    color: #aaa;
+
+    background: var(--perfil-fundo-placeholder);
+    color: var(--perfil-texto-secundario);
     font-size: 11px;
 }
 
 .perfil-avaliacao-card h3 {
     margin: 0 0 5px;
-    color: #f5f5f5;
+
+    color: var(--perfil-texto);
     font-size: 12px;
     line-height: 1.4;
+
     overflow-wrap: anywhere;
 }
 
 .perfil-avaliacao-card p {
     margin: 0 0 10px;
-    color: #aaa;
+
+    color: var(--perfil-texto-secundario);
     font-size: 11px;
+
     overflow-wrap: anywhere;
 }
+
+/* NOTA DO ÁLBUM */
 
 .perfil-avaliacao-nota {
     display: inline-block;
     padding: 4px 7px;
-    background: #29232f;
-    border: 1px solid #493653;
+
+    background: var(--perfil-roxo-fundo);
+    border: 1px solid var(--perfil-roxo-borda);
     border-radius: 5px;
-    color: #c084fc;
+
+    color: var(--perfil-roxo);
     font-size: 11px;
     font-weight: 600;
 }
 
-/* RESPONSIVIDADE */
+/* ========================================
+   TEMA CLARO: PAINEL DE COMUNIDADES
+======================================== */
+
+:root[data-theme="light"] .perfil-page .perfil-conteudo-aba {
+    background: #ffffff;
+    border-color: #e5e5e5;
+    color: #1f1f1f;
+}
+
+:root[data-theme="light"] .perfil-page .perfil-conteudo-aba h2 {
+    color: #1f1f1f;
+}
+
+:root[data-theme="light"] .perfil-page .perfil-conteudo-aba p {
+    color: #737373;
+}
+
+/* CARDS DAS COMUNIDADES */
+
+:root[data-theme="light"] .perfil-page .perfil-comunidade-card {
+    background: transparent;
+    border-bottom-color: #e5e5e5;
+}
+
+:root[data-theme="light"] .perfil-page .perfil-comunidade-card:hover {
+    background-color: #f5f5f5;
+}
+
+/* NOME DA COMUNIDADE */
+
+:root[data-theme="light"] .perfil-page .perfil-comunidade-info h3 {
+    color: #1f1f1f;
+}
+
+/* GÊNERO MUSICAL */
+
+:root[data-theme="light"] .perfil-page .perfil-comunidade-info span {
+    color: #9333ea;
+}
+
+/* MEMBROS */
+
+:root[data-theme="light"] .perfil-page .perfil-comunidade-info p {
+    color: #737373;
+}
+
+/* DESCRIÇÃO */
+
+:root[data-theme="light"] .perfil-page .perfil-comunidade-info p:last-child {
+    color: #525252;
+}
+
+/* IMAGEM DA COMUNIDADE */
+
+:root[data-theme="light"] .perfil-page .perfil-comunidade-imagem {
+    border-color: #e5e5e5;
+}
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
 @media (max-width: 768px) {
     .perfil-page {
         padding-top: 12px;
@@ -349,156 +644,7 @@
     }
 }
 
-@media (max-width: 480px) {
-    .perfil-foto {
-        width: 70px;
-        height: 70px;
-    }
-
-    .perfil-nome {
-        font-size: 18px;
-    }
-
-    .perfil-estatisticas {
-        gap: 14px;
-    }
-
-    .perfil-avaliacoes-grade {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .perfil-avaliacao-card {
-        padding: 8px;
-    }
-}
-
-
-/* LISTA DE COMUNIDADES DO PERFIL */
-
-.perfil-comunidades-lista {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 20px;
-    gap: 0;
-}
-
-/* CADA COMUNIDADE */
-
-.perfil-comunidade-card {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-
-    width: 100%;
-    min-width: 0;
-    padding: 18px 12px;
-    box-sizing: border-box;
-
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #303030;
-    border-radius: 0;
-
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.perfil-comunidade-card:first-child {
-    padding-top: 8px;
-}
-
-.perfil-comunidade-card:last-child {
-    border-bottom: none;
-    padding-bottom: 8px;
-}
-
-.perfil-comunidade-card:hover {
-    background-color: #242424;
-}
-
-.perfil-comunidade-card:focus-visible {
-    outline: 2px solid #a855f7;
-    outline-offset: -2px;
-}
-
-/* IMAGEM DA COMUNIDADE */
-
-.perfil-comunidade-imagem {
-    width: 82px;
-    height: 82px;
-    flex-shrink: 0;
-
-    object-fit: cover;
-    display: block;
-
-    border-radius: 12px;
-    border: 1px solid #383838;
-}
-
-/* INFORMAÇÕES */
-
-.perfil-comunidade-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
-
-    flex: 1;
-    min-width: 0;
-
-    font-family: 'Inter', sans-serif;
-    text-align: left;
-}
-
-/* NOME */
-
-.perfil-comunidade-info h3 {
-    margin: 0;
-
-    color: #f5f5f5;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.4;
-
-    overflow-wrap: anywhere;
-}
-
-/* GÊNERO MUSICAL */
-
-.perfil-comunidade-info span {
-    color: #c084fc;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-/* QUANTIDADE DE MEMBROS */
-
-.perfil-comunidade-info p {
-    margin: 0;
-
-    color: #a3a3a3;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.5;
-}
-
-/* DESCRIÇÃO DA COMUNIDADE */
-
-.perfil-comunidade-info p:last-child {
-    color: #b8b8b8;
-    font-size: 13px;
-    line-height: 1.5;
-
-    display: -webkit-box;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-
-    overflow-wrap: anywhere;
-}
-
-/* RESPONSIVIDADE */
+/* RESPONSIVIDADE DAS COMUNIDADES */
 
 @media (max-width: 650px) {
     .perfil-comunidades-lista {
@@ -527,6 +673,32 @@
 
     .perfil-comunidade-info p:last-child {
         font-size: 12px;
+        -webkit-line-clamp: 1;
         line-clamp: 1;
+    }
+}
+
+/* CELULARES PEQUENOS */
+
+@media (max-width: 480px) {
+    .perfil-foto {
+        width: 70px;
+        height: 70px;
+    }
+
+    .perfil-nome {
+        font-size: 18px;
+    }
+
+    .perfil-estatisticas {
+        gap: 14px;
+    }
+
+    .perfil-avaliacoes-grade {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .perfil-avaliacao-card {
+        padding: 8px;
     }
 }

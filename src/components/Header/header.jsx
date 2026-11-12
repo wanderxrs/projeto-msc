@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { FiMenu, FiSearch } from "react-icons/fi";
 import { FaBell } from "react-icons/fa6";
@@ -13,9 +14,9 @@ import {
 
 import FazerLogoutModal from "../../modals/FazerLogout/fazerLogoutModal";
 import ModalNotificacoes from "../../modals/Notificacao/ModalNotificacoes";
-import ModalMenu from "../../modals/MenuHeader/MenuHeaderModal";  
+import ModalMenu from "../../modals/MenuHeader/MenuHeaderModal";
 
-function Header() {
+function Header({ tema, onAlternarTema }) {
     const [nomeBusca, setNomeBusca] = useState("");
     const [usuarios, setUsuarios] = useState([]);
     const [carregando, setCarregando] = useState(false);
@@ -251,6 +252,8 @@ function Header() {
                         setModalMenuAberto(false);
                         setModalLogoutAberto(true);
                     }}
+                    tema={tema}
+                    onAlternarTema={onAlternarTema}
                 />
             )}
 

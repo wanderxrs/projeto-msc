@@ -1,36 +1,174 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* =========================================
+   CONFIGURAÇÕES DE TEMA
+========================================= */
+
+:root,
+:root[data-theme="dark"] {
+    --editar-modal-bg: rgba(26, 26, 26, 0.92);
+    --editar-modal-texto: #f5f5f5;
+    --editar-modal-titulo: #ffffff;
+    --editar-modal-borda: #242527;
+
+    --editar-fechar-bg: #1e1e1e;
+    --editar-fechar-texto: #f5f5f5;
+    --editar-fechar-borda: #333333;
+    --editar-fechar-hover-bg: #303030;
+    --editar-fechar-hover-borda: #666666;
+
+    --editar-capa-bg: #202020;
+    --editar-capa-borda: #303030;
+    --editar-capa-texto: #aaaaaa;
+
+    --editar-imagem-bg: rgba(26, 26, 26, 0.92);
+    --editar-imagem-texto: #f5f5f5;
+    --editar-imagem-borda: #414141;
+    --editar-imagem-hover-bg: #303030;
+    --editar-imagem-hover-borda: #666666;
+
+    --editar-foto-bg: #252525;
+    --editar-foto-borda: #393939;
+
+    --editar-label: #dedede;
+
+    --editar-input-bg: rgba(30, 30, 30, 0.85);
+    --editar-input-texto: #f5f5f5;
+    --editar-input-borda: #414141;
+    --editar-input-focus-bg: #242424;
+    --editar-input-focus-borda: #888888;
+    --editar-input-placeholder: #888888;
+
+    --editar-erro: #ff7777;
+
+    --editar-cancelar-bg: #1a1a1a;
+    --editar-cancelar-texto: #ffffff;
+    --editar-cancelar-borda: #2c2c2c;
+    --editar-cancelar-hover-bg: #292929;
+    --editar-cancelar-hover-borda: #666666;
+
+    --editar-salvar-bg: #f5f5f5;
+    --editar-salvar-texto: #171717;
+    --editar-salvar-borda: #f5f5f5;
+    --editar-salvar-hover-bg: #d9d9d9;
+    --editar-salvar-hover-borda: #d9d9d9;
+
+    --editar-sombra: rgba(0, 0, 0, 0.45);
+    --editar-overlay-bg: rgba(0, 0, 0, 0.35);
+
+    --editar-scrollbar: #444444;
+}
+
+/* =========================================
+   WHITE MODE
+========================================= */
+
+:root[data-theme="light"] {
+    --editar-modal-bg: rgba(255, 255, 255, 0.96);
+    --editar-modal-texto: #333333;
+    --editar-modal-titulo: #202020;
+    --editar-modal-borda: #e0e0e0;
+
+    --editar-fechar-bg: #f5f5f5;
+    --editar-fechar-texto: #333333;
+    --editar-fechar-borda: #dedede;
+    --editar-fechar-hover-bg: #eaeaea;
+    --editar-fechar-hover-borda: #bdbdbd;
+
+    --editar-capa-bg: #f3f3f3;
+    --editar-capa-borda: #dedede;
+    --editar-capa-texto: #777777;
+
+    --editar-imagem-bg: #f5f5f5;
+    --editar-imagem-texto: #333333;
+    --editar-imagem-borda: #dedede;
+    --editar-imagem-hover-bg: #eaeaea;
+    --editar-imagem-hover-borda: #bdbdbd;
+
+    --editar-foto-bg: #f3f3f3;
+    --editar-foto-borda: #dedede;
+
+    --editar-label: #555555;
+
+    --editar-input-bg: #f7f7f7;
+    --editar-input-texto: #202020;
+    --editar-input-borda: #dedede;
+    --editar-input-focus-bg: #ffffff;
+    --editar-input-focus-borda: #999999;
+    --editar-input-placeholder: #999999;
+
+    --editar-erro: #d93636;
+
+    --editar-cancelar-bg: #f5f5f5;
+    --editar-cancelar-texto: #333333;
+    --editar-cancelar-borda: #dedede;
+    --editar-cancelar-hover-bg: #eaeaea;
+    --editar-cancelar-hover-borda: #bdbdbd;
+
+    --editar-salvar-bg: #202020;
+    --editar-salvar-texto: #ffffff;
+    --editar-salvar-borda: #202020;
+    --editar-salvar-hover-bg: #383838;
+    --editar-salvar-hover-borda: #383838;
+
+    --editar-sombra: rgba(0, 0, 0, 0.15);
+    --editar-overlay-bg: rgba(0, 0, 0, 0.20);
+
+    --editar-scrollbar: #cccccc;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
 
 .modal-editar-overlay {
     position: fixed;
     inset: 0;
+
     z-index: 2000;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 20px;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.35);
+
+    background-color: var(--editar-overlay-bg);
+
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
+
     font-family: 'Inter', sans-serif;
 }
+
+/* =========================================
+   MODAL
+========================================= */
 
 .modal-editar-perfil {
     width: 100%;
     max-width: 500px;
     max-height: 90vh;
+
     overflow-y: auto;
+
     box-sizing: border-box;
     padding: 25px;
-    border: 1px solid #242527;
+
+    border: 1px solid var(--editar-modal-borda);
     border-radius: 15px;
-    background-color: rgba(26, 26, 26, 0.92);
-    color: #f5f5f5;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+
+    background-color: var(--editar-modal-bg);
+    color: var(--editar-modal-texto);
+
+    box-shadow: 0 8px 30px var(--editar-sombra);
+
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
+
     font-family: 'Inter', sans-serif;
+
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -39,46 +177,70 @@
     box-sizing: border-box;
 }
 
+/* =========================================
+   CABEÇALHO
+========================================= */
+
 .modal-editar-cabecalho {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 12px;
     margin-bottom: 24px;
 }
 
 .modal-editar-cabecalho h2 {
     margin: 0;
-    color: #fff;
+
+    color: var(--editar-modal-titulo);
+
     font-size: 21px;
     font-weight: 600;
     line-height: 1.4;
     letter-spacing: -0.5px;
 }
 
+/* =========================================
+   BOTÃO FECHAR
+========================================= */
+
 .modal-editar-fechar {
     display: flex;
     align-items: center;
     justify-content: center;
+
     flex-shrink: 0;
+
     width: 36px;
     height: 36px;
     padding: 0;
-    border: 1px solid #333;
+
+    border: 1px solid var(--editar-fechar-borda);
     border-radius: 50%;
-    background-color: #1e1e1e;
-    color: #f5f5f5;
+
+    background-color: var(--editar-fechar-bg);
+    color: var(--editar-fechar-texto);
+
     font-family: 'Inter', sans-serif;
     font-size: 23px;
     font-weight: 400;
+
     cursor: pointer;
-    transition: background-color 0.25s ease, border-color 0.25s ease;
+
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .modal-editar-fechar:hover {
-    border-color: #666;
-    background-color: #303030;
+    border-color: var(--editar-fechar-hover-borda);
+    background-color: var(--editar-fechar-hover-bg);
 }
+
+/* =========================================
+   CAMPO DA CAPA
+========================================= */
 
 .campo-capa {
     position: relative;
@@ -89,39 +251,56 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     height: 150px;
     overflow: hidden;
-    border: 1px solid #303030;
+
+    border: 1px solid var(--editar-capa-borda);
     border-radius: 10px;
-    background-color: #202020;
+
+    background-color: var(--editar-capa-bg);
     background-position: center;
     background-size: cover;
-    color: #aaa;
+
+    color: var(--editar-capa-texto);
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.5;
 }
 
+/* =========================================
+   BOTÕES DE IMAGEM
+========================================= */
+
 .botao-imagem {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+
     padding: 10px 14px;
-    border: 1px solid #414141;
+
+    border: 1px solid var(--editar-imagem-borda);
     border-radius: 30px;
-    background-color: rgba(26, 26, 26, 0.92);
-    color: #f5f5f5;
+
+    background-color: var(--editar-imagem-bg);
+    color: var(--editar-imagem-texto);
+
     font-family: 'Inter', sans-serif;
     font-size: 12px;
     font-weight: 500;
     line-height: 1.4;
+
     cursor: pointer;
-    transition: background-color 0.25s ease, border-color 0.25s ease;
+
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .botao-imagem:hover {
-    border-color: #666;
-    background-color: #303030;
+    border-color: var(--editar-imagem-hover-borda);
+    background-color: var(--editar-imagem-hover-bg);
 }
 
 .botao-imagem input {
@@ -134,33 +313,49 @@
     bottom: 12px;
 }
 
+/* =========================================
+   FOTO DE PERFIL
+========================================= */
+
 .campo-foto-perfil {
     display: flex;
     align-items: center;
+
     gap: 16px;
     margin-bottom: 24px;
 }
 
 .preview-foto-perfil {
     display: block;
+
     flex-shrink: 0;
+
     width: 76px;
     height: 76px;
-    border: 2px solid #393939;
+
+    border: 2px solid var(--editar-foto-borda);
     border-radius: 50%;
-    background-color: #252525;
+
+    background-color: var(--editar-foto-bg);
+
     object-fit: cover;
 }
+
+/* =========================================
+   CAMPO DO NOME
+========================================= */
 
 .campo-nome-perfil {
     display: flex;
     flex-direction: column;
+
     gap: 9px;
     margin-bottom: 20px;
 }
 
 .campo-nome-perfil label {
-    color: #dedede;
+    color: var(--editar-label);
+
     font-size: 13px;
     font-weight: 500;
     line-height: 1.5;
@@ -168,84 +363,131 @@
 
 .campo-nome-perfil input {
     display: block;
+
     width: 100%;
     min-height: 44px;
+
     padding: 12px 14px;
-    border: 1px solid #414141;
+
+    border: 1px solid var(--editar-input-borda);
     border-radius: 9px;
+
     outline: none;
-    background-color: rgba(30, 30, 30, 0.85);
-    color: #f5f5f5;
+
+    background-color: var(--editar-input-bg);
+    color: var(--editar-input-texto);
+
     font-family: 'Inter', sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
-    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
 }
 
 .campo-nome-perfil input:focus {
-    border-color: #888;
-    background-color: #242424;
+    border-color: var(--editar-input-focus-borda);
+    background-color: var(--editar-input-focus-bg);
 }
 
 .campo-nome-perfil input::placeholder {
-    color: #888;
+    color: var(--editar-input-placeholder);
     opacity: 1;
 }
 
+/* =========================================
+   MENSAGEM DE ERRO
+========================================= */
+
 .erro-editar-perfil {
     margin: 0 0 16px;
-    color: #ff7777;
+
+    color: var(--editar-erro);
+
     font-size: 13px;
     font-weight: 400;
     line-height: 1.6;
 }
 
+/* =========================================
+   AÇÕES
+========================================= */
+
 .modal-editar-acoes {
     display: flex;
     justify-content: flex-end;
+
     gap: 10px;
     margin-top: 24px;
 }
 
 .modal-editar-acoes button {
     min-height: 42px;
+
     padding: 0 18px;
+
     border-radius: 30px;
+
     font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 600;
     line-height: 1.4;
+
     cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
 }
 
+/* =========================================
+   BOTÃO CANCELAR
+========================================= */
+
 .botao-cancelar-edicao {
-    border: 2px solid #2c2c2c;
-    background-color: #1a1a1a;
-    color: #fff;
+    border: 2px solid var(--editar-cancelar-borda);
+
+    background-color: var(--editar-cancelar-bg);
+    color: var(--editar-cancelar-texto);
 }
 
 .botao-cancelar-edicao:hover {
-    border-color: #666;
-    background-color: #292929;
+    border-color: var(--editar-cancelar-hover-borda);
+    background-color: var(--editar-cancelar-hover-bg);
 }
 
+/* =========================================
+   BOTÃO SALVAR
+========================================= */
+
 .botao-salvar-edicao {
-    border: 2px solid #f5f5f5;
-    background-color: #f5f5f5;
-    color: #171717;
+    border: 2px solid var(--editar-salvar-borda);
+
+    background-color: var(--editar-salvar-bg);
+    color: var(--editar-salvar-texto);
 }
 
 .botao-salvar-edicao:hover {
-    border-color: #d9d9d9;
-    background-color: #d9d9d9;
+    border-color: var(--editar-salvar-hover-borda);
+    background-color: var(--editar-salvar-hover-bg);
 }
 
-.modal-editar-acoes button:disabled {
+/* =========================================
+   BOTÕES DESABILITADOS
+========================================= */
+
+.modal-editar-acoes button:disabled,
+.modal-editar-fechar:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+/* =========================================
+   SCROLLBAR
+========================================= */
 
 .modal-editar-perfil::-webkit-scrollbar {
     width: 6px;
@@ -257,8 +499,12 @@
 
 .modal-editar-perfil::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background-color: #444;
+    background-color: var(--editar-scrollbar);
 }
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
 
 @media (max-width: 480px) {
     .modal-editar-overlay {

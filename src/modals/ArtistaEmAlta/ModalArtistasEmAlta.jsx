@@ -1,176 +1,199 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
+
 import "./ModalArtistasEmAlta.css";
+
 import { HiMusicNote } from "react-icons/hi";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function formatarNumero(numero) {
-  return new Intl.NumberFormat("pt-BR", {
-    notation: "compact",
-    maximumFractionDigits: 1,
-  }).format(numero || 0);
+    return new Intl.NumberFormat("pt-BR", {
+        notation: "compact",
+        maximumFractionDigits: 1,
+    }).format(numero || 0);
 }
 
 export default function ModalArtistasEmAlta({ onFechar }) {
-  const [artistas, setArtistas] = useState([]);
-  const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState("");
+    const [artistas, setArtistas] = useState([]);
+    const [carregando, setCarregando] = useState(true);
+    const [erro, setErro] = useState("");
 
-  useEffect(() => {
-    let ativo = true;
+    // Carregar artistas em alta
+    useEffect(() => {
+        let ativo = true;
 
-    async function carregarArtistas() {
-      try {
-        const resposta = await axios.get(
-          `${API_URL}/artistas-em-alta`
-        );
+        async function carregarArtistas() {
+            try {
+                setCarregando(true);
+                setErro("");
 
-        if (ativo) {
-          setArtistas(resposta.data.artistas || []);
+                const resposta = await axios.get(
+                    `${API_URL}/artistas-em-alta`
+                );
+
+                if (ativo) {
+                    setArtistas(resposta.data.artistas || []);
+                }
+            } catch (erro) {
+                console.error("Erro ao carregar artistas:", erro);
+
+                if (ativo) {
+                    setErro("Não foi possível carregar os artistas.");
+                }
+            } finally {
+                if (ativo) {
+                    setCarregando(false);
+                }
+            }
         }
-      } catch (erro) {
-        if (ativo) {
-          setErro("Não foi possível carregar os artistas.");
+
+        carregarArtistas();
+
+        return () => {
+            ativo = false;
+        };
+    }, []);
+
+    // Fechar modal com ESC
+    useEffect(() => {
+        function fecharComEsc(evento) {
+            if (evento.key === "Escape") {
+                onFechar();
+            }
         }
-      } finally {
-        if (ativo) {
-          setCarregando(false);
-        }
-      }
-    }
 
-    carregarArtistas();
+        document.addEventListener("keydown", fecharComEsc);
 
-    return () => {
-      ativo = false;
-    };
-  }, []);
+        return () => {
+            document.removeEventListener("keydown", fecharComEsc);
+        };
+    }, [onFechar]);
 
-  useEffect(() => {
-    function fecharComEsc(evento) {
-      if (evento.key === "Escape") {
-        onFechar();
-      }
-    }
-
-    document.addEventListener("keydown", fecharComEsc);
-
-    return () => {
-      document.removeEventListener("keydown", fecharComEsc);
-    };
-  }, [onFechar]);
-
-  return (
-    <div
-      className="artistas-overlay"
-      onClick={onFechar}
-    >
-      <section
-        className="modal-artistas"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="titulo-artistas"
-        onClick={(evento) => evento.stopPropagation()}
-      >
-        <header className="artistas-header">
-          <div className="artistas-titulo">
-            <span className="artistas-icone">
-              <i className="bi bi-graph-up-arrow" />
-              <HiMusicNote />
-            </span>
-            
-
-            <div>
-              <h2 id="titulo-artistas">O que está bombando?</h2>
-              <p>Artistas populares</p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className="artistas-fechar"
+    return (
+        <div
+            className="artistas-overlay"
             onClick={onFechar}
-            aria-label="Fechar modal"
-          >
-            &times;
-          </button>
-        </header>
+        >
+            <section
+                className="modal-artistas"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="titulo-artistas"
+                onClick={(evento) => evento.stopPropagation()}
+            >
+                {/* CABEÇALHO */}
+                <header className="artistas-header">
+                    <div className="artistas-titulo">
+                        <span className="artistas-icone">
+                            <i className="bi bi-graph-up-arrow" />
+                            <HiMusicNote />
+                        </span>
 
-        <div className="artistas-lista">
-          {carregando && (
-            <p className="artistas-mensagem">
-              Carregando artistas...
-            </p>
-          )}
+                        <div>
+                            <h2 id="titulo-artistas">
+                                O que está bombando?
+                            </h2>
 
-          {!carregando && erro && (
-            <p className="artistas-mensagem artistas-erro">
-              {erro}
-            </p>
-          )}
+                            <p>Artistas populares</p>
+                        </div>
+                    </div>
 
-          {!carregando && !erro && artistas.length === 0 && (
-            <p className="artistas-mensagem">
-              Nenhum artista encontrado.
-            </p>
-          )}
+                    <button
+                        type="button"
+                        className="artistas-fechar"
+                        onClick={onFechar}
+                        aria-label="Fechar modal"
+                    >
+                        &times;
+                    </button>
+                </header>
 
-          {!carregando &&
-            !erro &&
-            artistas.map((artista) => (
-              <div
-                className="artista-item"
-                key={`${artista.posicao}-${artista.nome}`}
-              >
-                <span
-                  className={`artista-posicao ${
-                    artista.posicao <= 3 ? "artista-top3" : ""
-                  }`}
-                >
-                  {String(artista.posicao).padStart(2, "0")}
-                </span>
+                {/* LISTA */}
+                <div className="artistas-lista">
+                    {carregando && (
+                        <p className="artistas-mensagem">
+                            Carregando artistas...
+                        </p>
+                    )}
 
-                <img
-                  className="artista-foto"
-                  src={artista.foto || ""}
-                  alt=""
-                  onError={(evento) => {
-                    evento.currentTarget.style.display = "none";
-                  }}
-                />
+                    {!carregando && erro && (
+                        <p className="artistas-mensagem artistas-erro">
+                            {erro}
+                        </p>
+                    )}
 
-                <div className="artista-info">
-                  <span className="artista-nome">
-                    {artista.nome}
-                  </span>
+                    {!carregando && !erro && artistas.length === 0 && (
+                        <p className="artistas-mensagem">
+                            Nenhum artista encontrado.
+                        </p>
+                    )}
+
+                    {!carregando &&
+                        !erro &&
+                        artistas.map((artista) => (
+                            <div
+                                className="artista-item"
+                                key={`${artista.posicao}-${artista.nome}`}
+                            >
+                                {/* POSIÇÃO */}
+                                <span
+                                    className={`artista-posicao ${
+                                        artista.posicao <= 3
+                                            ? "artista-top3"
+                                            : ""
+                                    }`}
+                                >
+                                    {String(artista.posicao).padStart(2, "0")}
+                                </span>
+
+                                {/* FOTO */}
+                                <img
+                                    className="artista-foto"
+                                    src={artista.foto || ""}
+                                    alt={`Foto de ${artista.nome}`}
+                                    onError={(evento) => {
+                                        evento.currentTarget.style.display =
+                                            "none";
+                                    }}
+                                />
+
+                                {/* INFORMAÇÕES */}
+                                <div className="artista-info">
+                                    <span className="artista-nome">
+                                        {artista.nome}
+                                    </span>
+                                </div>
+
+                                {/* TROFÉU DO PRIMEIRO LUGAR */}
+                                {artista.posicao === 1 && (
+                                    <i className="bi bi-trophy-fill artista-trofeu" />
+                                )}
+
+                                {/* LINK DO ARTISTA */}
+                                {artista.url && (
+                                    <a
+                                        className="artista-link"
+                                        href={artista.url}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        aria-label={`Ver ${artista.nome} na Last.fm`}
+                                        onClick={(evento) =>
+                                            evento.stopPropagation()
+                                        }
+                                    >
+                                        <i className="bi bi-box-arrow-up-right" />
+                                    </a>
+                                )}
+                            </div>
+                        ))}
                 </div>
 
-                {artista.posicao === 1 && (
-                  <i className="bi bi-trophy-fill artista-trofeu" />
-                )}
-
-                {artista.url && (
-                  <a
-                    className="artista-link"
-                    href={artista.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Ver ${artista.nome} na Last.fm`}
-                    onClick={(evento) => evento.stopPropagation()}
-                  >
-                    <i className="bi bi-box-arrow-up-right" />
-                  </a>
-                )}
-              </div>
-            ))}
+                {/* RODAPÉ */}
+                <footer className="artistas-footer">
+                    <span>Dados da Deezer</span>
+                </footer>
+            </section>
         </div>
-
-        <footer className="artistas-footer">
-          <span>Dados da Deezer</span>
-        </footer>
-      </section>
-    </div>
-  );
+    );
 }

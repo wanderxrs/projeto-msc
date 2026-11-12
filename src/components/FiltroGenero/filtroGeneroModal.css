@@ -1,40 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* =========================================
+   CONFIGURAÇÕES DE TEMA
+========================================= */
+
+:root,
+:root[data-theme="dark"] {
+    --filtro-modal-bg: #1a1a1ab7;
+    --filtro-modal-texto: #ffffff;
+    --filtro-modal-borda: #242527;
+
+    --filtro-genero-bg: #1e1e1fc4;
+    --filtro-genero-texto: #ffffff;
+    --filtro-genero-borda: rgba(65, 64, 64, 0.774);
+    --filtro-genero-hover: #555555;
+
+    --filtro-cancelar-bg: #1a1a1a;
+    --filtro-cancelar-texto: #ffffff;
+    --filtro-cancelar-borda: #2c2c2c;
+    --filtro-cancelar-hover-bg: #292929;
+    --filtro-cancelar-hover-borda: #666666;
+
+    --filtro-sombra: rgba(0, 0, 0, 0.5);
+    --filtro-sombra-botao: rgba(0, 0, 0, 0.3);
+    --filtro-efeito-hover: rgba(255, 255, 255, 0.25);
+}
+
+/* WHITE MODE */
+
+:root[data-theme="light"] {
+    --filtro-modal-bg: rgba(255, 255, 255, 0.95);
+    --filtro-modal-texto: #202020;
+    --filtro-modal-borda: #e0e0e0;
+
+    --filtro-genero-bg: #f5f5f5;
+    --filtro-genero-texto: #202020;
+    --filtro-genero-borda: #dedede;
+    --filtro-genero-hover: #e5e5e5;
+
+    --filtro-cancelar-bg: #f5f5f5;
+    --filtro-cancelar-texto: #202020;
+    --filtro-cancelar-borda: #dedede;
+    --filtro-cancelar-hover-bg: #eaeaea;
+    --filtro-cancelar-hover-borda: #bdbdbd;
+
+    --filtro-sombra: rgba(0, 0, 0, 0.15);
+    --filtro-sombra-botao: rgba(0, 0, 0, 0.08);
+    --filtro-efeito-hover: rgba(0, 0, 0, 0.08);
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
 .modal-filtro-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: none;
+
+    background-color: transparent;
     z-index: 1000;
 }
 
+/* =========================================
+   MODAL
+========================================= */
 
 .modal-filtro {
     width: 360px;
+    max-width: calc(100% - 30px);
+
     box-sizing: border-box;
     padding: 25px;
-    background-color: #1a1a1ab7;
-    color: white;
-    border: 1px solid #242527;
+
+    background-color: var(--filtro-modal-bg);
+    color: var(--filtro-modal-texto);
+
+    border: 1px solid var(--filtro-modal-borda);
     border-radius: 15px;
-    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.5);
+
+    box-shadow: 1px 0px 20px var(--filtro-sombra);
+
     display: flex;
     flex-direction: column;
+
     backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    font-family: 'Inter', sans-serif;
 }
 
+/* =========================================
+   TÍTULO
+========================================= */
 
 .modal-filtro h2 {
     margin: 0 0 20px;
 
-    color: white;
+    color: var(--filtro-modal-texto);
     font-size: 21px;
+    font-weight: 600;
+
     text-align: center;
 }
 
+/* =========================================
+   LISTA DE GÊNEROS
+========================================= */
 
 .lista-generos {
     display: grid;
@@ -42,57 +120,98 @@
     gap: 10px;
 }
 
+/* =========================================
+   BOTÕES DE GÊNERO
+========================================= */
 
 .botao-genero {
     height: 40px;
-    border-radius: 7px;
-    background-color: #1e1e1fc4;
-    color: white;
-    border: 1px solid rgba(65, 64, 64, 0.774);
-    box-shadow: 1px 0px 15px rgba(0, 0, 0, 0.3);
-    font-family: Arial, Helvetica, sans-serif;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
 
+    border-radius: 7px;
+
+    background-color: var(--filtro-genero-bg);
+    color: var(--filtro-genero-texto);
+
+    border: 1px solid var(--filtro-genero-borda);
+
+    box-shadow: 1px 0px 15px var(--filtro-sombra-botao);
+
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
 
 .botao-genero:hover {
-    background-color: #555555;
+    background-color: var(--filtro-genero-hover);
+    transform: translateY(-1px);
 }
+
+.botao-genero:active {
+    transform: scale(0.97);
+}
+
+/* =========================================
+   BOTÃO CANCELAR
+========================================= */
 
 .botao-cancelar {
     display: block;
+
     width: 100%;
     max-width: 150px;
     height: 42px;
+
     padding: 0 16px;
     margin: 16px auto 0;
+
     box-sizing: border-box;
 
-    border: 2px solid #2c2c2c;
-    background-color: #1a1a1a;
-    color: #ffffff;
+    border: 2px solid var(--filtro-cancelar-borda);
+
+    background-color: var(--filtro-cancelar-bg);
+    color: var(--filtro-cancelar-texto);
+
+    font-family: 'Inter', sans-serif;
     font-size: 1rem;
     font-weight: bold;
+
     cursor: pointer;
+
     border-radius: 30px;
+
     transition: all 0.4s ease;
+
     outline: none;
+
     position: relative;
     overflow: hidden;
 }
 
+/* EFEITO DE BRILHO */
+
 .botao-cancelar::after {
     content: "";
+
     position: absolute;
     inset: 0;
+
     background: radial-gradient(
         circle,
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(255, 255, 255, 0) 70%
+        var(--filtro-efeito-hover) 0%,
+        transparent 70%
     );
+
     transform: scale(0);
+
     transition: transform 0.5s ease;
+
     pointer-events: none;
 }
 
@@ -101,6 +220,28 @@
 }
 
 .botao-cancelar:hover {
-    border-color: #666666;
-    background-color: #292929;
+    border-color: var(--filtro-cancelar-hover-borda);
+    background-color: var(--filtro-cancelar-hover-bg);
+}
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 400px) {
+    .modal-filtro {
+        padding: 20px;
+    }
+
+    .modal-filtro h2 {
+        font-size: 19px;
+    }
+
+    .lista-generos {
+        gap: 8px;
+    }
+
+    .botao-genero {
+        font-size: 13px;
+    }
 }

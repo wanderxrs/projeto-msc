@@ -54,6 +54,7 @@ function AlbunsAvaliados() {
                 await carregarDados();
             } catch (erro) {
                 console.error("Erro ao carregar os álbuns:", erro);
+
                 setErro(
                     erro.response?.data?.erro ||
                     "Não foi possível carregar sua biblioteca."
@@ -83,6 +84,7 @@ function AlbunsAvaliados() {
             setResultados(resposta.data);
         } catch (erro) {
             console.error("Erro ao pesquisar álbuns:", erro);
+
             setErro(
                 erro.response?.data?.erro ||
                 "Não foi possível pesquisar os álbuns."
@@ -106,9 +108,11 @@ function AlbunsAvaliados() {
             });
 
             await carregarDados();
+
             setMensagem("Álbum adicionado à sua biblioteca!");
         } catch (erro) {
             console.error("Erro ao salvar álbum:", erro);
+
             setErro(
                 erro.response?.data?.erro ||
                 "Não foi possível salvar o álbum."
@@ -140,6 +144,7 @@ function AlbunsAvaliados() {
             setAlbumParaRemover(null);
         } catch (erro) {
             console.error("Erro ao remover álbum:", erro);
+
             setErro(
                 erro.response?.data?.erro ||
                 "Não foi possível remover o álbum."
@@ -157,7 +162,10 @@ function AlbunsAvaliados() {
 
         const notaInformada = notas[albumId];
 
-        if (notaInformada === undefined || notaInformada.trim() === "") {
+        if (
+            notaInformada === undefined ||
+            notaInformada.trim() === ""
+        ) {
             setErro("Informe uma nota para o álbum.");
             return;
         }
@@ -170,7 +178,8 @@ function AlbunsAvaliados() {
         }
 
         const avaliacaoExistente = avaliacoes.find(
-            (avaliacao) => Number(avaliacao.album_id) === Number(albumId)
+            (avaliacao) =>
+                Number(avaliacao.album_id) === Number(albumId)
         );
 
         setExecutandoAcao(true);
@@ -180,13 +189,18 @@ function AlbunsAvaliados() {
                 await editarAvaliacao(albumId, nota);
                 setMensagem("Avaliação atualizada com sucesso!");
             } else {
-                await salvarAvaliacao({ album_id: albumId, nota });
+                await salvarAvaliacao({
+                    album_id: albumId,
+                    nota
+                });
+
                 setMensagem("Álbum avaliado com sucesso!");
             }
 
             await carregarDados();
         } catch (erro) {
             console.error("Erro ao salvar avaliação:", erro);
+
             setErro(
                 erro.response?.data?.erro ||
                 "Não foi possível salvar a avaliação."
@@ -208,7 +222,9 @@ function AlbunsAvaliados() {
         <main className="albuns-avaliados">
             <header className="albuns-cabecalho">
                 <h1>Minha biblioteca musical</h1>
-                <p>Descubra álbuns, organize sua coleção e dê suas notas.</p>
+                <p>
+                    Descubra álbuns, organize sua coleção e dê suas notas.
+                </p>
             </header>
 
             {erro && (
@@ -243,7 +259,10 @@ function AlbunsAvaliados() {
                         }}
                     />
 
-                    <button type="submit" disabled={pesquisando}>
+                    <button
+                        type="submit"
+                        disabled={pesquisando}
+                    >
                         {pesquisando ? "Pesquisando..." : "Pesquisar"}
                     </button>
                 </form>

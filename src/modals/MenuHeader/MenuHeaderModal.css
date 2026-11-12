@@ -1,72 +1,251 @@
+/* =========================================
+   OVERLAY
+========================================= */
+
 .overlay-menu {
     position: fixed;
     inset: 0;
+
     z-index: 9999;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 20px;
+
     background: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(4px);
 }
 
+/* =========================================
+   MENU
+========================================= */
+
 .modal-menu {
     width: 100%;
-    max-width: 380px;
-    background: #1a1a1a;
-    color: #f5f5f5;
-    border: 1px solid #333;
+    max-width: 360px;
+
+    background: var(--menu-bg);
+    color: var(--menu-text);
+
+    border: 1px solid var(--menu-border);
     border-radius: 14px;
+
     font-family: "Inter", sans-serif;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+
+    overflow: hidden;
+
     animation: menuEntrada 0.2s ease-out;
 }
 
-.modal-menu h2 {
-    padding: 24px 24px 12px;
+/* =========================================
+   CABEÇALHO
+========================================= */
+
+.menu-cabecalho {
+    padding: 24px 22px 18px;
+}
+
+.menu-cabecalho h2 {
     margin: 0;
-    color: #f5f5f5;
-    font-family: "Inter", sans-serif;
+
+    color: var(--menu-text);
+
     font-size: 20px;
     font-weight: 600;
 }
 
-.modal-menu button {
-    width: calc(100% - 48px);
-    margin: 8px 24px;
-    padding: 11px 16px;
-    border-radius: 8px;
+.menu-cabecalho span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--menu-text-secondary);
+
+    font-size: 12px;
+}
+
+/* =========================================
+   OPÇÕES
+========================================= */
+
+.menu-opcoes {
+    padding: 0 10px;
+}
+
+.item-menu {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 13px 12px;
+    margin: 0;
+
+    background: transparent;
+
+    border: none;
+    border-radius: 9px;
+
+    color: var(--menu-text);
+
     font-family: "Inter", sans-serif;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+/* ÍCONES */
+
+.menu-item-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    background: var(--menu-icon-bg);
+    color: var(--menu-icon-color);
+
+    border-radius: 9px;
+}
+
+/* TEXTOS */
+
+.menu-item-texto {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+
+    margin-left: 12px;
+
+    gap: 4px;
+}
+
+.menu-item-titulo {
+    color: var(--menu-text);
+
     font-size: 13px;
     font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
-.modal-menu button:first-of-type {
-    background: #53CA97;
-    border: 1px solid #53CA97;
-    color: #111;
-    font-weight: 600;
+.menu-item-descricao {
+    color: var(--menu-text-secondary);
+
+    font-size: 11px;
+    font-weight: 400;
 }
 
-.modal-menu button:first-of-type:hover {
-    background: #3abb83;
-    border-color: #3abb83;
+/* SETAS */
+
+.menu-item-seta {
+    flex-shrink: 0;
+
+    margin-left: 10px;
+
+    color: var(--menu-seta);
 }
 
-.modal-menu .botao-fechar-menu {
-    background: transparent;
-    border: 1px solid #393939;
-    color: #bdbdbd;
-    margin-bottom: 22px;
+/* HOVER */
+
+.item-menu:hover {
+    background: var(--menu-hover);
 }
 
-.modal-menu .botao-fechar-menu:hover {
-    background: #292929;
-    border-color: #555;
-    color: #fff;
+.item-menu:hover .menu-item-icone {
+    background: var(--menu-icon-hover-bg);
 }
+
+.item-menu:hover .menu-item-seta {
+    color: var(--menu-text);
+}
+
+/* =========================================
+   RODAPÉ / LOGOUT
+========================================= */
+
+.menu-rodape {
+    margin-top: 12px;
+
+    padding: 12px 10px 10px;
+
+    border-top: 1px solid var(--menu-border);
+}
+
+.botao-logout-menu .menu-item-icone {
+    color: var(--menu-logout-color);
+    background: var(--menu-logout-icon-bg);
+}
+
+.botao-logout-menu .menu-item-titulo {
+    color: var(--menu-logout-color);
+}
+
+.botao-logout-menu:hover {
+    background: var(--menu-logout-hover);
+}
+
+/* =========================================
+   MODO ESCURO
+========================================= */
+
+[data-theme="dark"] .modal-menu,
+:root:not([data-theme="light"]) .modal-menu {
+    --menu-bg: #1a1a1a;
+    --menu-border: #303030;
+
+    --menu-text: #f5f5f5;
+    --menu-text-secondary: #929292;
+
+    --menu-icon-bg: #262626;
+    --menu-icon-color: #d0d0d0;
+    --menu-icon-hover-bg: #333333;
+
+    --menu-hover: #252525;
+    --menu-seta: #777777;
+
+    --menu-logout-color: #e0e0e0;
+    --menu-logout-icon-bg: #292929;
+    --menu-logout-hover: #2b2b2b;
+}
+
+/* =========================================
+   WHITE MODE
+========================================= */
+
+[data-theme="light"] .modal-menu {
+    --menu-bg: #ffffff;
+    --menu-border: #e7e7e7;
+
+    --menu-text: #1a1a1a;
+    --menu-text-secondary: #777777;
+
+    --menu-icon-bg: #f1f1f1;
+    --menu-icon-color: #444444;
+    --menu-icon-hover-bg: #e5e5e5;
+
+    --menu-hover: #f5f5f5;
+    --menu-seta: #999999;
+
+    --menu-logout-color: #333333;
+    --menu-logout-icon-bg: #eeeeee;
+    --menu-logout-hover: #f3f3f3;
+}
+
+/* =========================================
+   ANIMAÇÃO
+========================================= */
 
 @keyframes menuEntrada {
     from {
@@ -77,5 +256,19 @@
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE
+========================================= */
+
+@media (max-width: 480px) {
+    .modal-menu {
+        max-width: 100%;
+    }
+
+    .menu-cabecalho {
+        padding: 20px 18px 16px;
     }
 }

@@ -8,11 +8,8 @@ function ModalApagarPublicacao({
     onClose,
     onPublicacaoApagada
 }) {
-
     async function handleApagar() {
-
         try {
-
             await apagarPublicacao(publicacao.id);
 
             // Atualiza o feed da Home
@@ -20,33 +17,27 @@ function ModalApagarPublicacao({
 
             // Fecha o modal
             onClose();
-
         } catch (erro) {
-
             console.error(erro);
-
         }
-
     }
 
-
     return (
-
         <div className="modal-overlay">
-
             <div className="modal-apagar">
-
                 <div className="modal-header">
-
                     <h2>Apagar publicação</h2>
 
-                    <button type="button" onClick={onClose} className="btn-fechar" style={{height : "0", background : "none"}}> <IoClose size={35} /> </button>
-
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="btn-fechar"
+                    >
+                        <IoClose size={35} />
+                    </button>
                 </div>
 
-
                 <div className="modal-conteudo">
-
                     <p>
                         Tem certeza que deseja apagar esta publicação?
                     </p>
@@ -54,12 +45,9 @@ function ModalApagarPublicacao({
                     <p>
                         Essa ação não poderá ser desfeita.
                     </p>
-
                 </div>
 
-
                 <div className="modal-acoes">
-
                     <button
                         type="button"
                         onClick={onClose}
@@ -67,18 +55,17 @@ function ModalApagarPublicacao({
                         Cancelar
                     </button>
 
-
-                    <button className="btn-apagar-publicacao" type="button" onClick={handleApagar}> Apagar </button>
-
+                    <button
+                        className="btn-apagar-publicacao"
+                        type="button"
+                        onClick={handleApagar}
+                    >
+                        Apagar
+                    </button>
                 </div>
-
             </div>
-
         </div>
-
     );
-
 }
-
 
 export default ModalApagarPublicacao;

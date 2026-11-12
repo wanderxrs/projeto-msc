@@ -1,6 +1,5 @@
 
 import { useEffect, useState } from "react";
-
 import { useParams, useNavigate } from "react-router-dom";
 
 import {
@@ -12,10 +11,10 @@ import "./comentarios.css";
 
 import ModalComentario from "../../modals/Comentario/ModalComentario";
 
-import { IoPaperPlane } from "react-icons/io5";
-
-import { IoMenu } from "react-icons/io5";
-
+import {
+    IoPaperPlane,
+    IoMenu
+} from "react-icons/io5";
 
 function Comentarios() {
 
@@ -23,48 +22,27 @@ function Comentarios() {
     const navigate = useNavigate();
 
     const [comentarios, setComentarios] = useState([]);
-
     const [texto, setTexto] = useState("");
-
-    const [comentarioSelecionado, setComentarioSelecionado] =
-        useState(null);
-
+    const [comentarioSelecionado, setComentarioSelecionado] = useState(null);
 
     async function buscarComentarios() {
-
         try {
+            const resposta = await carregarComentarios(publicacao_id);
 
-            const resposta =
-                await carregarComentarios(publicacao_id);
-
-            console.log(
-                "Comentários recebidos:",
-                resposta.data
-            );
+            console.log("Comentários recebidos:", resposta.data);
 
             setComentarios(resposta.data);
 
         } catch (erro) {
-
-            console.log(
-                "Erro ao carregar comentários:",
-                erro
-            );
-
+            console.log("Erro ao carregar comentários:", erro);
         }
-
     }
 
-
     useEffect(() => {
-
         buscarComentarios();
-
     }, [publicacao_id]);
 
-
     async function handleComentario(event) {
-
         event.preventDefault();
 
         if (!texto.trim()) {
@@ -72,13 +50,9 @@ function Comentarios() {
         }
 
         try {
-
             await criarComentario({
-
                 texto: texto,
-
                 publicacao_id: publicacao_id
-
             });
 
             setTexto("");
@@ -86,16 +60,9 @@ function Comentarios() {
             buscarComentarios();
 
         } catch (erro) {
-
-            console.log(
-                "Erro ao criar comentário:",
-                erro
-            );
-
+            console.log("Erro ao criar comentário:", erro);
         }
-
     }
-
 
     // Abrir perfil do usuário que comentou
     function abrirPerfil(usuario_id) {
@@ -106,35 +73,22 @@ function Comentarios() {
         }
 
         navigate(`/perfil/${usuario_id}`);
-
     }
-
 
     function abrirModalComentario(comentario) {
-
         setComentarioSelecionado(comentario);
-
     }
-
 
     function fecharModalComentario() {
-
         setComentarioSelecionado(null);
-
     }
 
-
     return (
-
         <div className="comentarios">
-        <br /> <br />
 
             <h3 className="titulo">
-
                 Comentários
-
             </h3>
-
 
             <form onSubmit={handleComentario}>
 
@@ -151,15 +105,10 @@ function Comentarios() {
                     type="submit"
                     className="botaoComentar"
                 >
-
-                    <IoPaperPlane
-                        fontSize={30}
-                    />
-
+                    <IoPaperPlane fontSize={30} />
                 </button>
 
             </form>
-
 
             <div className="lista-comentarios">
 
@@ -191,55 +140,35 @@ function Comentarios() {
                                     }
                                     style={{ cursor: "pointer" }}
                                 >
-
                                     {comentario.nome_usuario}
-
                                 </strong>
 
                             </div>
 
-
-                            <div>
+                            <div className="opcoes-comentario">
 
                                 <span className="data-comentario">
-
                                     {new Date(
                                         comentario.data_criacao
-                                    ).toLocaleDateString(
-                                        "pt-BR"
-                                    )}
-
+                                    ).toLocaleDateString("pt-BR")}
                                 </span>
 
-                                &nbsp;&nbsp;
-
-
                                 {comentario.eh_dono && (
-
                                     <IoMenu
-                                        color="white"
+                                        className="icone-menu-comentario"
                                         size={30}
-                                        style={{
-                                            cursor: "pointer"
-                                        }}
                                         onClick={() =>
-                                            abrirModalComentario(
-                                                comentario
-                                            )
+                                            abrirModalComentario(comentario)
                                         }
                                     />
-
                                 )}
 
                             </div>
 
                         </div>
 
-
                         <p className="comentario-texto">
-
                             {comentario.texto}
-
                         </p>
 
                     </div>
@@ -248,30 +177,18 @@ function Comentarios() {
 
             </div>
 
-
             {comentarioSelecionado && (
 
                 <ModalComentario
-
                     comentario={comentarioSelecionado}
-
-                    onClose={
-                        fecharModalComentario
-                    }
-
-                    onComentarioAlterado={
-                        buscarComentarios
-                    }
-
+                    onClose={fecharModalComentario}
+                    onComentarioAlterado={buscarComentarios}
                 />
 
             )}
 
         </div>
-
     );
-
 }
-
 
 export default Comentarios;

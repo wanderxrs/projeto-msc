@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { atualizarPerfil } from "../../api";
 import "./ModalEditarPerfil.css";
@@ -71,6 +70,7 @@ function ModalEditarPerfil({ perfil, onFechar, onSalvo }) {
         }
 
         const dados = new FormData();
+
         dados.append("nome", nome.trim());
 
         if (fotoPerfil) {

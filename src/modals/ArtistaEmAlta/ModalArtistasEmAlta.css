@@ -1,52 +1,142 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Fundo escurecido atrás do modal */
+/* ========================================
+   VARIÁVEIS DO TEMA ESCURO
+======================================== */
+
+:root {
+    --artistas-texto: #f5f5f5;
+    --artistas-texto-secundario: #a5a5a5;
+    --artistas-texto-fraco: #888888;
+
+    --artistas-fundo-modal: #1a1a1a;
+    --artistas-fundo-header: #1a1a1a;
+    --artistas-fundo-footer: #191919;
+    --artistas-fundo-icone: #292929;
+    --artistas-fundo-hover: #252525;
+
+    --artistas-borda: #303030;
+    --artistas-borda-item: #2c2c2c;
+    --artistas-borda-foto: #383838;
+
+    --artistas-overlay: rgba(0, 0, 0, 0.65);
+    --artistas-sombra: rgba(0, 0, 0, 0.45);
+
+    --artistas-roxo: #a855f7;
+    --artistas-posicao-top3: #f0f0f0;
+}
+
+/* ========================================
+   VARIÁVEIS DO TEMA CLARO
+======================================== */
+
+:root[data-theme="light"] {
+    --artistas-texto: #1f1f1f;
+    --artistas-texto-secundario: #737373;
+    --artistas-texto-fraco: #888888;
+
+    --artistas-fundo-modal: #ffffff;
+    --artistas-fundo-header: #ffffff;
+    --artistas-fundo-footer: #fafafa;
+    --artistas-fundo-icone: #f0f0f0;
+    --artistas-fundo-hover: #f5f5f5;
+
+    --artistas-borda: #e5e5e5;
+    --artistas-borda-item: #eeeeee;
+    --artistas-borda-foto: #dddddd;
+
+    --artistas-overlay: rgba(0, 0, 0, 0.40);
+    --artistas-sombra: rgba(0, 0, 0, 0.15);
+
+    --artistas-roxo: #9333ea;
+    --artistas-posicao-top3: #9333ea;
+}
+
+/* ========================================
+   OVERLAY
+======================================== */
+
 .artistas-overlay {
     position: fixed;
     inset: 0;
     z-index: 2000;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 20px;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.78);
+
+    background-color: var(--artistas-overlay);
+
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
     font-family: 'Inter', sans-serif;
+
+    animation: artistasAparecerOverlay 0.2s ease;
 }
 
-/* Estrutura principal */
+/* ========================================
+   MODAL
+======================================== */
+
 .modal-artistas {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+
     width: 100%;
     max-width: 540px;
-    max-height: 75vh;
+
+    max-height: min(75vh, 720px);
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 0;
+
     box-sizing: border-box;
+
     overflow: hidden;
-    background-color: #1a1a1a;
-    color: #f5f5f5;
-    border: 1px solid #303030;
+
+    background-color: var(--artistas-fundo-modal);
+    color: var(--artistas-texto);
+
+    border: 1px solid var(--artistas-borda);
     border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+
+    box-shadow: 0 20px 60px var(--artistas-sombra);
+
+    animation: artistasAparecerModal 0.25s ease;
 }
 
-/* Cabeçalho */
+/* ========================================
+   CABEÇALHO
+======================================== */
+
 .artistas-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 16px;
+
     padding: 20px 22px;
-    background-color: #1a1a1a;
-    border-bottom: 1px solid #303030;
+
+    background-color: var(--artistas-fundo-header);
+
+    border-bottom: 1px solid var(--artistas-borda);
+
     flex-shrink: 0;
 }
 
 .artistas-titulo {
     display: flex;
     align-items: center;
+
     gap: 13px;
+
     min-width: 0;
 }
 
@@ -54,62 +144,105 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 44px;
     height: 44px;
+
     flex-shrink: 0;
+
     border-radius: 12px;
-    background-color: #292929;
-    color: #e5e5e5;
+
+    background-color: var(--artistas-fundo-icone);
+
+    color: var(--artistas-texto);
+
     font-size: 21px;
 }
 
 .artistas-titulo h2 {
     margin: 0;
-    color: #f5f5f5;
+
+    color: var(--artistas-texto);
+
     font-size: 18px;
     font-weight: 700;
+
     line-height: 1.4;
 }
 
 .artistas-titulo p {
     margin: 4px 0 0;
-    color: #a5a5a5;
+
+    color: var(--artistas-texto-secundario);
+
     font-size: 12px;
     font-weight: 400;
 }
+
+/* ========================================
+   BOTÃO FECHAR
+======================================== */
 
 .artistas-fechar {
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 36px;
     height: 36px;
+
     flex-shrink: 0;
+
     padding: 0;
+
     border: 1px solid transparent;
     border-radius: 8px;
+
     background-color: transparent;
-    color: #a5a5a5;
+
+    color: var(--artistas-texto-secundario);
+
     font-family: inherit;
     font-size: 27px;
     line-height: 1;
+
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .artistas-fechar:hover {
-    background-color: #303030;
-    color: #ffffff;
+    background-color: var(--artistas-fundo-hover);
+
+    color: var(--artistas-texto);
 }
 
-/* Lista com rolagem */
+.artistas-fechar:focus-visible {
+    outline: 2px solid var(--artistas-roxo);
+    outline-offset: 3px;
+}
+
+/* ========================================
+   LISTA COM ROLAGEM
+======================================== */
+
 .artistas-lista {
     flex: 1;
+
     min-height: 0;
+
     padding: 8px 14px;
+
     overflow-y: auto;
+    overscroll-behavior: contain;
+
     scrollbar-width: thin;
-    scrollbar-color: #555555 #1a1a1a;
+
+    scrollbar-color:
+        var(--artistas-texto-fraco)
+        var(--artistas-fundo-modal);
 }
 
 .artistas-lista::-webkit-scrollbar {
@@ -117,27 +250,37 @@
 }
 
 .artistas-lista::-webkit-scrollbar-track {
-    background-color: #1a1a1a;
+    background-color: var(--artistas-fundo-modal);
 }
 
 .artistas-lista::-webkit-scrollbar-thumb {
-    background-color: #484848;
+    background-color: var(--artistas-borda);
+
     border-radius: 10px;
 }
 
 .artistas-lista::-webkit-scrollbar-thumb:hover {
-    background-color: #666666;
+    background-color: var(--artistas-texto-fraco);
 }
 
-/* Cada artista */
+/* ========================================
+   ITEM DO ARTISTA
+======================================== */
+
 .artista-item {
     display: flex;
     align-items: center;
+
     gap: 12px;
+
     min-width: 0;
+
     padding: 14px 10px;
-    border-bottom: 1px solid #2c2c2c;
+
+    border-bottom: 1px solid var(--artistas-borda-item);
+
     border-radius: 8px;
+
     transition: background-color 0.2s ease;
 }
 
@@ -146,132 +289,206 @@
 }
 
 .artista-item:hover {
-    background-color: #222222;
+    background-color: var(--artistas-fundo-hover);
 }
 
-/* Posição no ranking */
+/* ========================================
+   POSIÇÃO NO RANKING
+======================================== */
+
 .artista-posicao {
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 25px;
+
     flex-shrink: 0;
-    color: #929292;
+
+    color: var(--artistas-texto-fraco);
+
     font-size: 13px;
     font-weight: 700;
+
     font-variant-numeric: tabular-nums;
 }
 
 .artista-top3 {
-    color: #f0f0f0;
+    color: var(--artistas-posicao-top3);
 }
 
-/* Foto */
+/* ========================================
+   FOTO DO ARTISTA
+======================================== */
+
 .artista-foto {
     width: 46px;
     height: 46px;
+
     flex-shrink: 0;
+
     object-fit: cover;
-    border: 1px solid #383838;
+
+    border: 1px solid var(--artistas-borda-foto);
+
     border-radius: 50%;
-    background-color: #303030;
+
+    background-color: var(--artistas-fundo-icone);
 }
 
-/* Nome e ouvintes */
+/* ========================================
+   NOME DO ARTISTA
+======================================== */
+
 .artista-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     flex: 1;
+
     min-width: 0;
+
     gap: 4px;
 }
 
 .artista-nome {
     overflow: hidden;
-    color: #f0f0f0;
+
+    color: var(--artistas-texto);
+
     font-size: 13px;
     font-weight: 600;
+
     line-height: 1.4;
+
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-.artista-ouvintes {
-    color: #a5a5a5;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 1.4;
-}
+/* ========================================
+   TROFÉU DO PRIMEIRO LUGAR
+======================================== */
 
-/* Ícone de primeiro lugar */
 .artista-trofeu {
     flex-shrink: 0;
-    color: #cfcfcf;
+
+    color: var(--artistas-roxo);
+
     font-size: 17px;
 }
 
-/* Link para a página do artista */
+/* ========================================
+   LINK DO ARTISTA
+======================================== */
+
 .artista-link {
     display: flex;
     align-items: center;
     justify-content: center;
+
     width: 32px;
     height: 32px;
+
     flex-shrink: 0;
+
     border-radius: 8px;
-    color: #999999;
+
+    color: var(--artistas-texto-secundario);
+
     text-decoration: none;
-    transition: background-color 0.2s ease, color 0.2s ease;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .artista-link:hover {
-    background-color: #303030;
-    color: #ffffff;
+    background-color: var(--artistas-fundo-hover);
+
+    color: var(--artistas-roxo);
 }
 
-/* Mensagens de carregamento e erro */
+.artista-link:focus-visible {
+    outline: 2px solid var(--artistas-roxo);
+    outline-offset: 3px;
+}
+
+/* ========================================
+   MENSAGENS
+======================================== */
+
 .artistas-mensagem {
     padding: 35px 15px;
-    color: #a5a5a5;
+
+    color: var(--artistas-texto-secundario);
+
     font-size: 13px;
+
     text-align: center;
 }
 
 .artistas-erro {
-    color: #d0d0d0;
+    color: var(--artistas-texto);
 }
 
-/* Rodapé */
+/* ========================================
+   RODAPÉ
+======================================== */
+
 .artistas-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 12px;
+
     padding: 14px 22px;
-    background-color: #191919;
-    border-top: 1px solid #303030;
+
+    background-color: var(--artistas-fundo-footer);
+
+    border-top: 1px solid var(--artistas-borda);
+
     flex-shrink: 0;
 }
 
 .artistas-footer span {
-    color: #999999;
+    color: var(--artistas-texto-secundario);
+
     font-size: 11px;
     font-weight: 500;
 }
 
-.artistas-footer span:first-child {
-    color: #dedede;
+/* ========================================
+   ANIMAÇÕES
+======================================== */
+
+@keyframes artistasAparecerOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
-/* Acessibilidade */
-.artistas-fechar:focus-visible,
-.artista-link:focus-visible {
-    outline: 2px solid #d0d0d0;
-    outline-offset: 3px;
+@keyframes artistasAparecerModal {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-/* Telas menores */
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
 @media (max-width: 600px) {
     .artistas-overlay {
         padding: 12px;
@@ -279,6 +496,7 @@
 
     .modal-artistas {
         max-height: 80vh;
+
         border-radius: 12px;
     }
 
@@ -305,11 +523,13 @@
 
     .artista-item {
         gap: 9px;
+
         padding: 12px 7px;
     }
 
     .artista-posicao {
         width: 22px;
+
         font-size: 12px;
     }
 
@@ -322,17 +542,69 @@
         font-size: 12px;
     }
 
-    .artista-ouvintes {
-        font-size: 11px;
-    }
-
     .artistas-footer {
         padding: 13px 16px;
     }
 }
 
-/* Redução de animações */
+/* ========================================
+   CELULARES PEQUENOS
+======================================== */
+
+@media (max-width: 360px) {
+    .artistas-overlay {
+        padding: 8px;
+    }
+
+    .artistas-header {
+        padding: 12px;
+    }
+
+    .artistas-lista {
+        padding: 6px;
+    }
+
+    .artista-item {
+        gap: 8px;
+
+        padding: 10px 5px;
+    }
+
+    .artista-posicao {
+        width: 20px;
+
+        font-size: 11px;
+    }
+
+    .artista-foto {
+        width: 34px;
+        height: 34px;
+    }
+
+    .artista-nome {
+        font-size: 11px;
+    }
+
+    .artista-trofeu {
+        font-size: 14px;
+    }
+
+    .artista-link {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* ========================================
+   REDUÇÃO DE ANIMAÇÕES
+======================================== */
+
 @media (prefers-reduced-motion: reduce) {
+    .artistas-overlay,
+    .modal-artistas {
+        animation: none;
+    }
+
     .artista-item,
     .artistas-fechar,
     .artista-link {

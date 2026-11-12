@@ -1,7 +1,6 @@
 import "./filtroGeneroModal.css";
 
 function FiltroGeneroModal({ aberto, fechar, aplicarFiltro }) {
-
     if (!aberto) {
         return null;
     }
@@ -34,7 +33,8 @@ function FiltroGeneroModal({ aberto, fechar, aplicarFiltro }) {
                 <div className="lista-generos">
                     {generos.map((genero) => (
                         <button
-                            className="botao-genero" key={genero}
+                            className="botao-genero"
+                            key={genero}
                             onClick={() => aplicarFiltro(genero)}
                         >
                             {genero.charAt(0).toUpperCase() + genero.slice(1)}
@@ -42,7 +42,12 @@ function FiltroGeneroModal({ aberto, fechar, aplicarFiltro }) {
                     ))}
                 </div>
 
-                <button className="botao-cancelar"onClick={fechar}>Cancelar</button>
+                <button
+                    className="botao-cancelar"
+                    onClick={fechar}
+                >
+                    Cancelar
+                </button>
 
             </div>
         </div>
