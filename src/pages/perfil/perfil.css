@@ -1,9 +1,8 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ========================================
+/* ================================
    VARIÁVEIS DE TEMA
-======================================== */
+================================ */
 
 :root {
     --perfil-texto: #f5f5f5;
@@ -28,11 +27,17 @@
     --perfil-roxo-borda: #493653;
 
     --perfil-borda-foto: #111;
+
+    /* RETÂNGULO DAS ESTATÍSTICAS (escuro) */
+    --perfil-stat-fundo: rgba(0, 0, 0, 0.55);
+    --perfil-stat-borda: rgba(255, 255, 255, 0.18);
+    --perfil-stat-divisor: rgba(255, 255, 255, 0.14);
+    --perfil-stat-sombra: rgba(0, 0, 0, 0.35);
+    --perfil-stat-numero: #ffffff;
+    --perfil-stat-rotulo: #d4d4d4;
 }
 
-/* ========================================
-   TEMA CLARO
-======================================== */
+/* TEMA CLARO */
 
 :root[data-theme="light"] {
     --perfil-texto: #1f1f1f;
@@ -57,11 +62,19 @@
     --perfil-roxo-borda: #d8b4fe;
 
     --perfil-borda-foto: #ffffff;
+
+    /* RETÂNGULO DAS ESTATÍSTICAS (claro) */
+    --perfil-stat-fundo: rgba(255, 255, 255, 0.72);
+    --perfil-stat-borda: rgba(0, 0, 0, 0.14);
+    --perfil-stat-divisor: rgba(0, 0, 0, 0.1);
+    --perfil-stat-sombra: rgba(0, 0, 0, 0.12);
+    --perfil-stat-numero: #1f1f1f;
+    --perfil-stat-rotulo: #525252;
 }
 
-/* ========================================
+/* ================================
    CONFIGURAÇÕES GERAIS
-======================================== */
+================================ */
 
 .perfil-page {
     min-height: 100vh;
@@ -74,9 +87,9 @@
     box-sizing: border-box;
 }
 
-/* ========================================
+/* ================================
    CABEÇALHO DO PERFIL
-======================================== */
+================================ */
 
 .perfil-header {
     position: relative;
@@ -91,33 +104,24 @@
     border-radius: 12px;
 }
 
+/* CAPA */
+
 .perfil-capa {
     position: absolute;
-    top: 0;
-    left: 0;
-
+    inset: 0;
     width: 100%;
-    height: 155px;
+    height: 100%;
 
     background-color: var(--perfil-fundo-secundario);
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 }
 
-.perfil-capa::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background: linear-gradient(
-        transparent,
-        var(--perfil-fundo-card)
-    );
-}
+/* IDENTIDADE */
 
 .perfil-identidade {
     position: relative;
-
     display: flex;
     align-items: flex-start;
     gap: 16px;
@@ -163,29 +167,59 @@
     overflow-wrap: anywhere;
 }
 
-/* ESTATÍSTICAS */
+/* ================================
+   ESTATÍSTICAS (RETÂNGULO ÚNICO COM BLUR)
+================================ */
 
 .perfil-estatisticas {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 12px;
+    align-items: stretch;
+
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 14px;
+    padding: 10px 6px;
+
+    background: var(--perfil-stat-fundo);
+    border: 1px solid var(--perfil-stat-borda);
+    border-radius: 12px;
+
+    box-shadow: 0 4px 14px var(--perfil-stat-sombra);
+
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .perfil-estatisticas > div {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 4px;
+
+    min-width: 0;
+    padding: 2px 18px;
+
+    text-align: center;
+}
+
+/* linha divisória entre as estatísticas */
+.perfil-estatisticas > div + div {
+    border-left: 1px solid var(--perfil-stat-divisor);
 }
 
 .perfil-estatisticas strong {
-    color: var(--perfil-texto);
-    font-size: 15px;
+    color: var(--perfil-stat-numero);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
 }
 
 .perfil-estatisticas span {
-    color: var(--perfil-texto-secundario);
+    color: var(--perfil-stat-rotulo);
     font-size: 11px;
+    font-weight: 500;
+    line-height: 1.2;
 }
 
 /* BOTÃO DE OPÇÕES */
@@ -210,9 +244,9 @@
     background: var(--perfil-fundo-hover);
 }
 
-/* ========================================
+/* ================================
    ABAS DO PERFIL
-======================================== */
+================================ */
 
 .perfil-abas {
     display: flex;
@@ -252,9 +286,9 @@
     border-bottom-color: var(--perfil-roxo-ativo);
 }
 
-/* ========================================
-   ÁREA DE PUBLICAÇÕES
-======================================== */
+/* ================================
+   PUBLICAÇÕES
+================================ */
 
 .perfil-publicacoes {
     display: flex;
@@ -279,10 +313,7 @@
     font-size: 13px;
 }
 
-/* ========================================
-   PAINÉIS DE CONTEÚDO
-   COMUNIDADES E AVALIAÇÕES
-======================================== */
+/* PAINÉIS */
 
 .perfil-conteudo-aba,
 .perfil-avaliacoes {
@@ -302,9 +333,9 @@
     font-size: 13px;
 }
 
-/* ========================================
-   LISTA DE COMUNIDADES DO PERFIL
-======================================== */
+/* ================================
+   COMUNIDADES
+================================ */
 
 .perfil-comunidades-lista {
     display: flex;
@@ -312,10 +343,7 @@
 
     width: 100%;
     margin-top: 20px;
-    gap: 0;
 }
-
-/* CADA COMUNIDADE */
 
 .perfil-comunidade-card {
     display: flex;
@@ -325,8 +353,6 @@
     width: 100%;
     min-width: 0;
     padding: 18px 12px;
-
-    box-sizing: border-box;
 
     background: transparent;
     border: none;
@@ -342,8 +368,8 @@
 }
 
 .perfil-comunidade-card:last-child {
-    border-bottom: none;
     padding-bottom: 8px;
+    border-bottom: none;
 }
 
 .perfil-comunidade-card:hover {
@@ -355,21 +381,17 @@
     outline-offset: -2px;
 }
 
-/* IMAGEM DA COMUNIDADE */
-
 .perfil-comunidade-imagem {
+    display: block;
+
     width: 82px;
     height: 82px;
     flex-shrink: 0;
 
     object-fit: cover;
-    display: block;
-
     border-radius: 12px;
     border: 1px solid var(--perfil-borda-forte);
 }
-
-/* INFORMAÇÕES DA COMUNIDADE */
 
 .perfil-comunidade-info {
     display: flex;
@@ -384,8 +406,6 @@
     text-align: left;
 }
 
-/* NOME */
-
 .perfil-comunidade-info h3 {
     margin: 0;
 
@@ -397,15 +417,11 @@
     overflow-wrap: anywhere;
 }
 
-/* GÊNERO MUSICAL */
-
 .perfil-comunidade-info span {
     color: var(--perfil-roxo);
     font-size: 12px;
     font-weight: 600;
 }
-
-/* QUANTIDADE DE MEMBROS */
 
 .perfil-comunidade-info p {
     margin: 0;
@@ -415,8 +431,6 @@
     font-weight: 400;
     line-height: 1.5;
 }
-
-/* DESCRIÇÃO DA COMUNIDADE */
 
 .perfil-comunidade-info p:last-child {
     color: var(--perfil-texto-comunidade);
@@ -432,9 +446,9 @@
     overflow-wrap: anywhere;
 }
 
-/* ========================================
+/* ================================
    ÁLBUNS AVALIADOS
-======================================== */
+================================ */
 
 .perfil-avaliacoes h2 {
     margin-bottom: 18px;
@@ -502,8 +516,6 @@
     overflow-wrap: anywhere;
 }
 
-/* NOTA DO ÁLBUM */
-
 .perfil-avaliacao-nota {
     display: inline-block;
     padding: 4px 7px;
@@ -517,68 +529,9 @@
     font-weight: 600;
 }
 
-/* ========================================
-   TEMA CLARO: PAINEL DE COMUNIDADES
-======================================== */
-
-:root[data-theme="light"] .perfil-page .perfil-conteudo-aba {
-    background: #ffffff;
-    border-color: #e5e5e5;
-    color: #1f1f1f;
-}
-
-:root[data-theme="light"] .perfil-page .perfil-conteudo-aba h2 {
-    color: #1f1f1f;
-}
-
-:root[data-theme="light"] .perfil-page .perfil-conteudo-aba p {
-    color: #737373;
-}
-
-/* CARDS DAS COMUNIDADES */
-
-:root[data-theme="light"] .perfil-page .perfil-comunidade-card {
-    background: transparent;
-    border-bottom-color: #e5e5e5;
-}
-
-:root[data-theme="light"] .perfil-page .perfil-comunidade-card:hover {
-    background-color: #f5f5f5;
-}
-
-/* NOME DA COMUNIDADE */
-
-:root[data-theme="light"] .perfil-page .perfil-comunidade-info h3 {
-    color: #1f1f1f;
-}
-
-/* GÊNERO MUSICAL */
-
-:root[data-theme="light"] .perfil-page .perfil-comunidade-info span {
-    color: #9333ea;
-}
-
-/* MEMBROS */
-
-:root[data-theme="light"] .perfil-page .perfil-comunidade-info p {
-    color: #737373;
-}
-
-/* DESCRIÇÃO */
-
-:root[data-theme="light"] .perfil-page .perfil-comunidade-info p:last-child {
-    color: #525252;
-}
-
-/* IMAGEM DA COMUNIDADE */
-
-:root[data-theme="light"] .perfil-page .perfil-comunidade-imagem {
-    border-color: #e5e5e5;
-}
-
-/* ========================================
+/* ================================
    RESPONSIVIDADE
-======================================== */
+================================ */
 
 @media (max-width: 768px) {
     .perfil-page {
@@ -587,10 +540,6 @@
 
     .perfil-header {
         width: calc(100% - 24px);
-    }
-
-    .perfil-capa {
-        height: 125px;
     }
 
     .perfil-identidade {
@@ -633,8 +582,8 @@
         width: calc(100% - 24px);
     }
 
-    .perfil-avaliacoes,
-    .perfil-conteudo-aba {
+    .perfil-conteudo-aba,
+    .perfil-avaliacoes {
         padding: 16px;
     }
 
@@ -643,8 +592,6 @@
         gap: 10px;
     }
 }
-
-/* RESPONSIVIDADE DAS COMUNIDADES */
 
 @media (max-width: 650px) {
     .perfil-comunidades-lista {
@@ -678,8 +625,6 @@
     }
 }
 
-/* CELULARES PEQUENOS */
-
 @media (max-width: 480px) {
     .perfil-foto {
         width: 70px;
@@ -691,7 +636,21 @@
     }
 
     .perfil-estatisticas {
-        gap: 14px;
+        width: 100%;
+        padding: 8px 2px;
+    }
+
+    .perfil-estatisticas > div {
+        flex: 1;
+        padding: 2px 6px;
+    }
+
+    .perfil-estatisticas strong {
+        font-size: 15px;
+    }
+
+    .perfil-estatisticas span {
+        font-size: 10px;
     }
 
     .perfil-avaliacoes-grade {

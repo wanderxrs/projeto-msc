@@ -1,7 +1,12 @@
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
-import { carregarPublicacoes, carregarPublicacoesSeguindo, curtirPublicacao, carregarPerfil} from "../../api";
+import {
+    carregarPublicacoes,
+    carregarPublicacoesSeguindo,
+    curtirPublicacao,
+    carregarPerfil
+} from "../../api";
 
 import "./home.css";
 
@@ -26,12 +31,16 @@ function Home() {
     const [publicacoes, setPublicacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
+    const [erroCurtida, setErroCurtida] = useState("");
     const [curtidas, setCurtidas] = useState({});
     const [abaAtiva, setAbaAtiva] = useState("descobrir");
     const [segueComunidades, setSegueComunidades] = useState(true);
 
     const [publicacaoSelecionada, setPublicacaoSelecionada] =
         useState(null);
+
+    // Impede múltiplas requisições simultâneas para a mesma publicação.
+    const curtidasPendentes = useRef(new Set());
 
     // Controla os painéis laterais no mobile.
     const [painelAberto, setPainelAberto] = useState(null);
@@ -130,16 +139,81 @@ function Home() {
         buscarPublicacoes();
     }, [abaAtiva]);
 
-    // Curtir ou descurtir uma publicação.
+    // Curtir ou descurtir uma publicação com Optimistic UI.
     async function handleCurtir(publicacao_id) {
+
+        // Evita cliques repetidos enquanto a requisição está pendente.
+        if (curtidasPendentes.current.has(publicacao_id)) {
+            return;
+        }
+
+        curtidasPendentes.current.add(publicacao_id);
+
+        setErroCurtida("");
+
+        // Guarda o estado anterior para poder restaurá-lo se houver erro.
+        const curtidoAnterior = Boolean(curtidas[publicacao_id]);
+
+        const publicacaoAnterior = publicacoes.find(
+            (publicacao) => publicacao.id === publicacao_id
+        );
+
+        const totalAnterior = Number(
+            publicacaoAnterior?.total_curtidas
+        ) || 0;
+
+        // Calcula o novo estado imediatamente.
+        const novoEstadoCurtida = !curtidoAnterior;
+
+        const novoTotalCurtidas = Math.max(
+            0,
+            totalAnterior + (novoEstadoCurtida ? 1 : -1)
+        );
+
+        // ==========================================
+        // 1. ATUALIZAÇÃO IMEDIATA NO FRONTEND
+        // ==========================================
+
+        setCurtidas((anteriores) => ({
+            ...anteriores,
+            [publicacao_id]: novoEstadoCurtida
+        }));
+
+        setPublicacoes((anteriores) =>
+            anteriores.map((publicacao) => {
+                if (publicacao.id !== publicacao_id) {
+                    return publicacao;
+                }
+
+                return {
+                    ...publicacao,
+                    total_curtidas: novoTotalCurtidas
+                };
+            })
+        );
+
+        // ==========================================
+        // 2. ENVIA A REQUISIÇÃO AO BACKEND
+        // ==========================================
+
         try {
             const resposta = await curtirPublicacao(publicacao_id);
 
-            const { curtido, total_curtidas } = resposta.data;
+            const {
+                curtido,
+                total_curtidas
+            } = resposta.data;
+
+            // Sincroniza com o resultado confirmado pelo backend.
+            const curtidoConfirmado =
+                curtido ?? novoEstadoCurtida;
+
+            const totalConfirmado =
+                total_curtidas ?? novoTotalCurtidas;
 
             setCurtidas((anteriores) => ({
                 ...anteriores,
-                [publicacao_id]: curtido
+                [publicacao_id]: curtidoConfirmado
             }));
 
             setPublicacoes((anteriores) =>
@@ -150,14 +224,46 @@ function Home() {
 
                     return {
                         ...publicacao,
-                        total_curtidas: total_curtidas
+                        total_curtidas: totalConfirmado
                     };
                 })
             );
 
         } catch (erro) {
-            console.error(erro);
-            setErro("Erro ao curtir a publicação.");
+            console.error(
+                "Erro ao curtir publicação:",
+                erro
+            );
+
+            // ==========================================
+            // 3. RESTAURA O ESTADO ANTERIOR SE FALHAR
+            // ==========================================
+
+            setCurtidas((anteriores) => ({
+                ...anteriores,
+                [publicacao_id]: curtidoAnterior
+            }));
+
+            setPublicacoes((anteriores) =>
+                anteriores.map((publicacao) => {
+                    if (publicacao.id !== publicacao_id) {
+                        return publicacao;
+                    }
+
+                    return {
+                        ...publicacao,
+                        total_curtidas: totalAnterior
+                    };
+                })
+            );
+
+            setErroCurtida(
+                "Não foi possível registrar a curtida. Tente novamente."
+            );
+
+        } finally {
+            // Libera a publicação para uma nova curtida.
+            curtidasPendentes.current.delete(publicacao_id);
         }
     }
 
@@ -221,7 +327,7 @@ function Home() {
 
                 {/* CONTEÚDO CENTRAL */}
                 <main className="conteudo-central">
-                    
+
                     {/* ABAS DO FEED */}
                     <div className="abas-feed">
 
@@ -250,6 +356,13 @@ function Home() {
                         </button>
 
                     </div>
+
+                    {/* ERRO DE CURTIDA */}
+                    {erroCurtida && (
+                        <p className="mensagem-feed">
+                            {erroCurtida}
+                        </p>
+                    )}
 
                     {/* CARREGAMENTO */}
                     {carregando && (
@@ -283,7 +396,8 @@ function Home() {
                             <div className="feed-vazio">
 
                                 <h2>
-                                    Seu feed está esperando por você <PiMusicNotesFill />
+                                    Seu feed está esperando por você{" "}
+                                    <PiMusicNotesFill />
                                 </h2>
 
                                 <p>
@@ -312,7 +426,8 @@ function Home() {
                             <div className="feed-vazio">
 
                                 <h2>
-                                    Nenhuma publicação por enquanto  <ImHeadphones />
+                                    Nenhuma publicação por enquanto{" "}
+                                    <ImHeadphones />
                                 </h2>
 
                             </div>

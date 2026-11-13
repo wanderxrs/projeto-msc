@@ -1,9 +1,12 @@
 
-/* TELA DE CONFIRMAÇÃO DE SENHA */
+/* ========================================
+   TELA DE CONFIRMAÇÃO DE SENHA
+======================================== */
 
 .confirmar-senha {
     min-height: 100vh;
     width: 100%;
+
     box-sizing: border-box;
 
     display: flex;
@@ -18,23 +21,33 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* CARD */
+.confirmar-senha *,
+.confirmar-senha *::before,
+.confirmar-senha *::after {
+    box-sizing: border-box;
+}
+
+/* ========================================
+   CARD
+======================================== */
 
 .confirmar-senha .container {
     width: 100%;
     max-width: 420px;
-    box-sizing: border-box;
 
     padding: 36px;
 
     background-color: #1a1a1a;
+
     border: 1px solid #303030;
     border-radius: 18px;
 
     box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4);
 }
 
-/* LOGO */
+/* ========================================
+   LOGO
+======================================== */
 
 .confirmar-senha .container h1 {
     margin: 0 0 30px;
@@ -48,7 +61,9 @@
     color: #ffffff;
 }
 
-/* TEXTO INFORMATIVO */
+/* ========================================
+   TEXTO INFORMATIVO
+======================================== */
 
 .confirmar-senha .descricao {
     margin: 0 0 10px;
@@ -59,23 +74,37 @@
     line-height: 1.5;
 }
 
-/* FORMULÁRIO */
+/* ========================================
+   FORMULÁRIO
+======================================== */
 
 .confirmar-senha .container form {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+
     gap: 12px;
+
+    width: 100%;
+    margin: 0;
 }
 
-/* GRUPO DO INPUT */
+/* ========================================
+   GRUPO DO INPUT
+======================================== */
 
 .confirmar-senha .form-group {
     display: flex;
     flex-direction: column;
+
     gap: 8px;
+
+    width: 100%;
 }
 
-/* LABEL */
+/* ========================================
+   LABEL
+======================================== */
 
 .confirmar-senha .form-group label {
     color: #d4d4d4;
@@ -84,13 +113,17 @@
     font-weight: 600;
 }
 
-/* INPUT */
+/* ========================================
+   INPUT
+======================================== */
 
 .confirmar-senha .container input {
+    display: block;
+
     width: 100%;
     height: 48px;
-    box-sizing: border-box;
 
+    margin: 0;
     padding: 0 14px;
 
     border: 1px solid #383838;
@@ -116,72 +149,98 @@
 
 .confirmar-senha .container input:focus {
     border-color: #a0a0a0;
+
     box-shadow: 0 0 0 3px rgba(180, 180, 180, 0.1);
 }
 
-/* BOTÃO PRINCIPAL */
+/* ========================================
+   BOTÕES
+======================================== */
 
-.confirmar-senha .container button[type="submit"] {
+.confirmar-senha .container form button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
     height: 48px;
 
+    margin: 0;
+    padding: 0 14px;
+
+    box-sizing: border-box;
+
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: bold;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* ========================================
+   BOTÃO PRINCIPAL
+======================================== */
+
+.confirmar-senha .container form button[type="submit"] {
     margin-top: 4px;
 
     border: 1px solid #ffffff;
-    border-radius: 9px;
 
     background-color: #ffffff;
     color: #111111;
-
-    font-size: 1rem;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: background-color 0.2s, transform 0.2s;
 }
 
-.confirmar-senha .container button[type="submit"]:hover {
+.confirmar-senha .container form button[type="submit"]:hover:not(:disabled) {
     background-color: #dcdcdc;
+
     transform: translateY(-1px);
 }
 
-/* BOTÃO VOLTAR */
+/* ========================================
+   BOTÃO VOLTAR
+======================================== */
 
-.confirmar-senha .container .botao-voltar {
-    width: 100%;
-    height: 48px;
-
+.confirmar-senha .container form button.botao-voltar {
     border: 1px solid #383838;
-    border-radius: 9px;
 
     background-color: transparent;
     color: #ffffff;
-
-    font-size: 1rem;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition: background-color 0.2s, border-color 0.2s;
 }
 
-.confirmar-senha .container .botao-voltar:hover {
+.confirmar-senha .container form button.botao-voltar:hover:not(:disabled) {
     background-color: #292929;
+
     border-color: #666666;
 }
 
-/* BOTÕES DESABILITADOS */
+/* ========================================
+   BOTÕES DESABILITADOS
+======================================== */
 
-.confirmar-senha .container button:disabled {
+.confirmar-senha .container form button:disabled {
     opacity: 0.6;
+
     cursor: not-allowed;
+
     transform: none;
 }
 
-/* MENSAGEM DE ERRO */
+/* ========================================
+   MENSAGEM DE ERRO
+======================================== */
 
 .confirmar-senha .container .mensagem-erro {
+    width: 100%;
+
     margin: 0;
     padding: 12px;
 
@@ -196,9 +255,13 @@
     overflow-wrap: anywhere;
 }
 
-/* LINK ESQUECI MINHA SENHA */
+/* ========================================
+   LINK ESQUECI MINHA SENHA
+======================================== */
 
 .confirmar-senha .container .texto-recuperacao {
+    width: 100%;
+
     margin: 8px 0 0;
 
     text-align: center;
@@ -222,10 +285,13 @@
 
 .confirmar-senha .container .texto-recuperacao a:hover {
     color: #ffffff;
+
     text-decoration: underline;
 }
 
-/* RESPONSIVIDADE */
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
 
 @media (max-width: 480px) {
     .confirmar-senha .container {

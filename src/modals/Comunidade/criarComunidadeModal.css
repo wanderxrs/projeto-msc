@@ -1,101 +1,312 @@
 
-/* Modal */
+/* ========================================
+   MODAL PRINCIPAL
+======================================== */
 
-.yrplace-criar-dialog .MuiPaper-root {
-    background: #161616;
-    color: #f5f5f5;
-    border: 1px solid #303030;
-    border-radius: 12px;
-    font-family: "Inter", sans-serif;
+.yrplace-criar-dialog {
+    --comunidade-fundo: #ffffff;
+    --comunidade-texto: #222222;
+    --comunidade-texto-secundario: #777777;
+    --comunidade-borda: #e5e5e5;
+    --comunidade-input: #fafafa;
+    --comunidade-upload: #f8f8f8;
+    --comunidade-hover: #f1f1f1;
 }
 
-/* Título */
+.yrplace-criar-dialog .MuiPaper-root {
+    background: var(--comunidade-fundo);
+    color: var(--comunidade-texto);
+
+    border: 1px solid var(--comunidade-borda);
+    border-radius: 14px;
+
+    font-family: "Inter", sans-serif;
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+
+/* ========================================
+   TÍTULO
+======================================== */
 
 .yrplace-criar-titulo {
-    font-size: 20px;
-    font-weight: 600;
+    color: var(--comunidade-texto);
+
+    font-family: "Inter", sans-serif !important;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+
+    padding: 24px 24px 12px !important;
 }
 
 .yrplace-criar-subtitulo {
-    margin-top: 6px;
-    color: #888;
-    font-size: 12px;
+    margin-top: 7px !important;
+
+    color: var(--comunidade-texto-secundario);
+
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.6 !important;
 }
 
-/* Conteúdo */
+
+/* ========================================
+   CONTEÚDO
+======================================== */
 
 .yrplace-criar-conteudo {
-    padding: 0 24px 16px !important;
+    padding: 8px 24px 20px !important;
+}
+
+
+/* CAMPOS DE TEXTO */
+
+.yrplace-criar-conteudo .MuiTextField-root {
+    margin-top: 12px;
 }
 
 .yrplace-criar-conteudo .MuiOutlinedInput-root {
-    background: #202020;
-    border-radius: 8px;
-    color: #fff;
-}
+    background: var(--comunidade-input);
 
-.yrplace-criar-conteudo .MuiOutlinedInput-notchedOutline {
-    border-color: #363636;
-}
+    border-radius: 9px;
 
-.yrplace-criar-conteudo .MuiInputLabel-root {
-    color: #929292;
-}
+    color: var(--comunidade-texto);
 
-/* Imagem */
-
-.yrplace-criar-imagem {
-    margin-top: 8px;
-    padding: 15px;
-    background: #1d1d1d;
-    border: 1px solid #303030;
-    border-radius: 8px;
-}
-
-.yrplace-criar-label {
-    margin-bottom: 10px;
-    color: #ddd;
+    font-family: "Inter", sans-serif;
     font-size: 13px;
 }
 
-.yrplace-upload-botao {
-    color: #ddd !important;
-    border-color: #444 !important;
-    text-transform: none !important;
+
+/* BORDA DOS CAMPOS */
+
+.yrplace-criar-conteudo .MuiOutlinedInput-notchedOutline {
+    border-color: var(--comunidade-borda);
 }
+
+.yrplace-criar-conteudo .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #bdbdbd;
+}
+
+.yrplace-criar-conteudo .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #8b5cf6;
+    border-width: 1px;
+}
+
+
+/* LABELS */
+
+.yrplace-criar-conteudo .MuiInputLabel-root {
+    color: var(--comunidade-texto-secundario);
+
+    font-family: "Inter", sans-serif;
+    font-size: 13px;
+}
+
+.yrplace-criar-conteudo .MuiInputLabel-root.Mui-focused {
+    color: #8b5cf6;
+}
+
+
+/* PLACEHOLDER */
+
+.yrplace-criar-conteudo .MuiInputBase-input::placeholder {
+    color: var(--comunidade-texto-secundario);
+    opacity: 0.7;
+}
+
+
+/* ========================================
+   ÁREA DE IMAGEM
+======================================== */
+
+.yrplace-criar-imagem {
+    margin-top: 12px;
+    padding: 16px;
+
+    background: var(--comunidade-upload);
+
+    border: 1px solid var(--comunidade-borda);
+    border-radius: 10px;
+}
+
+
+/* LABEL DA IMAGEM */
+
+.yrplace-criar-label {
+    margin-bottom: 12px !important;
+
+    color: var(--comunidade-texto);
+
+    font-family: "Inter", sans-serif;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+
+/* BOTÃO ESCOLHER IMAGEM */
+
+.yrplace-upload-botao {
+    color: var(--comunidade-texto) !important;
+
+    background: var(--comunidade-fundo) !important;
+
+    border: 1px solid var(--comunidade-borda) !important;
+    border-radius: 8px !important;
+
+    font-family: "Inter", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+
+    text-transform: none !important;
+
+    padding: 8px 14px !important;
+}
+
+.yrplace-upload-botao:hover {
+    background: var(--comunidade-hover) !important;
+    border-color: #bdbdbd !important;
+}
+
+
+/* NOME DO ARQUIVO */
 
 .yrplace-upload-nome {
-    margin-top: 8px;
-    color: #888;
-    font-size: 11px;
+    margin-top: 10px !important;
+
+    color: var(--comunidade-texto-secundario);
+
+    font-family: "Inter", sans-serif;
+    font-size: 12px !important;
+
+    overflow-wrap: anywhere;
 }
 
-/* Mensagem de erro */
+
+/* ========================================
+   MENSAGEM
+======================================== */
 
 .yrplace-criar-mensagem {
-    color: #ff9999;
-    font-size: 12px;
+    margin: 8px 0 12px !important;
+    padding: 10px 12px;
+
+    background: #fff0f0;
+    color: #c62828 !important;
+
+    border: 1px solid #ffd6d6;
+    border-radius: 8px;
+
+    font-size: 12px !important;
 }
 
-/* Botões */
+
+/* ========================================
+   BOTÕES INFERIORES
+======================================== */
 
 .yrplace-criar-acoes {
     padding: 16px 24px 22px !important;
-    gap: 8px;
+
+    gap: 10px !important;
+
+    border-top: 1px solid var(--comunidade-borda);
 }
+
+
+/* CANCELAR */
 
 .yrplace-criar-cancelar {
-    color: #bbb !important;
-    border: 1px solid #393939 !important;
+    color: var(--comunidade-texto-secundario) !important;
+
+    background: transparent !important;
+
+    border: 1px solid var(--comunidade-borda) !important;
+    border-radius: 8px !important;
+
+    font-family: "Inter", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+
     text-transform: none !important;
 }
 
+.yrplace-criar-cancelar:hover {
+    background: var(--comunidade-hover) !important;
+}
+
+
+/* CRIAR COMUNIDADE */
+
 .yrplace-criar-confirmar {
-    background: #f0f0f0 !important;
-    color: #151515 !important;
+    background: #7c3aed !important;
+    color: #ffffff !important;
+
+    border-radius: 8px !important;
+
+    font-family: "Inter", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+
     text-transform: none !important;
+
+    box-shadow: none !important;
 }
 
 .yrplace-criar-confirmar:hover {
-    background: #d5d5d5 !important;
+    background: #6d28d9 !important;
+    box-shadow: none !important;
+}
+
+.yrplace-criar-confirmar.Mui-disabled {
+    background: #b8a0e8 !important;
+    color: #ffffff !important;
+}
+
+
+/* ========================================
+   MODO ESCURO
+======================================== */
+
+body.dark .yrplace-criar-dialog,
+body.dark-theme .yrplace-criar-dialog,
+html.dark .yrplace-criar-dialog,
+html[data-theme="dark"] .yrplace-criar-dialog {
+    --comunidade-fundo: #1a1a1a;
+    --comunidade-texto: #f5f5f5;
+    --comunidade-texto-secundario: #a0a0a0;
+    --comunidade-borda: #333333;
+    --comunidade-input: #222222;
+    --comunidade-upload: #202020;
+    --comunidade-hover: #2b2b2b;
+}
+
+
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 480px) {
+    .yrplace-criar-dialog .MuiPaper-root {
+        border-radius: 12px;
+    }
+
+    .yrplace-criar-titulo {
+        padding: 20px 18px 12px !important;
+        font-size: 18px !important;
+    }
+
+    .yrplace-criar-conteudo {
+        padding: 8px 18px 16px !important;
+    }
+
+    .yrplace-criar-acoes {
+        padding: 14px 18px 18px !important;
+    }
+
+    .yrplace-criar-imagem {
+        padding: 12px;
+    }
 }

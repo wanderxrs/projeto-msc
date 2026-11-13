@@ -25,6 +25,9 @@ function Comentarios() {
     const [texto, setTexto] = useState("");
     const [comentarioSelecionado, setComentarioSelecionado] = useState(null);
 
+    // Controla o envio do comentário
+    const [enviando, setEnviando] = useState(false);
+
     async function buscarComentarios() {
         try {
             const resposta = await carregarComentarios(publicacao_id);
@@ -45,22 +48,28 @@ function Comentarios() {
     async function handleComentario(event) {
         event.preventDefault();
 
-        if (!texto.trim()) {
+        // Impede comentários vazios ou envios repetidos
+        if (!texto.trim() || enviando) {
             return;
         }
 
+        setEnviando(true);
+
         try {
             await criarComentario({
-                texto: texto,
+                texto: texto.trim(),
                 publicacao_id: publicacao_id
             });
 
             setTexto("");
 
-            buscarComentarios();
+            await buscarComentarios();
 
         } catch (erro) {
             console.log("Erro ao criar comentário:", erro);
+
+        } finally {
+            setEnviando(false);
         }
     }
 
@@ -94,16 +103,23 @@ function Comentarios() {
 
                 <input
                     type="text"
-                    placeholder="Escreva um comentário..."
+                    placeholder={
+                        enviando
+                            ? "Enviando comentário..."
+                            : "Escreva um comentário..."
+                    }
                     value={texto}
                     onChange={(event) =>
                         setTexto(event.target.value)
                     }
+                    disabled={enviando}
                 />
 
                 <button
                     type="submit"
                     className="botaoComentar"
+                    disabled={enviando || !texto.trim()}
+                    aria-label="Enviar comentário"
                 >
                     <IoPaperPlane fontSize={30} />
                 </button>

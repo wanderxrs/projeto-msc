@@ -239,10 +239,6 @@ function Perfil() {
                                 @{usuario.nome_usuario || usuario.nome}
                             </p>
 
-                            <p className="perfil-descricao">
-                                {usuario.bio || "Seu espaço musical 🎸"}
-                            </p>
-
                             <div className="perfil-estatisticas">
 
                                 <div>

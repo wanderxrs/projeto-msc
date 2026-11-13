@@ -14,6 +14,7 @@ import { PiVinylRecordBold } from "react-icons/pi";
 import { HiUsers } from "react-icons/hi";
 import { MdLyrics } from "react-icons/md";
 import { FaPencil } from "react-icons/fa6";
+import { Orbit } from "lucide-react";
 
 function PerfilComponente() {
     const [usuario, setUsuario] = useState(null);
@@ -160,7 +161,7 @@ function PerfilComponente() {
                     }
                 }}
             >
-                <FaPencil />
+                <Orbit size={20} />
                 <strong>Comunidades que faço parte</strong>
                 <HiChevronRight />
             </div>

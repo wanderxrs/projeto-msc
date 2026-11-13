@@ -1,5 +1,7 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { IoChevronForward } from "react-icons/io5";
 
 import {
     buscarComunidadesDisponiveis,
@@ -133,10 +135,12 @@ function ComunidadesRecomendadas() {
 
             {/* Lista de comunidades */}
             <div className="lista-comunidades">
+
                 {comunidades.length === 0 ? (
                     <p>Nenhuma comunidade disponível.</p>
                 ) : (
                     comunidades.map((comunidade) => (
+
                         <div
                             className="item-comunidade"
                             key={comunidade.id}
@@ -153,6 +157,7 @@ function ComunidadesRecomendadas() {
                                 }
                             }}
                         >
+
                             <img
                                 src={
                                     comunidade.imagem_url ||
@@ -163,9 +168,17 @@ function ComunidadesRecomendadas() {
                             />
 
                             <p>{comunidade.nome}</p>
+
+                            {/* Ícone de seta */}
+                            <IoChevronForward
+                                className="seta-comunidade"
+                                aria-hidden="true"
+                            />
+
                         </div>
                     ))
                 )}
+
             </div>
 
             {/* Modal de filtro por gênero */}

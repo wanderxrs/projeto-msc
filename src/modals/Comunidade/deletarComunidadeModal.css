@@ -1,4 +1,8 @@
 
+/* ============================= */
+/* MODAL DARK MODE */
+/* ============================= */
+
 .yrplace-deletar-dialog .MuiPaper-root {
     background: #1a1a1a;
     color: #f5f5f5;
@@ -8,6 +12,8 @@
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
 }
 
+/* Título */
+
 .yrplace-deletar-titulo.MuiDialogTitle-root {
     padding: 24px 24px 12px;
     color: #f5f5f5;
@@ -15,6 +21,8 @@
     font-size: 20px;
     font-weight: 600;
 }
+
+/* Conteúdo */
 
 .yrplace-deletar-conteudo.MuiDialogContent-root {
     padding: 8px 24px 20px;
@@ -35,6 +43,8 @@
     line-height: 1.7;
 }
 
+/* Mensagem de erro */
+
 .yrplace-deletar-erro.MuiTypography-root {
     margin-top: 14px;
     padding: 10px 12px;
@@ -46,10 +56,14 @@
     font-size: 12px;
 }
 
+/* Ações */
+
 .yrplace-deletar-acoes.MuiDialogActions-root {
     padding: 12px 24px 22px;
     gap: 10px;
 }
+
+/* Botão cancelar */
 
 .yrplace-deletar-cancelar.MuiButton-root {
     padding: 9px 16px;
@@ -68,6 +82,8 @@
     border-color: #555;
     color: #fff;
 }
+
+/* Botão deletar */
 
 .yrplace-deletar-confirmar.MuiButton-root {
     padding: 9px 16px;
@@ -90,4 +106,70 @@
 .yrplace-deletar-confirmar.MuiButton-root.Mui-disabled {
     background: #572d2d;
     color: #999;
+}
+
+
+/* ============================= */
+/* MODAL WHITE MODE */
+/* ============================= */
+
+:root[data-theme="light"] .yrplace-deletar-dialog .MuiPaper-root {
+    background: #ffffff;
+    color: #222222;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Título */
+
+:root[data-theme="light"] .yrplace-deletar-titulo.MuiDialogTitle-root {
+    color: #222222;
+}
+
+/* Conteúdo */
+
+:root[data-theme="light"] .yrplace-deletar-aviso.MuiTypography-root {
+    color: #292929;
+}
+
+:root[data-theme="light"] .yrplace-deletar-descricao.MuiTypography-root {
+    color: #777777;
+}
+
+/* Mensagem de erro */
+
+:root[data-theme="light"] .yrplace-deletar-erro.MuiTypography-root {
+    background: #fff1f1;
+    border-color: #f2cccc;
+    color: #c62828;
+}
+
+/* Botão cancelar */
+
+:root[data-theme="light"] .yrplace-deletar-cancelar.MuiButton-root {
+    background: #ffffff;
+    border-color: #dddddd;
+    color: #555555;
+}
+
+:root[data-theme="light"] .yrplace-deletar-cancelar.MuiButton-root:hover {
+    background: #f2f2f2;
+    border-color: #cccccc;
+    color: #222222;
+}
+
+/* Botão deletar */
+
+:root[data-theme="light"] .yrplace-deletar-confirmar.MuiButton-root {
+    background: #d93636;
+    color: #ffffff;
+}
+
+:root[data-theme="light"] .yrplace-deletar-confirmar.MuiButton-root:hover {
+    background: #b92c2c;
+}
+
+:root[data-theme="light"] .yrplace-deletar-confirmar.MuiButton-root.Mui-disabled {
+    background: #f0bcbc;
+    color: #ffffff;
 }

@@ -1,6 +1,6 @@
-
 import { useState, useEffect } from "react";
 import { atualizarComunidade } from "../../api";
+
 import {
     Dialog,
     DialogTitle,
@@ -10,6 +10,7 @@ import {
     Typography,
     TextField
 } from "@mui/material";
+
 import "./atualizarComunidadeModal.css";
 
 function AtualizarComunidadeModal({
@@ -120,6 +121,7 @@ function AtualizarComunidadeModal({
                             className="yrplace-atualizar-upload"
                         >
                             Escolher imagem
+
                             <input
                                 type="file"
                                 accept="image/*"

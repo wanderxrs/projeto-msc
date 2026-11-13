@@ -1,97 +1,148 @@
+
+/* FUNDO DO MODAL */
 .logout-overlay {
-position: fixed;
-inset: 0;
-z-index: 9999;
-display: flex;
-align-items: center;
-justify-content: center;
-padding: 20px;
-background: rgba(0, 0, 0, 0.65);
-backdrop-filter: blur(4px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    z-index: 99999;
+    isolation: isolate;
 }
 
+/* CONTAINER DO MODAL */
 .logout-modal {
-width: 100%;
-max-width: 380px;
-background: #1a1a1a;
-color: #f5f5f5;
-border: 1px solid #333;
-border-radius: 14px;
-font-family: "Inter", sans-serif;
-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-animation: logoutEntrada 0.2s ease-out;
+    position: relative;
+
+    width: 100%;
+    max-width: 380px;
+
+    margin: auto;
+    box-sizing: border-box;
+
+    background: #ffffff;
+    color: #222222;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+
+    font-family: "Inter", sans-serif;
+
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+
+    animation: logoutEntrada 0.2s ease-out;
 }
 
+/* TÍTULO */
 .logout-modal h2 {
-padding: 24px 24px 12px;
-margin: 0;
-color: #f5f5f5;
-font-family: "Inter", sans-serif;
-font-size: 20px;
-font-weight: 600;
+    padding: 24px 24px 12px;
+    margin: 0;
+
+    color: #222222;
+
+    font-family: "Inter", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
 }
 
+/* TEXTO */
 .logout-modal p {
-padding: 8px 24px 20px;
-margin: 0;
-color: #eaeaea;
-font-family: "Inter", sans-serif;
-font-size: 14px;
-line-height: 1.6;
+    padding: 8px 24px 20px;
+    margin: 0;
+
+    color: #555555;
+
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
+/* BOTÕES */
 .logout-botoes {
-display: flex;
-justify-content: flex-end;
-gap: 10px;
-padding: 12px 24px 22px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 10px;
+    padding: 12px 24px 22px;
 }
 
+/* ESTILO BASE DOS BOTÕES */
 .logout-botoes button {
-padding: 9px 16px;
-border-radius: 8px;
-font-family: "Inter", sans-serif;
-font-size: 12px;
-font-weight: 500;
-text-transform: none;
-cursor: pointer;
-transition: background 0.2s, color 0.2s, border-color 0.2s;
+    padding: 9px 16px;
+
+    border-radius: 8px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+
+    text-transform: none;
+    cursor: pointer;
+
+    transition:
+        background 0.2s,
+        color 0.2s,
+        border-color 0.2s;
 }
 
+/* CANCELAR */
 .logout-cancelar {
-background: transparent;
-border: 1px solid #393939;
-color: #bdbdbd;
+    background: #ffffff;
+    border: 1px solid #d9d9d9;
+    color: #555555;
 }
 
 .logout-cancelar:hover {
-background: #292929;
-border-color: #555;
-color: #fff;
+    background: #f2f2f2;
+    border-color: #bdbdbd;
+    color: #222222;
 }
 
+/* CONFIRMAR */
 .logout-confirmar {
-background: #d93636;
-border: 1px solid #d93636;
-color: #fff;
-font-weight: 600;
-box-shadow: none;
+    background: #d93636;
+    border: 1px solid #d93636;
+    color: #ffffff;
+
+    font-weight: 600;
+    box-shadow: none;
 }
 
 .logout-confirmar:hover {
-background: #b92c2c;
-border-color: #b92c2c;
+    background: #b92c2c;
+    border-color: #b92c2c;
 }
 
+/* ANIMAÇÃO */
 @keyframes logoutEntrada {
-from {
-opacity: 0;
-transform: scale(0.95);
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-to {
-    opacity: 1;
-    transform: scale(1);
-}
-
+/* MOBILE */
+@media (max-width: 480px) {
+    .logout-modal {
+        max-width: 340px;
+    }
 }

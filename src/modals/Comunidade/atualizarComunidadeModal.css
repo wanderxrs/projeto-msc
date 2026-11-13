@@ -1,5 +1,6 @@
-
-/* Modal */
+/* =========================
+   MODAL
+========================= */
 
 .yrplace-atualizar-dialog .MuiPaper-root {
     background: #161616;
@@ -7,26 +8,35 @@
     border: 1px solid #303030;
     border-radius: 12px;
     font-family: "Inter", sans-serif;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
-/* Título */
+/* =========================
+   TÍTULO
+========================= */
 
 .yrplace-atualizar-titulo {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 20px !important;
+    font-weight: 600 !important;
+    color: #f5f5f5;
 }
 
 .yrplace-atualizar-subtitulo {
-    margin-top: 6px;
-    color: #888;
-    font-size: 12px;
+    margin-top: 6px !important;
+    color: #888 !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
 }
 
-/* Campos */
+/* =========================
+   CONTEÚDO
+========================= */
 
 .yrplace-atualizar-conteudo {
     padding: 0 24px 16px !important;
 }
+
+/* Campos de texto */
 
 .yrplace-atualizar-conteudo .MuiOutlinedInput-root {
     background: #202020;
@@ -38,11 +48,27 @@
     border-color: #363636;
 }
 
+.yrplace-atualizar-conteudo .MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #555;
+}
+
+.yrplace-atualizar-conteudo .MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #f0f0f0;
+}
+
 .yrplace-atualizar-conteudo .MuiInputLabel-root {
     color: #929292;
 }
 
-/* Imagem */
+.yrplace-atualizar-conteudo .MuiInputLabel-root.Mui-focused {
+    color: #f0f0f0;
+}
+
+/* =========================
+   IMAGEM
+========================= */
 
 .yrplace-atualizar-imagem {
     margin-top: 8px;
@@ -53,9 +79,9 @@
 }
 
 .yrplace-atualizar-label {
-    margin-bottom: 10px;
-    color: #ddd;
-    font-size: 13px;
+    margin-bottom: 10px !important;
+    color: #ddd !important;
+    font-size: 13px !important;
 }
 
 .yrplace-atualizar-upload {
@@ -64,20 +90,31 @@
     text-transform: none !important;
 }
 
-.yrplace-atualizar-nome-arquivo {
-    margin-top: 8px;
-    color: #888;
-    font-size: 11px;
+.yrplace-atualizar-upload:hover {
+    background: #292929 !important;
+    border-color: #666 !important;
 }
 
-/* Mensagem */
+.yrplace-atualizar-nome-arquivo {
+    margin-top: 8px !important;
+    color: #888 !important;
+    font-size: 11px !important;
+    word-break: break-word;
+}
+
+/* =========================
+   MENSAGEM
+========================= */
 
 .yrplace-atualizar-mensagem {
-    color: #ff9999;
-    font-size: 12px;
+    margin-bottom: 10px !important;
+    color: #ff9999 !important;
+    font-size: 12px !important;
 }
 
-/* Botões */
+/* =========================
+   BOTÕES
+========================= */
 
 .yrplace-atualizar-acoes {
     padding: 16px 24px 22px !important;
@@ -90,6 +127,10 @@
     text-transform: none !important;
 }
 
+.yrplace-atualizar-cancelar:hover {
+    background: #252525 !important;
+}
+
 .yrplace-atualizar-confirmar {
     background: #f0f0f0 !important;
     color: #151515 !important;
@@ -98,4 +139,119 @@
 
 .yrplace-atualizar-confirmar:hover {
     background: #d5d5d5 !important;
+}
+
+.yrplace-atualizar-confirmar.Mui-disabled {
+    background: #555 !important;
+    color: #999 !important;
+}
+
+/* =========================
+   WHITE MODE
+========================= */
+
+:root[data-theme="light"] .yrplace-atualizar-dialog .MuiPaper-root {
+    background: #ffffff;
+    color: #222222;
+    border: 1px solid #e2e2e2;
+}
+
+/* Título */
+
+:root[data-theme="light"] .yrplace-atualizar-titulo {
+    color: #222222;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-subtitulo {
+    color: #777777 !important;
+}
+
+/* Conteúdo e campos */
+
+:root[data-theme="light"] .yrplace-atualizar-conteudo .MuiOutlinedInput-root {
+    background: #f8f8f8;
+    color: #222222;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-conteudo
+.MuiOutlinedInput-notchedOutline {
+    border-color: #d8d8d8;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-conteudo
+.MuiOutlinedInput-root:hover
+.MuiOutlinedInput-notchedOutline {
+    border-color: #aaaaaa;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-conteudo
+.MuiOutlinedInput-root.Mui-focused
+.MuiOutlinedInput-notchedOutline {
+    border-color: #222222;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-conteudo
+.MuiInputLabel-root {
+    color: #777777;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-conteudo
+.MuiInputLabel-root.Mui-focused {
+    color: #222222;
+}
+
+/* Imagem */
+
+:root[data-theme="light"] .yrplace-atualizar-imagem {
+    background: #f7f7f7;
+    border-color: #e0e0e0;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-label {
+    color: #333333 !important;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-upload {
+    color: #333333 !important;
+    border-color: #cccccc !important;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-upload:hover {
+    background: #eeeeee !important;
+    border-color: #aaaaaa !important;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-nome-arquivo {
+    color: #777777 !important;
+}
+
+/* Mensagem */
+
+:root[data-theme="light"] .yrplace-atualizar-mensagem {
+    color: #c62828 !important;
+}
+
+/* Botões */
+
+:root[data-theme="light"] .yrplace-atualizar-cancelar {
+    color: #444444 !important;
+    border-color: #d5d5d5 !important;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-cancelar:hover {
+    background: #f2f2f2 !important;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-confirmar {
+    background: #222222 !important;
+    color: #ffffff !important;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-confirmar:hover {
+    background: #444444 !important;
+}
+
+:root[data-theme="light"] .yrplace-atualizar-confirmar.Mui-disabled {
+    background: #cccccc !important;
+    color: #888888 !important;
 }

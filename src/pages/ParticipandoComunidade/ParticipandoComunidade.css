@@ -1,11 +1,53 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* ÁREA DE COMUNIDADES */
+/* ========================================
+   VARIÁVEIS DE TEMA
+======================================== */
+
+/* MODO ESCURO */
+:root {
+    --perfil-comunidades-texto: #f5f5f5;
+    --perfil-comunidades-texto-secundario: #aaaaaa;
+    --perfil-comunidades-texto-descricao: #b8b8b8;
+
+    --perfil-comunidades-fundo-card: #1a1a1a;
+    --perfil-comunidades-borda-card: #292929;
+
+    --perfil-comunidades-borda-item: #303030;
+    --perfil-comunidades-hover-item: #242424;
+
+    --perfil-comunidades-borda-imagem: #383838;
+
+    --perfil-comunidades-genero: #c084fc;
+}
+
+/* MODO CLARO */
+:root[data-theme="light"] {
+    --perfil-comunidades-texto: #222222;
+    --perfil-comunidades-texto-secundario: #777777;
+    --perfil-comunidades-texto-descricao: #555555;
+
+    --perfil-comunidades-fundo-card: #ffffff;
+    --perfil-comunidades-borda-card: #e5e5e5;
+
+    --perfil-comunidades-borda-item: #e5e5e5;
+    --perfil-comunidades-hover-item: #f5f5f5;
+
+    --perfil-comunidades-borda-imagem: #dddddd;
+
+    --perfil-comunidades-genero: #9333ea;
+}
+
+/* ========================================
+   ÁREA DE COMUNIDADES
+======================================== */
 
 .perfil-page {
     min-height: 100vh;
     padding: 100px 0 40px;
-    color: #f5f5f5;
+
+    color: var(--perfil-comunidades-texto);
     font-family: 'Inter', sans-serif;
 }
 
@@ -13,52 +55,82 @@
     box-sizing: border-box;
 }
 
+/* ========================================
+   CONTEÚDO DA ABA
+======================================== */
+
 .perfil-conteudo-aba {
     width: 90%;
     max-width: 1000px;
+
     margin: 24px auto;
     padding: 20px;
-    background: #1a1a1a;
-    border: 1px solid #292929;
+
+    background: var(--perfil-comunidades-fundo-card);
+
+    border: 1px solid var(--perfil-comunidades-borda-card);
     border-radius: 12px;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .perfil-conteudo-aba h2 {
     margin-top: 0;
-    color: #f5f5f5;
+
+    color: var(--perfil-comunidades-texto);
+
     font-size: 20px;
 }
 
 .perfil-conteudo-aba p {
-    color: #aaa;
+    color: var(--perfil-comunidades-texto-secundario);
+
     font-size: 13px;
 }
 
-/* LISTA DE COMUNIDADES */
+/* ========================================
+   LISTA DE COMUNIDADES
+======================================== */
 
 .perfil-comunidades-lista {
     display: flex;
     flex-direction: column;
+
     width: 100%;
+
     margin-top: 20px;
+
     gap: 0;
 }
 
-/* CARD DA COMUNIDADE */
+/* ========================================
+   CARD DA COMUNIDADE
+======================================== */
 
 .perfil-comunidade-card {
     display: flex;
     align-items: center;
+
     gap: 18px;
+
     width: 100%;
     min-width: 0;
+
     padding: 18px 12px;
+
     box-sizing: border-box;
+
     background: transparent;
+
     border: none;
-    border-bottom: 1px solid #303030;
+    border-bottom: 1px solid var(--perfil-comunidades-borda-item);
+
     border-radius: 0;
+
     cursor: pointer;
+
     transition: background-color 0.2s ease;
 }
 
@@ -72,7 +144,7 @@
 }
 
 .perfil-comunidade-card:hover {
-    background-color: #242424;
+    background-color: var(--perfil-comunidades-hover-item);
 }
 
 .perfil-comunidade-card:focus-visible {
@@ -80,99 +152,145 @@
     outline-offset: -2px;
 }
 
-/* IMAGEM */
+/* ========================================
+   IMAGEM DA COMUNIDADE
+======================================== */
 
 .perfil-comunidade-imagem {
     display: block;
+
     width: 82px;
     height: 82px;
+
     flex-shrink: 0;
+
     object-fit: cover;
+
     border-radius: 12px;
-    border: 1px solid #383838;
+
+    border: 1px solid var(--perfil-comunidades-borda-imagem);
 }
 
-/* INFORMAÇÕES */
+/* ========================================
+   INFORMAÇÕES
+======================================== */
 
 .perfil-comunidade-info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+
     gap: 5px;
+
     flex: 1;
     min-width: 0;
+
     font-family: 'Inter', sans-serif;
+
     text-align: left;
 }
 
-/* NOME */
+/* ========================================
+   NOME DA COMUNIDADE
+======================================== */
 
 .perfil-comunidade-info h3 {
     margin: 0;
-    color: #f5f5f5;
+
+    color: var(--perfil-comunidades-texto);
+
     font-size: 16px;
     font-weight: 700;
+
     line-height: 1.4;
+
     overflow-wrap: anywhere;
 }
 
-/* GÊNERO MUSICAL */
+/* ========================================
+   GÊNERO MUSICAL
+======================================== */
 
 .perfil-comunidade-info span {
-    color: #c084fc;
+    color: var(--perfil-comunidades-genero);
+
     font-size: 12px;
     font-weight: 600;
 }
 
-/* MEMBROS */
+/* ========================================
+   MEMBROS
+======================================== */
 
 .perfil-comunidade-info p {
     margin: 0;
-    color: #a3a3a3;
+
+    color: var(--perfil-comunidades-texto-secundario);
+
     font-size: 12px;
     font-weight: 400;
+
     line-height: 1.5;
 }
 
-/* DESCRIÇÃO */
+/* ========================================
+   DESCRIÇÃO
+======================================== */
 
 .perfil-comunidade-info p:last-child {
-    color: #b8b8b8;
+    color: var(--perfil-comunidades-texto-descricao);
+
     font-size: 13px;
     line-height: 1.5;
+
     display: -webkit-box;
+
+    -webkit-line-clamp: 2;
     line-clamp: 2;
+
     -webkit-box-orient: vertical;
+
     overflow: hidden;
     overflow-wrap: anywhere;
 }
 
-/* RESPONSIVIDADE */
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
 
 @media (max-width: 768px) {
+
     .perfil-page {
         padding-top: 12px;
     }
 
     .perfil-conteudo-aba {
         width: calc(100% - 24px);
+
         padding: 16px;
     }
 }
 
+/* ========================================
+   CELULARES
+======================================== */
+
 @media (max-width: 650px) {
+
     .perfil-comunidades-lista {
         margin-top: 14px;
     }
 
     .perfil-comunidade-card {
         gap: 12px;
+
         padding: 14px 6px;
     }
 
     .perfil-comunidade-imagem {
         width: 65px;
         height: 65px;
+
         border-radius: 10px;
     }
 
@@ -187,6 +305,8 @@
 
     .perfil-comunidade-info p:last-child {
         font-size: 12px;
+
+        -webkit-line-clamp: 2;
         line-clamp: 2;
     }
 }

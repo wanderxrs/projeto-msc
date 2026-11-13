@@ -1,61 +1,38 @@
+
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { HiMusicNote } from "react-icons/hi";
 
 import "./ModalArtistasEmAlta.css";
 
-import { HiMusicNote } from "react-icons/hi";
-
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-
-function formatarNumero(numero) {
-    return new Intl.NumberFormat("pt-BR", {
-        notation: "compact",
-        maximumFractionDigits: 1,
-    }).format(numero || 0);
-}
 
 export default function ModalArtistasEmAlta({ onFechar }) {
     const [artistas, setArtistas] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
 
-    // Carregar artistas em alta
+    // Buscar artistas na API
     useEffect(() => {
-        let ativo = true;
-
         async function carregarArtistas() {
             try {
-                setCarregando(true);
-                setErro("");
-
                 const resposta = await axios.get(
                     `${API_URL}/artistas-em-alta`
                 );
 
-                if (ativo) {
-                    setArtistas(resposta.data.artistas || []);
-                }
+                setArtistas(resposta.data.artistas || []);
             } catch (erro) {
                 console.error("Erro ao carregar artistas:", erro);
-
-                if (ativo) {
-                    setErro("Não foi possível carregar os artistas.");
-                }
+                setErro("Não foi possível carregar os artistas.");
             } finally {
-                if (ativo) {
-                    setCarregando(false);
-                }
+                setCarregando(false);
             }
         }
 
         carregarArtistas();
-
-        return () => {
-            ativo = false;
-        };
     }, []);
 
-    // Fechar modal com ESC
+    // Fechar com ESC
     useEffect(() => {
         function fecharComEsc(evento) {
             if (evento.key === "Escape") {
@@ -71,10 +48,7 @@ export default function ModalArtistasEmAlta({ onFechar }) {
     }, [onFechar]);
 
     return (
-        <div
-            className="artistas-overlay"
-            onClick={onFechar}
-        >
+        <div className="artistas-overlay" onClick={onFechar}>
             <section
                 className="modal-artistas"
                 role="dialog"
@@ -86,16 +60,15 @@ export default function ModalArtistasEmAlta({ onFechar }) {
                 <header className="artistas-header">
                     <div className="artistas-titulo">
                         <span className="artistas-icone">
-                            <i className="bi bi-graph-up-arrow" />
                             <HiMusicNote />
                         </span>
 
                         <div>
                             <h2 id="titulo-artistas">
-                                O que está bombando?
+                                Artistas em alta
                             </h2>
 
-                            <p>Artistas populares</p>
+                            <p>Os artistas mais populares</p>
                         </div>
                     </div>
 
@@ -105,11 +78,11 @@ export default function ModalArtistasEmAlta({ onFechar }) {
                         onClick={onFechar}
                         aria-label="Fechar modal"
                     >
-                        &times;
+                        ×
                     </button>
                 </header>
 
-                {/* LISTA */}
+                {/* LISTA DE ARTISTAS */}
                 <div className="artistas-lista">
                     {carregando && (
                         <p className="artistas-mensagem">
@@ -117,7 +90,7 @@ export default function ModalArtistasEmAlta({ onFechar }) {
                         </p>
                     )}
 
-                    {!carregando && erro && (
+                    {erro && (
                         <p className="artistas-mensagem artistas-erro">
                             {erro}
                         </p>
@@ -129,62 +102,30 @@ export default function ModalArtistasEmAlta({ onFechar }) {
                         </p>
                     )}
 
-                    {!carregando &&
-                        !erro &&
+                    {!carregando && !erro &&
                         artistas.map((artista) => (
                             <div
                                 className="artista-item"
-                                key={`${artista.posicao}-${artista.nome}`}
+                                key={artista.posicao}
                             >
-                                {/* POSIÇÃO */}
-                                <span
-                                    className={`artista-posicao ${
-                                        artista.posicao <= 3
-                                            ? "artista-top3"
-                                            : ""
-                                    }`}
-                                >
+                                <span className="artista-posicao">
                                     {String(artista.posicao).padStart(2, "0")}
                                 </span>
 
-                                {/* FOTO */}
                                 <img
                                     className="artista-foto"
                                     src={artista.foto || ""}
-                                    alt={`Foto de ${artista.nome}`}
+                                    alt={artista.nome}
                                     onError={(evento) => {
-                                        evento.currentTarget.style.display =
-                                            "none";
+                                        evento.currentTarget.style.display = "none";
                                     }}
                                 />
 
-                                {/* INFORMAÇÕES */}
                                 <div className="artista-info">
                                     <span className="artista-nome">
                                         {artista.nome}
                                     </span>
                                 </div>
-
-                                {/* TROFÉU DO PRIMEIRO LUGAR */}
-                                {artista.posicao === 1 && (
-                                    <i className="bi bi-trophy-fill artista-trofeu" />
-                                )}
-
-                                {/* LINK DO ARTISTA */}
-                                {artista.url && (
-                                    <a
-                                        className="artista-link"
-                                        href={artista.url}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        aria-label={`Ver ${artista.nome} na Last.fm`}
-                                        onClick={(evento) =>
-                                            evento.stopPropagation()
-                                        }
-                                    >
-                                        <i className="bi bi-box-arrow-up-right" />
-                                    </a>
-                                )}
                             </div>
                         ))}
                 </div>
