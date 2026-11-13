@@ -1,5 +1,35 @@
 
-/* FUNDO DO MODAL */
+/* ========================================
+   VARIÁVEIS DE TEMA
+======================================== */
+
+:root {
+    --logout-fundo-modal: #1a1a1a;
+    --logout-texto: #f5f5f5;
+    --logout-texto-secundario: #aaaaaa;
+    --logout-borda: #333333;
+    --logout-fundo-cancelar: #1a1a1a;
+    --logout-hover-cancelar: #292929;
+    --logout-texto-cancelar: #aaaaaa;
+    --logout-sombra: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* MODO CLARO */
+:root[data-theme="light"] {
+    --logout-fundo-modal: #ffffff;
+    --logout-texto: #222222;
+    --logout-texto-secundario: #555555;
+    --logout-borda: #e5e5e5;
+    --logout-fundo-cancelar: #ffffff;
+    --logout-hover-cancelar: #f2f2f2;
+    --logout-texto-cancelar: #555555;
+    --logout-sombra: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   FUNDO DO MODAL
+======================================== */
+
 .logout-overlay {
     position: fixed;
     top: 0;
@@ -23,7 +53,10 @@
     isolation: isolate;
 }
 
-/* CONTAINER DO MODAL */
+/* ========================================
+   CONTAINER DO MODAL
+======================================== */
+
 .logout-modal {
     position: relative;
 
@@ -33,44 +66,53 @@
     margin: auto;
     box-sizing: border-box;
 
-    background: #ffffff;
-    color: #222222;
+    background: var(--logout-fundo-modal);
+    color: var(--logout-texto);
 
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--logout-borda);
     border-radius: 14px;
 
     font-family: "Inter", sans-serif;
 
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--logout-sombra);
 
     animation: logoutEntrada 0.2s ease-out;
 }
 
-/* TÍTULO */
+/* ========================================
+   TÍTULO
+======================================== */
+
 .logout-modal h2 {
     padding: 24px 24px 12px;
     margin: 0;
 
-    color: #222222;
+    color: var(--logout-texto);
 
     font-family: "Inter", sans-serif;
     font-size: 20px;
     font-weight: 600;
 }
 
-/* TEXTO */
+/* ========================================
+   TEXTO
+======================================== */
+
 .logout-modal p {
     padding: 8px 24px 20px;
     margin: 0;
 
-    color: #555555;
+    color: var(--logout-texto-secundario);
 
     font-family: "Inter", sans-serif;
     font-size: 14px;
     line-height: 1.6;
 }
 
-/* BOTÕES */
+/* ========================================
+   BOTÕES
+======================================== */
+
 .logout-botoes {
     display: flex;
     justify-content: flex-end;
@@ -81,6 +123,7 @@
 }
 
 /* ESTILO BASE DOS BOTÕES */
+
 .logout-botoes button {
     padding: 9px 16px;
 
@@ -99,20 +142,26 @@
         border-color 0.2s;
 }
 
-/* CANCELAR */
+/* ========================================
+   CANCELAR
+======================================== */
+
 .logout-cancelar {
-    background: #ffffff;
-    border: 1px solid #d9d9d9;
-    color: #555555;
+    background: var(--logout-fundo-cancelar);
+    border: 1px solid var(--logout-borda);
+    color: var(--logout-texto-cancelar);
 }
 
 .logout-cancelar:hover {
-    background: #f2f2f2;
-    border-color: #bdbdbd;
-    color: #222222;
+    background: var(--logout-hover-cancelar);
+    border-color: #888888;
+    color: var(--logout-texto);
 }
 
-/* CONFIRMAR */
+/* ========================================
+   CONFIRMAR
+======================================== */
+
 .logout-confirmar {
     background: #d93636;
     border: 1px solid #d93636;
@@ -127,7 +176,10 @@
     border-color: #b92c2c;
 }
 
-/* ANIMAÇÃO */
+/* ========================================
+   ANIMAÇÃO
+======================================== */
+
 @keyframes logoutEntrada {
     from {
         opacity: 0;
@@ -140,7 +192,10 @@
     }
 }
 
-/* MOBILE */
+/* ========================================
+   MOBILE
+======================================== */
+
 @media (max-width: 480px) {
     .logout-modal {
         max-width: 340px;
