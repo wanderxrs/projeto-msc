@@ -9,7 +9,7 @@ import {
     filtroGeneroComunidade
 } from "../../api";
 
-import FiltroGeneroModal from "../FiltroGenero/FiltroGeneroModal";
+import FiltroGeneroModal from "../../modals/FiltroGenero/FiltroGeneroModal";
 import "./ComunidadesRecomendadas.css";
 
 function ComunidadesRecomendadas() {
