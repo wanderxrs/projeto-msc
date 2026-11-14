@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import {
@@ -25,6 +26,9 @@ function ComunidadeTela() {
     const [modalAberto, setModalAberto] = useState(false);
     const [publicacaoSelecionada, setPublicacaoSelecionada] = useState(null);
     const [comunidade, setComunidade] = useState(null);
+
+    // Impede múltiplas requisições simultâneas de curtida
+    const curtidasPendentes = useRef(new Set());
 
     // Busca as informações da comunidade
     async function buscarDadosComunidade() {
@@ -76,18 +80,72 @@ function ComunidadeTela() {
 
         buscarDadosComunidade();
         buscarPublicacoes();
+
     }, [id]);
 
-    // Curtir ou descurtir publicação
+    // Curtida otimista: atualiza a interface antes do backend
     async function handleCurtir(publicacaoId) {
+
+        // Evita cliques repetidos enquanto a requisição está pendente
+        if (curtidasPendentes.current.has(publicacaoId)) {
+            return;
+        }
+
+        curtidasPendentes.current.add(publicacaoId);
+
+        // Guarda o estado anterior para possível rollback
+        const curtidaAnterior = Boolean(curtidas[publicacaoId]);
+
+        const publicacaoAnterior = publicacoes.find(
+            (publicacao) => publicacao.id === publicacaoId
+        );
+
+        const quantidadeAnterior =
+            Number(publicacaoAnterior?.total_curtidas) || 0;
+
+        // Calcula o novo estado da curtida
+        const novoValor = !curtidaAnterior;
+
+        // Atualiza o coração instantaneamente
+        setCurtidas((anteriores) => ({
+            ...anteriores,
+            [publicacaoId]: novoValor
+        }));
+
+        // Atualiza o contador instantaneamente
+        setPublicacoes((anteriores) =>
+            anteriores.map((publicacao) => {
+                if (publicacao.id !== publicacaoId) {
+                    return publicacao;
+                }
+
+                const quantidadeAtual =
+                    Number(publicacao.total_curtidas) || 0;
+
+                return {
+                    ...publicacao,
+                    total_curtidas: novoValor
+                        ? quantidadeAtual + 1
+                        : Math.max(0, quantidadeAtual - 1)
+                };
+            })
+        );
+
         try {
+            // Envia a requisição ao backend em segundo plano
             await curtirPublicacao(publicacaoId);
 
-            const novoValor = !curtidas[publicacaoId];
+        } catch (erro) {
 
+            console.error(
+                "Erro ao curtir publicação:",
+                erro.response?.data || erro.message
+            );
+
+            // ROLLBACK: desfaz a curtida caso a API falhe
             setCurtidas((anteriores) => ({
                 ...anteriores,
-                [publicacaoId]: novoValor
+                [publicacaoId]: curtidaAnterior
             }));
 
             setPublicacoes((anteriores) =>
@@ -96,22 +154,17 @@ function ComunidadeTela() {
                         return publicacao;
                     }
 
-                    const quantidadeAtual =
-                        Number(publicacao.total_curtidas) || 0;
-
                     return {
                         ...publicacao,
-                        total_curtidas: novoValor
-                            ? quantidadeAtual + 1
-                            : Math.max(0, quantidadeAtual - 1)
+                        total_curtidas: quantidadeAnterior
                     };
                 })
             );
-        } catch (erro) {
-            console.error(
-                "Erro ao curtir publicação:",
-                erro.response?.data || erro.message
-            );
+
+        } finally {
+
+            // Libera a publicação para novas curtidas
+            curtidasPendentes.current.delete(publicacaoId);
         }
     }
 
