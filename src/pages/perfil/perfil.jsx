@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -204,10 +203,14 @@ function Perfil() {
 
     return (
         <>
-        <br></br> <br></br><br></br> <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
             <main className="perfil-page">
 
-                {/* CABEÇALHO DO PERFIL. */}
+                {/* CABEÇALHO DO PERFIL */}
                 <section className="perfil-header">
 
                     <div
@@ -266,6 +269,9 @@ function Perfil() {
                                 onClick={() => setModalEditarAberto(true)}
                                 aria-label="Editar perfil"
                                 title="Editar perfil"
+                                style={{
+                                    transform: "translateY(-27px)"
+                                }}
                             >
                                 <HiOutlineDotsVertical />
                             </button>
