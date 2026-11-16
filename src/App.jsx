@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 import Login from "./pages/auth/login";
 import Registro from "./pages/auth/registro";
@@ -18,6 +18,17 @@ import LetrasPublicas from "./pages/letras/LetrasPublicas";
 import ParticipandoComunidade from "./pages/ParticipandoComunidade/ParticipandoComunidade";
 
 import Header from "./components/Header/header";
+
+// Faz a página voltar ao topo ao mudar de rota.
+function ScrollToTop() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+}
 
 function App() {
     // Recupera o tema salvo ou utiliza o modo escuro como padrão.
@@ -42,6 +53,8 @@ function App() {
 
     return (
         <BrowserRouter>
+            <ScrollToTop />
+
             <Routes>
                 <Route
                     path="/"
