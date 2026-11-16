@@ -20,19 +20,11 @@ import ParticipandoComunidade from "./pages/ParticipandoComunidade/ParticipandoC
 import Header from "./components/Header/header";
 
 function App() {
-    // Recupera o tema salvo ou detecta a preferência do sistema.
+    // Recupera o tema salvo ou utiliza o modo escuro como padrão.
     const [tema, setTema] = useState(() => {
         const temaSalvo = localStorage.getItem("tema");
 
-        if (temaSalvo) {
-            return temaSalvo;
-        }
-
-        const prefereEscuro = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        ).matches;
-
-        return prefereEscuro ? "dark" : "light";
+        return temaSalvo || "dark";
     });
 
     // Aplica e salva o tema selecionado.
