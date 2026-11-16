@@ -167,7 +167,17 @@ function ComunidadesRecomendadas() {
                                 className="imagem_rec_comunidades"
                             />
 
-                            <p>{comunidade.nome}</p>
+                            {/* Nome da comunidade */}
+                            <p
+                                style={{
+                                    fontFamily: "'Inter', sans-serif",
+                                    fontSize: "14px",
+                                    fontWeight: 600,
+                                    lineHeight: 1.5
+                                }}
+                            >
+                                {comunidade.nome}
+                            </p>
 
                             {/* Ícone de seta */}
                             <IoChevronForward
