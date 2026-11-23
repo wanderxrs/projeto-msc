@@ -1,6 +1,15 @@
-import { createPortal } from "react-dom";
 
-import { IoSunnyOutline, IoKeyOutline, IoLogOutOutline, IoChevronForwardOutline } from "react-icons/io5";
+import { createPortal } from "react-dom";
+import { useNavigate } from "react-router-dom";
+
+import {
+    IoSunnyOutline,
+    IoKeyOutline,
+    IoLogOutOutline,
+    IoChevronForwardOutline,
+    IoDocumentTextOutline
+} from "react-icons/io5";
+
 import { RiMoonClearLine } from "react-icons/ri";
 
 import "./MenuHeaderModal.css";
@@ -12,6 +21,14 @@ function ModalMenu({
     tema,
     onAlternarTema
 }) {
+    const navigate = useNavigate();
+
+    // ABRIR POLÍTICA DE PRIVACIDADE
+    function abrirPoliticaPrivacidade() {
+        onClose();
+        navigate("/politica-de-privacidade");
+    }
+
     return createPortal(
         <div className="overlay-menu" onClick={onClose}>
             <div
@@ -56,7 +73,10 @@ function ModalMenu({
                             </span>
                         </div>
 
-                        <IoChevronForwardOutline className="menu-item-seta" size={18} />
+                        <IoChevronForwardOutline
+                            className="menu-item-seta"
+                            size={18}
+                        />
                     </button>
 
                     {/* TROCAR SENHA */}
@@ -79,7 +99,36 @@ function ModalMenu({
                             </span>
                         </div>
 
-                        <IoChevronForwardOutline className="menu-item-seta" size={18} />
+                        <IoChevronForwardOutline
+                            className="menu-item-seta"
+                            size={18}
+                        />
+                    </button>
+
+                    {/* POLÍTICA DE PRIVACIDADE */}
+                    <button
+                        type="button"
+                        className="item-menu botao-politica-menu"
+                        onClick={abrirPoliticaPrivacidade}
+                    >
+                        <div className="menu-item-icone">
+                            <IoDocumentTextOutline size={21} />
+                        </div>
+
+                        <div className="menu-item-texto">
+                            <span className="menu-item-titulo">
+                                Política de Privacidade
+                            </span>
+
+                            <span className="menu-item-descricao">
+                                Saiba como seus dados são utilizados
+                            </span>
+                        </div>
+
+                        <IoChevronForwardOutline
+                            className="menu-item-seta"
+                            size={18}
+                        />
                     </button>
 
                 </div>
@@ -105,9 +154,13 @@ function ModalMenu({
                             </span>
                         </div>
 
-                        <IoChevronForwardOutline className="menu-item-seta" size={18} />
+                        <IoChevronForwardOutline
+                            className="menu-item-seta"
+                            size={18}
+                        />
                     </button>
                 </div>
+
             </div>
         </div>,
         document.body

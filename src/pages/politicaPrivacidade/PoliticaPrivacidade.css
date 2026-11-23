@@ -1,0 +1,101 @@
+
+.politica-container {
+    min-height: 100vh;
+    background: #f5f5f5;
+    color: #333333;
+    padding: 60px 20px;
+    font-family: "Inter", sans-serif;
+}
+
+.politica-conteudo {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 45px;
+    border-radius: 14px;
+    line-height: 1.8;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+}
+
+.politica-conteudo h1 {
+    color: #171717;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    margin-bottom: 8px;
+}
+
+.politica-atualizacao {
+    color: #888888;
+    font-size: 13px;
+    margin-bottom: 32px;
+}
+
+.politica-conteudo p {
+    color: #555555;
+    font-size: 15px;
+    margin-bottom: 16px;
+}
+
+.politica-conteudo section {
+    margin-top: 32px;
+}
+
+.politica-conteudo h2 {
+    color: #222222;
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.3px;
+    margin-bottom: 12px;
+}
+
+.politica-conteudo ul {
+    padding-left: 25px;
+    color: #555555;
+    font-size: 15px;
+}
+
+.politica-conteudo li {
+    margin-bottom: 9px;
+}
+
+.politica-footer {
+    border-top: 1px solid #eeeeee;
+    margin-top: 40px;
+    padding-top: 22px;
+    color: #999999;
+    font-size: 13px;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .politica-container {
+        padding: 20px 12px;
+    }
+
+    .politica-conteudo {
+        padding: 28px 20px;
+        border-radius: 10px;
+    }
+
+    .politica-conteudo h1 {
+        font-size: 25px;
+    }
+
+    .politica-conteudo h2 {
+        font-size: 17px;
+    }
+
+    .politica-conteudo p,
+    .politica-conteudo ul {
+        font-size: 14px;
+    }
+}
+.politica-logo {
+    font-size: 25px;
+    font-weight: 700;
+    color: #222222;
+    letter-spacing: -1px;
+    margin-bottom: 35px;
+    text-align: center;
+}

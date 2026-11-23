@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
@@ -16,6 +17,8 @@ import Perfil from "./pages/perfil/perfil";
 import AlbunsAvaliados from "./pages/albunsAvaliados/albunsAvaliados";
 import LetrasPublicas from "./pages/letras/LetrasPublicas";
 import ParticipandoComunidade from "./pages/ParticipandoComunidade/ParticipandoComunidade";
+
+import PoliticaPrivacidade from "./pages/politicaPrivacidade/PoliticaPrivacidade";
 
 import Header from "./components/Header/header";
 
@@ -186,6 +189,13 @@ function App() {
                         </>
                     }
                 />
+
+                {/* POLÍTICA DE PRIVACIDADE */}
+                <Route
+                    path="/politica-de-privacidade"
+                    element={<PoliticaPrivacidade />}
+                />
+
             </Routes>
         </BrowserRouter>
     );
