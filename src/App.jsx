@@ -19,6 +19,7 @@ import LetrasPublicas from "./pages/letras/LetrasPublicas";
 import ParticipandoComunidade from "./pages/ParticipandoComunidade/ParticipandoComunidade";
 
 import PoliticaPrivacidade from "./pages/politicaPrivacidade/PoliticaPrivacidade";
+import SobreYrplace from "./pages/sobreYrplace/SobreYrplace";
 
 import Header from "./components/Header/header";
 
@@ -194,6 +195,12 @@ function App() {
                 <Route
                     path="/politica-de-privacidade"
                     element={<PoliticaPrivacidade />}
+                />
+
+                {/* SOBRE O YRPLACE */}
+                <Route
+                    path="/sobre"
+                    element={<SobreYrplace />}
                 />
 
             </Routes>

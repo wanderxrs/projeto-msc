@@ -7,7 +7,8 @@ import {
     IoKeyOutline,
     IoLogOutOutline,
     IoChevronForwardOutline,
-    IoDocumentTextOutline
+    IoDocumentTextOutline,
+    IoInformationCircleOutline
 } from "react-icons/io5";
 
 import { RiMoonClearLine } from "react-icons/ri";
@@ -27,6 +28,12 @@ function ModalMenu({
     function abrirPoliticaPrivacidade() {
         onClose();
         navigate("/politica-de-privacidade");
+    }
+
+    // ABRIR PÁGINA SOBRE O YRPLACE
+    function abrirSobre() {
+        onClose();
+        navigate("/sobre");
     }
 
     return createPortal(
@@ -122,6 +129,32 @@ function ModalMenu({
 
                             <span className="menu-item-descricao">
                                 Saiba como seus dados são utilizados
+                            </span>
+                        </div>
+
+                        <IoChevronForwardOutline
+                            className="menu-item-seta"
+                            size={18}
+                        />
+                    </button>
+
+                    {/* SOBRE O YRPLACE */}
+                    <button
+                        type="button"
+                        className="item-menu botao-sobre-menu"
+                        onClick={abrirSobre}
+                    >
+                        <div className="menu-item-icone">
+                            <IoInformationCircleOutline size={21} />
+                        </div>
+
+                        <div className="menu-item-texto">
+                            <span className="menu-item-titulo">
+                                Sobre o YrPlace
+                            </span>
+
+                            <span className="menu-item-descricao">
+                                Conheça nossa plataforma
                             </span>
                         </div>
 
