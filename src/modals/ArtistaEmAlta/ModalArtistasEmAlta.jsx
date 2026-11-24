@@ -32,21 +32,6 @@ export default function ModalArtistasEmAlta({ onFechar }) {
         carregarArtistas();
     }, []);
 
-    // Fechar com ESC
-    useEffect(() => {
-        function fecharComEsc(evento) {
-            if (evento.key === "Escape") {
-                onFechar();
-            }
-        }
-
-        document.addEventListener("keydown", fecharComEsc);
-
-        return () => {
-            document.removeEventListener("keydown", fecharComEsc);
-        };
-    }, [onFechar]);
-
     return (
         <div className="artistas-overlay" onClick={onFechar}>
             <section
