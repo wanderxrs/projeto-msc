@@ -1,20 +1,16 @@
-
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
 import {
     carregarComentarios,
     criarComentario
 } from "../../api";
-
 import "./comentarios.css";
-
 import ModalComentario from "../../modals/Comentario/ModalComentario";
-
 import {
     IoPaperPlane,
     IoMenu
 } from "react-icons/io5";
+import { FaHome } from "react-icons/fa";
 
 function Comentarios() {
 
@@ -94,6 +90,17 @@ function Comentarios() {
 
     return (
         <div className="comentarios">
+
+            {/* BOTÃO FLUTUANTE DE VOLTAR PARA HOME */}
+            <button
+                className="botao-home-comentarios"
+                type="button"
+                onClick={() => navigate("/home")}
+                aria-label="Voltar para a Home"
+                title="Voltar para a Home"
+            >
+                <FaHome />
+            </button>
 
             <h3 className="titulo">
                 Comentários

@@ -1,7 +1,3 @@
-/* =========================================
-   VARIÁVEIS DO TEMA ESCURO (PADRÃO)
-========================================= */
-
 .albuns-avaliados {
     --albuns-fundo: #0f0f0f;
     --albuns-card: #1b1b1b;
@@ -37,15 +33,22 @@
 
     --albuns-vazio-texto: #999;
 
+    /* BOTÃO HOME - TEMA ESCURO */
+    --albuns-home-fundo: #202020;
+    --albuns-home-texto: #ffffff;
+    --albuns-home-borda: #383838;
+    --albuns-home-hover: #303030;
+    --albuns-home-sombra: rgba(0, 0, 0, 0.18);
+    --albuns-home-sombra-hover: rgba(0, 0, 0, 0.45);
+
     width: min(1200px, 94%);
     margin: 35px auto;
     color: var(--albuns-texto);
     font-family: Inter, Arial, sans-serif;
 }
 
-
 /* =========================================
-   MODO CLARO (WHITE MODE)
+   MODO CLARO
 ========================================= */
 
 :root[data-theme="light"] .albuns-avaliados {
@@ -82,8 +85,74 @@
     --albuns-sucesso-texto: #207443;
 
     --albuns-vazio-texto: #777;
+
+    /* BOTÃO HOME - TEMA CLARO */
+    --albuns-home-fundo: #ffffff;
+    --albuns-home-texto: #333333;
+    --albuns-home-borda: #dedede;
+    --albuns-home-hover: #eeeeee;
+    --albuns-home-sombra: rgba(0, 0, 0, 0.12);
+    --albuns-home-sombra-hover: rgba(0, 0, 0, 0.16);
 }
 
+/* =========================================
+   BOTÃO FLUTUANTE HOME
+========================================= */
+
+.albuns-avaliados .botao-home-albuns {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    padding: 0;
+
+    background: var(--albuns-home-fundo);
+    border: 1px solid var(--albuns-home-borda);
+    border-radius: 50%;
+
+    color: var(--albuns-home-texto);
+    font-size: 23px;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px var(--albuns-home-sombra);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.albuns-avaliados .botao-home-albuns:hover {
+    background: var(--albuns-home-hover);
+    transform: scale(1.08);
+
+    box-shadow: 0 6px 18px var(--albuns-home-sombra-hover);
+}
+
+.albuns-avaliados .botao-home-albuns:active {
+    transform: scale(0.94);
+}
+
+.albuns-avaliados .botao-home-albuns:focus-visible {
+    outline: 2px solid var(--albuns-home-texto);
+    outline-offset: 4px;
+}
+
+.albuns-avaliados .botao-home-albuns svg {
+    width: 23px;
+    height: 23px;
+    flex-shrink: 0;
+}
 
 /* =========================================
    CABEÇALHO
@@ -104,7 +173,6 @@
     color: var(--albuns-texto-secundario);
 }
 
-
 /* =========================================
    SEÇÕES
 ========================================= */
@@ -119,7 +187,6 @@
     font-size: 21px;
     color: var(--albuns-texto);
 }
-
 
 /* =========================================
    PESQUISA
@@ -152,7 +219,6 @@
     border-color: #888;
 }
 
-
 /* =========================================
    BOTÕES
 ========================================= */
@@ -180,7 +246,6 @@
     opacity: 0.5;
 }
 
-
 /* =========================================
    GRADE DE ÁLBUNS
 ========================================= */
@@ -190,7 +255,6 @@
     grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
     gap: 20px;
 }
-
 
 /* =========================================
    CARD DE ÁLBUM
@@ -238,7 +302,6 @@
     font-size: 14px;
 }
 
-
 /* =========================================
    FORMULÁRIO DE AVALIAÇÃO
 ========================================= */
@@ -278,7 +341,6 @@
     margin-top: 10px;
 }
 
-
 /* =========================================
    BOTÃO REMOVER ÁLBUM
 ========================================= */
@@ -292,7 +354,6 @@
 .albuns-avaliados .album-botao-remover:hover:not(:disabled) {
     background: var(--albuns-botao-remover-hover);
 }
-
 
 /* =========================================
    MENSAGENS
@@ -317,7 +378,6 @@
 .albuns-vazio {
     color: var(--albuns-vazio-texto);
 }
-
 
 /* =========================================
    MODAL
@@ -381,10 +441,25 @@
     color: var(--albuns-botao-texto);
 }
 
-
 /* =========================================
    RESPONSIVIDADE
 ========================================= */
+
+@media (max-width: 900px) {
+    .albuns-avaliados .botao-home-albuns {
+        right: 18px;
+        bottom: 18px;
+
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+    }
+
+    .albuns-avaliados .botao-home-albuns svg {
+        width: 21px;
+        height: 21px;
+    }
+}
 
 @media (max-width: 600px) {
     .albuns-form-pesquisa {
@@ -407,10 +482,27 @@
     .albuns-avaliados button {
         font-size: 12px;
     }
+
+    /* Mantém o ícone e o tamanho do botão Home */
+    .albuns-avaliados .botao-home-albuns {
+        font-size: 21px;
+    }
 }
 
 @media (max-width: 380px) {
     .albuns-grade {
         grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================
+   REDUZIR ANIMAÇÕES
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .albuns-avaliados .botao-home-albuns,
+    .album-card,
+    .albuns-avaliados button {
+        transition: none;
     }
 }

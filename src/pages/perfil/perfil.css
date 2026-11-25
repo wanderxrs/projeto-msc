@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* ================================
@@ -28,16 +29,24 @@
 
     --perfil-borda-foto: #111;
 
-    /* RETÂNGULO DAS ESTATÍSTICAS (escuro) */
+    /* ESTATÍSTICAS - MODO ESCURO */
     --perfil-stat-fundo: rgba(0, 0, 0, 0.55);
     --perfil-stat-borda: rgba(255, 255, 255, 0.18);
     --perfil-stat-divisor: rgba(255, 255, 255, 0.14);
     --perfil-stat-sombra: rgba(0, 0, 0, 0.35);
     --perfil-stat-numero: #ffffff;
     --perfil-stat-rotulo: #d4d4d4;
+
+    /* BOTÃO HOME - MODO ESCURO */
+    --perfil-home-fundo: #202020;
+    --perfil-home-fundo-hover: #303030;
+    --perfil-home-texto: #ffffff;
+    --perfil-home-borda: #383838;
 }
 
-/* TEMA CLARO */
+/* ================================
+   TEMA CLARO
+================================ */
 
 :root[data-theme="light"] {
     --perfil-texto: #1f1f1f;
@@ -63,13 +72,19 @@
 
     --perfil-borda-foto: #ffffff;
 
-    /* RETÂNGULO DAS ESTATÍSTICAS (claro) */
+    /* ESTATÍSTICAS - MODO CLARO */
     --perfil-stat-fundo: rgba(255, 255, 255, 0.72);
     --perfil-stat-borda: rgba(0, 0, 0, 0.14);
     --perfil-stat-divisor: rgba(0, 0, 0, 0.1);
     --perfil-stat-sombra: rgba(0, 0, 0, 0.12);
     --perfil-stat-numero: #1f1f1f;
     --perfil-stat-rotulo: #525252;
+
+    /* BOTÃO HOME - MODO CLARO */
+    --perfil-home-fundo: #ffffff;
+    --perfil-home-fundo-hover: #eeeeee;
+    --perfil-home-texto: #333333;
+    --perfil-home-borda: #dedede;
 }
 
 /* ================================
@@ -168,7 +183,7 @@
 }
 
 /* ================================
-   ESTATÍSTICAS (RETÂNGULO ÚNICO COM BLUR)
+   ESTATÍSTICAS
 ================================ */
 
 .perfil-estatisticas {
@@ -203,7 +218,6 @@
     text-align: center;
 }
 
-/* linha divisória entre as estatísticas */
 .perfil-estatisticas > div + div {
     border-left: 1px solid var(--perfil-stat-divisor);
 }
@@ -659,5 +673,62 @@
 
     .perfil-avaliacao-card {
         padding: 8px;
+    }
+}
+
+/* ================================
+   BOTÃO FLUTUANTE VOLTAR PARA HOME
+================================ */
+
+.botao-voltar-home {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 56px;
+    height: 56px;
+
+    background: var(--perfil-home-fundo);
+    border: 1px solid var(--perfil-home-borda);
+    border-radius: 50%;
+
+    color: var(--perfil-home-texto);
+    font-size: 23px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* HOVER */
+
+.botao-voltar-home:hover {
+    background: var(--perfil-home-fundo-hover);
+}
+
+/* ACESSIBILIDADE */
+
+.botao-voltar-home:focus-visible {
+    outline: 2px solid var(--perfil-home-texto);
+    outline-offset: 3px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+    .botao-voltar-home {
+        width: 50px;
+        height: 50px;
+
+        bottom: 18px;
+        right: 18px;
+
+        font-size: 21px;
     }
 }

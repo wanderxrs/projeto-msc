@@ -9,6 +9,7 @@ import {
 } from "../../api";
 
 import { HiOutlineDotsVertical } from "react-icons/hi";
+import { FaHome } from "react-icons/fa";
 
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
@@ -203,10 +204,10 @@ function Perfil() {
 
     return (
         <>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
+            <br />
+            <br />
 
             <main className="perfil-page">
 
@@ -474,6 +475,17 @@ function Perfil() {
                 )}
 
             </main>
+
+            {/* BOTÃO FLUTUANTE VOLTAR PARA HOME */}
+            <button
+                type="button"
+                className="botao-voltar-home"
+                onClick={() => navigate("/home")}
+                aria-label="Voltar para a página inicial"
+                title="Ir para o início"
+            >
+                <FaHome />
+            </button>
 
             {/* MODAL DE EXCLUSÃO */}
             {publicacaoSelecionada && perfilEhMeu && (

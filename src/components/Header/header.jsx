@@ -168,15 +168,7 @@ function Header({ tema, onAlternarTema }) {
                 YrPlace
             </h1>
 
-            {/* INÍCIO */}
-            <button
-                type="button"
-                className="boton-elegante"
-                onClick={() => navigate("/home")}
-            >
-                Início
-            </button>
-
+        
             {/* PESQUISA DE USUÁRIOS */}
             <div className="pesquisa-usuarios">
 

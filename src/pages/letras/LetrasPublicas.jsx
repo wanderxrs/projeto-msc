@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -6,6 +5,7 @@ import {
     IoClose,
     IoCreateOutline
 } from "react-icons/io5";
+import { FaHome } from "react-icons/fa";
 import { listarLetrasPublicas } from "../../api";
 import ModalMinhasComposicoes from "../../modals/Composicoes/ModalMinhasComposicoes";
 import "./LetrasPublicas.css";
@@ -53,6 +53,17 @@ function LetrasPublicas() {
 
     return (
         <main className="letras-publicas">
+
+            {/* BOTÃO FLUTUANTE HOME */}
+            <button
+                type="button"
+                className="botao-home-letras"
+                onClick={() => navigate("/home")}
+                aria-label="Voltar para a Home"
+                title="Voltar para a Home"
+            >
+                <FaHome />
+            </button>
 
             <div className="cabecalho-letras">
                 <div>

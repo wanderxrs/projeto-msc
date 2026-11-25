@@ -1,6 +1,5 @@
-
 import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
     buscarPublicacoesDaComunidade,
@@ -9,6 +8,7 @@ import {
 } from "../../api";
 
 import { BsPlusLg } from "react-icons/bs";
+import { FaHome } from "react-icons/fa";
 
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
@@ -20,6 +20,7 @@ import CabecalhoComunidade from "../../components/CabecalhoComunidade/CabecalhoC
 
 function ComunidadeTela() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const [publicacoes, setPublicacoes] = useState([]);
     const [curtidas, setCurtidas] = useState({});
@@ -230,6 +231,17 @@ function ComunidadeTela() {
                 </aside>
 
             </div>
+
+            {/* BOTÃO FLUTUANTE DE VOLTAR PARA HOME */}
+            <button
+                className="botao-home-comunidade"
+                type="button"
+                onClick={() => navigate("/home")}
+                aria-label="Voltar para a Home"
+                title="Voltar para a Home"
+            >
+                <FaHome />
+            </button>
 
             {/* BOTÃO FLUTUANTE DE PUBLICAÇÃO */}
             <button

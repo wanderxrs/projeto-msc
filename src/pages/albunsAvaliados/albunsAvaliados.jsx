@@ -1,4 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { FaHome } from "react-icons/fa";
 
 import {
     buscarAlbunsDeezer,
@@ -13,6 +16,8 @@ import {
 import "./albunsAvaliados.css";
 
 function AlbunsAvaliados() {
+    const navigate = useNavigate();
+
     const [query, setQuery] = useState("");
     const [resultados, setResultados] = useState([]);
     const [albunsSalvos, setAlbunsSalvos] = useState([]);
@@ -213,6 +218,17 @@ function AlbunsAvaliados() {
     if (carregando) {
         return (
             <main className="albuns-avaliados">
+
+                <button
+                    type="button"
+                    className="botao-home-albuns"
+                    onClick={() => navigate("/")}
+                    aria-label="Voltar para a Home"
+                    title="Voltar para a Home"
+                >
+                    <FaHome />
+                </button>
+
                 <p>Carregando sua biblioteca musical...</p>
             </main>
         );
@@ -220,6 +236,18 @@ function AlbunsAvaliados() {
 
     return (
         <main className="albuns-avaliados">
+
+            {/* BOTÃO FLUTUANTE HOME */}
+            <button
+                type="button"
+                className="botao-home-albuns"
+                onClick={() => navigate("/home")}
+                aria-label="Voltar para a Home"
+                title="Voltar para a Home"
+            >
+                <FaHome />
+            </button>
+
             <header className="albuns-cabecalho">
                 <h1>Minha biblioteca musical</h1>
                 <p>

@@ -28,6 +28,14 @@
 
     --letras-scrollbar: #59416e;
 
+    /* BOTÃO HOME - TEMA ESCURO */
+    --letras-home-fundo: #202020;
+    --letras-home-texto: #ffffff;
+    --letras-home-borda: #383838;
+    --letras-home-hover: #303030;
+    --letras-home-sombra: rgba(0, 0, 0, 0.18);
+    --letras-home-sombra-hover: rgba(0, 0, 0, 0.45);
+
     width: 90%;
     max-width: 1000px;
     min-height: 100vh;
@@ -66,12 +74,77 @@
     --letras-botao-hover: #e9d5ff;
 
     --letras-scrollbar: #c084fc;
+
+    /* BOTÃO HOME - TEMA CLARO */
+    --letras-home-fundo: #ffffff;
+    --letras-home-texto: #333333;
+    --letras-home-borda: #dedede;
+    --letras-home-hover: #eeeeee;
+    --letras-home-sombra: rgba(0, 0, 0, 0.12);
+    --letras-home-sombra-hover: rgba(0, 0, 0, 0.16);
 }
 
 /* BOX SIZING */
 
 .letras-publicas * {
     box-sizing: border-box;
+}
+
+/* ========================================
+   BOTÃO FLUTUANTE HOME
+======================================== */
+
+.botao-home-letras {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 56px;
+    height: 56px;
+    padding: 0;
+
+    background: var(--letras-home-fundo);
+    border: 1px solid var(--letras-home-borda);
+    border-radius: 50%;
+
+    color: var(--letras-home-texto);
+
+    font-size: 23px;
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px var(--letras-home-sombra);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.botao-home-letras:hover {
+    background: var(--letras-home-hover);
+    transform: scale(1.08);
+
+    box-shadow: 0 6px 18px var(--letras-home-sombra-hover);
+}
+
+.botao-home-letras:active {
+    transform: scale(0.94);
+}
+
+.botao-home-letras:focus-visible {
+    outline: 2px solid var(--letras-acento);
+    outline-offset: 4px;
+}
+
+.botao-home-letras svg {
+    width: 23px;
+    height: 23px;
 }
 
 /* ========================================
@@ -499,13 +572,33 @@
 }
 
 /* ========================================
+   BOTÃO HOME - TABLETS E CELULARES
+======================================== */
+
+@media (max-width: 900px) {
+    .botao-home-letras {
+        right: 18px;
+        bottom: 18px;
+
+        width: 50px;
+        height: 50px;
+    }
+
+    .botao-home-letras svg {
+        width: 21px;
+        height: 21px;
+    }
+}
+
+/* ========================================
    REDUZIR ANIMAÇÕES
 ======================================== */
 
 @media (prefers-reduced-motion: reduce) {
     .card-letra-publica,
     .botao-minhas-composicoes,
-    .card-letra-publica button {
+    .card-letra-publica button,
+    .botao-home-letras {
         transition: none;
     }
 }
