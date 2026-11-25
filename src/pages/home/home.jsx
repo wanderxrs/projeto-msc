@@ -1,33 +1,26 @@
 
 import { useEffect, useState, useRef } from "react";
-
 import {
     carregarPublicacoes,
     carregarPublicacoesSeguindo,
     curtirPublicacao,
     carregarPerfil
 } from "../../api";
-
 import "./home.css";
-
 import ComunidadesRecomendadas from "../../components/ComunidadesRecomendadas/ComunidadesRecomendadas";
 import PerfilComponente from "../../components/PerfilComponente/PerfilComponente";
-
 // Ícones
 import { FaUserGroup } from "react-icons/fa6";
 import { IoAdd } from "react-icons/io5";
 import { PiMusicNotesFill } from "react-icons/pi";
 import { ImHeadphones } from "react-icons/im";
-
 // Componentes e modais
 import Publicacao from "../../components/PublicaçãoComponente/Publicacao";
 import ModalApagarPublicacao from "../../modals/Publicacoes/ModalApagarPublicacao";
 import CriarComunidadeModal from "../../modals/Comunidade/criarComunidadeModal";
 
 function Home() {
-    const [modalCriarComunidadeAberto, setModalCriarComunidadeAberto] =
-        useState(false);
-
+    const [modalCriarComunidadeAberto, setModalCriarComunidadeAberto] = useState(false);
     const [publicacoes, setPublicacoes] = useState([]);
     const [carregando, setCarregando] = useState(true);
     const [erro, setErro] = useState("");
@@ -35,9 +28,7 @@ function Home() {
     const [curtidas, setCurtidas] = useState({});
     const [abaAtiva, setAbaAtiva] = useState("descobrir");
     const [segueComunidades, setSegueComunidades] = useState(true);
-
-    const [publicacaoSelecionada, setPublicacaoSelecionada] =
-        useState(null);
+    const [publicacaoSelecionada, setPublicacaoSelecionada] = useState(null);
 
     // Impede múltiplas requisições simultâneas para a mesma publicação.
     const curtidasPendentes = useRef(new Set());
