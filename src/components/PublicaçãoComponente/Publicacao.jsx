@@ -9,6 +9,9 @@ import { VscCommentCompact } from "react-icons/vsc";
 
 import "./Publicacao.css";
 
+// Guarda o vídeo que está sendo reproduzido atualmente.
+let videoEmReproducao = null;
+
 function Publicacao({
     publicacao,
     curtido = false,
@@ -17,6 +20,24 @@ function Publicacao({
     podeExcluir
 }) {
     const navigate = useNavigate();
+
+    // Pausa o vídeo anterior quando outro começa a reproduzir.
+    function controlarReproducao(evento) {
+        const videoAtual = evento.currentTarget;
+
+        if (videoEmReproducao && videoEmReproducao !== videoAtual) {
+            videoEmReproducao.pause();
+        }
+
+        videoEmReproducao = videoAtual;
+    }
+
+    // Limpa a referência quando o vídeo é pausado.
+    function limparReproducao(evento) {
+        if (videoEmReproducao === evento.currentTarget) {
+            videoEmReproducao = null;
+        }
+    }
 
     // Identifica se a mídia da publicação é um vídeo.
     function ehVideo() {
@@ -125,6 +146,8 @@ function Publicacao({
                             controls
                             preload="metadata"
                             playsInline
+                            onPlay={controlarReproducao}
+                            onPause={limparReproducao}
                         >
                             Seu navegador não suporta a reprodução de vídeos.
                         </video>
