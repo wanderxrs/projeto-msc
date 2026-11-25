@@ -161,9 +161,9 @@ function Home() {
             totalAnterior + (novoEstadoCurtida ? 1 : -1)
         );
 
-        // ==========================================
-        // 1. ATUALIZAÇÃO IMEDIATA NO FRONTEND
-        // ==========================================
+    
+        // ATUALIZAÇÃO IMEDIATA NO FRONTEND
+        
 
         setCurtidas((anteriores) => ({
             ...anteriores,
@@ -226,9 +226,7 @@ function Home() {
                 erro
             );
 
-            // ==========================================
-            // 3. RESTAURA O ESTADO ANTERIOR SE FALHAR
-            // ==========================================
+            // RESTAURA O ESTADO ANTERIOR SE FALHAR
 
             setCurtidas((anteriores) => ({
                 ...anteriores,
