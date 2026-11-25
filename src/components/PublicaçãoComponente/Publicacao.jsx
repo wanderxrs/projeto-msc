@@ -124,15 +124,21 @@ function Publicacao({
 
             {/* Comunidade */}
             {publicacao.nome_comunidade && (
-                <strong
-                    className="Nome-comunidade-feed"
-                    onClick={() =>
-                        navigate(`/comunidade/${publicacao.comunidade_id}`)
-                    }
-                    style={{ cursor: "pointer" }}
-                >
-                    {publicacao.nome_comunidade}
-                </strong>
+                <div className="comunidade-publicacao">
+
+                    <span>De:</span>
+
+                    <strong
+                        className="Nome-comunidade-feed"
+                        onClick={() =>
+                            navigate(`/comunidade/${publicacao.comunidade_id}`)
+                        }
+                        style={{ cursor: "pointer" }}
+                    >
+                        {publicacao.nome_comunidade}
+                    </strong>
+
+                </div>
             )}
 
             {/* Imagem ou vídeo */}

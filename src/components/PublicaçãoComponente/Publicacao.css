@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* PUBLICAÇÃO */
@@ -89,6 +90,20 @@
     overflow-wrap: anywhere;
 
     color: var(--cor-texto, #f5f5f5);
+}
+
+/* COMUNIDADE */
+.comunidade-publicacao {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.comunidade-publicacao span {
+    font-size: 13px;
+    color: var(--cor-texto-secundario, #aaa);
 }
 
 /* NOME DA COMUNIDADE */
