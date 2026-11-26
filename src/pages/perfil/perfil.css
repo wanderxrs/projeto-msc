@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 /* ================================
@@ -474,15 +473,36 @@
     gap: 12px;
 }
 
+/* CARD DO ÁLBUM */
+
 .perfil-avaliacao-card {
+    display: block;
     min-width: 0;
     padding: 10px;
+
+    color: inherit;
+    text-decoration: none;
 
     background: var(--perfil-fundo-secundario);
     border: 1px solid var(--perfil-borda-secundaria);
     border-radius: 8px;
 
     transition: border-color 0.2s ease;
+}
+
+/* REMOVE O SUBLINHADO DOS LINKS */
+
+.perfil-avaliacao-card:link,
+.perfil-avaliacao-card:visited,
+.perfil-avaliacao-card:hover,
+.perfil-avaliacao-card:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.perfil-avaliacao-card:focus-visible {
+    outline: 2px solid var(--perfil-roxo-ativo);
+    outline-offset: 3px;
 }
 
 .perfil-avaliacao-card:hover {

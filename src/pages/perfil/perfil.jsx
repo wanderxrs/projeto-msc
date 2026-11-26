@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -440,33 +441,52 @@ function Perfil() {
                         ) : (
                             <div className="perfil-avaliacoes-grade">
 
-                                {avaliacoes.map((avaliacao) => (
-                                    <article
-                                        className="perfil-avaliacao-card"
-                                        key={avaliacao.album_id}
-                                    >
+                                {avaliacoes.map((avaliacao) => {
 
-                                        {avaliacao.capa_url ? (
-                                            <img
-                                                src={avaliacao.capa_url}
-                                                alt={`Capa de ${avaliacao.titulo}`}
-                                            />
-                                        ) : (
-                                            <div className="perfil-avaliacao-sem-capa">
-                                                Sem capa
-                                            </div>
-                                        )}
+                                    // LINK DO ÁLBUM NA DEEZER
+                                    const urlAlbum =
+                                        avaliacao.url ||
+                                        (avaliacao.deezer_id
+                                            ? `https://www.deezer.com/album/${avaliacao.deezer_id}`
+                                            : undefined);
 
-                                        <h3>{avaliacao.titulo}</h3>
+                                    return (
+                                        <a
+                                            className="perfil-avaliacao-card"
+                                            key={avaliacao.album_id}
+                                            href={urlAlbum}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label={`Abrir ${avaliacao.titulo} na Deezer`}
+                                            onClick={(evento) => {
+                                                if (!urlAlbum) {
+                                                    evento.preventDefault();
+                                                }
+                                            }}
+                                        >
 
-                                        <p>{avaliacao.artista}</p>
+                                            {avaliacao.capa_url ? (
+                                                <img
+                                                    src={avaliacao.capa_url}
+                                                    alt={`Capa de ${avaliacao.titulo}`}
+                                                />
+                                            ) : (
+                                                <div className="perfil-avaliacao-sem-capa">
+                                                    Sem capa
+                                                </div>
+                                            )}
 
-                                        <span className="perfil-avaliacao-nota">
-                                            ★ {avaliacao.nota}/10
-                                        </span>
+                                            <h3>{avaliacao.titulo}</h3>
 
-                                    </article>
-                                ))}
+                                            <p>{avaliacao.artista}</p>
+
+                                            <span className="perfil-avaliacao-nota">
+                                                ★ {avaliacao.nota}/10
+                                            </span>
+
+                                        </a>
+                                    );
+                                })}
 
                             </div>
                         )}
