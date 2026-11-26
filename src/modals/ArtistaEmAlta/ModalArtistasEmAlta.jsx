@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { HiMusicNote } from "react-icons/hi";
@@ -89,9 +88,18 @@ export default function ModalArtistasEmAlta({ onFechar }) {
 
                     {!carregando && !erro &&
                         artistas.map((artista) => (
-                            <div
+                            <a
                                 className="artista-item"
                                 key={artista.posicao}
+                                href={artista.url || undefined}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`Abrir perfil de ${artista.nome} na Deezer`}
+                                onClick={(evento) => {
+                                    if (!artista.url) {
+                                        evento.preventDefault();
+                                    }
+                                }}
                             >
                                 <span className="artista-posicao">
                                     {String(artista.posicao).padStart(2, "0")}
@@ -111,7 +119,7 @@ export default function ModalArtistasEmAlta({ onFechar }) {
                                         {artista.nome}
                                     </span>
                                 </div>
-                            </div>
+                            </a>
                         ))}
                 </div>
 

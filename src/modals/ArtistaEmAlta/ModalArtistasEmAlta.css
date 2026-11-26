@@ -1,7 +1,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* VARIÁVEIS DO TEMA ESCURO */
+/* ========================================
+   VARIÁVEIS DO TEMA ESCURO
+======================================== */
+
 :root {
     --artistas-texto: #f5f5f5;
     --artistas-texto-secundario: #a5a5a5;
@@ -22,7 +25,10 @@
     --artistas-roxo: #a855f7;
 }
 
-/* VARIÁVEIS DO TEMA CLARO */
+/* ========================================
+   VARIÁVEIS DO TEMA CLARO
+======================================== */
+
 :root[data-theme="light"] {
     --artistas-texto: #1f1f1f;
     --artistas-texto-secundario: #737373;
@@ -43,7 +49,10 @@
     --artistas-roxo: #9333ea;
 }
 
-/* OVERLAY */
+/* ========================================
+   OVERLAY
+======================================== */
+
 .artistas-overlay {
     position: fixed;
     inset: 0;
@@ -65,18 +74,21 @@
     animation: artistasAparecerOverlay 0.2s ease;
 }
 
-/* MODAL */
+/* ========================================
+   MODAL
+======================================== */
+
 .modal-artistas {
     position: relative;
-
-    width: 100%;
-    max-width: 540px;
-    max-height: min(75vh, 720px);
 
     display: flex;
     flex-direction: column;
 
+    width: 100%;
+    max-width: 540px;
+    max-height: min(75vh, 720px);
     min-height: 0;
+
     box-sizing: border-box;
     overflow: hidden;
 
@@ -91,7 +103,10 @@
     animation: artistasAparecerModal 0.25s ease;
 }
 
-/* CABEÇALHO */
+/* ========================================
+   CABEÇALHO
+======================================== */
+
 .artistas-header {
     display: flex;
     align-items: center;
@@ -109,8 +124,8 @@
 .artistas-titulo {
     display: flex;
     align-items: center;
-
     gap: 13px;
+
     min-width: 0;
 }
 
@@ -121,8 +136,8 @@
 
     width: 44px;
     height: 44px;
-
     flex-shrink: 0;
+
     border-radius: 12px;
 
     background-color: var(--artistas-fundo-icone);
@@ -147,10 +162,12 @@
     color: var(--artistas-texto-secundario);
 
     font-size: 12px;
-    font-weight: 400;
 }
 
-/* BOTÃO FECHAR */
+/* ========================================
+   BOTÃO FECHAR
+======================================== */
+
 .artistas-fechar {
     display: flex;
     align-items: center;
@@ -158,14 +175,14 @@
 
     width: 36px;
     height: 36px;
-
     flex-shrink: 0;
+
     padding: 0;
 
     border: 1px solid transparent;
     border-radius: 8px;
 
-    background-color: transparent;
+    background: transparent;
     color: var(--artistas-texto-secundario);
 
     font-family: inherit;
@@ -187,7 +204,10 @@
     outline-offset: 3px;
 }
 
-/* LISTA DE ARTISTAS */
+/* ========================================
+   LISTA DE ARTISTAS
+======================================== */
+
 .artistas-lista {
     flex: 1;
     min-height: 0;
@@ -218,7 +238,10 @@
     background-color: var(--artistas-texto-fraco);
 }
 
-/* ITEM DO ARTISTA */
+/* ========================================
+   ITEM DO ARTISTA
+======================================== */
+
 .artista-item {
     display: flex;
     align-items: center;
@@ -231,6 +254,11 @@
     border-bottom: 1px solid var(--artistas-borda-item);
     border-radius: 8px;
 
+    color: inherit;
+    text-decoration: none;
+
+    cursor: pointer;
+
     transition: background-color 0.2s ease;
 }
 
@@ -242,7 +270,15 @@
     background-color: var(--artistas-fundo-hover);
 }
 
-/* POSIÇÃO NO RANKING */
+.artista-item:focus-visible {
+    outline: 2px solid var(--artistas-roxo);
+    outline-offset: -2px;
+}
+
+/* ========================================
+   POSIÇÃO NO RANKING
+======================================== */
+
 .artista-posicao {
     display: flex;
     align-items: center;
@@ -258,12 +294,15 @@
     font-variant-numeric: tabular-nums;
 }
 
-/* FOTO DO ARTISTA */
+/* ========================================
+   FOTO DO ARTISTA
+======================================== */
+
 .artista-foto {
     width: 46px;
     height: 46px;
-
     flex-shrink: 0;
+
     object-fit: cover;
 
     border: 1px solid var(--artistas-borda-foto);
@@ -272,7 +311,10 @@
     background-color: var(--artistas-fundo-icone);
 }
 
-/* INFORMAÇÕES DO ARTISTA */
+/* ========================================
+   INFORMAÇÕES DO ARTISTA
+======================================== */
+
 .artista-info {
     display: flex;
     flex-direction: column;
@@ -297,7 +339,10 @@
     white-space: nowrap;
 }
 
-/* MENSAGENS */
+/* ========================================
+   MENSAGENS
+======================================== */
+
 .artistas-mensagem {
     padding: 35px 15px;
 
@@ -311,7 +356,10 @@
     color: var(--artistas-texto);
 }
 
-/* RODAPÉ */
+/* ========================================
+   RODAPÉ
+======================================== */
+
 .artistas-footer {
     display: flex;
     align-items: center;
@@ -333,7 +381,10 @@
     font-weight: 500;
 }
 
-/* ANIMAÇÕES */
+/* ========================================
+   ANIMAÇÕES
+======================================== */
+
 @keyframes artistasAparecerOverlay {
     from {
         opacity: 0;
@@ -356,7 +407,10 @@
     }
 }
 
-/* RESPONSIVIDADE */
+/* ========================================
+   RESPONSIVIDADE
+======================================== */
+
 @media (max-width: 600px) {
     .artistas-overlay {
         padding: 12px;
@@ -412,7 +466,10 @@
     }
 }
 
-/* REDUÇÃO DE ANIMAÇÕES */
+/* ========================================
+   REDUÇÃO DE ANIMAÇÕES
+======================================== */
+
 @media (prefers-reduced-motion: reduce) {
     .artistas-overlay,
     .modal-artistas,
