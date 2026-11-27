@@ -1,4 +1,4 @@
- 
+
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -36,26 +36,6 @@ function ModalNotificacoes({ onClose }) {
 
         buscarNotificacoes();
     }, []);
-
-    // Fechar com ESC e bloquear rolagem da página
-    useEffect(() => {
-        function fecharComEsc(event) {
-            if (event.key === "Escape") {
-                onClose();
-            }
-        }
-
-        const overflowAnterior = document.body.style.overflow;
-
-        document.body.style.overflow = "hidden";
-
-        document.addEventListener("keydown", fecharComEsc);
-
-        return () => {
-            document.removeEventListener("keydown", fecharComEsc);
-            document.body.style.overflow = overflowAnterior;
-        };
-    }, [onClose]);
 
     // Formatar data
     function formatarData(data) {

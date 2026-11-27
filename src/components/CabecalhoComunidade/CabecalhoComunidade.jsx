@@ -16,14 +16,10 @@ import "./CabecalhoComunidade.css";
 function CabecalhoComunidade({ onMembrosAtualizados }) {
 
     const { id } = useParams();
-
     const [comunidade, setComunidade] = useState(null);
     const [mensagem, setMensagem] = useState("");
-
     const [modalParticipantesAberto, setModalParticipantesAberto] = useState(false);
-
     const [carregandoAcao, setCarregandoAcao] = useState(false);
-
     const ehCriador = comunidade?.eh_criador === true;
     const participando = comunidade?.participando === true;
 
